@@ -1,0 +1,9 @@
+POST http://localhost:3000/state/create
+Content-Type: application/json
+
+{
+    "name":"vlxx",
+    "color":"red",
+    "slug":"slug",
+    "group": "backlog"
+}
