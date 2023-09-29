@@ -1,4 +1,4 @@
-import { BadRequestException, HttpException, HttpStatus, Injectable, ExceptionFilter } from '@nestjs/common';
+import { HttpStatus, Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/sequelize';
 import { State } from './entity/state.entity';
 import { StateDto } from './dto/state.dto';
