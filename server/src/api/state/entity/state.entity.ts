@@ -1,22 +1,26 @@
 import { Column, Model, Table, AutoIncrement, Length, AllowNull,NotEmpty, PrimaryKey, Is, DataType, } from 'sequelize-typescript';
+import { BaseEntity } from 'typeorm';
 
 const GROUP = ['backlog','unstarted','started','completed','cancelled']
 
 @Table
 export class State extends Model{
-    @Column
+    @Length({ min: 1, max: 255 })
+    @Column({allowNull:false})
     name: string;
     
-    @Column
+    @Column({type: DataType.TEXT})
     description: string;
 
-    @Column
+    @Length({ min: 1, max: 255 })
+    @Column({allowNull:false})
     color: string;
 
+    @Length({ min: 0, max: 100 })
     @Column
     slug: string;
 
-    @Column({defaultValue:65535,type: DataType.BIGINT})
+    @Column({defaultValue:65535,type: DataType.FLOAT})
     sequence: number;
 
     @Is('group', (value) => {

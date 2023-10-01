@@ -1,7 +1,9 @@
-import { Column, Model, Table } from 'sequelize-typescript';
+import { Column, DataType, Model, Table } from 'sequelize-typescript';
+import { Optional } from 'sequelize';
+
 
 @Table
 export class BaseModel extends Model{
-    @Column
-    id: string;
+    @Column({autoIncrement: true, allowNull:false, primaryKey: true, type: DataType.BIGINT})
+    id: number;
 }

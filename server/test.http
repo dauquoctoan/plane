@@ -4,6 +4,5 @@ Content-Type: application/json
 {
     "name":"vlxx",
     "color":"red",
-    "slug":"slug",
     "group": "backlog"
 }

@@ -5,6 +5,7 @@ export default function Home() {
   const handleGoogleSignIn = async ({ clientId, credential }: any) => {
     try {
       if (clientId && credential) {
+        console.log(clientId, credential);
         const socialAuthPayload = {
           medium: "google",
           credential,
@@ -13,7 +14,6 @@ export default function Home() {
         // const response = await authenticationService.socialAuth(
         //   socialAuthPayload
         // );
-
         // onSignInSuccess(response);
       } else {
         throw Error("Cant find credentials");

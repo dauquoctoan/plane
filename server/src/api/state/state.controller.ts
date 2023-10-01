@@ -8,7 +8,7 @@ export class StateController {
 
     @Post('create')
     createState(@Body() stateDto: StateDto): any{
-
+        console.log('================  vlxx  ===================')
         return  this.stateService.addOne(stateDto);
     }
 }

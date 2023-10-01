@@ -9,7 +9,6 @@ export class StateDto {
     @IsNotEmpty()
     color: string;
 
-    @IsNotEmpty()
     slug: string;
     
     sequence: number;

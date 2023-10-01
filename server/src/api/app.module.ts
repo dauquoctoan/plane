@@ -28,8 +28,6 @@ import { EstimateController } from './estimate/estimate.controller';
 import { EstimateModule } from './estimate/estimate.module';
 import { CycleController } from './cycle/cycle.controller';
 import { CycleModule } from './cycle/cycle.module';
-import { BaseController } from './base/base.controller';
-import { BaseModule } from './base/base.module';
 import { AssetController } from './asset/asset.controller';
 import { AssetModule } from './asset/asset.module';
 import { AnalyticController } from './analytic/analytic.controller';
@@ -42,7 +40,6 @@ import { CONFIG_DB } from 'src/configs/db-config';
 import { ApiTokenModule } from './api_token/api_token.module';
 import { ApiTokenController } from './api_token/api_token.controller';
 import { ConfigModule } from '@nestjs/config';
-import { StateController } from './state/state.controller';
 
 @Module({
   imports: [
@@ -65,7 +62,6 @@ import { StateController } from './state/state.controller';
     ExporterModule,
     EstimateModule,
     CycleModule,
-    BaseModule,
     AssetModule,
     ApiTokenModule,
     AnalyticModule,
@@ -74,25 +70,6 @@ import { StateController } from './state/state.controller';
   ],
   controllers: [
     AppController,
-    SearchController,
-    ReleaseController, 
-    StateController,
-    ProjectController, 
-    PageController, 
-    NotificationController, 
-    ModuleController, 
-    IssueController, 
-    InboxController, 
-    ImporterController, 
-    ExporterController, 
-    EstimateController, 
-    CycleController, 
-    BaseController, 
-    AssetController, 
-    ApiTokenController, 
-    AnalyticController, 
-    ViewController, 
-    WorkspaceController
   ],
   providers: [AppService],
 })
