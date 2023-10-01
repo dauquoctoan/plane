@@ -1,6 +1,6 @@
 import { HttpStatus, Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/sequelize';
-import { State } from './entity/state.entity';
+import { State } from './entitys/state.entity';
 import { handleResultError, handleResultSuccess } from 'src/helper/handleresult';
 import { UpdateStateDto } from './dto/update-state.dto';
 import { CreateStateDto } from './dto/create-state.dto';

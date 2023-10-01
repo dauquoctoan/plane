@@ -1,5 +1,5 @@
 import { SequelizeModuleAsyncOptions, SequelizeModuleOptions } from "@nestjs/sequelize";
-import { State } from "src/api/state/entity/state.entity";
+import { State } from "src/api/state/entitys/state.entity";
 import { ConfigService } from '@nestjs/config';
 import { Dialect } from "sequelize";
 

@@ -2,6 +2,7 @@ import { Controller, Post, Body, Get, Param, Patch, Delete} from '@nestjs/common
 import { StateService } from './state.service';
 import { CreateStateDto } from './dto/create-state.dto';
 import { UpdateStateDto } from './dto/update-state.dto';
+import jstz from 'jstz';
 
 @Controller('state')
 export class StateController {
@@ -14,7 +15,8 @@ export class StateController {
   
     @Get()
     findAll() {
-      return this.stateService.findAll();
+        const timezone = jstz.determine();
+        return timezone.name();
     }
   
     @Get(':id')
