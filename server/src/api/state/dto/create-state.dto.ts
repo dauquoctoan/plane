@@ -1,6 +1,6 @@
 import {IsNotEmpty } from 'class-validator';
 
-export class StateDto {
+export class CreateStateDto {
     @IsNotEmpty()
     name: string;
 
@@ -14,7 +14,7 @@ export class StateDto {
     sequence: number;
     
     @IsNotEmpty()
-    group: string;
+    group: 'backlog'|'unstarted'|'started'|'completed'|'cancelled';
     
     default: boolean;
 }

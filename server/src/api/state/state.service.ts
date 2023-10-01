@@ -1,8 +1,9 @@
 import { HttpStatus, Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/sequelize';
 import { State } from './entity/state.entity';
-import { StateDto } from './dto/state.dto';
 import { handleResultError, handleResultSuccess } from 'src/helper/handleresult';
+import { UpdateStateDto } from './dto/update-state.dto';
+import { CreateStateDto } from './dto/create-state.dto';
 
 
 @Injectable()
@@ -12,7 +13,7 @@ export class StateService {
         private stateModel: typeof State,
     ) {}
 
-    async addOne(state: StateDto): Promise<IResult> {
+    async create(state: CreateStateDto): Promise<IResult> {
         try {
             const states = {...state}
             const result = await this.stateModel.create(states);
@@ -26,7 +27,7 @@ export class StateService {
         return this.stateModel.findAll();
     }
     
-    findOne(id: string): Promise<State> {
+    findOne(id: number): Promise<State> {
         return this.stateModel.findOne({
             where: {
             id,
@@ -34,8 +35,12 @@ export class StateService {
         });
     }
     
-    async remove(id: string): Promise<void> {
+    async remove(id: number): Promise<void> {
         const user = await this.findOne(id);
         await user.destroy();
+    }
+
+    update(id: number, updateWorkspaceDto: UpdateStateDto) {
+        return `This action updates a #${id} workspace`;
     }
 }

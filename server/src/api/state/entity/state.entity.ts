@@ -1,8 +1,6 @@
-import { Column, Model, Table, AutoIncrement, Length, AllowNull,NotEmpty, PrimaryKey, Is, DataType, } from 'sequelize-typescript';
-import { BaseEntity } from 'typeorm';
+import { Column, Model, Table, Length, Is, DataType, } from 'sequelize-typescript';
 
 const GROUP = ['backlog','unstarted','started','completed','cancelled']
-
 @Table
 export class State extends Model{
     @Length({ min: 1, max: 255 })

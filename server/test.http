@@ -1,4 +1,4 @@
-POST http://localhost:3000/state/create
+POST http://localhost:3000/state
 Content-Type: application/json
 
 {
