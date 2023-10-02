@@ -1,4 +1,4 @@
-export const INVALID_ROLE= "The role type must be '5','10','15','20'"
+export const INVALID_ROLE = "The role type must be '5','10','15','20'"
 
 /* (20, "Owner"), (15, "Admin"), (10, "Member"), (5, "Guest")*/
 export const ROLE = [5, 10, 15, 20]
@@ -10,7 +10,7 @@ export const DEFAULT_ONBOARDING = {
     "workspace_join": false,
 }
 
-export  const DEFAULT_PROPS =  {
+export const DEFAULT_PROPS = {
     "filters": {
         "priority": null,
         "state": null,

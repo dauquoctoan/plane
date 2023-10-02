@@ -1,160 +1,142 @@
 import sequelize from 'sequelize';
-import { Column, CreatedAt, DataType, Length, Model, Table, UpdatedAt} from 'sequelize-typescript';
+import { Column, CreatedAt, DataType, Length, Model, Table } from 'sequelize-typescript';
 import { DEFAULT_ONBOARDING } from 'src/constants/entity-constant';
 
 @Table
-export class User extends Model{
-    @Column({type: sequelize.UUID, defaultValue: sequelize.UUIDV4, allowNull: false, primaryKey: true})
+export class User extends Model {
+    @Column({ type: sequelize.UUID, defaultValue: sequelize.UUIDV4, allowNull: false, primaryKey: true })
     id: number;
 
-    @Length({min: 0, max: 128})
-    @Column({allowNull:false, unique: true})
+    @Length({ min: 0, max: 128 })
+    @Column({ allowNull: false, unique: true })
     username: string;
-        
-    @Length({min: 0, max: 255})
+
+    @Length({ min: 0, max: 255 })
     @Column
     mobileNumber: string;
-    
-    @Length({min: 0, max: 255})
-    @Column({unique: true})
+
+    @Length({ min: 0, max: 255 })
+    @Column({ unique: true })
     email: string;
-    
-    @Length({min: 0, max: 255})
+
+    @Length({ min: 0, max: 255 })
     @Column
     first_name: string;
-    
-    @Length({min: 0, max: 255})
-    @Column
-    last_name:string;
-    
-    @Length({min: 0, max: 255})
-    @Column
-    avatar:string;
-    
-    @Length({min: 0, max: 800})
-    @Column
-    cover_image:string;
-    
-    @CreatedAt
-    @Column
-    date_joined:string;
-    
-    @CreatedAt
-    @Column
-    created_at:string;
 
-    @UpdatedAt
+    @Length({ min: 0, max: 255 })
     @Column
-    updated_at:string;
-    
-    @Length({min: 0, max: 255})
+    last_name: string;
+
+    @Length({ min: 0, max: 255 })
     @Column
-    last_location:string;
-    
-    @Length({min: 0, max: 255})
+    avatar: string;
+
+    @Length({ min: 0, max: 800 })
     @Column
-    created_location:string;
-    
-    @Column({defaultValue: false})
+    cover_image: string;
+
+    @Length({ min: 0, max: 255 })
+    @Column
+    last_location: string;
+
+    @Length({ min: 0, max: 255 })
+    @Column
+    created_location: string;
+
+    @Column({ defaultValue: false })
     is_superuser: boolean;
-    
-    @Column({defaultValue: false})
+
+    @Column({ defaultValue: false })
     is_managed: boolean;
-    
-    @Column({defaultValue: false})
+
+    @Column({ defaultValue: false })
     is_password_expired: boolean;
-    
-    @Column({defaultValue: true})
+
+    @Column({ defaultValue: true })
     is_active: boolean;
-    
-    @Column({defaultValue: false})
+
+    @Column({ defaultValue: false })
     is_staff: boolean;
-    
-    @Column({defaultValue: false})
+
+    @Column({ defaultValue: false })
     is_email_verified: boolean;
-    
-    @Column({defaultValue: false})
+
+    @Column({ defaultValue: false })
     is_password_autoset: boolean;
-    
-    @Column({defaultValue: false})
+
+    @Column({ defaultValue: false })
     is_onboarded: boolean;
 
-    @Length({min: 0, max: 64})
+    @Length({ min: 0, max: 64 })
     @Column
     token: string;
 
-    @Length({min: 0, max: 255})
-    @Column({defaultValue: 'VIETNAMESE'})
-    billing_address_country:string;
-    
+    @Length({ min: 0, max: 255 })
+    @Column({ defaultValue: 'VIETNAMESE' })
+    billing_address_country: string;
+
     @Column
-    billing_address:string;
-    
+    billing_address: string;
+
     @Column
-    has_billing_address:string;
-    
+    has_billing_address: string;
+
     // @Column
     // USER_TIMEZONE_CHOICES:string;
-    
+
     // @Column
     // user_timezone:string;
 
-    @Column({defaultValue: new Date().getTime()})
-    last_active:Date;
-    
+    @CreatedAt
+    last_active: Date;
+
+    @CreatedAt
+    last_login_time: Date;
+
+    @CreatedAt
+    last_logout_time: Date;
+
+    @Length({ min: 0, max: 255 })
     @Column
-    last_login_time:Date;
-    
+    last_login_ip: string;
+
+    @Length({ min: 0, max: 255 })
     @Column
-    last_logout_time:Date;
-    
-    @Length({min: 0, max: 255})
+    last_logout_ip: string;
+
+    @Length({ min: 0, max: 20 })
+    @Column({ defaultValue: 'email' })
+    last_login_medium: string;
+
     @Column
-    last_login_ip:string;
-    
-    @Length({min: 0, max: 255})
-    @Column
-    last_logout_ip:string;
-    
-    @Length({min: 0, max: 20})
-    @Column({defaultValue: 'email'})
-    last_login_medium:string;
-    
-    @Column
-    last_login_uagent:string;
-    
+    last_login_uagent: string;
+
     @Column
     token_updated_at: Date;
-    
-    @Column({type: DataType.BIGINT})
-    last_workspace_id:number;
-    
-    @Column({type: DataType.JSON})
-    my_issues_prop:string;
-    
-    @Length({min: 0, max: 300})
+
+    @Column({ type: DataType.BIGINT })
+    last_workspace_id: number;
+
+    @Column({ type: DataType.JSON })
+    my_issues_prop: string;
+
+    @Length({ min: 0, max: 300 })
     @Column
-    role:string;
-    
-    @Column({defaultValue:false})
+    role: string;
+
+    @Column({ defaultValue: false })
     is_bot: boolean;
-    
-    @Column({type: DataType.JSON,defaultValue:{}})
-    theme:string;
-    
-    @Length({min: 0, max: 300})
-    @Column({defaultValue:''})
-    display_name:string;
-    
-    @Column({defaultValue: false})
-    is_tour_completed:boolean;
-    
-    @Column({type: DataType.JSON,defaultValue: DEFAULT_ONBOARDING})
-    onboarding_step:string;
 
-    @Column
-    USERNAME_FIELD: 'email';
+    @Column({ type: DataType.JSON, defaultValue: {} })
+    theme: string;
 
-    @Column
-    REQUIRED_FIELDS: ["username"];
+    @Length({ min: 0, max: 300 })
+    @Column({ defaultValue: '' })
+    display_name: string;
+
+    @Column({ defaultValue: false })
+    is_tour_completed: boolean;
+
+    @Column({ type: DataType.JSON, defaultValue: DEFAULT_ONBOARDING })
+    onboarding_step: string;
 }

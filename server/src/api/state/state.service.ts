@@ -11,30 +11,29 @@ export class StateService {
     constructor(
         @InjectModel(State)
         private stateModel: typeof State,
-    ) {}
+    ) { }
 
     async create(state: CreateStateDto): Promise<IResult> {
         try {
-            const states = {...state}
-            const result = await this.stateModel.create(states);
+            const result = await this.stateModel.create({ ...state });
             return handleResultSuccess(result);
         } catch (error) {
-            handleResultError({message: 'Error dont add state',statusCode: HttpStatus.INTERNAL_SERVER_ERROR,messageDetail:error})
+            handleResultError({ message: 'Error dont add state', statusCode: HttpStatus.INTERNAL_SERVER_ERROR, messageDetail: error })
         }
     }
-    
+
     async findAll(): Promise<State[]> {
         return this.stateModel.findAll();
     }
-    
+
     findOne(id: number): Promise<State> {
         return this.stateModel.findOne({
             where: {
-            id,
+                id,
             },
         });
     }
-    
+
     async remove(id: number): Promise<void> {
         const user = await this.findOne(id);
         await user.destroy();

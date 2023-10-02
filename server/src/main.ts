@@ -18,12 +18,12 @@ async function bootstrap() {
 
   /* config swagger */
   const config = new DocumentBuilder()
-  .setTitle('Plane docs')
-  .setDescription('The plane API description')
-  .setVersion('1.0')
-  .addTag('Plane')
-  .build();
-  const options: SwaggerDocumentOptions =  {
+    .setTitle('Plane docs')
+    .setDescription('The plane API description')
+    .setVersion('1.0')
+    .addTag('Plane')
+    .build();
+  const options: SwaggerDocumentOptions = {
     operationIdFactory: (
       controllerKey: string,
       methodKey: string
@@ -31,9 +31,9 @@ async function bootstrap() {
   };
   const document = SwaggerModule.createDocument(app, config, options);
   SwaggerModule.setup('api', app, document);
-  
+
   /* Listen on port */
-  await app.listen(configService.get('PORT')||3000);
+  await app.listen(configService.get('PORT') || 3000);
 }
 
 bootstrap();
