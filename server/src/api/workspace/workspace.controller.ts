@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete,Query } from '@nestjs/common';
 import { WorkspaceService } from './workspace.service';
 import {ApiTags} from "@nestjs/swagger";
 import { CreateWorkspaceDto } from './dto/create-workspace.dto';
@@ -13,28 +13,29 @@ import { UpdateTeamMemberDto } from './dto/update-team-member.dto';
 export class WorkspaceController {
   constructor(private readonly workspaceService: WorkspaceService) { }
 
-  @Post()
+  @Post('create')
   createWorkSpace(@Body() createWorkspaceDto: CreateWorkspaceDto) {
     return this.workspaceService.createWorkSpace(createWorkspaceDto);
   }
 
-  @Get()
+  @Get('findAll')
   findAllWorkSpace() {
     return this.workspaceService.findAllWorkSpace();
   }
 
-  @Get(':id')
-  findOneWorkSpace(@Param('id') id: string) {
+  @Get('findOne')
+  findOneWorkSpace(@Query('id') id: string) {
+    console.log('sdfsdfsdf')
     return this.workspaceService.findOneWorkSpace(+id);
   }
 
-  @Patch(':id')
-  updateWorkSpace(@Param('id') id: string, @Body() updateWorkspaceDto: UpdateWorkspaceDto) {
+  @Patch('update')
+  updateWorkSpace(@Query('id') id: string, @Body() updateWorkspaceDto: UpdateWorkspaceDto) {
     return this.workspaceService.updateWorkSpace(+id, updateWorkspaceDto);
   }
 
-  @Delete(':id')
-  removeWorkSpace(@Param('id') id: string) {
+  @Delete('delete')
+  removeWorkSpace(@Query('id') id: string) {
     return this.workspaceService.removeWorkSpace(+id);
   }
 
@@ -50,21 +51,21 @@ export class WorkspaceController {
     return this.workspaceService.findAllTeam();
   }
 
-  @Get('team:id')
-  findOneTeam(@Param('id') id: string) {
+  @Get('team')
+  findOneTeam(@Query('id') id: string) {
     return this.workspaceService.findOneTeam(+id);
   }
 
-  @Patch('team:id')
-  updateTeam(@Param('id') id: string, @Body() team: UpdateTeamDto) {
+  @Patch('team')
+  updateTeam(@Query('id') id: string, @Body() team: UpdateTeamDto) {
     return this.workspaceService.updateTeam(+id, team);
   }
 
-  @Delete('team:id')
-  removeTeam(@Param('id') id: string) {
+  @Delete('team')
+  removeTeam(@Query('id') id: string) {
     return this.workspaceService.removeTeam(+id);
   }
-
+     
   /* TeamMember */
 
   @Post('team-member')
@@ -77,18 +78,18 @@ export class WorkspaceController {
     return this.workspaceService.findAllTeamMember();
   }
 
-  @Get('team-member:id')
-  findOneTeamMember(@Param('id') id: string) {
+  @Get('team-member')
+  findOneTeamMember(@Query('id') id: string) {
     return this.workspaceService.findOneTeamMember(+id);
   }
 
-  @Patch('team-member:id')
-  updateTeamMember(@Param('id') id: string, @Body() team: UpdateTeamMemberDto) {
+  @Patch('team-member')
+  updateTeamMember(@Query('id') id: string, @Body() team: UpdateTeamMemberDto) {
     return this.workspaceService.updateTeamMember(+id, team);
   }
 
-  @Delete('team-member:id')
-  removeTeamMember(@Param('id') id: string) {
-    return this.workspaceService.removeTeamMember(+id);
+  @Delete('team-member')
+  removeTeamMember(@Query("member") member?:string, @Query("workspace") workspace?:string) {
+    return this.workspaceService.removeTeamMember({member, workspace});
   }
 }

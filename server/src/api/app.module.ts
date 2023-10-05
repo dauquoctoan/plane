@@ -51,7 +51,7 @@ import { TestModule } from './test/test.module';
     AnalyticModule,
     ViewModule,
     WorkspaceModule,
-    TestModule,
+    TestModule
   ],
   controllers: [
     AppController,

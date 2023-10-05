@@ -5,14 +5,9 @@ export class CreateUserDto {
     @Length(0, 128)
     username: string;
 
-    @IsOptional()
-    @IsEmpty()
-    @IsMobilePhone('vi-VN')
     @Length(0, 255)
     mobileNumber: string;
 
-    @IsOptional()
-    @IsEmpty()
     @Length(0, 255)
     email: string;
 

@@ -15,5 +15,5 @@ export class TeamMember extends Model {
 
     @ForeignKey(() => User)
     @Column({ allowNull: false })
-    member: number;
+    member: string;
 }

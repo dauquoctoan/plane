@@ -20,7 +20,8 @@ export class WorkspaceService {
     @InjectRepository(Team) public teamRepository: Repository<Team>,
     @InjectRepository(TeamMember) public teamMemberRepository: Repository<TeamMember>,
   ) { }
-    /* Workspace */
+
+  /* Workspace */
   async createWorkSpace(workSpace: CreateWorkspaceDto) {
     try {
       const result = await this.workspaceRepository.create({ ...workSpace });
@@ -32,16 +33,16 @@ export class WorkspaceService {
 
   async findAllWorkSpace() {
     try {
-      const result = await this.workspaceRepository.create();
+      const result = await this.workspaceRepository.findAll();
       return handleResultSuccess(result);
     } catch (error) {
       handleResultError({ message: messageFindErorr('Workspace'), messageDetail: error });
     }
   }
 
-  async findOneWorkSpace(condition: any) {
+  async findOneWorkSpace(id: any) {
     try {
-      const result = await this.workspaceRepository.findOne({ where: { ...condition} });
+      const result = await this.workspaceRepository.findOne({ where: {id} });
       return handleResultSuccess(result);
     } catch (error) {
       handleResultError({ message: messageFindErorr('Workspace'), messageDetail: error });
@@ -62,7 +63,7 @@ export class WorkspaceService {
 
   async removeWorkSpace(id: number) {
     try {
-      const result = await this.workspaceRepository.destroy({where:{id}});
+      const result = await this.workspaceRepository.destroy({where:{id: id}});
       return handleResultSuccess(result);
     } catch (error) {
       handleResultError({ message: messageDeleteErorr('Workspace'), messageDetail: error });
@@ -119,9 +120,9 @@ export class WorkspaceService {
   }
 
   /* TeamMember */
-  async createTeamMember(team: CreateTeamMemberDto) {
+  async createTeamMember(teamMember: CreateTeamMemberDto) {
     try {
-      const result = await this.teamMemberRepository.create();
+      const result = await this.teamMemberRepository.create({...teamMember});
       return handleResultSuccess(result);
     } catch (error) {
       handleResultError({ message: messageCreateErorr('TeamMember'), messageDetail: error });
@@ -131,7 +132,6 @@ export class WorkspaceService {
   async findAllTeamMember() {
     try {
       const result = await this.teamMemberRepository.findAll();
-      console.log('===============');
       return handleResultSuccess(result);
     } catch (error) {
       handleResultError({ message: messageFindErorr('TeamMember'), messageDetail: error });
@@ -159,12 +159,16 @@ export class WorkspaceService {
     }
   }
 
-  async removeTeamMember(id: number) {
+  async removeTeamMember(condition: any) {
+    console.log('===============')
+    console.log('========',condition,'=======')
+    console.log('===============')
+
     try {
-      const result = await this.teamMemberRepository.destroy({where:{id}});
+      const result = await this.teamMemberRepository.destroy({where:{...condition}});
       return handleResultSuccess(result);
     } catch (error) {
-      handleResultError({ message: messageUpdateErorr('TeamMember'), messageDetail: error });
+      handleResultError({ message: messageDeleteErorr('TeamMember'), messageDetail: error });
     }
   }
 }
