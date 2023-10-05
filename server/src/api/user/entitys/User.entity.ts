@@ -1,11 +1,16 @@
 import sequelize from 'sequelize';
-import { Column, CreatedAt, DataType, Length, Model, Table } from 'sequelize-typescript';
+import { BelongsToMany, Column, CreatedAt, DataType, Length, Model, Table } from 'sequelize-typescript';
+import { Team } from 'src/api/workspace/entitys/Team.entity';
+import { TeamMember } from 'src/api/workspace/entitys/TeamMember.entity';
 import { DEFAULT_ONBOARDING } from 'src/constants/entity-constant';
 
 @Table
 export class User extends Model {
     @Column({ type: sequelize.UUID, defaultValue: sequelize.UUIDV4, allowNull: false, primaryKey: true })
     id: number;
+
+    @BelongsToMany(() => Team, () => TeamMember)
+    Team: Team[];
 
     @Length({ min: 0, max: 128 })
     @Column({ allowNull: false, unique: true })

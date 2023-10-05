@@ -1,9 +1,9 @@
 import { Module } from '@nestjs/common';
 import { WorkspaceService } from './workspace.service';
-import { SequelizeModule } from '@nestjs/sequelize';
 import { Workspace } from './entitys/Workspace.entity';
-import { Team } from './entitys/Team.entity';
 import { WorkspaceController } from './workspace.controller';
+import { SequelizeModule } from '@nestjs/sequelize';
+import { Team } from './entitys/Team.entity';
 import { TeamMember } from './entitys/TeamMember.entity';
 
 @Module({
@@ -12,4 +12,4 @@ import { TeamMember } from './entitys/TeamMember.entity';
   controllers: [WorkspaceController]
 })
 
-export class WorkspaceModule {}
+export class WorkspaceModule { }

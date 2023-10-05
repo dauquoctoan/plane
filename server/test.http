@@ -3,16 +3,46 @@ POST http://localhost:3000/user
 Content-Type: application/json
 
 {
-    "username":"vlxx123"
+    "username":"vlxx1"
 }
 
-###
-POST http://localhost:3000/
+###### Workspace
+GET  http://localhost:3000/workspace
+Content-Type: application/json
+
+###### Workspace
+POST  http://localhost:3000/workspace
 Content-Type: application/json
 
 {
-    "name": "workspace name test",
-    "owner": "740eb2ef-b490-4727-bb35-2e344b602171",
-    "slug":"workspace_name_test",
-    "organization_size": "10"
+    "name": "workspacesdf",
+    "logo": "https://img.freepik.com/free-vector/bird-colorful-logo-gradient-vector_343694-1365.jpg",
+    "owner": "de4161d5-f405-48ea-81a0-79d656455397",
+    "slug": "workspacesdfsdf2"
 }
+
+
+### Team
+POST  http://localhost:3000/workspace/team
+Content-Type: application/json
+
+{
+    "name": "string",
+    "description": "string",
+    "workspace": 1
+}
+
+### TeamMember
+POST  http://localhost:3000/workspace/team-member
+Content-Type: application/json
+
+{
+    "workspace": 3,
+    "team": 1,
+    "member": "de4161d5-f405-48ea-81a0-79d656455397"
+}
+
+
+
+
+ 
