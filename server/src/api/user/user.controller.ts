@@ -6,7 +6,6 @@ import { UpdateUserDto } from './dto/update-user.dto';
 @Controller('user')
 export class UserController {
     constructor(private readonly workspaceService: UserService) { }
-
     @Post()
     create(@Body() createWorkspaceDto: CreateUserDto) {
         return this.workspaceService.create(createWorkspaceDto);

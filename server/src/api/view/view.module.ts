@@ -4,8 +4,8 @@ import { ViewController } from './view.controller';
 import { SequelizeModule } from '@nestjs/sequelize';
 
 @Module({
-  imports:[SequelizeModule.forFeature([])],
+  imports: [SequelizeModule.forFeature([])],
   providers: [ViewService],
   controllers: [ViewController]
 })
-export class ViewModule {}
+export class ViewModule { }

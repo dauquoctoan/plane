@@ -2,5 +2,43 @@ POST http://localhost:3000/user
 Content-Type: application/json
 
 {
-    "username":"vlxx"
+    "username":"vlxx1"
 }
+
+
+### Workspace
+POST  http://localhost:3000/workspace
+Content-Type: application/json
+
+{
+    "name": "workspace-2",
+    "logo": "https://img.freepik.com/free-vector/bird-colorful-logo-gradient-vector_343694-1365.jpg",
+    "owner": "05a02957-c1f5-44d4-b259-f5626bf05b57",
+    "slug": "workspace-2"
+}
+
+
+### Team
+POST  http://localhost:3000/workspace/team
+Content-Type: application/json
+
+{
+    "name": "string",
+    "description": "string",
+    "workspace": 1
+}
+
+### TeamMember
+POST  http://localhost:3000/workspace/team-member
+Content-Type: application/json
+
+{
+    "workspace": 3,
+    "team": 1,
+    "member": "05a02957-c1f5-44d4-b259-f5626bf05b57"
+}
+
+
+
+
+ 
