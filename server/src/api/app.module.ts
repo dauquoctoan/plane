@@ -40,6 +40,7 @@ import { CONFIG_DB } from 'src/configs/db-config';
 import { ApiTokenModule } from './api_token/api_token.module';
 import { ApiTokenController } from './api_token/api_token.controller';
 import { ConfigModule } from '@nestjs/config';
+import { TestModule } from './test/test.module';
 
 @Module({
   imports: [
@@ -67,6 +68,7 @@ import { ConfigModule } from '@nestjs/config';
     AnalyticModule,
     ViewModule,
     WorkspaceModule,
+    TestModule,
   ],
   controllers: [
     AppController,

@@ -14,7 +14,6 @@ export class Team extends Model{
     description:string;
     
     @BelongsToMany(()=> User,()=> TeamMember)
-    @Column({allowNull:false})
     members: User[];
     
     @ForeignKey(()=> Workspace)

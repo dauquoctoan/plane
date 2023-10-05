@@ -4,15 +4,16 @@ import { State } from './entitys/state.entity';
 import { handleResultError, handleResultSuccess } from 'src/helper/handleresult';
 import { UpdateStateDto } from './dto/update-state.dto';
 import { CreateStateDto } from './dto/create-state.dto';
+import { Repository } from 'sequelize-typescript';
 
 
 @Injectable()
 export class StateService {
     constructor(
         @InjectModel(State)
-        private stateModel: typeof State,
+        private stateModel: Repository<State>,
     ) { }
-
+    
     async create(state: CreateStateDto): Promise<IResult> {
         try {
             const result = await this.stateModel.create({ ...state });

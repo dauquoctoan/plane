@@ -1,6 +1,18 @@
+###
 POST http://localhost:3000/user
 Content-Type: application/json
 
 {
-    "username":"vlxx"
+    "username":"vlxx123"
+}
+
+###
+POST http://localhost:3000/
+Content-Type: application/json
+
+{
+    "name": "workspace name test",
+    "owner": "740eb2ef-b490-4727-bb35-2e344b602171",
+    "slug":"workspace_name_test",
+    "organization_size": "10"
 }

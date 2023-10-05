@@ -16,7 +16,7 @@ export class Workspace extends Model{
     
     @Index('workspace-slug')
     @Length({min:0, max:48})
-    @Column({unique:true})
+    @Column({unique:true, allowNull: false})
     slug:string;
     
     @Length({min:0, max:20})

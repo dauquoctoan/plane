@@ -13,7 +13,7 @@ export class UserService {
         private userModel: typeof User,
     ) { }
 
-    async create(user: CreateUserDto) {
+    async create(user: CreateUserDto): Promise<IResult>{
         try {
             const result = await this.userModel.create({ ...user });
             return handleResultSuccess(result)
