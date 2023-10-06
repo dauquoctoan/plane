@@ -7,9 +7,9 @@ import { StateController } from './state.controller';
 import { State } from './entitys/state.entity';
 
 @Module({
-  imports:[SequelizeModule.forFeature([State])],
+  imports: [SequelizeModule.forFeature([State])],
   providers: [StateService],
   controllers: [StateController]
 })
 
-export class StateModule {}
+export class StateModule { }

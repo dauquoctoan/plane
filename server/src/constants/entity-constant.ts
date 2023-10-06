@@ -1,13 +1,40 @@
-export const INVALID_ROLE = "The role type must be '5','10','15','20'"
+export const INVALID_ROLE = "The ROLE type must be '5','10','15','20'";
+export const INVALID_ACCESS = "The ACCESS type must be '0','1'";
+export const INVALID_NETWORK = "The NETWORK type must be '0','1'";
 
-/* (20, "Owner"), (15, "Admin"), (10, "Member"), (5, "Guest")*/
-export const ROLE = [5, 10, 15, 20]
+
+/** 
+* ! ROLE 
+* * 20 : Owner
+* * 15 : Admin
+* * 10 : Member
+* * 5 : Guest
+*/
+export const ROLE = [5, 10, 15, 20];
+/** 
+* ! ACCESS
+* * 0 : Private
+* * 1 : Public
+*/
+
+export const ACCESS = [0, 1];
+
+/** 
+* ! NETWORK
+* * 0 : Seccret
+* * 1 : Public
+*/
+
+export const NETWORK = [0, 1];
 
 export const DEFAULT_ONBOARDING = {
     "profile_complete": false,
     "workspace_create": false,
     "workspace_invite": false,
     "workspace_join": false,
+}
+export const DEFAULT_PREFERENCES = {
+    "pages": { "block_display": true }
 }
 
 export const DEFAULT_PROPS = {
@@ -46,5 +73,13 @@ export const DEFAULT_PROPS = {
         "sub_issue_count": true,
         "updated_on": true,
     }
+}
+
+export const DEFAULT_VIEWS = {
+    "list": true,
+    "kanban": true,
+    "calendar": true,
+    "gantt": true,
+    "spreadsheet": true,
 }
 

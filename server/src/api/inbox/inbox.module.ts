@@ -4,4 +4,4 @@ import { InboxService } from './inbox.service';
 @Module({
   providers: [InboxService]
 })
-export class InboxModule {}
+export class InboxModule { }

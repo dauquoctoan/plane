@@ -1,9 +1,9 @@
 import { HttpAdapterHost, NestFactory } from "@nestjs/core";
-import { AppModule } from "./api/app.module";
 import { ValidationPipe } from '@nestjs/common';
 import { AllExceptionsFilter } from "src/helper/all-exceptions.filter";
 import { ConfigService } from '@nestjs/config';
 import { SwaggerModule, DocumentBuilder, SwaggerDocumentOptions } from '@nestjs/swagger';
+import { AppModule } from "./app.module";
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
@@ -25,12 +25,11 @@ async function bootstrap() {
     .build();
   const options: SwaggerDocumentOptions = {
     operationIdFactory: (
-      controllerKey: string,
       methodKey: string
     ) => methodKey
   };
   const document = SwaggerModule.createDocument(app, config, options);
-  SwaggerModule.setup('api', app, document);
+  SwaggerModule.setup('docs', app, document);
 
   /* Listen on port */
   await app.listen(configService.get('PORT') || 3000);

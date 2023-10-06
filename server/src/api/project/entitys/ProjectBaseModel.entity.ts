@@ -1,10 +1,14 @@
-import { Column, Model, Table } from 'sequelize-typescript';
+import { Column, ForeignKey, Model, Table } from 'sequelize-typescript';
+import { Project } from './Project.entity';
+import { Workspace } from 'src/api/workspace/entitys/Workspace.entity';
 
 @Table
-export class ProjectBaseModel extends Model{
+export class ProjectBaseModel extends Model {
+    @ForeignKey(() => Project)
     @Column
-    project: string;
-    
+    project: number;
+
+    @ForeignKey(() => Workspace)
     @Column
-    workspace: string;
+    workspace: number;
 }

@@ -1,22 +1,27 @@
-import { Column, Model, Table } from 'sequelize-typescript';
+import { UUIDV4 } from 'sequelize';
+import { Column, DataType, ForeignKey, Length, Model, Table } from 'sequelize-typescript';
+import { Inbox } from 'src/api/inbox/entitys/Inbox.entiy';
+import { DEFAULT_VIEWS } from 'src/constants/entity-constant';
 
 @Table
-export class ProjectDeployBoard extends Model{
-    @Column
+export class ProjectDeployBoard extends Model {
+    @Length({ max: 225 })
+    @Column({ defaultValue: UUIDV4, type: DataType.UUIDV4, unique: true })
     anchor: string;
-    
-    @Column
-    comments: string;
 
-    @Column
-    reactions: string;
+    @Column({ defaultValue: false })
+    comments: boolean;
 
+    @Column({ defaultValue: false })
+    reactions: boolean;
+
+    @ForeignKey(() => Inbox)
     @Column
     inbox: string;
 
-    @Column
-    votes: string;
+    @Column({ defaultValue: false })
+    votes: boolean;
 
-    @Column
+    @Column({ type: DataType.JSON, defaultValue: DEFAULT_VIEWS })
     views: string;
 }
