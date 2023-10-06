@@ -2,7 +2,7 @@ import { Column, DataType, Is, Length, Model, Table } from 'sequelize-typescript
 import { INVALID_ROLE, ROLE } from 'src/constants/entity-constant';
 
 @Table
-export class ProjectBaseModel extends Model {
+export class ProjectMemberInvite extends Model {
     @Length({ max: 225 })
     @Column({ allowNull: false })
     email: string;

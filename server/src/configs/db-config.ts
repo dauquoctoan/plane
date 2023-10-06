@@ -1,5 +1,4 @@
 import { SequelizeModuleAsyncOptions } from "@nestjs/sequelize";
-import { State } from "src/api/state/entitys/state.entity";
 import { ConfigService } from '@nestjs/config';
 import { Dialect } from "sequelize";
 
@@ -14,7 +13,6 @@ export const CONFIG_DB: SequelizeModuleAsyncOptions = {
         timezone: "+08:00",
         autoLoadModels: true,
         synchronize: true,
-        models: [State]
     }),
     inject: [ConfigService]
 }
