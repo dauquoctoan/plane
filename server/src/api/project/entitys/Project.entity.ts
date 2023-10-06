@@ -4,10 +4,29 @@ import { State } from 'src/api/state/entitys/state.entity';
 import { User } from 'src/api/user/entitys/User.entity';
 import { Workspace } from 'src/api/workspace/entitys/Workspace.entity';
 import { INVALID_NETWORK, NETWORK } from 'src/constants/entity-constant';
-import { ProjectIdentifier } from './ProjectIdentifier.entity';
 
 @Table
 export class Project extends Model {
+    @ForeignKey(() => Estimate)
+    @Column({ allowNull: false })
+    estimate: number;
+
+    @ForeignKey(() => State)
+    @Column({ allowNull: false })
+    default_state: number;
+
+    @ForeignKey(() => User)
+    @Column
+    default_assignee: string;
+
+    @ForeignKey(() => User)
+    @Column
+    project_lead: string;
+
+    @ForeignKey(() => Workspace)
+    @Column({ allowNull: false })
+    workspace: number;
+
     @Length({ min: 0, max: 225 })
     @Column({ allowNull: false })
     name: string;
@@ -21,30 +40,17 @@ export class Project extends Model {
     @Column({ type: DataType.JSON })
     description_html: string;
 
-    @Is('NETWORK_CHOICES', (value) => {
+    @Is('network', (value) => {
         if (!NETWORK.includes(value)) {
             throw new Error(INVALID_NETWORK);
         }
     })
     @Column({ defaultValue: 1 })
-    @Column
     network: string;
-
-    @ForeignKey(() => Workspace)
-    @Column({ allowNull: false })
-    workspace: string;
 
     @Length({ max: 12 })
     @Column({ allowNull: false })
     identifier: string;
-
-    @ForeignKey(() => User)
-    @Column
-    default_assignee: string;
-
-    @ForeignKey(() => User)
-    @Column
-    project_lead: string;
 
     @Length({ min: 0, max: 225 })
     @Column
@@ -72,17 +78,9 @@ export class Project extends Model {
     @Column({ type: DataType.TEXT })
     cover_image: string;
 
-    @ForeignKey(() => Estimate)
-    @Column({ allowNull: false })
-    estimate: string;
-
     @Column({ defaultValue: 0, type: DataType.INTEGER })
     archive_in: number;
 
     @Column({ defaultValue: 0, type: DataType.INTEGER })
     close_in: number;
-
-    @ForeignKey(() => State)
-    @Column({ allowNull: false })
-    default_state: string;
 }

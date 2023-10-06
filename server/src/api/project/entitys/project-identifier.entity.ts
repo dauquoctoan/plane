@@ -1,6 +1,6 @@
-import { Column, ForeignKey, HasOne, Model, Table, Length } from 'sequelize-typescript';
+import { Column, ForeignKey, HasOne, Model, Table, Length, BelongsTo } from 'sequelize-typescript';
 import { Workspace } from 'src/api/workspace/entitys/Workspace.entity';
-import { Project } from './Project.entity';
+import { Project } from './project.entity';
 
 @Table
 export class ProjectIdentifier extends Model {
@@ -8,9 +8,8 @@ export class ProjectIdentifier extends Model {
     @Column({ allowNull: true })
     workspace: string;
 
-    @HasOne(() => Project)
-    @Column
-    project: string;
+    @BelongsTo(() => Project, 'id')
+    project: Project;
 
     @Length({ max: 12 })
     @Column

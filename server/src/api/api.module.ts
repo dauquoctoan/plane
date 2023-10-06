@@ -41,7 +41,8 @@ import { EstimateModule } from './estimate/estimate.module';
         AnalyticModule,
         ViewModule,
         WorkspaceModule,
-        TestModule
+        TestModule,
     ]
 })
+
 export class ApiModule { }
