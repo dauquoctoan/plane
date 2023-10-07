@@ -5,8 +5,7 @@ import { DEFAULT_VIEWS } from 'src/constants/entity-constant';
 
 @Table
 export class ProjectDeployBoard extends Model {
-    @Length({ max: 225 })
-    @Column({ defaultValue: UUIDV4, type: DataType.UUIDV4, unique: true })
+    @Column({ defaultValue: UUIDV4, type: DataType.UUIDV4 })
     anchor: string;
 
     @Column({ defaultValue: false })

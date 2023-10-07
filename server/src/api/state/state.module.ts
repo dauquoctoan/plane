@@ -2,8 +2,8 @@
 import { Module } from '@nestjs/common';
 import { SequelizeModule } from '@nestjs/sequelize';
 /* feachture */
-import { StateService } from './state.service';
-import { StateController } from './state.controller';
+import { StateService } from './service/state.service';
+import { StateController } from './controller/state.controller';
 import { State } from './entitys/state.entity';
 
 @Module({

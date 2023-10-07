@@ -2,7 +2,6 @@ import { Module } from '@nestjs/common';
 import { StateModule } from './state/state.module';
 import { UserModule } from './user/user.module';
 import { SearchModule } from './search/search.module';
-import { TestModule } from './test/test.module';
 import { WorkspaceModule } from './workspace/workspace.module';
 import { ViewModule } from './view/view.module';
 import { AnalyticModule } from './analytic/analytic.module';
@@ -41,7 +40,6 @@ import { EstimateModule } from './estimate/estimate.module';
         AnalyticModule,
         ViewModule,
         WorkspaceModule,
-        TestModule,
     ]
 })
 

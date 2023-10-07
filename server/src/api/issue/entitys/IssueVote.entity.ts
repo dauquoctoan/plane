@@ -1,10 +1,10 @@
 import { Column, Model, Table } from 'sequelize-typescript';
 
 @Table
-export class Issue extends Model{
+export class IssueVote extends Model {
     @Column
     issue: string;
-    
+
     @Column
     actor: string;
 

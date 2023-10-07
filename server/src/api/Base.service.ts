@@ -1,7 +1,7 @@
 import { handleResultError, handleResultSuccess } from "src/helper/handleresult";
 import { messageCreateErorr, messageDeleteErorr, messageFindErorr, messageUpdateErorr } from "src/helper/message.create";
 
-export class BaseService<Entity> {
+export class BaseService {
     constructor(
         public repository: any,
     ) { }
@@ -29,7 +29,7 @@ export class BaseService<Entity> {
             const result = await this.repository.findOne({ where: { ...condition } });
             return handleResultSuccess(result);
         } catch (error) {
-            handleResultError({ message: messageFindErorr('Team'), messageDetail: error });
+            handleResultError({ message: messageFindErorr(''), messageDetail: error });
         }
     }
 

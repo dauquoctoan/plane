@@ -1,10 +1,10 @@
 import { Column, Model, Table } from 'sequelize-typescript';
 
 @Table
-export class IssueSequence extends Model{
+export class IssueLabel extends Model {
     @Column
     issue: string;
-    
+
     @Column
     sequence: string;
 
