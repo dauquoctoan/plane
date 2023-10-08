@@ -1,10 +1,14 @@
-import { Column, Model, Table } from 'sequelize-typescript';
+import { Column, ForeignKey, Model, Table } from 'sequelize-typescript';
+import { Label } from 'src/api/issue/entitys/Label.entity';
+import { Page } from './Page.entity';
 
 @Table
-export class PageLabel extends Model{
+export class PageLabel extends Model {
+    @ForeignKey(() => Label)
     @Column
-    label: string;
-    
+    label: number;
+
+    @ForeignKey(() => Page)
     @Column
-    page: string;
+    page: number;
 }

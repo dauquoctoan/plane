@@ -1,7 +1,8 @@
 import { Column, ForeignKey, Model, Table, Is, DataType } from 'sequelize-typescript';
 import { Workspace } from './Workspace.entity';
 import { User } from 'src/api/user/entitys/User.entity';
-import { DEFAULT_PROPS, INVALID_ROLE, ROLE } from 'src/constants/entity-constant';
+import { DEFAULT_PROPS, ROLE } from 'src/constants/entity-constant';
+import { INVALID_ROLE } from 'src/constants/message-constant';
 
 @Table
 export class WorkspaceMember extends Model {

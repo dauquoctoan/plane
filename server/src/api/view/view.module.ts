@@ -1,14 +1,14 @@
 import { Module } from '@nestjs/common';
-import { IssueViewService } from './service/issue-view.service';
-import { IssueViewController } from './controller/issue-view.controller';
+import { IssueViewService } from './service/IssueView.service';
+import { IssueViewController } from './controller/IssueView.controller';
 import { SequelizeModule } from '@nestjs/sequelize';
-import { GlobalViewController } from './controller/global-view.controller';
-import { IssueViewFavoriteController } from './controller/issue-view-favorite.controller';
-import { IssueView } from './entitys/issue-view.entity';
-import { IssueViewFavorite } from './entitys/issue-view-favorite.entity';
-import { GlobalView } from './entitys/global-view.entity';
-import { IssueViewFavoriteService } from './service/issue-view-favorite.service';
-import { GlobalViewService } from './service/global-view.service';
+import { GlobalViewController } from './controller/GlobalView.controller';
+import { IssueViewFavoriteController } from './controller/IssueViewFavorite.controller';
+import { IssueView } from './entitys/IssueView.entity';
+import { IssueViewFavorite } from './entitys/IssueViewFavorite.entity';
+import { GlobalView } from './entitys/GlobalView.entity';
+import { IssueViewFavoriteService } from './service/IssueViewFavorite.service';
+import { GlobalViewService } from './service/GlobalView.service';
 
 @Module({
   imports: [SequelizeModule.forFeature([IssueView, IssueViewFavorite, GlobalView])],

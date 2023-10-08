@@ -1,22 +1,22 @@
 import { Column, Model, Table } from 'sequelize-typescript';
 
 @Table
-export class Notification extends Model{
+export class Notification extends Model {
     @Column
     workspace: string;
-    
+
     @Column
     project: string;
 
     @Column
     data: string;
-    
+
     @Column
     entity_identifier: string;
-    
+
     @Column
     entity_name: string;
-    
+
     @Column
     title: string;
 

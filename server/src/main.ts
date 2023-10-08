@@ -23,12 +23,15 @@ async function bootstrap() {
     .setVersion('1.0')
     .addTag('Plane')
     .build();
+
   const options: SwaggerDocumentOptions = {
     operationIdFactory: (
       methodKey: string
     ) => methodKey
   };
+
   const document = SwaggerModule.createDocument(app, config, options);
+
   SwaggerModule.setup('docs', app, document);
 
   /* Listen on port */

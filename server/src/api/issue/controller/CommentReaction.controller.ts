@@ -5,7 +5,7 @@ import { CommentReactionService } from '../service/CommentReaction.service';
 
 @Controller('comment-reaction')
 @ApiTags('Comment Reaction')
-export class CommentReaction {
+export class CommentReactionController {
     constructor(private readonly workspaceService: CommentReactionService) { }
     @Post()
     create(@Body() createWorkspaceDto: CreateCommentReactionDto) {

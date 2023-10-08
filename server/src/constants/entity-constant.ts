@@ -1,8 +1,3 @@
-export const INVALID_ROLE = "The ROLE type must be '5','10','15','20'";
-export const INVALID_ACCESS = "The ACCESS type must be '0','1'";
-export const INVALID_NETWORK = "The NETWORK type must be '0','1'";
-
-
 /** 
 * ! ROLE 
 * * 20 : Owner
@@ -10,7 +5,9 @@ export const INVALID_NETWORK = "The NETWORK type must be '0','1'";
 * * 10 : Member
 * * 5 : Guest
 */
+
 export const ROLE = [5, 10, 15, 20];
+
 /** 
 * ! ACCESS
 * * 0 : Private
@@ -27,12 +24,23 @@ export const ACCESS = [0, 1];
 
 export const NETWORK = [0, 1];
 
+/** 
+* ! MEDIUM
+* * Google : google
+* * Github : github
+*/
+
+export const MEDIUM = ['Google', 'Github'];
+
+export const SORT_ORDER = 65535;
+
 export const DEFAULT_ONBOARDING = {
     "profile_complete": false,
     "workspace_create": false,
     "workspace_invite": false,
     "workspace_join": false,
 }
+
 export const DEFAULT_PREFERENCES = {
     "pages": { "block_display": true }
 }
@@ -82,4 +90,3 @@ export const DEFAULT_VIEWS = {
     "gantt": true,
     "spreadsheet": true,
 }
-

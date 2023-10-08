@@ -1,9 +1,10 @@
 import { BelongsTo, Column, DataType, ForeignKey, Is, Length, Model, PrimaryKey, Table } from 'sequelize-typescript';
 import { Estimate } from 'src/api/estimate/entitys/Estimate.entity';
-import { State } from 'src/api/state/entitys/state.entity';
+import { State } from 'src/api/state/entitys/State.entity';
 import { User } from 'src/api/user/entitys/User.entity';
 import { Workspace } from 'src/api/workspace/entitys/Workspace.entity';
-import { INVALID_NETWORK, NETWORK } from 'src/constants/entity-constant';
+import { NETWORK } from 'src/constants/entity-constant';
+import { INVALID_NETWORK } from 'src/constants/message-constant';
 
 @Table
 export class Project extends Model {

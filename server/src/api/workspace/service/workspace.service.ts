@@ -1,6 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { CreateWorkspaceDto } from '../dto/create-workspace.dto';
-import { UpdateWorkspaceDto } from '../dto/update-workspace.dto';
+import { CreateWorkspaceDto, UpdateWorkspaceDto } from '../dto/Workspace.dto';
 import { Repository } from 'sequelize-typescript';
 import { Workspace } from '../entitys/Workspace.entity';
 import { InjectRepository } from '@nestjs/typeorm';
@@ -8,12 +7,13 @@ import { Team } from '../entitys/Team.entity';
 import { handleResultError, handleResultSuccess } from 'src/helper/handleresult';
 import { messageCreateErorr, messageDeleteErorr, messageFindErorr, messageUpdateErorr } from 'src/helper/message.create';
 import { TeamMember } from '../entitys/TeamMember.entity';
+import { InjectModel } from '@nestjs/sequelize';
 
 
 @Injectable()
 export class WorkspaceService {
   constructor(
-    @InjectRepository(Workspace) public workspaceRepository: Repository<Workspace>,
+    @InjectModel(Workspace) public workspaceRepository: Repository<Workspace>,
   ) { }
   /* Workspace */
   async createWorkSpace(workSpace: CreateWorkspaceDto) {

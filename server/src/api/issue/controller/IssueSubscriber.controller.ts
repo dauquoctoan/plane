@@ -6,7 +6,7 @@ import { IssueSubscriberService } from '../service/IssueSubscriber.service';
 
 @Controller('issue-subscriber')
 @ApiTags('Issue Subscriber')
-export class IssueSubscriberCtroller {
+export class IssueSubscriberController {
     constructor(private readonly workspaceService: IssueSubscriberService) { }
     @Post()
     create(@Body() createWorkspaceDto: CreateCommentReactionDto) {

@@ -1,7 +1,11 @@
 import { Module } from '@nestjs/common';
-import { ApiTokenService } from './api_token.service';
+import { ApiTokenService } from './service/ApiToken.service';
+import { SequelizeModule } from '@nestjs/sequelize';
+import { APIToken } from './entitys/APIToken.entity';
 
 @Module({
-  providers: [ApiTokenService]
+  imports: [SequelizeModule.forFeature([APIToken])],
+  providers: [ApiTokenService],
+  controllers: [ApiTokenService]
 })
-export class ApiTokenModule {}
+export class ApiTokenModule { }

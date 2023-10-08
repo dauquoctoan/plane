@@ -1,14 +1,12 @@
 import { Module } from '@nestjs/common';
-import { StateModule } from './state/state.module';
-import { UserModule } from './user/user.module';
-import { SearchModule } from './search/search.module';
+import { StateModule } from './state/State.module';
+import { UserModule } from './user/User.module';
 import { WorkspaceModule } from './workspace/workspace.module';
 import { ViewModule } from './view/view.module';
 import { AnalyticModule } from './analytic/analytic.module';
 import { ApiTokenModule } from './api_token/api_token.module';
 import { AssetModule } from './asset/asset.module';
 import { CycleModule } from './cycle/cycle.module';
-import { ReleaseModule } from './release/release.module';
 import { ProjectModule } from './project/project.module';
 import { PageModule } from './page/page.module';
 import { NotificationModule } from './notification/notification.module';
@@ -23,8 +21,6 @@ import { EstimateModule } from './estimate/estimate.module';
     imports: [
         StateModule,
         UserModule,
-        SearchModule,
-        ReleaseModule,
         ProjectModule,
         PageModule,
         NotificationModule,

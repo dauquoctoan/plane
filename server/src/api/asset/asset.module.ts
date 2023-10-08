@@ -1,7 +1,12 @@
 import { Module } from '@nestjs/common';
-import { AssetService } from './asset.service';
+import { FileAssetService } from './service/asset.service';
+import { SequelizeModule } from '@nestjs/sequelize';
+import { FileAsset } from './entitys/FileAsset.entity';
+import { FileAssetController } from './controller/asset.controller';
 
 @Module({
-  providers: [AssetService]
+  imports: [SequelizeModule.forFeature([FileAsset])],
+  providers: [FileAssetService],
+  controllers: [FileAssetController]
 })
-export class AssetModule {}
+export class AssetModule { }

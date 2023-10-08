@@ -1,7 +1,6 @@
 import { Controller, Post, Body, Get, Param, Patch, Delete } from '@nestjs/common';
-import { UserService } from '../service/user.service';
-import { CreateUserDto } from '../dto/create-user.dto';
-import { UpdateUserDto } from '../dto/update-user.dto';
+import { UserService } from '../service/User.service';
+import { CreateUserDto, UpdateUserDto } from '../dto/User.dto';
 import { ApiTags } from '@nestjs/swagger';
 
 @Controller('user')
@@ -25,11 +24,11 @@ export class UserController {
 
     @Patch(':id')
     update(@Param('id') id: string, @Body() updateWorkspaceDto: UpdateUserDto) {
-        return this.workspaceService.update(+id, updateWorkspaceDto);
+        return this.workspaceService.updateById(+id, updateWorkspaceDto);
     }
 
     @Delete(':id')
     remove(@Param('id') id: string) {
-        return this.workspaceService.remove(+id);
+        return this.workspaceService.removeById(+id);
     }
 }

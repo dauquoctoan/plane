@@ -3,9 +3,9 @@ import { ApiTags } from '@nestjs/swagger';
 import { CreateCommentReactionDto, UpdateCommentReactionDto } from '../dto/CommentReaction.dto';
 import { CommentReactionService } from '../service/CommentReaction.service';
 
-@Controller('Issue Reaction')
+@Controller('issue-reaction')
 @ApiTags('Issue Reaction')
-export class CommentReactionController {
+export class IssueReactionController {
     constructor(private readonly workspaceService: CommentReactionService) { }
     @Post()
     create(@Body() createWorkspaceDto: CreateCommentReactionDto) {

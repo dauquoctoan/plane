@@ -1,7 +1,6 @@
 import { Controller, Post, Body, Get, Param, Patch, Delete } from '@nestjs/common';
-import { StateService } from '../service/state.service';
-import { CreateStateDto } from '../dto/create-state.dto';
-import { UpdateStateDto } from '../dto/update-state.dto';
+import { StateService } from '../service/State.service';
+import { CreateStateDto, UpdateStateDto } from '../dto/State.dto';
 import jstz from 'jstz';
 import { ApiTags } from '@nestjs/swagger';
 

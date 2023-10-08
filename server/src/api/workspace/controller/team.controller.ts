@@ -1,36 +1,35 @@
 import { Controller, Get, Post, Body, Patch, Delete, Query, Param } from '@nestjs/common';
 import { ApiTags } from "@nestjs/swagger";
-import { CreateTeamDto } from '../dto/create-team.dto';
-import { UpdateTeamDto } from '../dto/update-team.dto';
-import { TeamService } from '../service/team.service';
+import { CreateTeamDto, UpdateTeamDto } from '../dto/Team.dto';
+import { TeamService } from '../service/Team.service';
 
 @Controller('team')
 @ApiTags('Team')
 export class TeamController {
-    constructor(private readonly workspaceService: TeamService) { }
+    constructor(private readonly teamService: TeamService) { }
     @Post()
-    createWorkSpace(@Body() team: CreateTeamDto) {
-        return this.workspaceService.createTeam(team);
+    create(@Body() team: CreateTeamDto) {
+        return this.teamService.create(team);
     }
 
     @Get()
-    findAllWorkSpace() {
-        return this.workspaceService.findAllTeam();
+    findAll() {
+        return this.teamService.findAll();
     }
 
     @Get(":id")
-    findOneWorkSpace(@Param('id') id: string) {
+    findOne(@Param('id') id: string) {
         console.log('sdfsdfsdf')
-        return this.workspaceService.findOneTeam(+id);
+        return this.teamService.findOne(+id);
     }
 
     @Patch(":id")
-    updateWorkSpace(@Param('id') id: string, @Body() team: UpdateTeamDto) {
-        return this.workspaceService.updateTeam(+id, team);
+    update(@Param('id') id: string, @Body() team: UpdateTeamDto) {
+        return this.teamService.updateById(+id, team);
     }
 
     @Delete(":id")
-    removeWorkSpace(@Param('id') id: string) {
-        return this.workspaceService.removeTeam(+id);
+    remove(@Param('id') id: string) {
+        return this.teamService.removeById(+id);
     }
 }

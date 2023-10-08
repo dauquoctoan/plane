@@ -1,8 +1,7 @@
 import { Controller, Get, Post, Body, Patch, Delete, Query, Param } from '@nestjs/common';
 import { WorkspaceService } from '../service/workspace.service';
 import { ApiTags } from "@nestjs/swagger";
-import { CreateWorkspaceDto } from '../dto/create-workspace.dto';
-import { UpdateWorkspaceDto } from '../dto/update-workspace.dto';
+import { CreateWorkspaceDto, UpdateWorkspaceDto } from '../dto/Workspace.dto';
 
 
 @Controller('workspace')
