@@ -32,7 +32,105 @@ export const NETWORK = [0, 1];
 
 export const MEDIUM = ['Google', 'Github'];
 
+/** 
+* ! USER_TYPE
+* * 0 : Human
+* * 1 : Bot
+*/
+
+export const USER_TYPE = [0, 1];
+
+/**
+* ! PROVIDE
+* json: JSON
+* csv: CSV
+* xlsx: XLSX
+*/
+
+export const PROVIDE = ['json', 'csv', 'xlsx'];
+
+
+/**
+* ! STATUS
+* queued: queued
+* processing: processing
+* completed: completed
+* failed: failed
+*/
+
+export const STATUS = ['queued', 'processing', 'completed', 'failed'];
+
+/**
+* ! SERVICE
+* github: Github
+* jira: Jira
+*/
+
+export const SERVICE = ['github', 'jira'];
+
+/**
+* ! ISSUE_STATUS
+* -2: Pending
+* -1: Rejected
+* 0: Snoozed
+* 1: Accepted
+* 2: Duplicate
+*/
+
+export const ISSUE_STATUS = [-2, -1, 0, 1, 2];
+
+/**
+* ! PRIORITY
+* urgent: Urgent
+* high: High
+* medium: Medium
+* low: Low
+* none: None
+*/
+
+export const PRIORITY = ["urgent", "high", "medium", "low", "none"]
+
+/**
+* ! RELATION
+* duplicate: Duplicate
+* relates_to: Relates To
+* blocked_by: Blocked By
+*/
+
+export const RELATION = ["duplicate", "relates_to", "blocked_by"]
+
+
+/**
+* ! VOTE
+* -1: DOWNVOTE
+* 1: UPVOTE
+*/
+
+export const VOTE = [-1, 1];
+
+/**
+* ! ISSUE_ACCESS
+* INTERNAL: INTERNAL
+* EXTERNAL: EXTERNAL
+*/
+
+export const ISSUE_ACCESS = ['INTERNAL', 'EXTERNAL'];
+
+/**
+* ! MODULE_STATUS
+* backlog: Backlog
+* planned: Planned
+* in-progress: In-progress
+* paused: Paused
+* completed: Completed
+* cancelled: Cancelled
+*/
+
+export const MODULE_STATUS = ["backlog", "planned", "in-progress", "paused", "completed", "cancelled"];
+
+
 export const SORT_ORDER = 65535;
+
 
 export const DEFAULT_ONBOARDING = {
     "profile_complete": false,

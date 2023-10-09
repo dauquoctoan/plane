@@ -5,7 +5,7 @@ import { CreateExporterHistoryDto, UpdateExporterHistoryDto } from '../dto/Expor
 
 @Controller('exporter')
 @ApiTags('Exporter')
-export class ExporterController {
+export class ExporterHistoryController {
     constructor(private readonly exporterService: ExporterService) { }
     @Post()
     create(@Body() exporter: CreateExporterHistoryDto) {

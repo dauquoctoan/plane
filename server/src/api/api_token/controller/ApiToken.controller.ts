@@ -1,7 +1,7 @@
 import { Body, Controller, Delete, Get, Param, Patch, Post } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 import { ApiTokenService } from '../service/ApiToken.service';
-import { CreateAPITokenDto, updateAPITokenDto } from '../dto/APIToken.dto';
+import { CreateAPITokenDto, UpdateAPITokenDto } from '../dto/APIToken.dto';
 
 @Controller('api-token')
 @ApiTags('Api Token')
@@ -23,7 +23,7 @@ export class ApiTokenController {
     }
 
     @Patch(':id')
-    update(@Param('id') id: string, @Body() apiToken: updateAPITokenDto) {
+    update(@Param('id') id: string, @Body() apiToken: UpdateAPITokenDto) {
         return this.apiTokenService.updateById(+id, apiToken);
     }
 

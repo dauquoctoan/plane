@@ -1,10 +1,14 @@
-import { Column, Model, Table } from 'sequelize-typescript';
+import { BelongsTo, Column, ForeignKey, HasOne, Model, Table } from 'sequelize-typescript';
+import { Issue } from 'src/api/issue/entitys/Issue.entity';
+import { Cycle } from './Cycle.entity';
 
 @Table
 export class CycleIssue extends Model {
-    @Column
-    issue: string;
+    // @BelongsTo(() => Issue)
+    // @Column
+    // issue: number;
 
-    @Column
-    cycle: string;
+    // @ForeignKey(() => Cycle)
+    // @Column
+    // cycle: string;
 }

@@ -1,25 +1,34 @@
-import { Column, Model, Table } from 'sequelize-typescript';
+import { Column, DataType, ForeignKey, Is, Model, Table } from 'sequelize-typescript';
+import { Issue } from './Issue.entity';
+import { User } from 'src/api/user/entitys/User.entity';
+import { ISSUE_ACCESS } from 'src/constants/entity-constant';
+import { INVALID_ISSUE_ACCESS } from 'src/constants/message-constant';
 
 @Table
-export class IssueComment extends Model{
+export class IssueComment extends Model {
     @Column
     comment_stripped: string;
-    
-    @Column
+
+    @Column({ defaultValue: {}, type: DataType.JSON })
     comment_json: string;
 
-    @Column
+    @Column({ defaultValue: '<p></p>' })
     comment_html: string;
 
     @Column
     attachments: string;
 
+    @ForeignKey(() => Issue)
     @Column
-    issue: string;
+    issue: number;
 
+    @ForeignKey(() => User)
     @Column
     actor: string;
 
+    @Is('access', (value) => {
+        if (!ISSUE_ACCESS.includes(value)) throw Error(INVALID_ISSUE_ACCESS)
+    })
     @Column
     access: string;
 }

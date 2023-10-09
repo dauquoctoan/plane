@@ -8,7 +8,8 @@ export class ProjectIdentifier extends Model {
     @Column({ allowNull: true })
     workspace: string;
 
-    @BelongsTo(() => Project, 'id')
+    @BelongsTo(() => Project)
+    @Column
     project: Project;
 
     @Length({ max: 12 })

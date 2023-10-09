@@ -1,10 +1,14 @@
-import { Column, Model, Table } from 'sequelize-typescript';
+import { Column, ForeignKey, Model, Table } from 'sequelize-typescript';
+import { Module } from './Module.entity';
+import { User } from 'src/api/user/entitys/User.entity';
 
 @Table
-export class ModuleMember extends Model{
-    @Column
+export class ModuleMember extends Model {
+    @ForeignKey(() => Module)
+    @Column({ allowNull: false })
     module: string;
-    
-    @Column
+
+    @ForeignKey(() => User)
+    @Column({ allowNull: false })
     member: string;
 }

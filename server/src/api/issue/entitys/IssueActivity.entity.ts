@@ -1,16 +1,23 @@
-import { Column, Model, Table } from 'sequelize-typescript';
+import { Column, DataType, ForeignKey, Length, Model, Table } from 'sequelize-typescript';
+import { Issue } from './Issue.entity';
+import { IssueComment } from './IssueComment.entity';
+import { User } from 'src/api/user/entitys/User.entity';
+import sequelize from 'sequelize';
 
 @Table
-export class IssueActivity extends Model{
+export class IssueActivity extends Model {
+    @ForeignKey(() => Issue)
     @Column
     issue: string;
-    
-    @Column
+
+    @Length({ max: 255 })
+    @Column({ defaultValue: "created" })
     verb: string;
 
+    @Length({ max: 255 })
     @Column
     field: string;
-    
+
     @Column
     old_value: string;
 
@@ -23,18 +30,20 @@ export class IssueActivity extends Model{
     @Column
     attachments: string;
 
+    @ForeignKey((() => IssueComment))
     @Column
     issue_comment: string;
 
+    @ForeignKey(() => User)
     @Column
     actor: string;
 
-    @Column
+    @Column({ type: sequelize.UUID })
     old_identifier: string;
 
-    @Column
+    @Column({ type: sequelize.UUID })
     new_identifier: string;
-    
+
     @Column
-    epoch: string;
+    epoch: number;
 }

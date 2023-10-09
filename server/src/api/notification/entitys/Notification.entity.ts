@@ -1,29 +1,43 @@
-import { Column, Model, Table } from 'sequelize-typescript';
+import sequelize from 'sequelize';
+import { Column, DataType, ForeignKey, Model, Table } from 'sequelize-typescript';
+import { Project } from 'src/api/project/entitys/Project.entity';
+import { User } from 'src/api/user/entitys/User.entity';
+import { Workspace } from 'src/api/workspace/entitys/Workspace.entity';
 
 @Table
 export class Notification extends Model {
-    @Column
+    @ForeignKey(() => Workspace)
+    @Column({ allowNull: false })
     workspace: string;
 
+    @ForeignKey(() => Project)
     @Column
     project: string;
 
+    @ForeignKey(() => User)
     @Column
+    triggered_by: string;
+
+    @ForeignKey(() => User)
+    @Column({ allowNull: false })
+    receiver: string;
+
+    @Column({ type: DataType.JSON })
     data: string;
 
-    @Column
+    @Column({ type: sequelize.UUID, defaultValue: sequelize.UUIDV4, })
     entity_identifier: string;
 
-    @Column
+    @Column({ allowNull: false })
     entity_name: string;
 
-    @Column
+    @Column({ allowNull: false })
     title: string;
 
-    @Column
+    @Column({ type: DataType.JSON })
     message: string;
 
-    @Column
+    @Column({ defaultValue: "<p></p>" })
     message_html: string;
 
     @Column
@@ -33,17 +47,11 @@ export class Notification extends Model {
     sender: string;
 
     @Column
-    triggered_by: string;
+    read_at: Date;
 
     @Column
-    receiver: string;
+    snoozed_till: Date;
 
     @Column
-    read_at: string;
-
-    @Column
-    snoozed_till: string;
-
-    @Column
-    archived_at: string;
+    archived_at: Date;
 }

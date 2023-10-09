@@ -1,13 +1,15 @@
-import { Column, Model, Table } from 'sequelize-typescript';
+import { Column, DataType, ForeignKey, Model, Table } from 'sequelize-typescript';
+import { Issue } from './Issue.entity';
 
 @Table
-export class IssueAttachment extends Model{
-    @Column
+export class IssueAttachment extends Model {
+    @Column({ defaultValue: {}, type: DataType.JSON })
     attributes: string;
-    
-    @Column
+
+    @Column({ allowNull: false })
     asset: string;
 
-    @Column
+    @ForeignKey(() => Issue)
+    @Column({ allowNull: false })
     issue: string;
 }

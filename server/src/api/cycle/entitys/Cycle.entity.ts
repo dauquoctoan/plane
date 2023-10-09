@@ -1,25 +1,28 @@
-import { Column, Model, Table } from 'sequelize-typescript';
+import { Column, DataType, ForeignKey, Length, Model, Table } from 'sequelize-typescript';
+import { User } from 'src/api/user/entitys/User.entity';
 
 @Table
 export class Cycle extends Model {
-    @Column
-    name: string;
+    // @Length({ max: 255 })
+    // @Column({ allowNull: false })
+    // name: string;
 
-    @Column
-    description: string;
+    // @Column({ type: DataType.TEXT })
+    // description: string;
 
-    @Column
-    start_date: string;
+    // @Column
+    // start_date: Date;
 
-    @Column
-    end_date: string;
+    // @Column
+    // end_date: Date;
 
-    @Column
-    owned_by: string;
+    // @ForeignKey(() => User)
+    // @Column
+    // owned_by: string;
 
-    @Column
-    view_props: string;
+    // @Column({ type: DataType.JSON, defaultValue: {} })
+    // view_props: string;
 
-    @Column
-    sort_order: string;
+    // @Column({ defaultValue: 65535, type: DataType.FLOAT })
+    // sort_order: number;
 }

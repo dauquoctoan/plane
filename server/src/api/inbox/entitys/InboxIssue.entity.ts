@@ -1,5 +1,8 @@
-import { Column, ForeignKey, Model, Table } from 'sequelize-typescript';
+import { Column, DataType, ForeignKey, Is, Model, Table } from 'sequelize-typescript';
 import { Inbox } from './Inbox.entiy';
+import { Issue } from 'src/api/issue/entitys/Issue.entity';
+import { ISSUE_STATUS } from 'src/constants/entity-constant';
+import { INVALID_ISSUE_STATUS } from 'src/constants/message-constant';
 
 @Table
 export class InboxIssue extends Model {
@@ -7,18 +10,24 @@ export class InboxIssue extends Model {
     @Column({ allowNull: false })
     inbox: string;
 
-    @Column
+    @ForeignKey(() => Issue)
+    @Column({ allowNull: false })
     issue: string;
 
-    @Column
-    status: string;
+
+    @Is('status', (value) => {
+        if (!ISSUE_STATUS.includes(value)) throw Error(INVALID_ISSUE_STATUS)
+    })
+    @Column({ defaultValue: -2 })
+    status: number;
 
     @Column
-    snoozed_till: string;
+    snoozed_till: Date;
 
+    @ForeignKey(() => Issue)
     @Column
     duplicate_to: string;
 
-    @Column
+    @Column({ type: DataType.TEXT })
     source: string;
 }

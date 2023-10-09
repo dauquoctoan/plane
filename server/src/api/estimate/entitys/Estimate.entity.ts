@@ -1,10 +1,11 @@
-import { Column, Model, Table } from 'sequelize-typescript';
+import { Column, DataType, Length, Model, Table } from 'sequelize-typescript';
 
 @Table
 export class Estimate extends Model {
-    @Column
+    @Length({ max: 255 })
+    @Column({ allowNull: false })
     name: string;
 
-    @Column
+    @Column({ type: DataType.TEXT })
     description: string;
 }

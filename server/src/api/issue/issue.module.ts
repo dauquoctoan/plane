@@ -42,10 +42,14 @@ import { IssueVoteController } from './controller/IssueVote.controller';
 import { LabelController } from './controller/Label.controller';
 import { IssueSubscriberController } from './controller/IssueSubscriber.controller';
 import { CommentReactionController } from './controller/CommentReaction.controller';
+import { IssueRelation } from './entitys/IssueRelation.entity';
+import { IssueSequence } from './entitys/IssueSequence.entity';
 
 @Module({
   imports: [SequelizeModule.forFeature([
     Issue,
+    IssueRelation,
+    IssueSequence,
     CommentReaction,
     IssueActivity,
     IssueAssignee,
@@ -63,6 +67,8 @@ import { CommentReactionController } from './controller/CommentReaction.controll
   providers: [
     CommentReactionService,
     IssueService,
+    // IssueRelation,
+    // IssueSequence,
     IssueActivityService,
     IssueAssigneeService,
     IssueAttachmentService,

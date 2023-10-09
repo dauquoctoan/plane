@@ -1,10 +1,14 @@
-import { Column, Model, Table } from 'sequelize-typescript';
+import { Column, ForeignKey, Model, Table } from 'sequelize-typescript';
+import { User } from 'src/api/user/entitys/User.entity';
+import { Cycle } from './Cycle.entity';
 
 @Table
 export class CycleFavorite extends Model {
-    @Column
-    user: string;
+    // @ForeignKey(() => User)
+    // @Column
+    // user: string;
 
-    @Column
-    cycle: string;
+    // @ForeignKey(() => Cycle)
+    // @Column
+    // cycle: string;
 }

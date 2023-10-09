@@ -1,19 +1,29 @@
-import { Column, Model, Table } from 'sequelize-typescript';
+import sequelize from 'sequelize';
+import { Column, DataType, ForeignKey, Is, Model, Table } from 'sequelize-typescript';
+import { User } from 'src/api/user/entitys/User.entity';
+import { Workspace } from 'src/api/workspace/entitys/Workspace.entity';
+import { USER_TYPE } from 'src/constants/entity-constant';
+import { INVALID_USER_TYPE } from 'src/constants/message-constant';
 
 @Table
 export class APIToken extends Model {
-    @Column
+    @Column({ type: sequelize.UUID, defaultValue: sequelize.UUIDV4 })
     token: string;
 
-    @Column
+    @Column({ type: sequelize.UUID, defaultValue: sequelize.UUIDV4 })
     label: string;
 
+    @ForeignKey(() => User)
     @Column
     user: string;
 
+    @Is('user_type', (value) => {
+        if (!USER_TYPE.includes(value)) throw Error(INVALID_USER_TYPE)
+    })
     @Column
-    user_type: string;
+    user_type: number;
 
+    @ForeignKey(() => Workspace)
     @Column
-    workspace: string;
+    workspace: number;
 }
