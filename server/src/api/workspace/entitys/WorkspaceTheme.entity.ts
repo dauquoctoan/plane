@@ -14,7 +14,7 @@ export class WorkspaceTheme extends Model {
 
     @ForeignKey(() => User)
     @Column({ allowNull: false })
-    actor: number;
+    actor: string;
 
     @Column({ type: DataType.JSON, defaultValue: {} })
     colors: string;

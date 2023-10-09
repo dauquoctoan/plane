@@ -8,7 +8,7 @@ import { INVALID_PROVIDE, INVALID_STATUS } from 'src/constants/message-constant'
 export class ExporterHistory extends Model {
     @ForeignKey(() => Workspace)
     @Column
-    workspace: string;
+    workspace: number;
 
     @Column({ defaultValue: sequelize.UUIDV4, type: sequelize.UUID })
     get project(): string {

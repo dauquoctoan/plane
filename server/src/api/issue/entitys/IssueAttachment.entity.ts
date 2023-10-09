@@ -11,5 +11,5 @@ export class IssueAttachment extends Model {
 
     @ForeignKey(() => Issue)
     @Column({ allowNull: false })
-    issue: string;
+    issue: number;
 }

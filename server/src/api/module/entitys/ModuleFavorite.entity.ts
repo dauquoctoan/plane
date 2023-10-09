@@ -10,5 +10,5 @@ export class ModuleFavorite extends Model {
 
     @ForeignKey((() => Module))
     @Column({ allowNull: false })
-    module: string;
+    module: number;
 }   

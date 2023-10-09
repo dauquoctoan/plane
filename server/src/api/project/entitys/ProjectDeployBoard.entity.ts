@@ -16,7 +16,7 @@ export class ProjectDeployBoard extends Model {
 
     @ForeignKey(() => Inbox)
     @Column
-    inbox: string;
+    inbox: number;
 
     @Column({ defaultValue: false })
     votes: boolean;

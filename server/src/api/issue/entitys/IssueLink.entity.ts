@@ -12,7 +12,7 @@ export class IssueLink extends Model {
 
     @ForeignKey(() => Issue)
     @Column
-    issue: string;
+    issue: number;
 
     @Column({ type: DataType.JSON, defaultValue: {} })
     metadata: string;

@@ -10,6 +10,6 @@ export class IssueViewFavorite extends Model {
 
     @ForeignKey(() => IssueView)
     @Column
-    view: string;
+    view: number;
 }
 

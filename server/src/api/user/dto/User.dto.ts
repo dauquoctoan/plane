@@ -1,5 +1,5 @@
 import { PartialType } from '@nestjs/swagger';
-import { Length, IsJWT, IsJSON, IsMobilePhone, IsBoolean, IsNotEmpty, isEmpty, IsEmpty, IsOptional } from 'class-validator';
+import { Length, IsJWT, IsJSON, IsBoolean, IsNotEmpty, IsOptional } from 'class-validator';
 
 export class CreateUserDto {
     @IsNotEmpty()

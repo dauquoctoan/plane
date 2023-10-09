@@ -11,11 +11,11 @@ export class User extends Model {
     @Column({ type: sequelize.UUID, defaultValue: sequelize.UUIDV4, allowNull: false, primaryKey: true })
     id: number;
 
-    // @BelongsToMany(() => Team, () => TeamMember)
-    // Team: Team[];
+    @BelongsToMany(() => Team, () => TeamMember)
+    Team: Team[];
 
-    // @BelongsToMany(() => Issue, () => IssueAssignee)
-    // issue: Issue[];
+    @BelongsToMany(() => Issue, () => IssueAssignee)
+    issue: Issue[];
 
     @Length({ min: 0, max: 128 })
     @Column({ allowNull: false, unique: true })

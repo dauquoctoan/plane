@@ -5,7 +5,7 @@ import { Estimate } from './Estimate.entity';
 export class EstimatePoint extends Model {
     @ForeignKey(() => Estimate)
     @Column({ allowNull: false })
-    estimate: string;
+    estimate: number;
 
     @Is('key', (value) => {
         if (value > 7 && value < 0) throw Error('The key type must be 0 <= key <= 7');

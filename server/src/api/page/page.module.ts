@@ -7,7 +7,12 @@ import { PageFavorite } from './entitys/PageFavorite.entity';
 import { PageLabel } from './entitys/PageLabel.entity';
 
 @Module({
-  imports: [SequelizeModule.forFeature([Page, PageBlock, PageFavorite, PageLabel])],
+  imports: [SequelizeModule.forFeature([
+    Page,
+    PageBlock,
+    PageFavorite,
+    PageLabel
+  ])],
   providers: [PageService]
 })
 export class PageModule { }

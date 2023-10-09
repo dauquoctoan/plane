@@ -3,26 +3,26 @@ import { User } from 'src/api/user/entitys/User.entity';
 
 @Table
 export class Cycle extends Model {
-    // @Length({ max: 255 })
-    // @Column({ allowNull: false })
-    // name: string;
+    @Length({ max: 255 })
+    @Column({ allowNull: false })
+    name: string;
 
-    // @Column({ type: DataType.TEXT })
-    // description: string;
+    @Column({ type: DataType.TEXT })
+    description: string;
 
-    // @Column
-    // start_date: Date;
+    @Column
+    start_date: Date;
 
-    // @Column
-    // end_date: Date;
+    @Column
+    end_date: Date;
 
-    // @ForeignKey(() => User)
-    // @Column
-    // owned_by: string;
+    @ForeignKey(() => User)
+    @Column
+    owned_by: string;
 
-    // @Column({ type: DataType.JSON, defaultValue: {} })
-    // view_props: string;
+    @Column({ type: DataType.JSON, defaultValue: {} })
+    view_props: string;
 
-    // @Column({ defaultValue: 65535, type: DataType.FLOAT })
-    // sort_order: number;
+    @Column({ defaultValue: 65535, type: DataType.FLOAT })
+    sort_order: number;
 }

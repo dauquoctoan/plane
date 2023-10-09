@@ -5,10 +5,10 @@ import { Page } from './Page.entity';
 @Table
 export class PageLabel extends Model {
     @ForeignKey(() => Label)
-    @Column
+    @Column({ allowNull: false })
     label: number;
 
     @ForeignKey(() => Page)
-    @Column
+    @Column({ allowNull: false })
     page: number;
 }

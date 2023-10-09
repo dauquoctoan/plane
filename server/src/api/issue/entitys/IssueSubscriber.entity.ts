@@ -6,7 +6,7 @@ import { User } from 'src/api/user/entitys/User.entity';
 export class IssueSubscriber extends Model {
     @ForeignKey(() => Issue)
     @Column({ allowNull: false })
-    issue: string;
+    issue: number;
 
     @ForeignKey(() => User)
     @Column({ allowNull: false })

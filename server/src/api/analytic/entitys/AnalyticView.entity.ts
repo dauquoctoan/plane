@@ -5,7 +5,7 @@ import { Workspace } from 'src/api/workspace/entitys/Workspace.entity';
 export class AnalyticView extends Model {
     @ForeignKey(() => Workspace)
     @Column
-    workspace: string;
+    workspace: number;
 
     @Length({ max: 255 })
     @Column({ allowNull: false })

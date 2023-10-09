@@ -8,7 +8,7 @@ import { INVALID_VOTE } from 'src/constants/message-constant';
 export class IssueVote extends Model {
     @ForeignKey(() => Issue)
     @Column({ allowNull: false })
-    issue: string;
+    issue: number;
 
     @ForeignKey(() => User)
     @Column({ allowNull: false })

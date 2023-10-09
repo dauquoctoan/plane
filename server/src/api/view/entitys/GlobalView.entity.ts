@@ -7,7 +7,7 @@ import { INVALID_ACCESS } from 'src/constants/message-constant';
 export class GlobalView extends Model {
     @ForeignKey(() => Workspace)
     @Column({ allowNull: false })
-    workspace: string;
+    workspace: number;
 
     @Length({ min: 0, max: 255 })
     @Column({ allowNull: false })

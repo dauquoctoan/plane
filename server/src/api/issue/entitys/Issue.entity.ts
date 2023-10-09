@@ -10,8 +10,8 @@ import { IssueLabel } from './IssueLabel.entity';
 
 @Table
 export class Issue extends Model {
-    // @HasOne(() => CycleIssue)
-    // cycleIsue: CycleIssue;
+    @HasOne(() => CycleIssue, 'id')
+    cycleIsue: CycleIssue;
 
     @Is('PRIORITY_CHOICES', (value) => {
         if (!PRIORITY.includes(value)) throw Error(INVALID_PRIORITY)
@@ -19,13 +19,16 @@ export class Issue extends Model {
     @Column
     PRIORITY_CHOICES: string;
 
+    // @BelongsToMany(() => Label, () => IssueLabel)
+    // labels: Label[];
+
     @ForeignKey(() => Issue)
     @Column
-    parent: string;
+    parent: number;
 
     @ForeignKey(() => State)
     @Column
-    state: string;
+    state: number;
 
     @Is('estimate_point', (value) => {
         if (value > 7 && value < 0) throw Error('0 <= estimate_point <= 7')
@@ -63,9 +66,6 @@ export class Issue extends Model {
 
     @Column({ defaultValue: 1 })
     sequence_id: number;
-
-    @BelongsToMany(() => Label, () => IssueLabel)
-    labels: Label[];
 
     @Column({ defaultValue: 65535 })
     sort_order: number;

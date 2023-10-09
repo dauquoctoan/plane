@@ -35,7 +35,7 @@ export class Importer extends Model {
 
     @ForeignKey(() => APIToken)
     @Column
-    token: string;
+    token: number;
 
     @Column({ type: DataType.JSON })
     imported_data: string;

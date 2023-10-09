@@ -12,7 +12,7 @@ export class WorkspaceMember extends Model {
 
     @ForeignKey(() => User)
     @Column({ allowNull: false })
-    member: number;
+    member: string;
 
     @Is('role', (value) => {
         if (!ROLE.includes(value)) {

@@ -11,5 +11,5 @@ export class FileAsset extends Model {
 
     @ForeignKey(() => Workspace)
     @Column
-    workspace: string;
+    workspace: number;
 }

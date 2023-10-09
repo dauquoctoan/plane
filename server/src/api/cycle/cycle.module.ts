@@ -11,7 +11,11 @@ import { CycleFavoriteController } from './controller/CycleFavorite.entity';
 import { CycleIssueController } from './controller/CycleIssue.entity';
 
 @Module({
-  imports: [SequelizeModule.forFeature([Cycle, CycleIssue, CycleFavorite])],
+  imports: [SequelizeModule.forFeature([
+    Cycle,
+    CycleIssue,
+    CycleFavorite
+  ])],
   providers: [CycleService, CycleFavoriteService, CycleIssueService],
   controllers: [CycleController, CycleFavoriteController, CycleIssueController]
 })

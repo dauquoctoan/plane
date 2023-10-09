@@ -6,9 +6,9 @@ import { Label } from './Label.entity';
 export class IssueLabel extends Model {
     @ForeignKey(() => Issue)
     @Column({ allowNull: false })
-    issue: string;
+    issue: number;
 
     @ForeignKey(() => Label)
     @Column({ allowNull: false })
-    label: string;
+    label: number;
 }

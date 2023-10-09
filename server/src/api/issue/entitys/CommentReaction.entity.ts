@@ -10,7 +10,7 @@ export class CommentReaction extends Model {
 
     @ForeignKey((() => IssueComment))
     @Column
-    comment: string;
+    comment: number;
 
     @Length({ max: 255 })
     @Column

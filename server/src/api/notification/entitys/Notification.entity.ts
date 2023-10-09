@@ -8,11 +8,11 @@ import { Workspace } from 'src/api/workspace/entitys/Workspace.entity';
 export class Notification extends Model {
     @ForeignKey(() => Workspace)
     @Column({ allowNull: false })
-    workspace: string;
+    workspace: number;
 
     @ForeignKey(() => Project)
     @Column
-    project: string;
+    project: number;
 
     @ForeignKey(() => User)
     @Column

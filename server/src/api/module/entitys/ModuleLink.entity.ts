@@ -11,7 +11,7 @@ export class ModuleLink extends Model {
 
     @ForeignKey(() => Module)
     @Column
-    module: string;
+    module: number;
 
     @Column({ type: DataType.JSON, defaultValue: {} })
     metadata: string;

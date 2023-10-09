@@ -15,4 +15,5 @@ import { TeamMemberController } from './controller/TeamMember.controller';
   providers: [WorkspaceService, TeamService, TeamMemberService],
   controllers: [WorkspaceController, TeamController, TeamMemberController]
 })
+
 export class WorkspaceModule { }

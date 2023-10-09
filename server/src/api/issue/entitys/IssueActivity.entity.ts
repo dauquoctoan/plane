@@ -8,7 +8,7 @@ import sequelize from 'sequelize';
 export class IssueActivity extends Model {
     @ForeignKey(() => Issue)
     @Column
-    issue: string;
+    issue: number;
 
     @Length({ max: 255 })
     @Column({ defaultValue: "created" })
@@ -32,7 +32,7 @@ export class IssueActivity extends Model {
 
     @ForeignKey((() => IssueComment))
     @Column
-    issue_comment: string;
+    issue_comment: number;
 
     @ForeignKey(() => User)
     @Column

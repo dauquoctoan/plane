@@ -4,11 +4,11 @@ import { Cycle } from './Cycle.entity';
 
 @Table
 export class CycleIssue extends Model {
-    // @BelongsTo(() => Issue)
-    // @Column
-    // issue: number;
+    @BelongsTo(() => Issue)
+    @Column
+    issue: number;
 
-    // @ForeignKey(() => Cycle)
-    // @Column
-    // cycle: string;
+    @ForeignKey(() => Cycle)
+    @Column
+    cycle: number;
 }

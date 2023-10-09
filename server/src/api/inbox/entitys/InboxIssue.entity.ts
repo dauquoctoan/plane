@@ -8,11 +8,11 @@ import { INVALID_ISSUE_STATUS } from 'src/constants/message-constant';
 export class InboxIssue extends Model {
     @ForeignKey(() => Inbox)
     @Column({ allowNull: false })
-    inbox: string;
+    inbox: number;
 
     @ForeignKey(() => Issue)
     @Column({ allowNull: false })
-    issue: string;
+    issue: number;
 
 
     @Is('status', (value) => {
@@ -26,7 +26,7 @@ export class InboxIssue extends Model {
 
     @ForeignKey(() => Issue)
     @Column
-    duplicate_to: string;
+    duplicate_to: number;
 
     @Column({ type: DataType.TEXT })
     source: string;
