@@ -5,9 +5,9 @@ import { Issue } from './Issue.entity';
 export class IssueBlocker extends Model {
     @ForeignKey(() => Issue)
     @Column
-    block: string;
+    block: number;
 
     @ForeignKey(() => Issue)
     @Column
-    blocked_by: string;
+    blocked_by: number;
 }

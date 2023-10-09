@@ -6,7 +6,7 @@ import { User } from 'src/api/user/entitys/User.entity';
 export class IssueAssignee extends Model {
     @ForeignKey(() => Issue)
     @Column
-    issue: string;
+    issue: number;
 
     @ForeignKey(() => User)
     @Column

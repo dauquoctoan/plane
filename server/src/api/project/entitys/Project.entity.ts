@@ -1,13 +1,17 @@
-import { BelongsTo, Column, DataType, ForeignKey, Is, Length, Model, PrimaryKey, Table } from 'sequelize-typescript';
+import { BelongsTo, Column, DataType, ForeignKey, HasOne, Is, Length, Model, PrimaryKey, Table } from 'sequelize-typescript';
 import { Estimate } from 'src/api/estimate/entitys/Estimate.entity';
 import { State } from 'src/api/state/entitys/State.entity';
 import { User } from 'src/api/user/entitys/User.entity';
 import { Workspace } from 'src/api/workspace/entitys/Workspace.entity';
 import { NETWORK } from 'src/constants/entity-constant';
 import { INVALID_NETWORK } from 'src/constants/message-constant';
+import { ProjectIdentifier } from './ProjectIdentifier.entity';
 
 @Table
 export class Project extends Model {
+    // @HasOne(() => ProjectIdentifier)
+    // projectIdentifier: ProjectIdentifier;
+
     @ForeignKey(() => Estimate)
     @Column({ allowNull: false })
     estimate: number;
@@ -28,60 +32,60 @@ export class Project extends Model {
     @Column({ allowNull: false })
     workspace: number;
 
-    @Length({ min: 0, max: 225 })
-    @Column({ allowNull: false })
-    name: string;
+    // @Length({ min: 0, max: 225 })
+    // @Column({ allowNull: false })
+    // name: string;
 
-    @Column
-    description: string;
+    // @Column
+    // description: string;
 
-    @Column({ type: DataType.JSON })
-    description_text: string;
+    // @Column({ type: DataType.JSON })
+    // description_text: string;
 
-    @Column({ type: DataType.JSON })
-    description_html: string;
+    // @Column({ type: DataType.JSON })
+    // description_html: string;
 
-    @Is('network', (value) => {
-        if (!NETWORK.includes(value)) {
-            throw new Error(INVALID_NETWORK);
-        }
-    })
-    @Column({ defaultValue: 1 })
-    network: string;
+    // @Is('network', (value) => {
+    //     if (!NETWORK.includes(value)) {
+    //         throw new Error(INVALID_NETWORK);
+    //     }
+    // })
+    // @Column({ defaultValue: 1 })
+    // network: string;
 
-    @Length({ max: 12 })
-    @Column({ allowNull: false })
-    identifier: string;
+    // @Length({ max: 12 })
+    // @Column({ allowNull: false })
+    // identifier: string;
 
-    @Length({ min: 0, max: 225 })
-    @Column
-    emoji: string;
+    // @Length({ min: 0, max: 225 })
+    // @Column
+    // emoji: string;
 
-    @Column({ type: DataType.JSON })
-    icon_prop: string;
+    // @Column({ type: DataType.JSON })
+    // icon_prop: string;
 
-    @Column({ defaultValue: true })
-    module_view: boolean;
+    // @Column({ defaultValue: true })
+    // module_view: boolean;
 
-    @Column({ defaultValue: true })
-    cycle_view: boolean;
+    // @Column({ defaultValue: true })
+    // cycle_view: boolean;
 
-    @Column({ defaultValue: true })
-    issue_views_view: boolean;
+    // @Column({ defaultValue: true })
+    // issue_views_view: boolean;
 
-    @Column({ defaultValue: true })
-    page_view: boolean;
+    // @Column({ defaultValue: true })
+    // page_view: boolean;
 
-    @Column({ defaultValue: true })
-    inbox_view: boolean;
+    // @Column({ defaultValue: true })
+    // inbox_view: boolean;
 
-    @Length({ max: 800 })
-    @Column({ type: DataType.TEXT })
-    cover_image: string;
+    // @Length({ max: 800 })
+    // @Column({ type: DataType.TEXT })
+    // cover_image: string;
 
-    @Column({ defaultValue: 0, type: DataType.INTEGER })
-    archive_in: number;
+    // @Column({ defaultValue: 0, type: DataType.INTEGER })
+    // archive_in: number;
 
-    @Column({ defaultValue: 0, type: DataType.INTEGER })
-    close_in: number;
+    // @Column({ defaultValue: 0, type: DataType.INTEGER })
+    // close_in: number;
 }

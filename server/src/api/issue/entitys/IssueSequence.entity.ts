@@ -8,9 +8,9 @@ export class IssueSequence extends Model {
     @Column
     issue: number;
 
-    @Column({ type: DataType.BIGINT })
-    sequence: number;
+    // @Column({ type: DataType.BIGINT })
+    // sequence: number;
 
-    @Column({ defaultValue: false })
-    deleted: boolean;
+    // @Column({ defaultValue: false })
+    // deleted: boolean;
 }

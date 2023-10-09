@@ -7,23 +7,23 @@ import { INVALID_USER_TYPE } from 'src/constants/message-constant';
 
 @Table
 export class APIToken extends Model {
-    @Column({ type: sequelize.UUID, defaultValue: sequelize.UUIDV4 })
-    token: string;
-
-    @Column({ type: sequelize.UUID, defaultValue: sequelize.UUIDV4 })
-    label: string;
+    @ForeignKey(() => Workspace)
+    @Column
+    workspace: number;
 
     @ForeignKey(() => User)
     @Column
     user: string;
 
-    @Is('user_type', (value) => {
-        if (!USER_TYPE.includes(value)) throw Error(INVALID_USER_TYPE)
-    })
-    @Column
-    user_type: number;
+    // @Column({ type: sequelize.UUID, defaultValue: sequelize.UUIDV4 })
+    // token: string;
 
-    @ForeignKey(() => Workspace)
-    @Column
-    workspace: number;
+    // @Column({ type: sequelize.UUID, defaultValue: sequelize.UUIDV4 })
+    // label: string;
+
+    // @Is('user_type', (value) => {
+    //     if (!USER_TYPE.includes(value)) throw Error(INVALID_USER_TYPE)
+    // })
+    // @Column
+    // user_type: number;
 }

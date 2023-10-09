@@ -8,8 +8,8 @@ import { InjectModel } from '@nestjs/sequelize';
 @Injectable()
 export class ProjectDeployBoardService extends BaseService {
     constructor(
-        @InjectModel(ProjectDeployBoard) public projectDeployBoard: Repository<ProjectDeployBoard>,
+        @InjectModel(ProjectDeployBoard) public repository: Repository<ProjectDeployBoard>,
     ) {
-        super(projectDeployBoard);
+        super(repository);
     }
 }

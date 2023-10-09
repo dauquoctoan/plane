@@ -6,62 +6,13 @@ import { messageCreateErorr, messageDeleteErorr, messageFindErorr, messageUpdate
 import { TeamMember } from '../entitys/TeamMember.entity';
 import { CreateTeamMemberDto, UpdateTeamMemberDto } from '../dto/TeamMember.dto';
 import { InjectModel } from '@nestjs/sequelize';
+import { BaseService } from 'src/api/Base.service';
 
 @Injectable()
-export class TeamMemberService {
+export class TeamMemberService extends BaseService {
   constructor(
-    @InjectModel(TeamMember) public teamMemberRepository: Repository<TeamMember>,
-  ) { }
-  /* TeamMember */
-  async createTeamMember(teamMember: CreateTeamMemberDto) {
-    try {
-      const result = await this.teamMemberRepository.create({ ...teamMember });
-      return handleResultSuccess(result);
-    } catch (error) {
-      handleResultError({ message: messageCreateErorr('TeamMember'), messageDetail: error });
-    }
-  }
-
-  async findAllTeamMember() {
-    try {
-      const result = await this.teamMemberRepository.findAll();
-      return handleResultSuccess(result);
-    } catch (error) {
-      handleResultError({ message: messageFindErorr('TeamMember'), messageDetail: error });
-    }
-  }
-
-  async findOneTeamMember(condition: any) {
-    try {
-      const result = await this.teamMemberRepository.findOne({ where: { ...condition } });
-      return handleResultSuccess(result);
-    } catch (error) {
-      handleResultError({ message: messageFindErorr('TeamMember'), messageDetail: error });
-    }
-  }
-
-  async updateTeamMember(id: number, teamUpdte: UpdateTeamMemberDto) {
-    try {
-      const result = await this.teamMemberRepository.update({
-        teamUpdte
-      },
-        { where: { id } })
-      return handleResultSuccess(result);
-    } catch (error) {
-      handleResultError({ message: messageUpdateErorr('TeamMember'), messageDetail: error });
-    }
-  }
-
-  async removeTeamMember(condition: any) {
-    console.log('===============')
-    console.log('========', condition, '=======')
-    console.log('===============')
-
-    try {
-      const result = await this.teamMemberRepository.destroy({ where: { ...condition } });
-      return handleResultSuccess(result);
-    } catch (error) {
-      handleResultError({ message: messageDeleteErorr('TeamMember'), messageDetail: error });
-    }
+    @InjectModel(TeamMember) public repository: Repository<TeamMember>,
+  ) {
+    super(repository)
   }
 }

@@ -6,30 +6,6 @@ import sequelize from 'sequelize';
 
 @Table
 export class IssueActivity extends Model {
-    @ForeignKey(() => Issue)
-    @Column
-    issue: string;
-
-    @Length({ max: 255 })
-    @Column({ defaultValue: "created" })
-    verb: string;
-
-    @Length({ max: 255 })
-    @Column
-    field: string;
-
-    @Column
-    old_value: string;
-
-    @Column
-    new_value: string;
-
-    @Column
-    comment: string;
-
-    @Column
-    attachments: string;
-
     @ForeignKey((() => IssueComment))
     @Column
     issue_comment: string;
@@ -38,12 +14,36 @@ export class IssueActivity extends Model {
     @Column
     actor: string;
 
-    @Column({ type: sequelize.UUID })
-    old_identifier: string;
-
-    @Column({ type: sequelize.UUID })
-    new_identifier: string;
-
+    @ForeignKey(() => Issue)
     @Column
-    epoch: number;
+    issue: number;
+
+    // @Length({ max: 255 })
+    // @Column({ defaultValue: "created" })
+    // verb: string;
+
+    // @Length({ max: 255 })
+    // @Column
+    // field: string;
+
+    // @Column
+    // old_value: string;
+
+    // @Column
+    // new_value: string;
+
+    // @Column
+    // comment: string;
+
+    // @Column
+    // attachments: string;
+
+    // @Column({ type: sequelize.UUID })
+    // old_identifier: string;
+
+    // @Column({ type: sequelize.UUID })
+    // new_identifier: string;
+
+    // @Column
+    // epoch: number;
 }

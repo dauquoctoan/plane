@@ -8,13 +8,13 @@ export class WorkspaceTheme extends Model {
     @Column({ allowNull: false })
     workspace: number;
 
-    @Length({ min: 0, max: 300 })
-    @Column({ type: DataType.TEXT })
-    name: string;
-
     @ForeignKey(() => User)
     @Column({ allowNull: false })
     actor: number;
+
+    @Length({ min: 0, max: 300 })
+    @Column({ type: DataType.TEXT })
+    name: string;
 
     @Column({ type: DataType.JSON, defaultValue: {} })
     colors: string;

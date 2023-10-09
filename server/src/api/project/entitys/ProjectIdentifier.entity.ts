@@ -6,13 +6,13 @@ import { Project } from './Project.entity';
 export class ProjectIdentifier extends Model {
     @ForeignKey(() => Workspace)
     @Column({ allowNull: true })
-    workspace: string;
+    workspace: number;
 
-    @BelongsTo(() => Project)
-    @Column
-    project: Project;
+    // @BelongsTo(() => Project)
+    // @Column
+    // project: Project;
 
-    @Length({ max: 12 })
-    @Column
-    name: string;
+    // @Length({ max: 12 })
+    // @Column
+    // name: string;
 }

@@ -6,18 +6,6 @@ import { INVALID_ISSUE_ACCESS } from 'src/constants/message-constant';
 
 @Table
 export class IssueComment extends Model {
-    @Column
-    comment_stripped: string;
-
-    @Column({ defaultValue: {}, type: DataType.JSON })
-    comment_json: string;
-
-    @Column({ defaultValue: '<p></p>' })
-    comment_html: string;
-
-    @Column
-    attachments: string;
-
     @ForeignKey(() => Issue)
     @Column
     issue: number;
@@ -26,9 +14,21 @@ export class IssueComment extends Model {
     @Column
     actor: string;
 
-    @Is('access', (value) => {
-        if (!ISSUE_ACCESS.includes(value)) throw Error(INVALID_ISSUE_ACCESS)
-    })
-    @Column
-    access: string;
+    // @Column
+    // comment_stripped: string;
+
+    // @Column({ defaultValue: {}, type: DataType.JSON })
+    // comment_json: string;
+
+    // @Column({ defaultValue: '<p></p>' })
+    // comment_html: string;
+
+    // @Column
+    // attachments: string;
+
+    // @Is('access', (value) => {
+    //     if (!ISSUE_ACCESS.includes(value)) throw Error(INVALID_ISSUE_ACCESS)
+    // })
+    // @Column
+    // access: string;
 }

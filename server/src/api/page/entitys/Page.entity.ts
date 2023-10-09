@@ -7,32 +7,32 @@ import { PageLabel } from './PageLabel.entity';
 
 @Table
 export class Page extends Model {
-    @Length({ max: 255 })
-    @Column({ allowNull: false })
-    name: string;
-
-    @BelongsToMany(() => Label, () => PageLabel)
-    labels: Label[];
-
     @ForeignKey(() => User)
     @Column
     owned_by: string;
 
-    @Column({ defaultValue: {} })
-    description: string;
+    @BelongsToMany(() => Label, () => PageLabel)
+    labels: Label[];
 
-    @Column({ defaultValue: '<p></p>' })
-    description_html: string;
+    // @Length({ max: 255 })
+    // @Column({ allowNull: false })
+    // name: string;
 
-    @Column({ type: DataType.TEXT })
-    description_stripped: string;
+    // @Column({ defaultValue: {} })
+    // description: string;
 
-    @Is('access', (value) => {
-        if (!ACCESS.includes(value)) throw Error(INVALID_ACCESS);
-    })
-    @Column
-    access: string;
+    // @Column({ defaultValue: '<p></p>' })
+    // description_html: string;
 
-    @Column
-    color: string;
+    // @Column({ type: DataType.TEXT })
+    // description_stripped: string;
+
+    // @Is('access', (value) => {
+    //     if (!ACCESS.includes(value)) throw Error(INVALID_ACCESS);
+    // })
+    // @Column
+    // access: string;
+
+    // @Column
+    // color: string;
 }

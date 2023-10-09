@@ -3,13 +3,13 @@ import { Issue } from './Issue.entity';
 
 @Table
 export class IssueAttachment extends Model {
-    @Column({ defaultValue: {}, type: DataType.JSON })
-    attributes: string;
-
-    @Column({ allowNull: false })
-    asset: string;
-
     @ForeignKey(() => Issue)
     @Column({ allowNull: false })
-    issue: string;
+    issue: number;
+
+    // @Column({ defaultValue: {}, type: DataType.JSON })
+    // attributes: string;
+
+    // @Column({ allowNull: false })
+    // asset: string;
 }

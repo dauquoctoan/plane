@@ -8,26 +8,25 @@ import { INVALID_ISSUE_STATUS } from 'src/constants/message-constant';
 export class InboxIssue extends Model {
     @ForeignKey(() => Inbox)
     @Column({ allowNull: false })
-    inbox: string;
+    inbox: number;
 
     @ForeignKey(() => Issue)
     @Column({ allowNull: false })
-    issue: string;
-
-
-    @Is('status', (value) => {
-        if (!ISSUE_STATUS.includes(value)) throw Error(INVALID_ISSUE_STATUS)
-    })
-    @Column({ defaultValue: -2 })
-    status: number;
-
-    @Column
-    snoozed_till: Date;
+    issue: number;
 
     @ForeignKey(() => Issue)
     @Column
-    duplicate_to: string;
+    duplicate_to: number;
 
-    @Column({ type: DataType.TEXT })
-    source: string;
+    // @Is('status', (value) => {
+    //     if (!ISSUE_STATUS.includes(value)) throw Error(INVALID_ISSUE_STATUS)
+    // })
+    // @Column({ defaultValue: -2 })
+    // status: number;
+
+    // @Column
+    // snoozed_till: Date;
+
+    // @Column({ type: DataType.TEXT })
+    // source: string;
 }

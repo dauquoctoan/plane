@@ -6,9 +6,9 @@ import { Issue } from 'src/api/issue/entitys/Issue.entity';
 export class ModuleIssue extends Model {
     @ForeignKey(() => Module)
     @Column({ allowNull: false })
-    module: string;
+    module: number;
 
     @ForeignKey((() => Issue))
     @Column({ allowNull: false })
-    issue: string;
+    issue: number;
 }

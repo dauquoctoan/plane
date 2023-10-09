@@ -3,16 +3,16 @@ import { Module } from './Module.entity';
 
 @Table
 export class ModuleLink extends Model {
-    @Column
-    title: string;
-
-    @Column
-    url: string;
-
     @ForeignKey(() => Module)
     @Column
-    module: string;
+    module: number;
 
-    @Column({ type: DataType.JSON, defaultValue: {} })
-    metadata: string;
+    // @Column
+    // title: string;
+
+    // @Column
+    // url: string;
+
+    // @Column({ type: DataType.JSON, defaultValue: {} })
+    // metadata: string;
 }

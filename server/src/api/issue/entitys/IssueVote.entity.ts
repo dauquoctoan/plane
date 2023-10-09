@@ -8,15 +8,15 @@ import { INVALID_VOTE } from 'src/constants/message-constant';
 export class IssueVote extends Model {
     @ForeignKey(() => Issue)
     @Column({ allowNull: false })
-    issue: string;
+    issue: number;
 
     @ForeignKey(() => User)
     @Column({ allowNull: false })
     actor: string;
 
-    @Is('vote', (value) => {
-        if (!VOTE.includes(value)) throw Error(INVALID_VOTE)
-    })
-    @Column({ defaultValue: 1 })
-    vote: string;
+    // @Is('vote', (value) => {
+    //     if (!VOTE.includes(value)) throw Error(INVALID_VOTE)
+    // })
+    // @Column({ defaultValue: 1 })
+    // vote: string;
 }

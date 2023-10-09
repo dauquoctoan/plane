@@ -5,30 +5,6 @@ import { INVALID_MODULE_STATUS, INVALID_STATUS } from 'src/constants/message-con
 
 @Table
 export class Module extends Model {
-    @Column({ allowNull: false })
-    name: string;
-
-    @Column
-    description: string;
-
-    @Column({ type: DataType.JSON })
-    description_text: string;
-
-    @Column({ type: DataType.JSON })
-    description_html: string;
-
-    @Column
-    start_date: Date;
-
-    @Column
-    target_date: Date;
-
-    @Is('status', (value) => {
-        if (!MODULE_STATUS.includes(value)) throw Error(INVALID_MODULE_STATUS)
-    })
-    @Column({ defaultValue: 'planned' })
-    status: string;
-
     @ForeignKey(() => User)
     @Column({ allowNull: false })
     lead: string;
@@ -37,9 +13,33 @@ export class Module extends Model {
     @Column
     members: string;
 
-    @Column({ type: DataType.JSON, defaultValue: {} })
-    view_props: string;
+    // @Column({ allowNull: false })
+    // name: string;
 
-    @Column({ type: DataType.FLOAT })
-    sort_order: number;
+    // @Column
+    // description: string;
+
+    // @Column({ type: DataType.JSON })
+    // description_text: string;
+
+    // @Column({ type: DataType.JSON })
+    // description_html: string;
+
+    // @Column
+    // start_date: Date;
+
+    // @Column
+    // target_date: Date;
+
+    // @Is('status', (value) => {
+    //     if (!MODULE_STATUS.includes(value)) throw Error(INVALID_MODULE_STATUS)
+    // })
+    // @Column({ defaultValue: 'planned' })
+    // status: string;
+
+    // @Column({ type: DataType.JSON, defaultValue: {} })
+    // view_props: string;
+
+    // @Column({ type: DataType.FLOAT })
+    // sort_order: number;
 }

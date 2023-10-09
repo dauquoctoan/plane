@@ -3,9 +3,13 @@ import { User } from 'src/api/user/entitys/User.entity';
 
 @Table
 export class Cycle extends Model {
-    // @Length({ max: 255 })
-    // @Column({ allowNull: false })
-    // name: string;
+    @Length({ max: 255 })
+    @Column({ allowNull: false })
+    name: string;
+
+    @ForeignKey(() => User)
+    @Column
+    owned_by: string;
 
     // @Column({ type: DataType.TEXT })
     // description: string;
@@ -15,10 +19,6 @@ export class Cycle extends Model {
 
     // @Column
     // end_date: Date;
-
-    // @ForeignKey(() => User)
-    // @Column
-    // owned_by: string;
 
     // @Column({ type: DataType.JSON, defaultValue: {} })
     // view_props: string;

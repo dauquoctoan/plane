@@ -13,25 +13,25 @@ export class PageBlock extends Model {
     @Column
     issue: number;
 
-    @Length({ max: 225 })
-    @Column({ allowNull: false })
-    name: string;
+    // @Length({ max: 225 })
+    // @Column({ allowNull: false })
+    // name: string;
 
-    @Column({ defaultValue: {} })
-    description: string;
+    // @Column({ defaultValue: {} })
+    // description: string;
 
-    @Column({ defaultValue: '<p></p>' })
-    description_html: string;
+    // @Column({ defaultValue: '<p></p>' })
+    // description_html: string;
 
-    @Column
-    description_stripped: string;
+    // @Column
+    // description_stripped: string;
 
-    @Column
-    completed_at: Date;
+    // @Column
+    // completed_at: Date;
 
-    @Column({ defaultValue: SORT_ORDER })
-    sort_order: string;
+    // @Column({ defaultValue: SORT_ORDER })
+    // sort_order: string;
 
-    @Column({ defaultValue: true })
-    sync: boolean;
+    // @Column({ defaultValue: true })
+    // sync: boolean;
 }

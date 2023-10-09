@@ -21,16 +21,16 @@ import { EstimateModule } from './estimate/estimate.module';
     imports: [
         StateModule,
         UserModule,
-        // ProjectModule,
-        //PageModule,
-        NotificationModule,
+        // ProjectModule,//
+        PageModule,
+        // NotificationModule,//
         ModuleModule,
-        //IssueModule,
+        IssueModule,
         InboxModule,
         ImporterModule,
         ExporterModule,
         EstimateModule,
-        CycleModule,
+        // CycleModule,//
         AssetModule,
         ApiTokenModule,
         AnalyticModule,

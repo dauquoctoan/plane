@@ -10,26 +10,26 @@ export class WorkspaceController {
   constructor(private readonly workspaceService: WorkspaceService) { }
   @Post()
   createWorkSpace(@Body() createWorkspaceDto: CreateWorkspaceDto) {
-    return this.workspaceService.createWorkSpace(createWorkspaceDto);
+    return this.workspaceService.create(createWorkspaceDto);
   }
 
   @Get()
   findAllWorkSpace() {
-    return this.workspaceService.findAllWorkSpace();
+    return this.workspaceService.findAll();
   }
 
   @Get(":id")
   findOneWorkSpace(@Param('id') id: string) {
-    return this.workspaceService.findOneWorkSpace(+id);
+    return this.workspaceService.findOne(+id);
   }
 
   @Patch(":id")
   updateWorkSpace(@Param('id') id: string, @Body() updateWorkspaceDto: UpdateWorkspaceDto) {
-    return this.workspaceService.updateWorkSpace(+id, updateWorkspaceDto);
+    return this.workspaceService.updateById(+id, updateWorkspaceDto);
   }
 
   @Delete(":id")
   removeWorkSpace(@Param('id') id: string) {
-    return this.workspaceService.removeWorkSpace(+id);
+    return this.workspaceService.removeById(+id);
   }
 }

@@ -8,7 +8,7 @@ export class CycleIssue extends Model {
     // @Column
     // issue: number;
 
-    // @ForeignKey(() => Cycle)
-    // @Column
-    // cycle: string;
+    @ForeignKey(() => Cycle)
+    @Column
+    cycle: number;
 }
