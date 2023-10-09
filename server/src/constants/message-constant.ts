@@ -12,3 +12,4 @@ export const INVALID_RELATION = 'The STATUS type must be "duplicate", "relates_t
 export const INVALID_VOTE = 'The STATUS type must be -1, 1';
 export const INVALID_ISSUE_ACCESS = 'The STATUS type must be "INTERNAL", "EXTERNAL"';
 export const INVALID_MODULE_STATUS = 'The STATUS type must be "backlog", "planned", "in-progress", "paused", "completed", "cancelled"';
+export const INVALID_GROUP = "The STATUS type must be 'backlog', 'unstarted', 'started', 'completed', 'cancelled'";

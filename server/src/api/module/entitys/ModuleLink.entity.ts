@@ -7,12 +7,12 @@ export class ModuleLink extends Model {
     @Column
     module: number;
 
-    // @Column
-    // title: string;
+    @Column
+    title: string;
 
-    // @Column
-    // url: string;
+    @Column
+    url: string;
 
-    // @Column({ type: DataType.JSON, defaultValue: {} })
-    // metadata: string;
+    @Column({ type: DataType.JSON, defaultValue: {} })
+    metadata: string;
 }

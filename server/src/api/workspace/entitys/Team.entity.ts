@@ -5,12 +5,12 @@ import { Workspace } from './Workspace.entity';
 
 @Table
 export class Team extends Model {
-    // @Length({ min: 0, max: 225 })
-    // @Column({ allowNull: false })
-    // name: string;
+    @Length({ min: 0, max: 225 })
+    @Column({ allowNull: false })
+    name: string;
 
-    // @Column({ type: DataType.TEXT })
-    // description: string;
+    @Column({ type: DataType.TEXT })
+    description: string;
 
     @BelongsToMany(() => User, () => TeamMember)
     members: User[];

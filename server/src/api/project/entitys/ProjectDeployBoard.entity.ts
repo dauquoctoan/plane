@@ -10,18 +10,18 @@ export class ProjectDeployBoard extends Model {
     @Column
     inbox: number;
 
-    // @Column({ defaultValue: UUIDV4, type: sequelize.UUID })
-    // anchor: string;
+    @Column({ defaultValue: UUIDV4, type: sequelize.UUID })
+    anchor: string;
 
-    // @Column({ defaultValue: false })
-    // comments: boolean;
+    @Column({ defaultValue: false })
+    comments: boolean;
 
-    // @Column({ defaultValue: false })
-    // reactions: boolean;
+    @Column({ defaultValue: false })
+    reactions: boolean;
 
-    // @Column({ defaultValue: false })
-    // votes: boolean;
+    @Column({ defaultValue: false })
+    votes: boolean;
 
-    // @Column({ type: DataType.JSON, defaultValue: DEFAULT_VIEWS })
-    // views: string;
+    @Column({ type: DataType.JSON, defaultValue: DEFAULT_VIEWS })
+    views: string;
 }

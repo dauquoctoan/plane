@@ -13,33 +13,33 @@ export class Module extends Model {
     @Column
     members: string;
 
-    // @Column({ allowNull: false })
-    // name: string;
+    @Column({ allowNull: false })
+    name: string;
 
-    // @Column
-    // description: string;
+    @Column
+    description: string;
 
-    // @Column({ type: DataType.JSON })
-    // description_text: string;
+    @Column({ type: DataType.JSON })
+    description_text: string;
 
-    // @Column({ type: DataType.JSON })
-    // description_html: string;
+    @Column({ type: DataType.JSON })
+    description_html: string;
 
-    // @Column
-    // start_date: Date;
+    @Column
+    start_date: Date;
 
-    // @Column
-    // target_date: Date;
+    @Column
+    target_date: Date;
 
-    // @Is('status', (value) => {
-    //     if (!MODULE_STATUS.includes(value)) throw Error(INVALID_MODULE_STATUS)
-    // })
-    // @Column({ defaultValue: 'planned' })
-    // status: string;
+    @Is('status', (value) => {
+        if (!MODULE_STATUS.includes(value)) throw Error(INVALID_MODULE_STATUS)
+    })
+    @Column({ defaultValue: 'planned' })
+    status: string;
 
-    // @Column({ type: DataType.JSON, defaultValue: {} })
-    // view_props: string;
+    @Column({ type: DataType.JSON, defaultValue: {} })
+    view_props: string;
 
-    // @Column({ type: DataType.FLOAT })
-    // sort_order: number;
+    @Column({ type: DataType.FLOAT })
+    sort_order: number;
 }

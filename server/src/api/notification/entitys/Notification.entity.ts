@@ -22,36 +22,36 @@ export class Notification extends Model {
     @Column({ allowNull: false })
     receiver: string;
 
-    // @Column({ type: DataType.JSON })
-    // data: string;
+    @Column({ type: DataType.JSON })
+    data: string;
 
-    // @Column({ type: sequelize.UUID, defaultValue: sequelize.UUIDV4, })
-    // entity_identifier: string;
+    @Column({ type: sequelize.UUID, defaultValue: sequelize.UUIDV4, })
+    entity_identifier: string;
 
-    // @Column({ allowNull: false })
-    // entity_name: string;
+    @Column({ allowNull: false })
+    entity_name: string;
 
-    // @Column({ allowNull: false })
-    // title: string;
+    @Column({ allowNull: false })
+    title: string;
 
-    // @Column({ type: DataType.JSON })
-    // message: string;
+    @Column({ type: DataType.JSON })
+    message: string;
 
-    // @Column({ defaultValue: "<p></p>" })
-    // message_html: string;
+    @Column({ defaultValue: "<p></p>" })
+    message_html: string;
 
-    // @Column
-    // message_stripped: string;
+    @Column
+    message_stripped: string;
 
-    // @Column
-    // sender: string;
+    @Column
+    sender: string;
 
-    // @Column
-    // read_at: Date;
+    @Column
+    read_at: Date;
 
-    // @Column
-    // snoozed_till: Date;
+    @Column
+    snoozed_till: Date;
 
-    // @Column
-    // archived_at: Date;
+    @Column
+    archived_at: Date;
 }

@@ -12,7 +12,7 @@ export class ProjectIdentifier extends Model {
     // @Column
     // project: Project;
 
-    // @Length({ max: 12 })
-    // @Column
-    // name: string;
+    @Length({ max: 12 })
+    @Column
+    name: string;
 }

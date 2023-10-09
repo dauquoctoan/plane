@@ -32,60 +32,60 @@ export class Project extends Model {
     @Column({ allowNull: false })
     workspace: number;
 
-    // @Length({ min: 0, max: 225 })
-    // @Column({ allowNull: false })
-    // name: string;
+    @Length({ min: 0, max: 225 })
+    @Column({ allowNull: false })
+    name: string;
 
-    // @Column
-    // description: string;
+    @Column
+    description: string;
 
-    // @Column({ type: DataType.JSON })
-    // description_text: string;
+    @Column({ type: DataType.JSON })
+    description_text: string;
 
-    // @Column({ type: DataType.JSON })
-    // description_html: string;
+    @Column({ type: DataType.JSON })
+    description_html: string;
 
-    // @Is('network', (value) => {
-    //     if (!NETWORK.includes(value)) {
-    //         throw new Error(INVALID_NETWORK);
-    //     }
-    // })
-    // @Column({ defaultValue: 1 })
-    // network: string;
+    @Is('network', (value) => {
+        if (!NETWORK.includes(value)) {
+            throw new Error(INVALID_NETWORK);
+        }
+    })
+    @Column({ defaultValue: 1 })
+    network: string;
 
-    // @Length({ max: 12 })
-    // @Column({ allowNull: false })
-    // identifier: string;
+    @Length({ max: 12 })
+    @Column({ allowNull: false })
+    identifier: string;
 
-    // @Length({ min: 0, max: 225 })
-    // @Column
-    // emoji: string;
+    @Length({ min: 0, max: 225 })
+    @Column
+    emoji: string;
 
-    // @Column({ type: DataType.JSON })
-    // icon_prop: string;
+    @Column({ type: DataType.JSON })
+    icon_prop: string;
 
-    // @Column({ defaultValue: true })
-    // module_view: boolean;
+    @Column({ defaultValue: true })
+    module_view: boolean;
 
-    // @Column({ defaultValue: true })
-    // cycle_view: boolean;
+    @Column({ defaultValue: true })
+    cycle_view: boolean;
 
-    // @Column({ defaultValue: true })
-    // issue_views_view: boolean;
+    @Column({ defaultValue: true })
+    issue_views_view: boolean;
 
-    // @Column({ defaultValue: true })
-    // page_view: boolean;
+    @Column({ defaultValue: true })
+    page_view: boolean;
 
-    // @Column({ defaultValue: true })
-    // inbox_view: boolean;
+    @Column({ defaultValue: true })
+    inbox_view: boolean;
 
-    // @Length({ max: 800 })
-    // @Column({ type: DataType.TEXT })
-    // cover_image: string;
+    @Length({ max: 800 })
+    @Column({ type: DataType.TEXT })
+    cover_image: string;
 
-    // @Column({ defaultValue: 0, type: DataType.INTEGER })
-    // archive_in: number;
+    @Column({ defaultValue: 0, type: DataType.INTEGER })
+    archive_in: number;
 
-    // @Column({ defaultValue: 0, type: DataType.INTEGER })
-    // close_in: number;
+    @Column({ defaultValue: 0, type: DataType.INTEGER })
+    close_in: number;
 }

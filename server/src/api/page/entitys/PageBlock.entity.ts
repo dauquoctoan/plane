@@ -1,4 +1,4 @@
-import { Column, ForeignKey, Length, Model, Table } from 'sequelize-typescript';
+import { Column, DataType, ForeignKey, Length, Model, Table } from 'sequelize-typescript';
 import { Issue } from 'src/api/issue/entitys/Issue.entity';
 import { SORT_ORDER } from 'src/constants/entity-constant';
 import { Page } from './Page.entity';
@@ -13,25 +13,25 @@ export class PageBlock extends Model {
     @Column
     issue: number;
 
-    // @Length({ max: 225 })
-    // @Column({ allowNull: false })
-    // name: string;
+    @Length({ max: 225 })
+    @Column({ allowNull: false })
+    name: string;
 
-    // @Column({ defaultValue: {} })
-    // description: string;
+    @Column({ type: DataType.JSON, defaultValue: {} })
+    description: string;
 
-    // @Column({ defaultValue: '<p></p>' })
-    // description_html: string;
+    @Column({ defaultValue: '<p></p>' })
+    description_html: string;
 
-    // @Column
-    // description_stripped: string;
+    @Column
+    description_stripped: string;
 
-    // @Column
-    // completed_at: Date;
+    @Column
+    completed_at: Date;
 
-    // @Column({ defaultValue: SORT_ORDER })
-    // sort_order: string;
+    @Column({ defaultValue: SORT_ORDER })
+    sort_order: string;
 
-    // @Column({ defaultValue: true })
-    // sync: boolean;
+    @Column({ defaultValue: true })
+    sync: boolean;
 }

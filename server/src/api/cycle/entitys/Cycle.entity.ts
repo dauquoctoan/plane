@@ -11,18 +11,18 @@ export class Cycle extends Model {
     @Column
     owned_by: string;
 
-    // @Column({ type: DataType.TEXT })
-    // description: string;
+    @Column({ type: DataType.TEXT })
+    description: string;
 
-    // @Column
-    // start_date: Date;
+    @Column
+    start_date: Date;
 
-    // @Column
-    // end_date: Date;
+    @Column
+    end_date: Date;
 
-    // @Column({ type: DataType.JSON, defaultValue: {} })
-    // view_props: string;
+    @Column({ type: DataType.JSON, defaultValue: {} })
+    view_props: string;
 
-    // @Column({ defaultValue: 65535, type: DataType.FLOAT })
-    // sort_order: number;
+    @Column({ defaultValue: 65535, type: DataType.FLOAT })
+    sort_order: number;
 }

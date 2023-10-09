@@ -7,19 +7,19 @@ export class Workspace extends Model {
     @Column({ allowNull: false })
     owner: string;
 
-    // @Length({ min: 0, max: 80 })
-    // @Column({ allowNull: false })
-    // name: string;
+    @Length({ max: 80 })
+    @Column({ allowNull: false })
+    name: string;
 
-    // @Column
-    // logo: string;
+    @Column
+    logo: string;
 
-    // // @Index('workspace-slug')
-    // @Length({ min: 0, max: 48 })
-    // @Column({ unique: true, type: DataType.TEXT })
-    // slug: string;
+    @Index('slug-index')
+    @Length({ max: 48 })
+    @Column({ type: DataType.CHAR, unique: true })
+    slug: string;
 
-    // @Length({ min: 0, max: 20 })
-    // @Column
-    // organization_size: string;
+    @Length({ max: 20 })
+    @Column
+    organization_size: string;
 }

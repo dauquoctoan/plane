@@ -9,26 +9,26 @@ export class ProjectMember extends Model {
     @Column({ allowNull: false })
     member: string;
 
-    // @Column
-    // comment: string;
+    @Column
+    comment: string;
 
-    // @Is('role', (value) => {
-    //     if (!ROLE.includes(value)) {
-    //         throw Error(INVALID_ROLE)
-    //     }
-    // })
-    // @Column({ defaultValue: 10 })
-    // role: string;
+    @Is('role', (value) => {
+        if (!ROLE.includes(value)) {
+            throw Error(INVALID_ROLE)
+        }
+    })
+    @Column({ defaultValue: 10 })
+    role: string;
 
-    // @Column({ type: DataType.JSON, defaultValue: DEFAULT_PROPS })
-    // view_props: string;
+    @Column({ type: DataType.JSON, defaultValue: DEFAULT_PROPS })
+    view_props: string;
 
-    // @Column({ type: DataType.JSON, defaultValue: DEFAULT_PROPS })
-    // default_props: string;
+    @Column({ type: DataType.JSON, defaultValue: DEFAULT_PROPS })
+    default_props: string;
 
-    // @Column({ type: DataType.JSON, defaultValue: DEFAULT_PREFERENCES })
-    // preferences: string;
+    @Column({ type: DataType.JSON, defaultValue: DEFAULT_PREFERENCES })
+    preferences: string;
 
-    // @Column({ defaultValue: 65535 })
-    // sort_order: string;
+    @Column({ defaultValue: 65535 })
+    sort_order: string;
 }

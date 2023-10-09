@@ -14,29 +14,29 @@ export class Importer extends Model {
     @Column({ allowNull: false })
     initiated_by: string;
 
-    // @Is('service', (value) => {
-    //     if (!SERVICE.includes(value)) throw Error(INVALID_SERVICE)
-    // })
-    // @Column
-    // service: string;
+    @Is('service', (value) => {
+        if (!SERVICE.includes(value)) throw Error(INVALID_SERVICE)
+    })
+    @Column
+    service: string;
 
-    // @Is('status', (value) => {
-    //     if (!STATUS.includes(value)) throw Error(INVALID_STATUS)
-    // })
-    // @Column
-    // status: string;
+    @Is('status', (value) => {
+        if (!STATUS.includes(value)) throw Error(INVALID_STATUS)
+    })
+    @Column
+    status: string;
 
-    // @Column({ type: DataType.JSON, defaultValue: {} })
-    // metadata: string;
+    @Column({ type: DataType.JSON, defaultValue: {} })
+    metadata: string;
 
-    // @Column({ type: DataType.JSON, defaultValue: {} })
-    // @Column
-    // config: string;
+    @Column({ type: DataType.JSON, defaultValue: {} })
+    @Column
+    config: string;
 
-    // @Column({ type: DataType.JSON, defaultValue: {} })
-    // @Column
-    // data: string;
+    @Column({ type: DataType.JSON, defaultValue: {} })
+    @Column
+    data: string;
 
-    // @Column({ type: DataType.JSON })
-    // imported_data: string;
+    @Column({ type: DataType.JSON })
+    imported_data: string;
 }

@@ -18,15 +18,15 @@ export class InboxIssue extends Model {
     @Column
     duplicate_to: number;
 
-    // @Is('status', (value) => {
-    //     if (!ISSUE_STATUS.includes(value)) throw Error(INVALID_ISSUE_STATUS)
-    // })
-    // @Column({ defaultValue: -2 })
-    // status: number;
+    @Is('status', (value) => {
+        if (!ISSUE_STATUS.includes(value)) throw Error(INVALID_ISSUE_STATUS)
+    })
+    @Column({ defaultValue: -2 })
+    status: number;
 
-    // @Column
-    // snoozed_till: Date;
+    @Column
+    snoozed_till: Date;
 
-    // @Column({ type: DataType.TEXT })
-    // source: string;
+    @Column({ type: DataType.TEXT })
+    source: string;
 }

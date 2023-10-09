@@ -12,7 +12,7 @@ export class CommentReaction extends Model {
     @Column
     comment: number;
 
-    // @Length({ max: 255 })
-    // @Column
-    // reaction: string;
+    @Length({ max: 255 })
+    @Column
+    reaction: string;
 }

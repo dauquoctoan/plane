@@ -7,9 +7,9 @@ export class FileAsset extends Model {
     @Column
     workspace: number;
 
-    // @Column({ type: DataType.JSON, defaultValue: {} })
-    // attributes: string;
+    @Column({ type: DataType.JSON, defaultValue: {} })
+    attributes: string;
 
-    // @Column({ allowNull: false })
-    // asset: string;
+    @Column({ allowNull: false })
+    asset: string;
 }

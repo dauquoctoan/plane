@@ -1,4 +1,15 @@
 /** 
+* ! GROUP 
+* * backlog : backlog
+* * unstarted : unstarted
+* * started : started
+* * completed : completed
+* * cancelled : cancelled
+*/
+
+export const GROUP = ['backlog', 'unstarted', 'started', 'completed', 'cancelled']
+
+/** 
 * ! ROLE 
 * * 20 : Owner
 * * 15 : Admin

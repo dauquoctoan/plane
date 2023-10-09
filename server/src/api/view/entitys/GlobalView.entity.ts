@@ -9,24 +9,24 @@ export class GlobalView extends Model {
     @Column({ allowNull: false })
     workspace: number;
 
-    // @Length({ min: 0, max: 255 })
-    // @Column({ allowNull: false })
-    // name: string;
+    @Length({ min: 0, max: 255 })
+    @Column({ allowNull: false })
+    name: string;
 
-    // @Column
-    // description: string;
+    @Column
+    description: string;
 
-    // @Column({ type: DataType.JSON })
-    // query: string;
+    @Column({ type: DataType.JSON })
+    query: string;
 
-    // @Is('access', (value) => {
-    //     if (!ACCESS.includes(value)) {
-    //         throw new Error(INVALID_ACCESS);
-    //     }
-    // })
-    // @Column({ defaultValue: 1 })
-    // access: string;
+    @Is('access', (value) => {
+        if (!ACCESS.includes(value)) {
+            throw new Error(INVALID_ACCESS);
+        }
+    })
+    @Column({ defaultValue: 1 })
+    access: string;
 
-    // @Column({ type: DataType.JSON, defaultValue: {} })
-    // query_data: string;
+    @Column({ type: DataType.JSON, defaultValue: {} })
+    query_data: string;
 }

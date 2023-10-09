@@ -14,25 +14,25 @@ export class Page extends Model {
     @BelongsToMany(() => Label, () => PageLabel)
     labels: Label[];
 
-    // @Length({ max: 255 })
-    // @Column({ allowNull: false })
-    // name: string;
+    @Length({ max: 255 })
+    @Column({ allowNull: false })
+    name: string;
 
-    // @Column({ defaultValue: {} })
-    // description: string;
+    @Column({ type: DataType.JSON, defaultValue: {} })
+    description: string;
 
-    // @Column({ defaultValue: '<p></p>' })
-    // description_html: string;
+    @Column({ defaultValue: '<p></p>' })
+    description_html: string;
 
-    // @Column({ type: DataType.TEXT })
-    // description_stripped: string;
+    @Column({ type: DataType.TEXT })
+    description_stripped: string;
 
-    // @Is('access', (value) => {
-    //     if (!ACCESS.includes(value)) throw Error(INVALID_ACCESS);
-    // })
-    // @Column
-    // access: string;
+    @Is('access', (value) => {
+        if (!ACCESS.includes(value)) throw Error(INVALID_ACCESS);
+    })
+    @Column
+    access: string;
 
-    // @Column
-    // color: string;
+    @Column
+    color: string;
 }
