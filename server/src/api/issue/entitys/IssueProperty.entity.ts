@@ -7,6 +7,6 @@ export class IssueProperty extends Model {
     @Column({ allowNull: false })
     user: string;
 
-    // @Column({ allowNull: false, type: DataType.JSON, defaultValue: {} })
-    // properties: string;
+    @Column({ allowNull: false, type: DataType.JSON, defaultValue: {} })
+    properties: string;
 }

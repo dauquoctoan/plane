@@ -12,15 +12,15 @@ export class Label extends Model {
     @BelongsToMany(() => Issue, () => IssueLabel)
     issue: Issue[];
 
-    // @Column
-    // parent: string;
+    @Column
+    parent: string;
 
-    // @Column
-    // name: string;
+    @Column
+    name: string;
 
-    // @Column
-    // description: string;
+    @Column
+    description: string;
 
-    // @Column
-    // color: string;
+    @Column
+    color: string;
 }

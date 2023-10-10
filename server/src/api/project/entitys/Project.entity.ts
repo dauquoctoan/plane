@@ -9,8 +9,8 @@ import { ProjectIdentifier } from './ProjectIdentifier.entity';
 
 @Table
 export class Project extends Model {
-    // @HasOne(() => ProjectIdentifier)
-    // projectIdentifier: ProjectIdentifier;
+    @HasOne(() => ProjectIdentifier, { foreignKey: 'projectId' })
+    project: ProjectIdentifier;
 
     @ForeignKey(() => Estimate)
     @Column({ allowNull: false })
@@ -32,7 +32,7 @@ export class Project extends Model {
     @Column({ allowNull: false })
     workspace: number;
 
-    @Length({ min: 0, max: 225 })
+    @Length({ max: 225 })
     @Column({ allowNull: false })
     name: string;
 
@@ -57,7 +57,7 @@ export class Project extends Model {
     @Column({ allowNull: false })
     identifier: string;
 
-    @Length({ min: 0, max: 225 })
+    @Length({ max: 225 })
     @Column
     emoji: string;
 

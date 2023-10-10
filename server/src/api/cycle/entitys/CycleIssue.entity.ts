@@ -4,9 +4,12 @@ import { Cycle } from './Cycle.entity';
 
 @Table
 export class CycleIssue extends Model {
-    // @BelongsTo(() => Issue)
-    // @Column
-    // issue: number;
+    @ForeignKey(() => Issue)
+    @Column({ allowNull: false })
+    issueId: number;
+
+    @BelongsTo(() => Issue)
+    issue: Issue;
 
     @ForeignKey(() => Cycle)
     @Column

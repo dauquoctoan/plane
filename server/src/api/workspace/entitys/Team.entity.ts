@@ -5,7 +5,7 @@ import { Workspace } from './Workspace.entity';
 
 @Table
 export class Team extends Model {
-    @Length({ min: 0, max: 225 })
+    @Length({ max: 225 })
     @Column({ allowNull: false })
     name: string;
 

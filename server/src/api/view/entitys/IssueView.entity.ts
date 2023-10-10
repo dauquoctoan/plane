@@ -4,7 +4,7 @@ import { INVALID_ACCESS } from 'src/constants/message-constant';
 
 @Table
 export class IssueView extends Model {
-    @Length({ min: 0, max: 255 })
+    @Length({ max: 255 })
     @Column({ allowNull: false })
     name: string;
 

@@ -9,7 +9,7 @@ export class GlobalView extends Model {
     @Column({ allowNull: false })
     workspace: number;
 
-    @Length({ min: 0, max: 255 })
+    @Length({ max: 255 })
     @Column({ allowNull: false })
     name: string;
 

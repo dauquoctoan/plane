@@ -8,9 +8,12 @@ export class ProjectIdentifier extends Model {
     @Column({ allowNull: true })
     workspace: number;
 
-    // @BelongsTo(() => Project)
-    // @Column
-    // project: Project;
+    @ForeignKey(() => Project)
+    @Column
+    projectId: number;
+
+    @BelongsTo(() => Project)
+    project: Project;
 
     @Length({ max: 12 })
     @Column

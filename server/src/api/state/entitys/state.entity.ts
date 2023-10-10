@@ -17,7 +17,7 @@ export class State extends Model {
     @Column({ allowNull: false })
     color: string;
 
-    @Length({ min: 0, max: 100 })
+    @Length({ max: 100 })
     @Column
     slug: string;
 

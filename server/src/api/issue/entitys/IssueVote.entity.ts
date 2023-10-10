@@ -14,9 +14,9 @@ export class IssueVote extends Model {
     @Column({ allowNull: false })
     actor: string;
 
-    // @Is('vote', (value) => {
-    //     if (!VOTE.includes(value)) throw Error(INVALID_VOTE)
-    // })
-    // @Column({ defaultValue: 1 })
-    // vote: string;
+    @Is('vote', (value) => {
+        if (!VOTE.includes(value)) throw Error(INVALID_VOTE)
+    })
+    @Column({ defaultValue: 1 })
+    vote: string;
 }

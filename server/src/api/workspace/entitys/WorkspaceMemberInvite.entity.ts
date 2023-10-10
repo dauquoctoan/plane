@@ -9,14 +9,14 @@ export class WorkspaceMemberInvite extends Model {
     @Column({ allowNull: false })
     workspace: number;
 
-    @Length({ min: 0, max: 255 })
+    @Length({ max: 255 })
     @Column({ allowNull: false })
     email: string;
 
     @Column({ defaultValue: false })
     accepted: boolean;
 
-    @Length({ min: 0, max: 255 })
+    @Length({ max: 255 })
     @Column({ allowNull: false })
     token: string;
 

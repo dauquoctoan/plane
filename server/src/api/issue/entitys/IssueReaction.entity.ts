@@ -12,7 +12,7 @@ export class IssueReaction extends Model {
     @Column({ allowNull: false })
     issue: number;
 
-    // @Length({ max: 255 })
-    // @Column
-    // reaction: string;
+    @Length({ max: 255 })
+    @Column
+    reaction: string;
 }

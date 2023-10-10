@@ -12,7 +12,7 @@ export class WorkspaceTheme extends Model {
     @Column({ allowNull: false })
     actor: number;
 
-    @Length({ min: 0, max: 300 })
+    @Length({ max: 300 })
     @Column({ type: DataType.TEXT })
     name: string;
 

@@ -18,32 +18,32 @@ export class IssueActivity extends Model {
     @Column
     issue: number;
 
-    // @Length({ max: 255 })
-    // @Column({ defaultValue: "created" })
-    // verb: string;
+    @Length({ max: 255 })
+    @Column({ defaultValue: "created" })
+    verb: string;
 
-    // @Length({ max: 255 })
-    // @Column
-    // field: string;
+    @Length({ max: 255 })
+    @Column
+    field: string;
 
-    // @Column
-    // old_value: string;
+    @Column
+    old_value: string;
 
-    // @Column
-    // new_value: string;
+    @Column
+    new_value: string;
 
-    // @Column
-    // comment: string;
+    @Column
+    comment: string;
 
-    // @Column
-    // attachments: string;
+    @Column
+    attachments: string;
 
-    // @Column({ type: sequelize.UUID })
-    // old_identifier: string;
+    @Column({ type: sequelize.UUID })
+    old_identifier: string;
 
-    // @Column({ type: sequelize.UUID })
-    // new_identifier: string;
+    @Column({ type: sequelize.UUID })
+    new_identifier: string;
 
-    // @Column
-    // epoch: number;
+    @Column
+    epoch: number;
 }

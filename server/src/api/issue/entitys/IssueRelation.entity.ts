@@ -13,9 +13,9 @@ export class IssueRelation extends Model {
     @Column
     related_issue: number;
 
-    // @Is('relation_type', (value) => {
-    //     if (!RELATION.includes(value)) throw Error(INVALID_RELATION)
-    // })
-    // @Column
-    // relation_type: string;
+    @Is('relation_type', (value) => {
+        if (!RELATION.includes(value)) throw Error(INVALID_RELATION)
+    })
+    @Column
+    relation_type: string;
 }

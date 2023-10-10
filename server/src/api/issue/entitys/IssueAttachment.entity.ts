@@ -7,9 +7,9 @@ export class IssueAttachment extends Model {
     @Column({ allowNull: false })
     issue: number;
 
-    // @Column({ defaultValue: {}, type: DataType.JSON })
-    // attributes: string;
+    @Column({ defaultValue: {}, type: DataType.JSON })
+    attributes: string;
 
-    // @Column({ allowNull: false })
-    // asset: string;
+    @Column({ allowNull: false })
+    asset: string;
 }

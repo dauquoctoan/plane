@@ -17,39 +17,39 @@ export class User extends Model {
     @BelongsToMany(() => Issue, () => IssueAssignee)
     issue: Issue[];
 
-    @Length({ min: 0, max: 128 })
+    @Length({ max: 128 })
     @Column({ allowNull: false, unique: true })
     username: string;
 
-    @Length({ min: 0, max: 255 })
+    @Length({ max: 255 })
     @Column
     mobileNumber: string;
 
-    @Length({ min: 0, max: 255 })
+    @Length({ max: 255 })
     @Column({ unique: true })
     email: string;
 
-    @Length({ min: 0, max: 255 })
+    @Length({ max: 255 })
     @Column
     first_name: string;
 
-    @Length({ min: 0, max: 255 })
+    @Length({ max: 255 })
     @Column
     last_name: string;
 
-    @Length({ min: 0, max: 255 })
+    @Length({ max: 255 })
     @Column
     avatar: string;
 
-    @Length({ min: 0, max: 800 })
+    @Length({ max: 800 })
     @Column
     cover_image: string;
 
-    @Length({ min: 0, max: 255 })
+    @Length({ max: 255 })
     @Column
     last_location: string;
 
-    @Length({ min: 0, max: 255 })
+    @Length({ max: 255 })
     @Column
     created_location: string;
 
@@ -77,11 +77,11 @@ export class User extends Model {
     @Column({ defaultValue: false })
     is_onboarded: boolean;
 
-    @Length({ min: 0, max: 64 })
+    @Length({ max: 64 })
     @Column
     token: string;
 
-    @Length({ min: 0, max: 255 })
+    @Length({ max: 255 })
     @Column({ defaultValue: 'VIETNAMESE' })
     billing_address_country: string;
 
@@ -106,15 +106,15 @@ export class User extends Model {
     @CreatedAt
     last_logout_time: Date;
 
-    @Length({ min: 0, max: 255 })
+    @Length({ max: 255 })
     @Column
     last_login_ip: string;
 
-    @Length({ min: 0, max: 255 })
+    @Length({ max: 255 })
     @Column
     last_logout_ip: string;
 
-    @Length({ min: 0, max: 20 })
+    @Length({ max: 20 })
     @Column({ defaultValue: 'email' })
     last_login_medium: string;
 
@@ -130,7 +130,7 @@ export class User extends Model {
     @Column({ type: DataType.JSON })
     my_issues_prop: string;
 
-    @Length({ min: 0, max: 300 })
+    @Length({ max: 300 })
     @Column
     role: string;
 
@@ -140,7 +140,7 @@ export class User extends Model {
     @Column({ type: DataType.JSON, defaultValue: {} })
     theme: string;
 
-    @Length({ min: 0, max: 300 })
+    @Length({ max: 300 })
     @Column({ defaultValue: '' })
     display_name: string;
 
