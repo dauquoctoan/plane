@@ -9,4 +9,5 @@ import { FileAssetController } from './controller/asset.controller';
   providers: [FileAssetService],
   controllers: [FileAssetController]
 })
+
 export class AssetModule { }

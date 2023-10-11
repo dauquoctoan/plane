@@ -6,29 +6,29 @@ import { ApiTags } from '@nestjs/swagger';
 @Controller('user')
 @ApiTags('user')
 export class UserController {
-    constructor(private readonly workspaceService: UserService) { }
+    constructor(private readonly userService: UserService) { }
     @Post()
-    create(@Body() createWorkspaceDto: CreateUserDto) {
-        return this.workspaceService.create(createWorkspaceDto);
+    create(@Body() createUserDto: CreateUserDto) {
+        return this.userService.create(createUserDto);
     }
 
     @Get()
     findAll() {
-        return this.workspaceService.findAll();
+        return this.userService.findAll();
     }
 
     @Get(':id')
     findOne(@Param('id') id: string) {
-        return this.workspaceService.findOne(+id);
+        return this.userService.findOne(+id);
     }
 
     @Patch(':id')
-    update(@Param('id') id: string, @Body() updateWorkspaceDto: UpdateUserDto) {
-        return this.workspaceService.updateById(+id, updateWorkspaceDto);
+    update(@Param('id') id: string, @Body() updateUserDto: UpdateUserDto) {
+        return this.userService.updateById(+id, updateUserDto);
     }
 
     @Delete(':id')
     remove(@Param('id') id: string) {
-        return this.workspaceService.removeById(+id);
+        return this.userService.removeById(+id);
     }
 }

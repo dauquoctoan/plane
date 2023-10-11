@@ -91,11 +91,11 @@ export class User extends Model {
     @Column
     has_billing_address: string;
 
-    @Column
-    USER_TIMEZONE_CHOICES: string;
+    // @Column
+    // USER_TIMEZONE_CHOICES: string;
 
-    @Column
-    user_timezone: string;
+    // @Column
+    // user_timezone: string;
 
     @CreatedAt
     last_active: Date;

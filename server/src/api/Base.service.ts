@@ -11,7 +11,7 @@ export class BaseService {
             const result = await this.repository.create({ ...entity });
             return handleResultSuccess(result);
         } catch (error) {
-            handleResultError({ message: messageCreateErorr(''), messageDetail: error });
+            handleResultError({ message: messageCreateErorr(`[${this.repository.getTableName()}]`), messageDetail: error });
         }
     }
 
@@ -20,7 +20,7 @@ export class BaseService {
             const result = await this.repository.findAll();
             return handleResultSuccess(result);
         } catch (error) {
-            handleResultError({ message: messageFindErorr(''), messageDetail: error });
+            handleResultError({ message: messageFindErorr(`[${this.repository.getTableName()}]`), messageDetail: error });
         }
     }
 
@@ -29,7 +29,7 @@ export class BaseService {
             const result = await this.repository.findOne({ where: { ...condition } });
             return handleResultSuccess(result);
         } catch (error) {
-            handleResultError({ message: messageFindErorr(''), messageDetail: error });
+            handleResultError({ message: messageFindErorr(`[${this.repository.getTableName()}]`), messageDetail: error });
         }
     }
 
@@ -41,7 +41,7 @@ export class BaseService {
                 { where: { id } })
             return handleResultSuccess(result);
         } catch (error) {
-            handleResultError({ message: messageUpdateErorr(''), messageDetail: error });
+            handleResultError({ message: messageUpdateErorr(`[${this.repository.getTableName()}]`), messageDetail: error });
         }
     }
 
@@ -50,7 +50,7 @@ export class BaseService {
             const result = await this.repository.destroy({ where: { id } });
             return handleResultSuccess(result);
         } catch (error) {
-            handleResultError({ message: messageDeleteErorr(''), messageDetail: error });
+            handleResultError({ message: messageDeleteErorr(`[${`[${this.repository.getTableName()}]`}]`), messageDetail: error });
         }
     }
 }

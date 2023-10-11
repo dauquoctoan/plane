@@ -8,7 +8,7 @@ export class Cycle extends Model {
     name: string;
 
     @ForeignKey(() => User)
-    @Column
+    @Column({ allowNull: false })
     owned_by: string;
 
     @Column({ type: DataType.TEXT })

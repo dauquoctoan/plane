@@ -1,7 +1,5 @@
 import { Controller, Post, Body, Get, Param, Patch, Delete } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
-import { CreateCommentReactionDto, UpdateCommentReactionDto } from '../dto/CommentReaction.dto';
-import { CommentReactionService } from '../service/CommentReaction.service';
 import { IssueCommentService } from '../service/IssueComment.service';
 import { CreateIssueCommentDto, UpdateIssueCommentDto } from '../dto/IssueComment.dto';
 

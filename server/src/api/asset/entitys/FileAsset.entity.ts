@@ -4,7 +4,7 @@ import { Workspace } from 'src/api/workspace/entitys/Workspace.entity';
 @Table
 export class FileAsset extends Model {
     @ForeignKey(() => Workspace)
-    @Column
+    @Column({ allowNull: false })
     workspace: number;
 
     @Column({ type: DataType.JSON, defaultValue: {} })

@@ -3,7 +3,7 @@ export const messageCreateErorr = (modelName) => {
 }
 
 export const messageFindErorr = (modelName) => {
-    return 'Error dont find ' + modelName
+    return 'Error dont find in' + modelName
 }
 
 export const messageUpdateErorr = (modelName) => {

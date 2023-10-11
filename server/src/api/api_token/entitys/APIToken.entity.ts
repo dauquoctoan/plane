@@ -1,5 +1,5 @@
 import sequelize from 'sequelize';
-import { Column, DataType, ForeignKey, Is, Model, Table } from 'sequelize-typescript';
+import { Column, ForeignKey, Is, Model, Table } from 'sequelize-typescript';
 import { User } from 'src/api/user/entitys/User.entity';
 import { Workspace } from 'src/api/workspace/entitys/Workspace.entity';
 import { USER_TYPE } from 'src/constants/entity-constant';
@@ -8,11 +8,11 @@ import { INVALID_USER_TYPE } from 'src/constants/message-constant';
 @Table
 export class APIToken extends Model {
     @ForeignKey(() => Workspace)
-    @Column
+    @Column({ allowNull: false })
     workspace: number;
 
     @ForeignKey(() => User)
-    @Column
+    @Column({ allowNull: false })
     user: string;
 
     @Column({ type: sequelize.UUID, defaultValue: sequelize.UUIDV4 })
