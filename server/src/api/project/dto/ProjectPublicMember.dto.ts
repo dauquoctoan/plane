@@ -1,3 +1,6 @@
-export class ProjectPublicMemberDto {
+export class CreateProjectPublicMemberDto {
+    member: string;
+}
+export class UpdateProjectPublicMemberDto {
 
 }

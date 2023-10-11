@@ -5,6 +5,4 @@ export class CreateFileAssetDto {
     attributes: string;
     asset: string;
 }
-export class UpdateFileAssetDto extends PartialType(CreateFileAssetDto) {
-
-}
+export class UpdateFileAssetDto extends PartialType(CreateFileAssetDto) { }

@@ -3,7 +3,6 @@ import { ProjectService } from './service/Project.service';
 import { SequelizeModule } from '@nestjs/sequelize';
 import { ProjectController } from './controller/Project.controller';
 import { Project } from './entitys/Project.entity';
-import { ProjectFavorite } from './entitys/rojectFavorite.entity';
 import { ProjectMember } from './entitys/ProjectMember.entity';
 import { ProjectPublicMember } from './entitys/ProjectPublicMember.entity';
 import { ProjectDeployBoard } from './entitys/ProjectDeployBoard.entity';
@@ -21,6 +20,7 @@ import { ProjectIdentifierService } from './service/ProjectIdentifier.service';
 import { ProjectMemberService } from './service/ProjectMember.service';
 import { ProjectMemberInviteService } from './service/ProjectMemberInvite.service';
 import { ProjectPublicMemberService } from './service/ProjectPublicMember.service';
+import { ProjectFavorite } from './entitys/rojectFavorite.entity';
 
 @Module({
   imports: [SequelizeModule.forFeature(

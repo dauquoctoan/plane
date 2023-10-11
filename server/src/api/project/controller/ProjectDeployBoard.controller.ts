@@ -3,32 +3,32 @@ import { ApiTags } from '@nestjs/swagger';
 import { ProjectDeployBoardService } from '../service/ProjectDeployBoard.service';
 import { CreateProjectDeployBoardDto, UpdateProjectDeployBoardDto } from '../dto/ProjectDeployBoard.dto';
 
-@ApiTags('Project Deploy Board')
 @Controller('project-deploy-board')
+@ApiTags('Project Deploy Board')
 export class ProjectDeployBoardController {
     constructor(private readonly workspaceService: ProjectDeployBoardService) { }
     @Post()
-    create(@Body() team: CreateProjectDeployBoardDto) {
-        return this.workspaceService.create(team);
+    create(@Body() project: CreateProjectDeployBoardDto) {
+        return this.workspaceService.create(project);
     }
 
     @Get()
-    findAllTeamMember() {
+    findAllProjectDeployBoard() {
         return this.workspaceService.findAll();
     }
 
     @Get(':id')
-    findOneTeamMember(@Param('id') id: string) {
+    findOneProjectDeployBoard(@Param('id') id: string) {
         return this.workspaceService.findOne(+id);
     }
 
     @Patch(':id')
-    updateTeamMember(@Param('id') id: string, @Body() team: UpdateProjectDeployBoardDto) {
-        return this.workspaceService.updateById(+id, team);
+    updateProjectDeployBoard(@Param('id') id: string, @Body() project: UpdateProjectDeployBoardDto) {
+        return this.workspaceService.updateById(+id, project);
     }
 
     @Delete(':id')
-    removeTeamMember(@Param("id") id?: string) {
+    removeProjectDeployBoard(@Param("id") id?: string) {
         return this.workspaceService.removeById(+id);
     }
 }

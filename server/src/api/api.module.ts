@@ -16,6 +16,7 @@ import { InboxModule } from './inbox/inbox.module';
 import { ImporterModule } from './importer/importer.module';
 import { ExporterModule } from './exporter/exporter.module';
 import { EstimateModule } from './estimate/estimate.module';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
     imports: [
@@ -36,6 +37,7 @@ import { EstimateModule } from './estimate/estimate.module';
         AnalyticModule,
         ViewModule,
         WorkspaceModule,
+        AuthModule,
     ]
 })
 

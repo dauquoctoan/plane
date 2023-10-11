@@ -1,8 +1,8 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/sequelize';
-import { ProjectFavorite } from '../entitys/rojectFavorite.entity';
 import { Repository } from 'sequelize-typescript';
 import { BaseService } from 'src/api/Base.service';
+import { ProjectFavorite } from '../entitys/rojectFavorite.entity';
 
 @Injectable()
 export class ProjectFavoriteService extends BaseService {

@@ -7,9 +7,7 @@ import { InjectModel } from '@nestjs/sequelize';
 
 @Injectable()
 export class PageLabelService extends BaseService {
-    constructor(
-        @InjectModel(PageLabel) public repository: Repository<PageLabel>,
-    ) {
+    constructor(@InjectModel(PageLabel) public repository: Repository<PageLabel>) {
         super(repository)
     }
 }
