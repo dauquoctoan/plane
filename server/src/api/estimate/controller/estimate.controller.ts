@@ -1,8 +1,10 @@
 import { Body, Controller, Delete, Get, Param, Patch, Post } from '@nestjs/common';
 import { EstimateService } from '../service/estimate.service';
 import { CreateEstimateDto, UpdateEstimateDto } from '../dto/Estimate.dto';
+import { ApiTags } from '@nestjs/swagger';
 
 @Controller('estimate')
+@ApiTags('Estimate')
 export class EstimateController {
     constructor(private readonly estimateService: EstimateService) { }
     @Post()

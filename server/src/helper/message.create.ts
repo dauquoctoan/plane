@@ -1,15 +1,15 @@
-export const messageCreateErorr = (modelName) => {
-    return 'Error dont create ' + modelName
+export const messageCreateFail = (name) => {
+    return `Error dont create [${name}]`
 }
 
-export const messageFindErorr = (modelName) => {
-    return 'Error dont find in' + modelName
+export const messageFindFail = (name) => {
+    return `Error dont find in [${name}]`
 }
 
-export const messageUpdateErorr = (modelName) => {
-    return 'Error dont update ' + modelName
+export const messageUpdateFail = (name) => {
+    return `Error dont update [${name}]`;
 }
 
-export const messageDeleteErorr = (modelName) => {
-    return 'Error dont delete ' + modelName
+export const messageDeleteFail = (name) => {
+    return `Error dont delete [${name}]`;
 }

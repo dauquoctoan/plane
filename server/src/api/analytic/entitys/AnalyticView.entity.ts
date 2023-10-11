@@ -1,11 +1,32 @@
-import { Column, DataType, ForeignKey, Length, Model, Table } from 'sequelize-typescript';
+import { BelongsTo, Column, DataType, ForeignKey, Length, Model, Table } from 'sequelize-typescript';
 import { Workspace } from 'src/api/workspace/entitys/Workspace.entity';
 
 @Table
 export class AnalyticView extends Model {
+    /**
+    * * =======================================
+    * ! =============== FOREIGN KEY ===========
+    * * =======================================
+    */
+
     @ForeignKey(() => Workspace)
     @Column({ allowNull: false })
     workspace: number;
+
+    /**
+    * * =======================================
+    * ! ======== BINDING RELATIONSHIP =========
+    * * =======================================
+    */
+
+    @BelongsTo(() => Workspace)
+    Workspace: Workspace;
+
+    /**
+    * * =======================================
+    * ! =================== PR ================
+    * * =======================================
+    */
 
     @Length({ max: 255 })
     @Column({ allowNull: false })

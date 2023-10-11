@@ -1,5 +1,5 @@
 import { handleResultError, handleResultSuccess } from "src/helper/handleresult";
-import { messageCreateErorr, messageDeleteErorr, messageFindErorr, messageUpdateErorr } from "src/helper/message.create";
+import { messageCreateFail, messageDeleteFail, messageFindFail, messageUpdateFail } from "src/helper/message.create";
 
 export class BaseService {
     constructor(
@@ -11,7 +11,7 @@ export class BaseService {
             const result = await this.repository.create({ ...entity });
             return handleResultSuccess(result);
         } catch (error) {
-            handleResultError({ message: messageCreateErorr(`[${this.repository.getTableName()}]`), messageDetail: error });
+            handleResultError({ message: messageCreateFail(this.repository.getTableName()), messageDetail: error });
         }
     }
 
@@ -20,7 +20,7 @@ export class BaseService {
             const result = await this.repository.findAll();
             return handleResultSuccess(result);
         } catch (error) {
-            handleResultError({ message: messageFindErorr(`[${this.repository.getTableName()}]`), messageDetail: error });
+            handleResultError({ message: messageFindFail(this.repository.getTableName()), messageDetail: error });
         }
     }
 
@@ -29,19 +29,18 @@ export class BaseService {
             const result = await this.repository.findOne({ where: { ...condition } });
             return handleResultSuccess(result);
         } catch (error) {
-            handleResultError({ message: messageFindErorr(`[${this.repository.getTableName()}]`), messageDetail: error });
+            handleResultError({ message: messageFindFail(this.repository.getTableName()), messageDetail: error });
         }
     }
 
     async updateById(id: number, teamUpdate: any): Promise<IResult> {
         try {
-            const result = await this.repository.update({
-                teamUpdate
-            },
+            const result = await this.repository.update(teamUpdate,
                 { where: { id } })
-            return handleResultSuccess(result);
+            if (result[0] != 0) return handleResultSuccess(result[0]);
+            else handleResultError({ message: messageUpdateFail(this.repository.getTableName()) });
         } catch (error) {
-            handleResultError({ message: messageUpdateErorr(`[${this.repository.getTableName()}]`), messageDetail: error });
+            handleResultError({ message: messageUpdateFail(this.repository.getTableName()), messageDetail: error });
         }
     }
 
@@ -50,7 +49,7 @@ export class BaseService {
             const result = await this.repository.destroy({ where: { id } });
             return handleResultSuccess(result);
         } catch (error) {
-            handleResultError({ message: messageDeleteErorr(`[${`[${this.repository.getTableName()}]`}]`), messageDetail: error });
+            handleResultError({ message: messageDeleteFail(`[${this.repository.getTableName()}]`), messageDetail: error });
         }
     }
 }

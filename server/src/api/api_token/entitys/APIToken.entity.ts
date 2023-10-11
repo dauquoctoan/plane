@@ -1,5 +1,5 @@
 import sequelize from 'sequelize';
-import { Column, ForeignKey, Is, Model, Table } from 'sequelize-typescript';
+import { BelongsTo, Column, ForeignKey, Is, Model, Table } from 'sequelize-typescript';
 import { User } from 'src/api/user/entitys/User.entity';
 import { Workspace } from 'src/api/workspace/entitys/Workspace.entity';
 import { USER_TYPE } from 'src/constants/entity-constant';
@@ -7,13 +7,36 @@ import { INVALID_USER_TYPE } from 'src/constants/message-constant';
 
 @Table
 export class APIToken extends Model {
-    @ForeignKey(() => Workspace)
-    @Column({ allowNull: false })
-    workspace: number;
+    /**
+    * * =======================================
+    * ! ============= FOREIGN KEY =============
+    * * =======================================
+    */
+    // @ForeignKey(() => Workspace)
+    // @Column({ allowNull: false })
+    // workspace_id: number;
 
-    @ForeignKey(() => User)
-    @Column({ allowNull: false })
-    user: string;
+    // @ForeignKey(() => User)
+    // @Column({ allowNull: false })
+    // user: string;
+
+    /**
+    * * =======================================
+    * ! ======== BINDING RELATIONSHIP =========
+    * * =======================================
+    */
+
+    @BelongsTo(() => Workspace)
+    Workspace: Workspace;
+
+    @BelongsTo(() => User)
+    User: User;
+
+    /**
+    * * =======================================
+    * ! =================== PR ================
+    * * =======================================
+    */
 
     @Column({ type: sequelize.UUID, defaultValue: sequelize.UUIDV4 })
     token: string;
