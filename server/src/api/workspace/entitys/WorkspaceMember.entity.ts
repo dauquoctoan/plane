@@ -1,4 +1,4 @@
-import { Column, ForeignKey, Model, Table, Is, DataType } from 'sequelize-typescript';
+import { Column, ForeignKey, Model, Table, Is, DataType, BelongsTo } from 'sequelize-typescript';
 import { Workspace } from './Workspace.entity';
 import { User } from 'src/api/user/entitys/User.entity';
 import { DEFAULT_PROPS, ROLE } from 'src/constants/entity-constant';
@@ -8,11 +8,16 @@ import { INVALID_ROLE } from 'src/constants/message-constant';
 export class WorkspaceMember extends Model {
     @ForeignKey(() => Workspace)
     @Column({ allowNull: false })
-    workspace: number;
+    workspace_id: number;
+
+    @BelongsTo(() => Workspace)
+    workspace: Workspace;
 
     @ForeignKey(() => User)
     @Column({ allowNull: false })
     member: number;
+
+    //thieu
 
     @Is('role', (value) => {
         if (!ROLE.includes(value)) {

@@ -8,10 +8,12 @@ export class Module extends Model {
     @ForeignKey(() => User)
     @Column({ allowNull: false })
     lead: string;
+    //thieu
 
     @ForeignKey(() => User)
     @Column
     members: string;
+    //thieu
 
     @Column({ allowNull: false })
     name: string;

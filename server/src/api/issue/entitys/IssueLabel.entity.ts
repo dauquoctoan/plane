@@ -1,4 +1,4 @@
-import { Column, ForeignKey, Model, Table } from 'sequelize-typescript';
+import { BelongsTo, Column, ForeignKey, Model, Table } from 'sequelize-typescript';
 import { Issue } from './Issue.entity';
 import { Label } from './Label.entity';
 
@@ -6,7 +6,7 @@ import { Label } from './Label.entity';
 export class IssueLabel extends Model {
     @ForeignKey(() => Issue)
     @Column({ allowNull: false })
-    issue: number;
+    issue_id: number;
 
     @ForeignKey(() => Label)
     @Column({ allowNull: false })

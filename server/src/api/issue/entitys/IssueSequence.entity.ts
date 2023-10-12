@@ -1,4 +1,4 @@
-import { Column, DataType, ForeignKey, Model, Table } from 'sequelize-typescript';
+import { BelongsTo, Column, DataType, ForeignKey, Model, Table } from 'sequelize-typescript';
 
 import { Issue } from './Issue.entity';
 
@@ -6,7 +6,10 @@ import { Issue } from './Issue.entity';
 export class IssueSequence extends Model {
     @ForeignKey(() => Issue)
     @Column
-    issue: number;
+    issue_id: number;
+
+    @BelongsTo(() => Issue)
+    issue: Issue[];
 
     @Column({ type: DataType.BIGINT })
     sequence: number;

@@ -6,6 +6,7 @@ export class IssueProperty extends Model {
     @ForeignKey(() => User)
     @Column({ allowNull: false })
     user: string;
+    //thieu
 
     @Column({ allowNull: false, type: DataType.JSON, defaultValue: {} })
     properties: string;

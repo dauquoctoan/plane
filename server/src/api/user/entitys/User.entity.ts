@@ -1,6 +1,7 @@
 import sequelize from 'sequelize';
 import { BelongsToMany, Column, CreatedAt, DataType, HasMany, Length, Model, Table } from 'sequelize-typescript';
 import { APIToken } from 'src/api/api_token/entitys/APIToken.entity';
+import { Cycle } from 'src/api/cycle/entitys/Cycle.entity';
 import { Issue } from 'src/api/issue/entitys/Issue.entity';
 import { IssueAssignee } from 'src/api/issue/entitys/IssueAssignee.entity';
 import { Team } from 'src/api/workspace/entitys/Team.entity';
@@ -12,8 +13,11 @@ export class User extends Model {
     @Column({ type: sequelize.UUID, defaultValue: sequelize.UUIDV4, allowNull: false, primaryKey: true })
     id: string;
 
-    @HasMany(() => APIToken, { foreignKey: 'user_id' })
-    api_tokens: APIToken[];
+    // @HasMany(() => APIToken)
+    // api_tokens: APIToken[];
+
+    // @HasMany(() => Cycle)
+    // cycles: Cycle[];
 
     @BelongsToMany(() => Team, () => TeamMember)
     Team: Team[];

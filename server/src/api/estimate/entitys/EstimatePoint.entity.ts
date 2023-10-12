@@ -1,11 +1,14 @@
-import { Column, DataType, ForeignKey, Is, Length, Model, Table } from 'sequelize-typescript';
+import { BelongsTo, Column, DataType, ForeignKey, Is, Length, Model, Table } from 'sequelize-typescript';
 import { Estimate } from './Estimate.entity';
 
 @Table
 export class EstimatePoint extends Model {
     @ForeignKey(() => Estimate)
     @Column({ allowNull: false })
-    estimate: number;
+    estimate_id: number;
+
+    @BelongsTo(() => Estimate)
+    estimate: Estimate;
 
     @Is('key', (value) => {
         if (value > 7 && value < 0) throw Error('The key type must be 0 <= key <= 7');

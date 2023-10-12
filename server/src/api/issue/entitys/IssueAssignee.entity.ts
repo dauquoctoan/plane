@@ -1,4 +1,4 @@
-import { Column, ForeignKey, Model, Table } from 'sequelize-typescript';
+import { BelongsTo, Column, ForeignKey, Model, Table } from 'sequelize-typescript';
 import { Issue } from './Issue.entity';
 import { User } from 'src/api/user/entitys/User.entity';
 
@@ -6,7 +6,7 @@ import { User } from 'src/api/user/entitys/User.entity';
 export class IssueAssignee extends Model {
     @ForeignKey(() => Issue)
     @Column
-    issue: number;
+    issue_id: number;
 
     @ForeignKey(() => User)
     @Column

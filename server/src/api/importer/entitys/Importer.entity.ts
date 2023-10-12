@@ -1,4 +1,4 @@
-import { Column, DataType, ForeignKey, Is, Model, Table } from 'sequelize-typescript';
+import { BelongsTo, Column, DataType, ForeignKey, Is, Model, Table } from 'sequelize-typescript';
 import { APIToken } from 'src/api/api_token/entitys/APIToken.entity';
 import { User } from 'src/api/user/entitys/User.entity';
 import { SERVICE, STATUS } from 'src/constants/entity-constant';
@@ -10,9 +10,13 @@ export class Importer extends Model {
     @Column
     token: number;
 
+    @BelongsTo(() => APIToken)
+    api_token: APIToken;
+
     @ForeignKey(() => User)
     @Column({ allowNull: false })
     initiated_by: string;
+    //thieu
 
     @Is('service', (value) => {
         if (!SERVICE.includes(value)) throw Error(INVALID_SERVICE)

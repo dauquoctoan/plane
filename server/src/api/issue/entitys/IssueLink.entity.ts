@@ -1,11 +1,14 @@
-import { Column, DataType, ForeignKey, Length, Model, Table } from 'sequelize-typescript';
+import { BelongsTo, Column, DataType, ForeignKey, Length, Model, Table } from 'sequelize-typescript';
 import { Issue } from './Issue.entity';
 
 @Table
 export class IssueLink extends Model {
     @ForeignKey(() => Issue)
     @Column
-    issue: number;
+    issue_id: number;
+
+    @BelongsTo(() => Issue)
+    issue: Issue;
 
     @Length({ max: 255 })
     @Column

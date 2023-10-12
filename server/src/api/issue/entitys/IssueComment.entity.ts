@@ -1,18 +1,26 @@
-import { Column, DataType, ForeignKey, Is, Model, Table } from 'sequelize-typescript';
+import { BelongsTo, Column, DataType, ForeignKey, HasMany, Is, Model, Table } from 'sequelize-typescript';
 import { Issue } from './Issue.entity';
 import { User } from 'src/api/user/entitys/User.entity';
 import { ISSUE_ACCESS } from 'src/constants/entity-constant';
 import { INVALID_ISSUE_ACCESS } from 'src/constants/message-constant';
+import { IssueActivity } from './IssueActivity.entity';
 
 @Table
 export class IssueComment extends Model {
+    @HasMany(() => IssueActivity)
+    issueActivitys: IssueActivity[];
+
     @ForeignKey(() => Issue)
     @Column
-    issue: number;
+    issue_id: number;
+
+    @BelongsTo(() => Issue)
+    issue: Issue;
 
     @ForeignKey(() => User)
     @Column
     actor: string;
+    //thieu
 
     @Column
     comment_stripped: string;

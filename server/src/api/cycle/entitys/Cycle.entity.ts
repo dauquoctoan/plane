@@ -1,15 +1,26 @@
-import { Column, DataType, ForeignKey, Length, Model, Table } from 'sequelize-typescript';
+import { BelongsTo, Column, DataType, ForeignKey, HasMany, Length, Model, Table } from 'sequelize-typescript';
 import { User } from 'src/api/user/entitys/User.entity';
+import { CycleIssue } from './CycleIssue.entity';
+import { CycleFavorite } from './CycleFavorite.entity';
 
 @Table
 export class Cycle extends Model {
-    @Length({ max: 255 })
-    @Column({ allowNull: false })
-    name: string;
-
     @ForeignKey(() => User)
     @Column({ allowNull: false })
     owned_by: string;
+
+    // @BelongsTo(() => User)
+    // user: User;
+    //thieu
+    @HasMany(() => CycleIssue)
+    cycle_issues: CycleIssue[];
+
+    @HasMany(() => CycleFavorite)
+    cycle_favorites: CycleFavorite[];
+
+    @Length({ max: 255 })
+    @Column({ allowNull: false })
+    name: string;
 
     @Column({ type: DataType.TEXT })
     description: string;

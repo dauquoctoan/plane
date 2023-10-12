@@ -13,5 +13,8 @@ export class CycleIssue extends Model {
 
     @ForeignKey(() => Cycle)
     @Column
-    cycle: number;
+    cycle_id: number;
+
+    @BelongsTo(() => Cycle)
+    cycle: Cycle;
 }

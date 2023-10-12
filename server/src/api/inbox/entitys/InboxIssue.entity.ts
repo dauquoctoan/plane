@@ -1,4 +1,4 @@
-import { Column, DataType, ForeignKey, Is, Model, Table } from 'sequelize-typescript';
+import { BelongsTo, Column, DataType, ForeignKey, Is, Model, Table } from 'sequelize-typescript';
 import { Inbox } from './Inbox.entiy';
 import { Issue } from 'src/api/issue/entitys/Issue.entity';
 import { ISSUE_STATUS } from 'src/constants/entity-constant';
@@ -8,15 +8,24 @@ import { INVALID_ISSUE_STATUS } from 'src/constants/message-constant';
 export class InboxIssue extends Model {
     @ForeignKey(() => Inbox)
     @Column({ allowNull: false })
-    inbox: number;
+    inbox_id: number;
+
+    @BelongsTo(() => Inbox)
+    inbox: Inbox;
 
     @ForeignKey(() => Issue)
     @Column({ allowNull: false })
-    issue: number;
+    issue_id: number;
+
+    @BelongsTo(() => Issue)
+    issue: Issue;
 
     @ForeignKey(() => Issue)
     @Column
-    duplicate_to: number;
+    id_issue_duplicate_to: number;
+
+    @BelongsTo(() => Issue)
+    duplicate_to: Issue;
 
     @Is('status', (value) => {
         if (!ISSUE_STATUS.includes(value)) throw Error(INVALID_ISSUE_STATUS)

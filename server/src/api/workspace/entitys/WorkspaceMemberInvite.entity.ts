@@ -1,4 +1,4 @@
-import { Column, ForeignKey, Model, Table, Length, DataType, Is } from 'sequelize-typescript';
+import { Column, ForeignKey, Model, Table, Length, DataType, Is, BelongsTo } from 'sequelize-typescript';
 import { Workspace } from './Workspace.entity';
 import { ROLE } from 'src/constants/entity-constant';
 import { INVALID_ROLE } from 'src/constants/message-constant';
@@ -7,7 +7,10 @@ import { INVALID_ROLE } from 'src/constants/message-constant';
 export class WorkspaceMemberInvite extends Model {
     @ForeignKey(() => Workspace)
     @Column({ allowNull: false })
-    workspace: number;
+    workspace_id: number;
+
+    @BelongsTo(() => Workspace)
+    workspace: Workspace;
 
     @Length({ max: 255 })
     @Column({ allowNull: false })

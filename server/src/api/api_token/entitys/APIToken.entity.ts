@@ -1,5 +1,6 @@
 import sequelize from 'sequelize';
-import { BelongsTo, Column, ForeignKey, Is, Model, Table } from 'sequelize-typescript';
+import { BelongsTo, Column, ForeignKey, HasMany, Is, Model, Table } from 'sequelize-typescript';
+import { Importer } from 'src/api/importer/entitys/Importer.entity';
 import { User } from 'src/api/user/entitys/User.entity';
 import { Workspace } from 'src/api/workspace/entitys/Workspace.entity';
 import { USER_TYPE } from 'src/constants/entity-constant';
@@ -14,12 +15,15 @@ export class APIToken extends Model {
     @BelongsTo(() => Workspace)
     workspace: Workspace;
 
-    @ForeignKey(() => User)
-    @Column
-    user_id: string;
+    @HasMany(() => Importer)
+    importers: Importer[];
 
-    @BelongsTo(() => User)
-    user: User;
+    // @ForeignKey(() => User)
+    // @Column
+    // user_id: string;
+
+    // @BelongsTo(() => User)
+    // user: User;
 
     @Column({ type: sequelize.UUID, defaultValue: sequelize.UUIDV4 })
     token: string;

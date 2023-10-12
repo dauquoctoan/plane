@@ -1,5 +1,5 @@
 import sequelize from 'sequelize';
-import { Column, DataType, ForeignKey, Is, Length, Model, Table } from 'sequelize-typescript';
+import { BelongsTo, Column, DataType, ForeignKey, Is, Length, Model, Table } from 'sequelize-typescript';
 import { Workspace } from 'src/api/workspace/entitys/Workspace.entity';
 import { PROVIDE, STATUS } from 'src/constants/entity-constant';
 import { INVALID_PROVIDE, INVALID_STATUS } from 'src/constants/message-constant';
@@ -8,7 +8,10 @@ import { INVALID_PROVIDE, INVALID_STATUS } from 'src/constants/message-constant'
 export class ExporterHistory extends Model {
     @ForeignKey(() => Workspace)
     @Column
-    workspace: number;
+    workspace_id: number;
+
+    @BelongsTo(() => Workspace)
+    workspace: Workspace;
 
     @Column({ defaultValue: sequelize.UUIDV4, type: sequelize.UUID })
     get project(): string {

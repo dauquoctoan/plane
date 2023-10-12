@@ -1,4 +1,4 @@
-import { Column, ForeignKey, Is, Model, Table } from 'sequelize-typescript';
+import { BelongsTo, Column, ForeignKey, Is, Model, Table } from 'sequelize-typescript';
 import { Issue } from './Issue.entity';
 import { RELATION } from 'src/constants/entity-constant';
 import { INVALID_RELATION } from 'src/constants/message-constant';
@@ -7,11 +7,17 @@ import { INVALID_RELATION } from 'src/constants/message-constant';
 export class IssueRelation extends Model {
     @ForeignKey(() => Issue)
     @Column
-    issue: number;
+    issue_id: number;
+
+    @BelongsTo(() => Issue)
+    issue: Issue;
 
     @ForeignKey(() => Issue)
     @Column
-    related_issue: number;
+    related_issue_id: number;
+
+    @BelongsTo(() => Issue)
+    related_issue: Issue;
 
     @Is('relation_type', (value) => {
         if (!RELATION.includes(value)) throw Error(INVALID_RELATION)

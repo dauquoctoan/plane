@@ -1,7 +1,11 @@
-import { Column, DataType, Length, Model, Table } from 'sequelize-typescript';
+import { Column, DataType, HasMany, Length, Model, Table } from 'sequelize-typescript';
+import { InboxIssue } from './InboxIssue.entity';
 
 @Table
 export class Inbox extends Model {
+    @HasMany(() => InboxIssue)
+    inbox_issues: InboxIssue[];
+
     @Length({ max: 255 })
     @Column
     name: string;
