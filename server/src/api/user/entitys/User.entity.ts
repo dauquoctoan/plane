@@ -1,5 +1,6 @@
 import sequelize from 'sequelize';
-import { BelongsToMany, Column, CreatedAt, DataType, Length, Model, Table } from 'sequelize-typescript';
+import { BelongsToMany, Column, CreatedAt, DataType, HasMany, Length, Model, Table } from 'sequelize-typescript';
+import { APIToken } from 'src/api/api_token/entitys/APIToken.entity';
 import { Issue } from 'src/api/issue/entitys/Issue.entity';
 import { IssueAssignee } from 'src/api/issue/entitys/IssueAssignee.entity';
 import { Team } from 'src/api/workspace/entitys/Team.entity';
@@ -10,6 +11,9 @@ import { DEFAULT_ONBOARDING } from 'src/constants/entity-constant';
 export class User extends Model {
     @Column({ type: sequelize.UUID, defaultValue: sequelize.UUIDV4, allowNull: false, primaryKey: true })
     id: string;
+
+    @HasMany(() => APIToken, { foreignKey: 'user_id' })
+    api_tokens: APIToken[];
 
     @BelongsToMany(() => Team, () => TeamMember)
     Team: Team[];

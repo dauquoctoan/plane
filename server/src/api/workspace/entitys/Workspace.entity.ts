@@ -1,4 +1,4 @@
-import { Column, Model, Table, Length, ForeignKey, Index, DataType, HasMany } from 'sequelize-typescript';
+import { Column, Model, Table, Length, ForeignKey, Index, DataType, HasMany, BelongsTo } from 'sequelize-typescript';
 import { AnalyticView } from 'src/api/analytic/entitys/AnalyticView.entity';
 import { APIToken } from 'src/api/api_token/entitys/APIToken.entity';
 import { FileAsset } from 'src/api/asset/entitys/FileAsset.entity';
@@ -25,22 +25,20 @@ export class Workspace extends Model {
     */
 
     @HasMany(() => AnalyticView, { foreignKey: 'workspace' })
-    AnalyticView: AnalyticView[];
+    analytic_views: AnalyticView[];
 
     @HasMany(() => FileAsset)
-    file_asset: FileAsset[];
+    file_assets: FileAsset[];
 
     @HasMany(() => Notification)
-    Notification: Notification[];
+    notifications: Notification[];
 
     @HasMany(() => ExporterHistory)
     exporter_history: ExporterHistory[];
 
-    // @HasMany(() => APIToken, { foreignKey: 'workspace_id' })
-    // APIToken: APIToken[];
+    @HasMany(() => APIToken)
+    apitokens: APIToken[];
 
-    @HasMany(() => AnalyticView)
-    analytic_view: AnalyticView[];
 
     /**
     * * ======================================= 

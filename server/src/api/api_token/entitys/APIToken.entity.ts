@@ -7,36 +7,19 @@ import { INVALID_USER_TYPE } from 'src/constants/message-constant';
 
 @Table
 export class APIToken extends Model {
-    /**
-    * * =======================================
-    * ! ============= FOREIGN KEY =============
-    * * =======================================
-    */
-    // @ForeignKey(() => Workspace)
-    // @Column({ allowNull: false })
-    // workspace_id: number;
-
-    // @ForeignKey(() => User)
-    // @Column({ allowNull: false })
-    // user: string;
-
-    /**
-    * * =======================================
-    * ! ======== BINDING RELATIONSHIP =========
-    * * =======================================
-    */
+    @ForeignKey(() => Workspace)
+    @Column
+    workspace_id: number;
 
     @BelongsTo(() => Workspace)
-    Workspace: Workspace;
+    workspace: Workspace;
+
+    @ForeignKey(() => User)
+    @Column
+    user_id: string;
 
     @BelongsTo(() => User)
-    User: User;
-
-    /**
-    * * =======================================
-    * ! =================== PR ================
-    * * =======================================
-    */
+    user: User;
 
     @Column({ type: sequelize.UUID, defaultValue: sequelize.UUIDV4 })
     token: string;
