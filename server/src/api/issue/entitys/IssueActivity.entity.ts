@@ -6,24 +6,37 @@ import sequelize from 'sequelize';
 
 @Table
 export class IssueActivity extends Model {
-    @ForeignKey((() => IssueComment))
-    @Column
-    issue_comment_id: number;
-
-    @BelongsTo(() => IssueComment)
-    issue_comment: IssueComment;
-
-    @ForeignKey(() => User)
-    @Column
-    actor: string;
-    //thieu
-
+    /**
+    * ! FK
+    */
     @ForeignKey(() => Issue)
     @Column
     issue_id: number;
 
+    @ForeignKey((() => IssueComment))
+    @Column
+    issue_comment_id: number;
+
+    @ForeignKey(() => User)
+    @Column({ type: sequelize.UUID })
+    actor: string;
+
+    /**
+    * ! RELATIONSHIP
+    */
+
+    @BelongsTo(() => IssueComment)
+    issue_comment: IssueComment;
+
+    @BelongsTo(() => User)
+    user: User;
+
     @BelongsTo(() => Issue)
     issue: Issue;
+
+    /**
+    * ! PR
+    */
 
     @Length({ max: 255 })
     @Column({ defaultValue: "created" })

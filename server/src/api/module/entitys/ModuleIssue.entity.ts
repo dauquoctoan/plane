@@ -1,4 +1,4 @@
-import { Column, ForeignKey, Model, Table } from 'sequelize-typescript';
+import { BelongsTo, Column, ForeignKey, Model, Table } from 'sequelize-typescript';
 import { Module } from './Module.entity';
 import { Issue } from 'src/api/issue/entitys/Issue.entity';
 
@@ -6,9 +6,15 @@ import { Issue } from 'src/api/issue/entitys/Issue.entity';
 export class ModuleIssue extends Model {
     @ForeignKey(() => Module)
     @Column({ allowNull: false })
-    module: number;
+    module_id: number;
+
+    @BelongsTo(() => Module)
+    module: Module;
 
     @ForeignKey((() => Issue))
     @Column({ allowNull: false })
-    issue: number;
+    issue_id: number;
+
+    @BelongsTo(() => Issue)
+    issue: Issue;
 }

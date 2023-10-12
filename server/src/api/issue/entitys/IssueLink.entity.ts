@@ -3,9 +3,16 @@ import { Issue } from './Issue.entity';
 
 @Table
 export class IssueLink extends Model {
+    /**
+    * ! FK
+    */
     @ForeignKey(() => Issue)
     @Column
     issue_id: number;
+
+    /**
+    * ! RELATIONSHIP
+    */
 
     @BelongsTo(() => Issue)
     issue: Issue;

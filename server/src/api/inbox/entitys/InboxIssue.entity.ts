@@ -6,26 +6,39 @@ import { INVALID_ISSUE_STATUS } from 'src/constants/message-constant';
 
 @Table
 export class InboxIssue extends Model {
-    @ForeignKey(() => Inbox)
-    @Column({ allowNull: false })
-    inbox_id: number;
-
-    @BelongsTo(() => Inbox)
-    inbox: Inbox;
+    /**
+    * !FK
+    */
 
     @ForeignKey(() => Issue)
     @Column({ allowNull: false })
     issue_id: number;
 
-    @BelongsTo(() => Issue)
-    issue: Issue;
+    @ForeignKey(() => Inbox)
+    @Column({ allowNull: false })
+    inbox_id: number;
 
     @ForeignKey(() => Issue)
     @Column
     id_issue_duplicate_to: number;
 
+    /**
+    * ! RELATIONSHIP
+    */
+
+    @BelongsTo(() => Inbox)
+    inbox: Inbox;
+
+    @BelongsTo(() => Issue)
+    issue: Issue;
+
+
     @BelongsTo(() => Issue)
     duplicate_to: Issue;
+
+    /**
+    * ! PR
+    */
 
     @Is('status', (value) => {
         if (!ISSUE_STATUS.includes(value)) throw Error(INVALID_ISSUE_STATUS)

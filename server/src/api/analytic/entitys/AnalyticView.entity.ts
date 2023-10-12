@@ -3,12 +3,23 @@ import { Workspace } from 'src/api/workspace/entitys/Workspace.entity';
 
 @Table
 export class AnalyticView extends Model {
+    /**
+    * !FK
+    */
     @ForeignKey(() => Workspace)
     @Column({ allowNull: false })
     workspace: number;
 
+    /**
+    * ! RELATIONSHIP
+    */
+
     @BelongsTo(() => Workspace)
     Workspace: Workspace;
+
+    /**
+    * ! PR
+    */
 
     @Length({ max: 255 })
     @Column({ allowNull: false })

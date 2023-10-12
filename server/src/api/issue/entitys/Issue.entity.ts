@@ -17,9 +17,28 @@ import { IssueLink } from './IssueLink.entity';
 import { IssueReaction } from './IssueReaction.entity';
 import { IssueRelation } from './IssueRelation.entity';
 import { IssueSequence } from './IssueSequence.entity';
+import { IssueSubscriber } from './IssueSubscriber.entity';
+import { ModuleIssue } from 'src/api/module/entitys/ModuleIssue.entity';
+import { PageBlock } from 'src/api/page/entitys/PageBlock.entity';
 
 @Table
 export class Issue extends Model {
+    /**
+    * ! FK
+    */
+
+    @ForeignKey(() => Issue)
+    @Column({ allowNull: true })
+    parent: number;
+
+    @ForeignKey(() => State)
+    @Column
+    state_id: number;
+
+    /**
+    * ! RELATIONSHIP
+    */
+
     @HasMany(() => InboxIssue, { foreignKey: 'issue_id' })
     inbox_issues: InboxIssue[];
 
@@ -29,23 +48,32 @@ export class Issue extends Model {
     @HasMany(() => IssueBlocker, { foreignKey: 'blocks' })
     blocks: IssueBlocker[];
 
+    @HasMany(() => PageBlock)
+    page_block: PageBlock[];
+
+    @HasMany(() => ModuleIssue)
+    module_issues: ModuleIssue[];
+
     @HasMany(() => IssueAttachment)
     issue_attachments: IssueAttachment[];
 
+    @HasMany(() => IssueSubscriber)
+    issue_subscribers: IssueSubscriber[];
+
     @HasMany(() => IssueLink)
-    issue_link: IssueLink[];
+    issue_links: IssueLink[];
 
     @HasMany(() => IssueSequence)
-    issue_sequence: IssueSequence[];
+    issue_sequences: IssueSequence[];
 
     @HasMany(() => IssueReaction)
-    issue_reaction: IssueReaction[];
+    issue_reactions: IssueReaction[];
 
     @HasMany(() => IssueRelation, { foreignKey: 'issue_id' })
-    issue_relation_id: IssueRelation[];
+    issue_relation_ids: IssueRelation[];
 
     @HasMany(() => IssueRelation, { foreignKey: 'related_issue_id' })
-    related_issue_id: IssueRelation[];
+    related_issue_ids: IssueRelation[];
 
     @HasMany(() => IssueComment)
     issue_comments: IssueComment[];
@@ -59,10 +87,6 @@ export class Issue extends Model {
     @BelongsToMany(() => Label, () => IssueLabel)
     labels: Label[];
 
-    @ForeignKey(() => Issue)
-    @Column
-    parent: number;
-
     @BelongsTo(() => Issue)
     issue: Issue;
 
@@ -72,15 +96,15 @@ export class Issue extends Model {
     @HasMany(() => IssueActivity)
     issue_activitys: IssueActivity[];
 
-    @ForeignKey(() => State)
-    @Column
-    state_id: number;
-
     @BelongsTo(() => State)
     state: State;
 
     @HasOne(() => CycleIssue, { foreignKey: 'issueId' })
     cycleIsue: CycleIssue;
+
+    /**
+    * ! PR
+    */
 
     @Is('PRIORITY_CHOICES', (value) => {
         if (!PRIORITY.includes(value)) throw Error(INVALID_PRIORITY)

@@ -9,13 +9,36 @@ import { User } from 'src/api/user/entitys/User.entity';
 import { WorkspaceMember } from './WorkspaceMember.entity';
 import { WorkspaceMemberInvite } from './WorkspaceMemberInvite.entity';
 import { WorkspaceTheme } from './WorkspaceTheme.entity';
+import sequelize from 'sequelize';
+import { Project } from 'src/api/project/entitys/Project.entity';
+import { ProjectIdentifier } from 'src/api/project/entitys/ProjectIdentifier.entity';
+import { GlobalView } from 'src/api/view/entitys/GlobalView.entity';
+import { Team } from './Team.entity';
+import { TeamMember } from './TeamMember.entity';
 
 @Table
 export class Workspace extends Model {
     @ForeignKey(() => User)
-    @Column({ allowNull: false })
+    @Column({ type: sequelize.UUID })
     owner: string;
-    //thieu
+
+    @BelongsTo(() => User)
+    user: User;
+
+    @HasMany(() => Project)
+    project_leads: Project[];
+
+    @HasMany(() => GlobalView)
+    global_views: GlobalView[];
+
+    @HasMany(() => Team)
+    teams: Team[];
+
+    @HasMany(() => TeamMember)
+    team_members: Team[];
+
+    @HasMany(() => ProjectIdentifier)
+    project_identifiers: ProjectIdentifier[];
 
     @HasMany(() => WorkspaceTheme)
     workspace_themes: WorkspaceTheme[];
@@ -27,10 +50,10 @@ export class Workspace extends Model {
     workspace_member_invites: WorkspaceMemberInvite[];
 
     @HasMany(() => WorkspaceMember)
-    workspace_member: WorkspaceMember[];
+    workspace_members: WorkspaceMember[];
 
     @HasMany(() => FileAsset)
-    file_asset: FileAsset[];
+    file_assets: FileAsset[];
 
     @HasMany(() => Notification)
     notifications: Notification[];

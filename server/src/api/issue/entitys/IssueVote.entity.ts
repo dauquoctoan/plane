@@ -3,6 +3,7 @@ import { Issue } from './Issue.entity';
 import { User } from 'src/api/user/entitys/User.entity';
 import { VOTE } from 'src/constants/entity-constant';
 import { INVALID_VOTE } from 'src/constants/message-constant';
+import sequelize from 'sequelize';
 
 @Table
 export class IssueVote extends Model {
@@ -11,7 +12,7 @@ export class IssueVote extends Model {
     issue: number;
 
     @ForeignKey(() => User)
-    @Column({ allowNull: false })
+    @Column({ allowNull: false, type: sequelize.UUID })
     actor: string;
 
     @Is('vote', (value) => {

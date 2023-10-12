@@ -1,4 +1,4 @@
-import { Column, DataType, ForeignKey, Length, Model, Table } from 'sequelize-typescript';
+import { BelongsTo, Column, DataType, ForeignKey, Length, Model, Table } from 'sequelize-typescript';
 import { Issue } from 'src/api/issue/entitys/Issue.entity';
 import { SORT_ORDER } from 'src/constants/entity-constant';
 import { Page } from './Page.entity';
@@ -7,11 +7,17 @@ import { Page } from './Page.entity';
 export class PageBlock extends Model {
     @ForeignKey(() => Page)
     @Column({ allowNull: false })
-    page: number;
+    page_id: number;
+
+    @BelongsTo(() => Page)
+    page: Page;
 
     @ForeignKey(() => Issue)
     @Column
-    issue: number;
+    issue_id: number;
+
+    @BelongsTo(() => Issue)
+    issue: Issue;
 
     @Length({ max: 225 })
     @Column({ allowNull: false })

@@ -1,5 +1,5 @@
 import { PartialType } from '@nestjs/swagger';
-import { Length, IsJWT, IsJSON, IsMobilePhone, IsBoolean, IsNotEmpty, isEmpty, IsEmpty, IsOptional } from 'class-validator';
+import { Length, IsJWT, IsJSON, IsBoolean, IsNotEmpty, isEmpty, IsEmpty, IsOptional, IsEmail } from 'class-validator';
 
 export class CreateUserDto {
     @IsNotEmpty()
@@ -10,6 +10,7 @@ export class CreateUserDto {
     mobileNumber: string;
 
     @Length(0, 255)
+    @IsEmail()
     email: string;
 
     @IsOptional()
@@ -37,27 +38,21 @@ export class CreateUserDto {
     @IsOptional()
     updated_at: string;
 
-    @IsOptional()
     @Length(0, 255)
     last_location: string;
 
-    @IsOptional()
     @Length(0, 255)
     created_location: string;
 
-    @IsOptional()
     @IsBoolean()
     is_superuser: boolean;
 
-    @IsOptional()
     @IsBoolean()
     is_managed: boolean;
 
-    @IsOptional()
     @IsBoolean()
     is_password_expired: boolean;
 
-    @IsOptional()
     @IsBoolean()
     is_active: boolean;
 

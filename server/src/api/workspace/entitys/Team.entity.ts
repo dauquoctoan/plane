@@ -1,4 +1,4 @@
-import { Column, Model, Table, Length, DataType, BelongsToMany, ForeignKey } from 'sequelize-typescript';
+import { Column, Model, Table, Length, DataType, BelongsToMany, ForeignKey, BelongsTo, HasMany } from 'sequelize-typescript';
 import { User } from 'src/api/user/entitys/User.entity';
 import { TeamMember } from './TeamMember.entity';
 import { Workspace } from './Workspace.entity';
@@ -17,5 +17,8 @@ export class Team extends Model {
 
     @ForeignKey(() => Workspace)
     @Column({ allowNull: false })
-    workspace: number;
+    workspace_id: number;
+
+    @BelongsTo(() => Workspace)
+    workspace: Workspace;
 }

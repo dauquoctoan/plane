@@ -6,12 +6,24 @@ import { INVALID_PROVIDE, INVALID_STATUS } from 'src/constants/message-constant'
 
 @Table
 export class ExporterHistory extends Model {
+    /**
+    * !FK
+    */
+
     @ForeignKey(() => Workspace)
     @Column
     workspace_id: number;
 
+    /**
+    * ! RELATIONSHIP
+    */
+
     @BelongsTo(() => Workspace)
     workspace: Workspace;
+
+    /**
+    * ! PR
+    */
 
     @Column({ defaultValue: sequelize.UUIDV4, type: sequelize.UUID })
     get project(): string {

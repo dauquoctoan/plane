@@ -8,9 +8,16 @@ import { INVALID_USER_TYPE } from 'src/constants/message-constant';
 
 @Table
 export class APIToken extends Model {
+    /**
+    * !FK
+    */
     @ForeignKey(() => Workspace)
     @Column
     workspace_id: number;
+
+    /**
+    * ! RELATIONSHIP
+    */
 
     @BelongsTo(() => Workspace)
     workspace: Workspace;
@@ -18,12 +25,16 @@ export class APIToken extends Model {
     @HasMany(() => Importer)
     importers: Importer[];
 
-    // @ForeignKey(() => User)
-    // @Column
-    // user_id: string;
+    @ForeignKey(() => User)
+    @Column({ type: sequelize.UUID })
+    user_id: string;
 
-    // @BelongsTo(() => User)
-    // user: User;
+    @BelongsTo(() => User)
+    user: User;
+
+    /**
+    * ! PR
+    */
 
     @Column({ type: sequelize.UUID, defaultValue: sequelize.UUIDV4 })
     token: string;

@@ -3,16 +3,23 @@ import { Issue } from './Issue.entity';
 
 @Table
 export class IssueBlocker extends Model {
+    /**
+    * ! FK
+    */
     @ForeignKey(() => Issue)
     @Column
     block: number;
 
-    @BelongsTo(() => Issue)
-    issue_block: Issue;
-
     @ForeignKey(() => Issue)
     @Column
     blocked_by: number;
+
+    /**
+    * ! RELATIONSHIP
+    */
+
+    @BelongsTo(() => Issue)
+    issue_block: Issue;
 
     @BelongsTo(() => Issue)
     issue_blocked_by: Issue;

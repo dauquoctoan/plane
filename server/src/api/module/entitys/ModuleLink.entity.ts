@@ -1,11 +1,14 @@
-import { Column, DataType, ForeignKey, Model, Table } from 'sequelize-typescript';
+import { BelongsTo, Column, DataType, ForeignKey, Model, Table } from 'sequelize-typescript';
 import { Module } from './Module.entity';
 
 @Table
 export class ModuleLink extends Model {
     @ForeignKey(() => Module)
     @Column
-    module: number;
+    module_id: number;
+
+    @BelongsTo(() => Module)
+    module: Module;
 
     @Column
     title: string;

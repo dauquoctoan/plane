@@ -1,11 +1,32 @@
 import sequelize from 'sequelize';
-import { BelongsToMany, Column, CreatedAt, DataType, HasMany, Length, Model, Table } from 'sequelize-typescript';
+import { BelongsToMany, Column, CreatedAt, DataType, HasMany, Length, Model, Table, PrimaryKey } from 'sequelize-typescript';
 import { APIToken } from 'src/api/api_token/entitys/APIToken.entity';
 import { Cycle } from 'src/api/cycle/entitys/Cycle.entity';
+import { CycleFavorite } from 'src/api/cycle/entitys/CycleFavorite.entity';
+import { Importer } from 'src/api/importer/entitys/Importer.entity';
 import { Issue } from 'src/api/issue/entitys/Issue.entity';
+import { IssueActivity } from 'src/api/issue/entitys/IssueActivity.entity';
 import { IssueAssignee } from 'src/api/issue/entitys/IssueAssignee.entity';
+import { IssueComment } from 'src/api/issue/entitys/IssueComment.entity';
+import { IssueProperty } from 'src/api/issue/entitys/IssueProperty.entity';
+import { IssueReaction } from 'src/api/issue/entitys/IssueReaction.entity';
+import { IssueSubscriber } from 'src/api/issue/entitys/IssueSubscriber.entity';
+import { Module } from 'src/api/module/entitys/Module.entity';
+import { ModuleFavorite } from 'src/api/module/entitys/ModuleFavorite.entity';
+import { ModuleMember } from 'src/api/module/entitys/ModuleMember.entity';
+import { Notification } from 'src/api/notification/entitys/Notification.entity';
+import { Page } from 'src/api/page/entitys/Page.entity';
+import { PageFavorite } from 'src/api/page/entitys/PageFavorite.entity';
+import { Project } from 'src/api/project/entitys/Project.entity';
+import { ProjectMember } from 'src/api/project/entitys/ProjectMember.entity';
+import { ProjectPublicMember } from 'src/api/project/entitys/ProjectPublicMember.entity';
+import { ProjectFavorite } from 'src/api/project/entitys/rojectFavorite.entity';
+import { SocialLoginConnection } from 'src/api/social_connection/entitys/SocialLoginConnection.entity';
+import { IssueViewFavorite } from 'src/api/view/entitys/IssueViewFavorite.entity';
 import { Team } from 'src/api/workspace/entitys/Team.entity';
 import { TeamMember } from 'src/api/workspace/entitys/TeamMember.entity';
+import { Workspace } from 'src/api/workspace/entitys/Workspace.entity';
+import { WorkspaceTheme } from 'src/api/workspace/entitys/WorkspaceTheme.entity';
 import { DEFAULT_ONBOARDING } from 'src/constants/entity-constant';
 
 @Table
@@ -13,11 +34,83 @@ export class User extends Model {
     @Column({ type: sequelize.UUID, defaultValue: sequelize.UUIDV4, allowNull: false, primaryKey: true })
     id: string;
 
-    // @HasMany(() => APIToken)
-    // api_tokens: APIToken[];
+    @HasMany(() => IssueSubscriber)
+    issue_subscribers: IssueSubscriber[];
 
-    // @HasMany(() => Cycle)
-    // cycles: Cycle[];
+    @HasMany(() => ProjectMember)
+    project_members: ProjectMember[];
+
+    @HasMany(() => IssueViewFavorite)
+    issue_view_favorites: IssueViewFavorite[];
+
+    // @HasMany(() => SocialLoginConnection)
+    // social_login_connections: SocialLoginConnection[];
+
+    @HasMany(() => ProjectFavorite)
+    project_favorites: ProjectFavorite[];
+
+    @HasMany(() => ProjectPublicMember)
+    project_public_member: ProjectPublicMember[];
+
+    @HasMany(() => Module, { foreignKey: 'lead' })
+    leads_modules: Module[];
+
+    @HasMany(() => Module, { foreignKey: 'member' })
+    members_modules: Module[];
+
+    @HasMany(() => Project, { foreignKey: 'default_assignee' })
+    default_assignes: Project[];
+
+    @HasMany(() => Project, { foreignKey: 'project_lead' })
+    project_leads: Project[];
+
+    @HasMany(() => APIToken)
+    api_tokens: APIToken[];
+
+    @HasMany(() => PageFavorite)
+    page_favorites: PageFavorite[];
+
+    @HasMany(() => Page)
+    pages: Page[];
+
+    @HasMany(() => Notification, { foreignKey: 'triggered_by' })
+    triggereds_by: Notification[];
+
+    @HasMany(() => Notification, { foreignKey: 'receiver' })
+    receivers: Notification[];
+
+    @HasMany(() => ModuleMember)
+    module_members: ModuleMember[];
+
+    @HasMany(() => ModuleFavorite)
+    module_favorites: ModuleFavorite[];
+
+    @HasMany(() => Workspace)
+    workspaces: Workspace[];
+
+    @HasMany(() => WorkspaceTheme)
+    workspace_theme: WorkspaceTheme[];
+
+    @HasMany(() => IssueProperty)
+    issue_propertys: IssueProperty[];
+
+    @HasMany(() => IssueComment)
+    issue_comments: IssueComment[];
+
+    @HasMany(() => IssueReaction)
+    issue_reactions: IssueReaction[];
+
+    @HasMany(() => IssueActivity)
+    issue_activitys: IssueActivity[];
+
+    @HasMany(() => Importer)
+    importers: Importer[];
+
+    @HasMany(() => Cycle)
+    cycles: Cycle[];
+
+    @HasMany(() => CycleFavorite)
+    cycle_favorites: CycleFavorite[];
 
     @BelongsToMany(() => Team, () => TeamMember)
     Team: Team[];

@@ -1,4 +1,5 @@
-import { Column, DataType, ForeignKey, Is, Model, Table } from 'sequelize-typescript';
+import sequelize from 'sequelize';
+import { BelongsTo, Column, DataType, ForeignKey, Is, Model, Table } from 'sequelize-typescript';
 import { User } from 'src/api/user/entitys/User.entity';
 import { DEFAULT_PREFERENCES, DEFAULT_PROPS, ROLE } from 'src/constants/entity-constant';
 import { INVALID_ROLE } from 'src/constants/message-constant';
@@ -6,8 +7,11 @@ import { INVALID_ROLE } from 'src/constants/message-constant';
 @Table
 export class ProjectMember extends Model {
     @ForeignKey(() => User)
-    @Column({ allowNull: false })
+    @Column({ allowNull: false, type: sequelize.UUID })
     member: string;
+
+    @BelongsTo(() => User)
+    user: User;
 
     @Column
     comment: string;

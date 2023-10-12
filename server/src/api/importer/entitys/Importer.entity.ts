@@ -1,3 +1,4 @@
+import sequelize from 'sequelize';
 import { BelongsTo, Column, DataType, ForeignKey, Is, Model, Table } from 'sequelize-typescript';
 import { APIToken } from 'src/api/api_token/entitys/APIToken.entity';
 import { User } from 'src/api/user/entitys/User.entity';
@@ -6,17 +7,31 @@ import { INVALID_SERVICE, INVALID_STATUS } from 'src/constants/message-constant'
 
 @Table
 export class Importer extends Model {
+    /**
+    * !FK
+    */
+
     @ForeignKey(() => APIToken)
     @Column
     token: number;
 
+    @ForeignKey(() => User)
+    @Column({ allowNull: false, type: sequelize.UUID })
+    initiated_by: string;
+
+    /**
+    * ! RELATIONSHIP
+    */
+
     @BelongsTo(() => APIToken)
     api_token: APIToken;
 
-    @ForeignKey(() => User)
-    @Column({ allowNull: false })
-    initiated_by: string;
-    //thieu
+    @BelongsTo(() => User)
+    user: User;
+
+    /**
+    * ! PR
+    */
 
     @Is('service', (value) => {
         if (!SERVICE.includes(value)) throw Error(INVALID_SERVICE)

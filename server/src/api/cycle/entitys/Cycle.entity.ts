@@ -2,16 +2,17 @@ import { BelongsTo, Column, DataType, ForeignKey, HasMany, Length, Model, Table 
 import { User } from 'src/api/user/entitys/User.entity';
 import { CycleIssue } from './CycleIssue.entity';
 import { CycleFavorite } from './CycleFavorite.entity';
+import sequelize from 'sequelize';
 
 @Table
 export class Cycle extends Model {
     @ForeignKey(() => User)
-    @Column({ allowNull: false })
+    @Column({ type: sequelize.UUID })
     owned_by: string;
 
-    // @BelongsTo(() => User)
-    // user: User;
-    //thieu
+    @BelongsTo(() => User)
+    user: User;
+
     @HasMany(() => CycleIssue)
     cycle_issues: CycleIssue[];
 

@@ -1,5 +1,5 @@
 import sequelize from 'sequelize';
-import { Column, DataType, ForeignKey, Model, Table } from 'sequelize-typescript';
+import { BelongsTo, Column, DataType, ForeignKey, Model, Table } from 'sequelize-typescript';
 import { Project } from 'src/api/project/entitys/Project.entity';
 import { User } from 'src/api/user/entitys/User.entity';
 import { Workspace } from 'src/api/workspace/entitys/Workspace.entity';
@@ -8,19 +8,31 @@ import { Workspace } from 'src/api/workspace/entitys/Workspace.entity';
 export class Notification extends Model {
     @ForeignKey(() => Workspace)
     @Column({ allowNull: false })
-    workspace: number;
+    workspace_id: number;
+
+    @BelongsTo(() => Workspace)
+    workspace: Workspace;
 
     @ForeignKey(() => Project)
     @Column
-    project: number;
+    project_id: number;
+
+    @BelongsTo(() => Project)
+    project: Project;
 
     @ForeignKey(() => User)
-    @Column
+    @Column({ type: sequelize.UUID })
     triggered_by: string;
 
+    @BelongsTo(() => User)
+    triggered_by_user: User;
+
     @ForeignKey(() => User)
-    @Column({ allowNull: false })
+    @Column({ allowNull: false, type: sequelize.UUID })
     receiver: string;
+
+    @BelongsTo(() => User)
+    receiver_user: User;
 
     @Column({ type: DataType.JSON })
     data: string;

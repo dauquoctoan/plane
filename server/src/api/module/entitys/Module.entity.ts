@@ -1,19 +1,36 @@
-import { Column, DataType, ForeignKey, Is, Model, Table } from 'sequelize-typescript';
+import sequelize from 'sequelize';
+import { BelongsTo, Column, DataType, ForeignKey, HasMany, Is, Model, Table } from 'sequelize-typescript';
 import { User } from 'src/api/user/entitys/User.entity';
 import { MODULE_STATUS } from 'src/constants/entity-constant';
 import { INVALID_MODULE_STATUS, INVALID_STATUS } from 'src/constants/message-constant';
+import { ModuleIssue } from './ModuleIssue.entity';
+import { ModuleLink } from './ModuleLink.entity';
+import { ModuleMember } from './ModuleMember.entity';
 
 @Table
 export class Module extends Model {
     @ForeignKey(() => User)
-    @Column({ allowNull: false })
+    @Column({ allowNull: false, type: sequelize.UUID })
     lead: string;
-    //thieu
+
+    @BelongsTo(() => User)
+    user_lead: User;
+
+    @HasMany(() => ModuleIssue)
+    module_issues: ModuleIssue[];
+
+    @HasMany(() => ModuleLink)
+    module_links: ModuleIssue[];
+
+    @HasMany(() => ModuleMember)
+    module_members: ModuleMember[];
 
     @ForeignKey(() => User)
-    @Column
-    members: string;
-    //thieu
+    @Column({ type: sequelize.UUID })
+    member: string;
+
+    @BelongsTo(() => User)
+    user_member: User;
 
     @Column({ allowNull: false })
     name: string;

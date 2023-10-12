@@ -1,6 +1,7 @@
 import { BelongsTo, Column, DataType, ForeignKey, Length, Model, Table } from 'sequelize-typescript';
 import { Workspace } from './Workspace.entity';
 import { User } from 'src/api/user/entitys/User.entity';
+import sequelize from 'sequelize';
 
 @Table
 export class WorkspaceTheme extends Model {
@@ -12,12 +13,11 @@ export class WorkspaceTheme extends Model {
     workspace: Workspace;
 
     @ForeignKey(() => User)
-    @Column({ allowNull: false })
+    @Column({ allowNull: false, type: sequelize.UUID })
     actor: number;
-    //thieu
 
-    // @BelongsTo(() => User)
-    // user: User;
+    @BelongsTo(() => User)
+    user: User;
 
     @Length({ max: 300 })
     @Column({ type: DataType.TEXT })

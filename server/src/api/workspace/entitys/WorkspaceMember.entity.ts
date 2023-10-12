@@ -3,6 +3,7 @@ import { Workspace } from './Workspace.entity';
 import { User } from 'src/api/user/entitys/User.entity';
 import { DEFAULT_PROPS, ROLE } from 'src/constants/entity-constant';
 import { INVALID_ROLE } from 'src/constants/message-constant';
+import sequelize from 'sequelize';
 
 @Table
 export class WorkspaceMember extends Model {
@@ -14,7 +15,7 @@ export class WorkspaceMember extends Model {
     workspace: Workspace;
 
     @ForeignKey(() => User)
-    @Column({ allowNull: false })
+    @Column({ allowNull: false, type: sequelize.UUID })
     member: number;
 
     //thieu

@@ -4,23 +4,40 @@ import { User } from 'src/api/user/entitys/User.entity';
 import { ISSUE_ACCESS } from 'src/constants/entity-constant';
 import { INVALID_ISSUE_ACCESS } from 'src/constants/message-constant';
 import { IssueActivity } from './IssueActivity.entity';
+import sequelize from 'sequelize';
 
 @Table
 export class IssueComment extends Model {
-    @HasMany(() => IssueActivity)
-    issueActivitys: IssueActivity[];
+
+    /**
+    * ! FK
+    */
+
+    @ForeignKey(() => User)
+    @Column({ type: sequelize.UUID })
+    actor: string;
 
     @ForeignKey(() => Issue)
     @Column
     issue_id: number;
 
+    /**
+    * ! RELATIONSHIP
+    */
+
+    @HasMany(() => IssueActivity)
+    issue_activitys: IssueActivity[];
+
     @BelongsTo(() => Issue)
     issue: Issue;
 
-    @ForeignKey(() => User)
-    @Column
-    actor: string;
-    //thieu
+
+    @BelongsTo(() => User)
+    user: User;
+
+    /**
+    * ! PR
+    */
 
     @Column
     comment_stripped: string;

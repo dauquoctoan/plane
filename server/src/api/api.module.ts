@@ -17,6 +17,9 @@ import { ImporterModule } from './importer/importer.module';
 import { ExporterModule } from './exporter/exporter.module';
 import { EstimateModule } from './estimate/estimate.module';
 import { AuthModule } from './auth/auth.module';
+import { TestModule } from './test/test.module';
+import { Test1Module } from './test1/test1.module';
+import { SocialConnectionModule } from './social_connection/SocialConnection.module';
 
 @Module({
     imports: [
@@ -31,6 +34,7 @@ import { AuthModule } from './auth/auth.module';
         ImporterModule,
         ExporterModule,
         EstimateModule,
+        SocialConnectionModule,
         CycleModule,
         AssetModule,
         ApiTokenModule,
@@ -38,6 +42,8 @@ import { AuthModule } from './auth/auth.module';
         ViewModule,
         WorkspaceModule,
         AuthModule,
+        TestModule,
+        Test1Module,
     ]
 })
 

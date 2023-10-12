@@ -1,6 +1,6 @@
 import sequelize from 'sequelize';
 import { UUIDV4 } from 'sequelize';
-import { Column, DataType, ForeignKey, Length, Model, Table } from 'sequelize-typescript';
+import { BelongsTo, Column, DataType, ForeignKey, Length, Model, Table } from 'sequelize-typescript';
 import { Inbox } from 'src/api/inbox/entitys/Inbox.entiy';
 import { DEFAULT_VIEWS } from 'src/constants/entity-constant';
 
@@ -8,7 +8,10 @@ import { DEFAULT_VIEWS } from 'src/constants/entity-constant';
 export class ProjectDeployBoard extends Model {
     @ForeignKey(() => Inbox)
     @Column
-    inbox: number;
+    inbox_id: number;
+
+    @BelongsTo(() => Inbox)
+    inbox: Inbox;
 
     @Column({ defaultValue: UUIDV4, type: sequelize.UUID })
     anchor: string;

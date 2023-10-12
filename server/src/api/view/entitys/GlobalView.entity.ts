@@ -1,4 +1,4 @@
-import { Column, DataType, ForeignKey, Is, Length, Model, Table } from 'sequelize-typescript';
+import { BelongsTo, Column, DataType, ForeignKey, Is, Length, Model, Table } from 'sequelize-typescript';
 import { Workspace } from 'src/api/workspace/entitys/Workspace.entity';
 import { ACCESS } from 'src/constants/entity-constant';
 import { INVALID_ACCESS } from 'src/constants/message-constant';
@@ -7,7 +7,10 @@ import { INVALID_ACCESS } from 'src/constants/message-constant';
 export class GlobalView extends Model {
     @ForeignKey(() => Workspace)
     @Column({ allowNull: false })
-    workspace: number;
+    workspace_id: number;
+
+    @BelongsTo(() => Workspace)
+    workspace: Workspace;
 
     @Length({ max: 255 })
     @Column({ allowNull: false })
