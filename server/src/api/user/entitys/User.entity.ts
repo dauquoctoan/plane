@@ -1,4 +1,4 @@
-import sequelize from 'sequelize';
+import sequelize, { Sequelize } from 'sequelize';
 import { BelongsToMany, Column, CreatedAt, DataType, HasMany, Length, Model, Table, PrimaryKey } from 'sequelize-typescript';
 import { APIToken } from 'src/api/api_token/entitys/APIToken.entity';
 import { Cycle } from 'src/api/cycle/entitys/Cycle.entity';
@@ -31,8 +31,16 @@ import { DEFAULT_ONBOARDING } from 'src/constants/entity-constant';
 
 @Table
 export class User extends Model {
+    /**
+    * ! PK
+    */
+
     @Column({ type: sequelize.UUID, defaultValue: sequelize.UUIDV4, allowNull: false, primaryKey: true })
     id: string;
+
+    /**
+    * ! RELATIONSHIP
+    */
 
     @HasMany(() => IssueSubscriber)
     issue_subscribers: IssueSubscriber[];
@@ -43,8 +51,8 @@ export class User extends Model {
     @HasMany(() => IssueViewFavorite)
     issue_view_favorites: IssueViewFavorite[];
 
-    // @HasMany(() => SocialLoginConnection)
-    // social_login_connections: SocialLoginConnection[];
+    @HasMany(() => SocialLoginConnection)
+    social_login_connections: SocialLoginConnection[];
 
     @HasMany(() => ProjectFavorite)
     project_favorites: ProjectFavorite[];
@@ -118,24 +126,28 @@ export class User extends Model {
     @BelongsToMany(() => Issue, () => IssueAssignee)
     issue: Issue[];
 
+    /**
+    * ! PR
+    */
+
     @Length({ max: 128 })
     @Column({ allowNull: false, unique: true })
     username: string;
 
     @Length({ max: 255 })
-    @Column
+    @Column({ allowNull: false, unique: true })
     mobileNumber: string;
 
     @Length({ max: 255 })
-    @Column({ unique: true })
+    @Column({ allowNull: false, unique: true })
     email: string;
 
     @Length({ max: 255 })
-    @Column
+    @Column({ allowNull: false, unique: true })
     first_name: string;
 
     @Length({ max: 255 })
-    @Column
+    @Column({ allowNull: false, unique: true })
     last_name: string;
 
     @Length({ max: 255 })
@@ -192,11 +204,11 @@ export class User extends Model {
     @Column
     has_billing_address: string;
 
-    // @Column
-    // USER_TIMEZONE_CHOICES: string;
+    @Column({ type: sequelize.DATEONLY, defaultValue: sequelize.NOW })
+    USER_TIMEZONE_CHOICES: Date;
 
-    // @Column
-    // user_timezone: string;
+    @Column({ type: sequelize.DATEONLY, defaultValue: sequelize.NOW })
+    user_timezone: Date;
 
     @CreatedAt
     last_active: Date;

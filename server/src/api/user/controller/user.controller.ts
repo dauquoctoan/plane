@@ -1,10 +1,12 @@
-import { Controller, Post, Body, Get, Param, Patch, Delete } from '@nestjs/common';
+import { Controller, Post, Body, Get, Param, Patch, Delete, UseGuards } from '@nestjs/common';
 import { UserService } from '../service/User.service';
 import { CreateUserDto, UpdateUserDto } from '../dto/User.dto';
-import { ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
+import { AuthGuard } from 'src/Guards/auth.guard';
+
 
 @Controller('user')
-@ApiTags('user')
+@ApiTags('User')
 export class UserController {
     constructor(private readonly userService: UserService) { }
     @Post()
@@ -12,6 +14,8 @@ export class UserController {
         return this.userService.create(createUserDto);
     }
 
+    @ApiBearerAuth('access-token')
+    @UseGuards(AuthGuard)
     @Get()
     findAll() {
         return this.userService.findAll();

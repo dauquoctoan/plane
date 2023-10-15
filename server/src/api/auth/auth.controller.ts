@@ -1,19 +1,35 @@
 import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
 import { AuthService } from './auth.service';
-import { CreateAuthDto } from './dto/create-auth.dto';
+import { AuthenEndPointDto, CreateAuthDto } from './dto/create-auth.dto';
 import { UpdateAuthDto } from './dto/update-auth.dto';
 import { OAuth2Client } from 'google-auth-library';
-import jwt from 'jsonwebtoken'
+import { ApiTags } from '@nestjs/swagger';
+import { JwtService } from '@nestjs/jwt';
+import { handleResultError, handleResultSuccess } from 'src/helper/handleresult';
 
 @Controller('auth')
+@ApiTags('Auth')
 export class AuthController {
-  constructor(private readonly authService: AuthService) { }
+  constructor(private readonly authService: AuthService, private jwtService: JwtService) { }
 
-  @Get('signin')
-  async signin() {
+  @Post('sign-in')
+  async authEndPoint(@Body() authenEndPointDto: AuthenEndPointDto) {
     const client = new OAuth2Client();
-    const ticket = await client.verifyIdToken({ idToken: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjk3NTU3NTAwLCJpYXQiOjE2OTY5NTI3MDAsImp0aSI6IjdmNjBlZjkzZDVhYTRiMmQ4NGMzNzZmYzI3NTU2MzJmIiwidXNlcl9pZCI6ImE1NzM4ZjhkLTA5OWItNDgwMS04YTllLTljMjE1YTg2NTZlZiJ9.4NT1MeYVCnFJSH-AeaYprYaSxOj-Im3Rf2oBcK8B3D0' });
-    return ticket;
+    try {
+      const ticket = await client.verifyIdToken({
+        idToken: authenEndPointDto?.idToken,
+        audience: process.env.CLIENT_ID,
+      });
+
+      if (ticket) {
+        const access_token = this.jwtService.sign({ payload: ticket.getPayload() });
+        return handleResultSuccess(access_token);
+      }
+
+      handleResultError({ message: 'Invalid token', statusCode: 403 });
+    } catch (error) {
+      handleResultError({ message: 'Authen error', statusCode: 403 });
+    }
   };
 
   @Post()
