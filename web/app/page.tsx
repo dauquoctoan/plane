@@ -1,5 +1,5 @@
 import { GoogleLoginButton } from "@/components/account/google-login";
-import Image from "next/image";
+import Head from 'next/head';
 
 export default function Home() {
   const handleGoogleSignIn = async ({ clientId, credential }: any) => {
@@ -24,7 +24,9 @@ export default function Home() {
   };
   return (
     <main>
-      <GoogleLoginButton />
+       <div>
+        <GoogleLoginButton />
+       </div>
     </main>
   );
 }
