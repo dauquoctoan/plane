@@ -135,7 +135,7 @@ export class User extends Model {
     username: string;
 
     @Length({ max: 255 })
-    @Column({ allowNull: false, unique: true })
+    @Column
     mobileNumber: string;
 
     @Length({ max: 255 })
@@ -143,11 +143,11 @@ export class User extends Model {
     email: string;
 
     @Length({ max: 255 })
-    @Column({ allowNull: false, unique: true })
+    @Column
     first_name: string;
 
     @Length({ max: 255 })
-    @Column({ allowNull: false, unique: true })
+    @Column
     last_name: string;
 
     @Length({ max: 255 })

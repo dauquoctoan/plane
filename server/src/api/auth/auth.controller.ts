@@ -6,11 +6,12 @@ import { OAuth2Client } from 'google-auth-library';
 import { ApiTags } from '@nestjs/swagger';
 import { JwtService } from '@nestjs/jwt';
 import { handleResultError, handleResultSuccess } from 'src/helper/handleresult';
+import { UserService } from '../user/service/User.service';
 
 @Controller('auth')
 @ApiTags('Auth')
 export class AuthController {
-  constructor(private readonly authService: AuthService, private jwtService: JwtService) { }
+  constructor(private readonly authService: AuthService, private jwtService: JwtService, public userService: UserService) { }
 
   @Post('sign-in')
   async authEndPoint(@Body() authenEndPointDto: AuthenEndPointDto) {
@@ -22,8 +23,18 @@ export class AuthController {
       });
 
       if (ticket) {
-        const access_token = this.jwtService.sign({ payload: ticket.getPayload() });
-        return handleResultSuccess(access_token);
+        const payload = ticket.getPayload();
+
+        const access_token = this.jwtService.sign({ payload });
+        const refresh_token = this.jwtService.sign({ payload });
+
+        this.userService.create({
+          username: payload.email,
+          email: payload.email,
+          avatar: payload.picture
+        });
+
+        return handleResultSuccess({ access_token, refresh_token });
       }
 
       handleResultError({ message: 'Invalid token', statusCode: 403 });
