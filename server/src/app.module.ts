@@ -16,16 +16,10 @@ import { JwtModule } from '@nestjs/jwt';
     }),
     SequelizeModule.forRootAsync(CONFIG_DB),
     ApiModule,
-    RouterModule.register([
-      {
-        path: 'api',
-        module: ApiModule,
-      },
-    ],),
     JwtModule.register({
       global: true,
       secret: process.env.SECRET_JWT,
-      signOptions: { expiresIn: '3600s' },
+      signOptions: { expiresIn: process.env.ACCESS_TOKEN_EXPIRATION || '1h' },
     }),
   ],
   controllers: [

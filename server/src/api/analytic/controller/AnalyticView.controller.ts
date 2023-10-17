@@ -3,7 +3,7 @@ import { ApiTags } from '@nestjs/swagger';
 import { AnalyticViewService } from '../service/analytic.service';
 import { CreateAnalyticViewDto, UpdateAnalyticViewDto } from '../dto/AnalyticView.dto';
 
-@Controller('analytic')
+@Controller()
 @ApiTags('Analytic')
 export class AnalyticViewController {
     constructor(private readonly analyticViewService: AnalyticViewService) { }

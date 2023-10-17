@@ -3,7 +3,7 @@ import { InboxService } from '../service/inbox.service';
 import { CreateInboxDto, UpdateInboxDto } from '../dto/inbox.dto';
 import { ApiTags } from '@nestjs/swagger';
 
-@Controller('inbox')
+@Controller()
 @ApiTags('Inbox')
 export class InboxController {
     constructor(private readonly inboxService: InboxService) { }

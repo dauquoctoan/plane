@@ -3,7 +3,7 @@ import { EstimateService } from '../service/estimate.service';
 import { CreateEstimateDto, UpdateEstimateDto } from '../dto/Estimate.dto';
 import { ApiTags } from '@nestjs/swagger';
 
-@Controller('estimate')
+@Controller()
 @ApiTags('Estimate')
 export class EstimateController {
     constructor(private readonly estimateService: EstimateService) { }

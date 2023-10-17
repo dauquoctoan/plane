@@ -1,4 +1,5 @@
 import { Module } from '@nestjs/common';
+import { RouterModule } from '@nestjs/core'
 import { StateModule } from './state/State.module';
 import { UserModule } from './user/User.module';
 import { WorkspaceModule } from './workspace/workspace.module';
@@ -44,7 +45,38 @@ import { SocialConnectionModule } from './social_connection/SocialConnection.mod
         AuthModule,
         TestModule,
         Test1Module,
+        RouterModule.register([
+            {
+                path: 'api',
+                module: ApiModule,
+                children: [
+                    { path: 'state', module: StateModule },
+                    { path: 'user', module: UserModule },
+                    { path: 'project', module: ProjectModule },
+                    { path: 'page', module: PageModule },
+                    { path: 'notification', module: NotificationModule },
+                    { path: 'module', module: ModuleModule },
+                    { path: 'issue', module: IssueModule },
+                    { path: 'inbox', module: InboxModule },
+                    { path: 'importer', module: ImporterModule },
+                    { path: 'exporter', module: ExporterModule },
+                    { path: 'estimate', module: EstimateModule },
+                    { path: 'social-connection', module: SocialConnectionModule },
+                    { path: 'cycle', module: CycleModule },
+                    { path: 'asset', module: AssetModule },
+                    { path: 'api-token', module: ApiTokenModule },
+                    { path: 'analytic', module: AnalyticModule },
+                    { path: 'view', module: ViewModule },
+                    { path: 'work-space', module: WorkspaceModule },
+                    { path: 'auth', module: AuthModule },
+                    { path: 'test', module: TestModule },
+                    { path: 'test1', module: Test1Module },
+                ]
+            },
+        ]),
     ]
 })
 
 export class ApiModule { }
+
+

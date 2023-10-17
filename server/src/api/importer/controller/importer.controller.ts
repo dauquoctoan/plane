@@ -5,7 +5,7 @@ import { CreateImporterDto, UpdateImporterDto } from '../dto/Importer.dto';
 import { ApiTags } from '@nestjs/swagger';
 
 
-@Controller('importer')
+@Controller()
 @ApiTags('importer')
 export class ImporterController {
     constructor(private readonly importerService: ImporterService) { }

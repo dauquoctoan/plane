@@ -4,7 +4,7 @@ import { CreateStateDto, UpdateStateDto } from '../dto/State.dto';
 import jstz from 'jstz';
 import { ApiTags } from '@nestjs/swagger';
 
-@Controller('state')
+@Controller()
 @ApiTags('state')
 export class StateController {
   constructor(private readonly stateService: StateService) { }

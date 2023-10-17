@@ -3,7 +3,7 @@ import { ApiTags } from '@nestjs/swagger';
 import { CreateModuleDto, UpdateModuleDto } from '../dto/Module.dto';
 import { ModuleService } from '../service/Module.service';
 
-@Controller('module')
+@Controller()
 @ApiTags('Module')
 export class ModuleController {
     constructor(private readonly moduleService: ModuleService) { }

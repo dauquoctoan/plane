@@ -4,7 +4,7 @@ import { ProjectService } from '../service/Project.service';
 import { CreateProjectDto, UpdateProjectDto } from '../dto/Project.dto';
 
 
-@Controller('project')
+@Controller()
 @ApiTags('Project')
 export class ProjectController {
     constructor(private readonly projectService: ProjectService) { }

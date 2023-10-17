@@ -1,11 +1,9 @@
 import { Controller, Post, Body, Get, Param, Patch, Delete } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
-import { CreateCommentReactionDto, UpdateCommentReactionDto } from '../dto/CommentReaction.dto';
-import { CommentReactionService } from '../service/CommentReaction.service';
 import { IssueService } from '../service/issue.service';
 import { CreateIssueDto, UpdateIssueDto } from '../dto/Issue.dto';
 
-@Controller('issue')
+@Controller()
 @ApiTags('Issue')
 export class IssueController {
     constructor(private readonly workspaceService: IssueService) { }

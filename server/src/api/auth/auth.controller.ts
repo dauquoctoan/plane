@@ -8,7 +8,7 @@ import { JwtService } from '@nestjs/jwt';
 import { handleResultError, handleResultSuccess } from 'src/helper/handleresult';
 import { UserService } from '../user/service/User.service';
 
-@Controller('auth')
+@Controller()
 @ApiTags('Auth')
 export class AuthController {
   constructor(private readonly authService: AuthService, private jwtService: JwtService, public userService: UserService) { }
@@ -26,7 +26,7 @@ export class AuthController {
         const payload = ticket.getPayload();
 
         const access_token = this.jwtService.sign({ payload });
-        const refresh_token = this.jwtService.sign({ payload });
+        const refresh_token = this.jwtService.sign({ payload }, { expiresIn: process.env.REFRESH_TOKEN_EXPIRATION });
 
         this.userService.create({
           username: payload.email,

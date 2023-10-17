@@ -3,7 +3,7 @@ import { ExporterService } from '../service/ExporterHistory.service';
 import { ApiTags } from '@nestjs/swagger';
 import { CreateExporterHistoryDto, UpdateExporterHistoryDto } from '../dto/ExporterHistory.dto';
 
-@Controller('exporter')
+@Controller()
 @ApiTags('Exporter')
 export class ExporterHistoryController {
     constructor(private readonly exporterService: ExporterService) { }

@@ -3,7 +3,7 @@ import { ApiTags } from '@nestjs/swagger';
 import { PageService } from '../service/page.service';
 import { CreatePageDto, UpdatePageDto } from '../dto/Page.dto';
 
-@Controller('page')
+@Controller()
 @ApiTags('Page')
 export class PageController {
     constructor(private readonly pageService: PageService) { }

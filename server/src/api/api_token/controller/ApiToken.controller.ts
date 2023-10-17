@@ -3,7 +3,7 @@ import { ApiTags } from '@nestjs/swagger';
 import { ApiTokenService } from '../service/ApiToken.service';
 import { CreateAPITokenDto, UpdateAPITokenDto } from '../dto/APIToken.dto';
 
-@Controller('api-token')
+@Controller()
 @ApiTags('Api Token')
 export class ApiTokenController {
     constructor(private readonly apiTokenService: ApiTokenService) { }

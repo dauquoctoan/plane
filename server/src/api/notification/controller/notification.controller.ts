@@ -3,7 +3,7 @@ import { ApiTags } from '@nestjs/swagger';
 import { NotificationService } from '../service/notification.service';
 import { CreateNotificationDto, UpdateNotificationDto } from '../dto/Notification.dto';
 
-@Controller('notification')
+@Controller()
 @ApiTags('Notification')
 export class NotificationController {
     constructor(private readonly notificationService: NotificationService) { }

@@ -3,7 +3,7 @@ import { ApiTags } from '@nestjs/swagger';
 import { CreateFileAssetDto, UpdateFileAssetDto } from '../dto/FileAssetDto';
 import { FileAssetService } from '../service/asset.service';
 
-@Controller('file-asset')
+@Controller()
 @ApiTags('File Asset')
 export class FileAssetController {
     constructor(private readonly fileAssetService: FileAssetService) { }
