@@ -6,48 +6,48 @@ export class BaseService {
         public repository: any,
     ) { }
 
-    async create(entity: any): Promise<IResult> {
+    async create(entity: any, isHandleResult = true): Promise<IResult | any> {
         try {
             const result = await this.repository.create({ ...entity });
-            return handleResultSuccess(result);
+            return isHandleResult ? handleResultSuccess(result) : result;
         } catch (error) {
             handleResultError({ message: messageCreateFail(this.repository.getTableName()), messageDetail: error });
         }
     }
 
-    async findAll(): Promise<IResult> {
+    async findAll(isHandleResult = true): Promise<IResult> {
         try {
             const result = await this.repository.findAll();
-            return handleResultSuccess(result);
+            return isHandleResult ? handleResultSuccess(result) : result;
         } catch (error) {
             handleResultError({ message: messageFindFail(this.repository.getTableName()), messageDetail: error });
         }
     }
 
-    async findOne(condition: any): Promise<IResult> {
+    async findOne(condition: any, isHandleResult = true): Promise<IResult | any> {
         try {
-            const result = await this.repository.findOne({ where: { ...condition } });
-            return handleResultSuccess(result);
+            const result: any = await this.repository.findOne({ where: { ...condition } });
+            return isHandleResult ? handleResultSuccess<IResult>(result) : result;
         } catch (error) {
             handleResultError({ message: messageFindFail(this.repository.getTableName()), messageDetail: error });
         }
     }
 
-    async updateById(id: number, teamUpdate: any): Promise<IResult> {
+    async updateById(id: number, teamUpdate: any, isHandleResult = true): Promise<IResult> {
         try {
             const result = await this.repository.update(teamUpdate,
                 { where: { id } })
-            if (result[0] != 0) return handleResultSuccess(result[0]);
+            if (result[0] != 0) return isHandleResult ? handleResultSuccess(result[0]) : result;
             else handleResultError({ message: messageUpdateFail(this.repository.getTableName()) });
         } catch (error) {
             handleResultError({ message: messageUpdateFail(this.repository.getTableName()), messageDetail: error });
         }
     }
 
-    async removeById(id: number): Promise<IResult> {
+    async removeById(id: number | string, isHandleResult = true): Promise<IResult> {
         try {
             const result = await this.repository.destroy({ where: { id } });
-            return handleResultSuccess(result);
+            return isHandleResult ? handleResultSuccess(result) : result;
         } catch (error) {
             handleResultError({ message: messageDeleteFail(`[${this.repository.getTableName()}]`), messageDetail: error });
         }

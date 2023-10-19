@@ -9,6 +9,15 @@ import {
   useState,
 } from "react";
 import { Spinner } from "../commont/Sniper";
+import APP_CONFIG from "@/configs";
+import authService from "@/services/auth-services";
+import { useRouter } from 'next/navigation'
+
+export interface IGoogleAuth{
+  clientId: string;
+  client_id: string;
+  credential: string;
+}
 
 export interface IGoogleLoginButton {
   text?: string;
@@ -17,22 +26,24 @@ export interface IGoogleLoginButton {
 }
 
 export const GoogleLoginButton: FC<IGoogleLoginButton> = () => {
+  const {GOOGLE_CLIENTID} = APP_CONFIG;
+  const router = useRouter()
+
   const googleSignInButton = useRef<HTMLDivElement>(null);
   const [gsiScriptLoaded, setGsiScriptLoaded] = useState(false);
 
-  function handleSignIn(e: any) {
-    console.log(e);
+  async function handleSignIn(result: IGoogleAuth) {
+    const respont =  await authService.singInGoogle({ idToken: result.credential, type: 'google'})
+    if(respont) router.push('/workspace');
   }
-
+  
   const loadScript = useCallback(() => {
     if (!googleSignInButton.current || gsiScriptLoaded) return;
 
     (window as any)?.google?.accounts.id.initialize({
-      client_id: process.env.NEXT_PUBLIC_GOOGLE_CLIENTID || "",
+      client_id: GOOGLE_CLIENTID,
       callback: handleSignIn,
     });
-    
-    console.log((window as any)?.google)
 
     try {
       (window as any)?.google?.accounts.id.renderButton(

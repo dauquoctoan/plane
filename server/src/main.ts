@@ -4,9 +4,17 @@ import { AllExceptionsFilter } from "src/helper/all-exceptions.filter";
 import { ConfigService } from '@nestjs/config';
 import { SwaggerModule, DocumentBuilder, SwaggerDocumentOptions } from '@nestjs/swagger';
 import { AppModule } from "./app.module";
+import * as session from 'express-session';
 
 async function bootstrap() {
-  const app = await NestFactory.create(AppModule);
+  const app = await NestFactory.create(AppModule, { cors: true });
+  app.use(
+    session({
+      secret: 'my-secret',
+      resave: false,
+      saveUninitialized: false,
+    }),
+  );
   const configService = app.get(ConfigService);
 
   /* config validator */

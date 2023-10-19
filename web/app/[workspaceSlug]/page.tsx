@@ -1,7 +1,4 @@
-import React from "react";
 
-const Workspace = () => {
-  return <div>git status</div>;
-};
-
-export default Workspace;
+export default function Page({ params }: { params: { workspaceSlug: string } }) {
+  return <div>My Post: {params.workspaceSlug}</div>
+}

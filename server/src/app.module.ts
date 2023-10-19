@@ -5,7 +5,6 @@ import { SequelizeModule } from '@nestjs/sequelize';
 import { ConfigModule } from '@nestjs/config';
 import { CONFIG_DB } from './configs/db-config';
 import { ApiModule } from './api/api.module';
-import { RouterModule } from '@nestjs/core';
 import { JwtModule } from '@nestjs/jwt';
 
 @Module({
