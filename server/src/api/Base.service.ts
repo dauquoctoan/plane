@@ -1,3 +1,4 @@
+import { FindOptions } from "sequelize";
 import { handleResultError, handleResultSuccess } from "src/helper/handleresult";
 import { messageCreateFail, messageDeleteFail, messageFindFail, messageUpdateFail } from "src/helper/message.create";
 
@@ -24,9 +25,18 @@ export class BaseService {
         }
     }
 
-    async findOne(condition: any, isHandleResult = true): Promise<IResult | any> {
+    async findOneById(id: number, isHandleResult = true): Promise<IResult | any> {
         try {
-            const result: any = await this.repository.findOne({ where: { ...condition } });
+            const result: any = await this.repository.findOne({ id: id });
+            return isHandleResult ? handleResultSuccess<IResult>(result) : result;
+        } catch (error) {
+            handleResultError({ message: messageFindFail(this.repository.getTableName()), messageDetail: error });
+        }
+    }
+
+    async findOne(qeury: FindOptions<any>, isHandleResult: true): Promise<IResult | any> {
+        try {
+            const result: any = await this.repository.findOne(qeury);
             return isHandleResult ? handleResultSuccess<IResult>(result) : result;
         } catch (error) {
             handleResultError({ message: messageFindFail(this.repository.getTableName()), messageDetail: error });

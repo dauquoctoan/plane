@@ -20,7 +20,7 @@ export class ModuleFavoriteController {
 
     @Get(':id')
     findOne(@Param('id') id: string) {
-        return this.moduleFavoriteService.findOne(+id);
+        return this.moduleFavoriteService.findOneById(+id);
     }
 
     @Patch(':id')

@@ -20,7 +20,7 @@ export class WorkspaceThemeController {
 
     @Get(":id")
     findOneWorkspaceMemberTheme(@Param('id') id: string) {
-        return this.workspaceMemberThemeService.findOne(+id);
+        return this.workspaceMemberThemeService.findOneById(+id);
     }
 
     @Patch(":id")

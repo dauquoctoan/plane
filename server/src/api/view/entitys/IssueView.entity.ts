@@ -5,6 +5,13 @@ import { IssueViewFavorite } from './IssueViewFavorite.entity';
 
 @Table
 export class IssueView extends Model {
+    /**
+    * ! table GlobalView
+    * @HasMany IssueViewFavorite
+    */
+
+    /* ================================================== */
+
     @Length({ max: 255 })
     @Column({ allowNull: false })
     name: string;

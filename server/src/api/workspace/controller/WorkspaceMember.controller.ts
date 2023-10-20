@@ -20,7 +20,7 @@ export class WorkspaceMemberController {
 
     @Get(":id")
     findOneWorkspaceMember(@Param('id') id: string) {
-        return this.workspaceMemberService.findOne(+id);
+        return this.workspaceMemberService.findOneById(+id);
     }
 
     @Patch(":id")

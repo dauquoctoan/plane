@@ -5,6 +5,14 @@ import sequelize from 'sequelize';
 
 @Table
 export class IssueViewFavorite extends Model {
+    /**
+    * ! table GlobalView
+    * @ForeignKey User, IssueView
+    * @HasMany IssueViewFavorite
+    */
+
+    /* ================================================== */
+
     @ForeignKey(() => User)
     @Column({ type: sequelize.UUID })
     user_id: string;

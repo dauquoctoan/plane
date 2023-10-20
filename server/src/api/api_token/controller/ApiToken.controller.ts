@@ -19,7 +19,7 @@ export class ApiTokenController {
 
     @Get(':id')
     findOne(@Param('id') id: string) {
-        return this.apiTokenService.findOne(+id);
+        return this.apiTokenService.findOneById(+id);
     }
 
     @Patch(':id')

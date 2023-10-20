@@ -19,7 +19,7 @@ export class TeamMemberController {
 
     @Get(':id')
     findOneTeamMember(@Query('id') id: string) {
-        return this.TeamMemBerService.findOne(+id);
+        return this.TeamMemBerService.findOneById(+id);
     }
 
     @Patch(':id')

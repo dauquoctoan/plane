@@ -3,6 +3,7 @@ import { Repository } from 'sequelize-typescript';
 import { TeamMember } from '../entitys/TeamMember.entity';
 import { InjectModel } from '@nestjs/sequelize';
 import { BaseService } from 'src/api/Base.service';
+import { FindOptions, ModelStatic } from 'sequelize';
 
 @Injectable()
 export class TeamMemberService extends BaseService {

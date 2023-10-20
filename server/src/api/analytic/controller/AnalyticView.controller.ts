@@ -19,7 +19,7 @@ export class AnalyticViewController {
 
     @Get(':id')
     findOne(@Param('id') id: string) {
-        return this.analyticViewService.findOne(+id);
+        return this.analyticViewService.findOneById(+id);
     }
 
     @Patch(':id')

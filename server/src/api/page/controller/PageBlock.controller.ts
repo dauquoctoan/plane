@@ -19,7 +19,7 @@ export class PageBlockBlockController {
 
     @Get(':id')
     findOne(@Param('id') id: string) {
-        return this.pageBlockService.findOne(+id);
+        return this.pageBlockService.findOneById(+id);
     }
 
     @Patch(':id')

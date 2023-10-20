@@ -19,7 +19,7 @@ export class ModuleMemberController {
 
     @Get(':id')
     findOne(@Param('id') id: string) {
-        return this.moduleMemberService.findOne(+id);
+        return this.moduleMemberService.findOneById(+id);
     }
 
     @Patch(':id')

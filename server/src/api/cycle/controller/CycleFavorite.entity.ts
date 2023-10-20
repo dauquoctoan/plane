@@ -19,7 +19,7 @@ export class CycleFavoriteController {
 
     @Get(':id')
     findOne(@Param('id') id: string) {
-        return this.cycleFavoriteService.findOne(+id);
+        return this.cycleFavoriteService.findOneById(+id);
     }
 
     @Patch(':id')

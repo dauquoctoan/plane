@@ -19,7 +19,7 @@ export class ModuleLinkController {
 
     @Get(':id')
     findOne(@Param('id') id: string) {
-        return this.moduleLinkService.findOne(+id);
+        return this.moduleLinkService.findOneById(+id);
     }
 
     @Patch(':id')

@@ -19,7 +19,7 @@ export class EstimateController {
 
     @Get(':id')
     findOne(@Param('id') id: string) {
-        return this.estimateService.findOne(+id);
+        return this.estimateService.findOneById(+id);
     }
 
     @Patch(':id')

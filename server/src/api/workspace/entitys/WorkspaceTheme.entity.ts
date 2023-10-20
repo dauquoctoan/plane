@@ -5,6 +5,13 @@ import sequelize from 'sequelize';
 
 @Table
 export class WorkspaceTheme extends Model {
+    /**
+    * ! WorkspaceTheme
+    * @ForeignKey Workspace, User
+    */
+
+    /* ================================================== */
+
     @ForeignKey(() => Workspace)
     @Column({ allowNull: false })
     workspace_id: number;

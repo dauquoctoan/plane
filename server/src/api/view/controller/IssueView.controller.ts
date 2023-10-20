@@ -21,7 +21,7 @@ export class IssueViewController {
 
     @Get(':id')
     findOne(@Query('id') id: string) {
-        return this.issueView.findOne(+id);
+        return this.issueView.findOneById(+id);
     }
 
     @Patch(':id')

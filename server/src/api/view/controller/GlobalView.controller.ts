@@ -19,7 +19,7 @@ export class GlobalViewController {
 
     @Get(':id')
     findOne(@Query('id') id: string) {
-        return this.globalView.findOne(+id);
+        return this.globalView.findOneById(+id);
     }
 
     @Patch(':id')

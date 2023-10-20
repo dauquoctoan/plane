@@ -18,7 +18,7 @@ export class PageFavoriteController {
 
     @Get(':id')
     findOne(@Param('id') id: string) {
-        return this.pageFavoriteService.findOne(+id);
+        return this.pageFavoriteService.findOneById(+id);
     }
 
     @Patch(':id')

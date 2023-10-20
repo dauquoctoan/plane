@@ -5,6 +5,13 @@ import { INVALID_ROLE } from 'src/constants/message-constant';
 
 @Table
 export class WorkspaceMemberInvite extends Model {
+    /**
+    * ! WorkspaceMemberInvite
+    * @ForeignKey Workspace
+    */
+
+    /* ================================================== */
+
     @ForeignKey(() => Workspace)
     @Column({ allowNull: false })
     workspace_id: number;

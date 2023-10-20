@@ -19,7 +19,7 @@ export class ProjectMemberInviteController {
 
     @Get(':id')
     findOneprojectMemberInvite(@Param('id') id: string) {
-        return this.projectMemberInviteService.findOne(+id);
+        return this.projectMemberInviteService.findOneById(+id);
     }
 
     @Patch(':id')

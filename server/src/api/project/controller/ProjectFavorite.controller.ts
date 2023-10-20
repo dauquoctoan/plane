@@ -19,7 +19,7 @@ export class ProjectFavoriteController {
 
     @Get(':id')
     findOneProjectFavorite(@Param('id') id: string) {
-        return this.projectFavoriteService.findOne(+id);
+        return this.projectFavoriteService.findOneById(+id);
     }
 
     @Patch(':id')

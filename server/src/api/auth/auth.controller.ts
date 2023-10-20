@@ -15,6 +15,7 @@ export class AuthController {
   @Post('sign-in')
   async authEndPoint(@Body() authenEndPointDto: AuthenEndPointDto) {
     const client = new OAuth2Client();
+
     try {
       const ticket = await client.verifyIdToken({
         idToken: authenEndPointDto?.idToken,
@@ -25,7 +26,10 @@ export class AuthController {
         const payload = ticket.getPayload();
 
         //check user exists
-        const user = await this.userService.findOne({ email: payload.email }, false)
+        const user = await this.userService.findOneById(
+          1
+          // { email: payload.email }
+          , false)
 
         //handle save user when user dont created
         if (!user) {

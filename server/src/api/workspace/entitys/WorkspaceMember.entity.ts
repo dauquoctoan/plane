@@ -7,6 +7,13 @@ import sequelize from 'sequelize';
 
 @Table
 export class WorkspaceMember extends Model {
+    /**
+    * ! WorkspaceMember
+    * @ForeignKey Workspace, User
+    */
+
+    /* ================================================== */
+
     @ForeignKey(() => Workspace)
     @Column({ allowNull: false })
     workspace_id: number;
@@ -18,7 +25,8 @@ export class WorkspaceMember extends Model {
     @Column({ allowNull: false, type: sequelize.UUID })
     member: number;
 
-    //thieu
+    @BelongsTo(() => User)
+    user: User;
 
     @Is('role', (value) => {
         if (!ROLE.includes(value)) {

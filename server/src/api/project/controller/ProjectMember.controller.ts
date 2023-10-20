@@ -20,7 +20,7 @@ export class ProjectMemberController {
 
     @Get(':id')
     findOneprojectMember(@Param('id') id: string) {
-        return this.projectMemberService.findOne(+id);
+        return this.projectMemberService.findOneById(+id);
     }
 
     @Patch(':id')

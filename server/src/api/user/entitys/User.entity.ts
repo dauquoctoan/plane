@@ -26,6 +26,7 @@ import { IssueViewFavorite } from 'src/api/view/entitys/IssueViewFavorite.entity
 import { Team } from 'src/api/workspace/entitys/Team.entity';
 import { TeamMember } from 'src/api/workspace/entitys/TeamMember.entity';
 import { Workspace } from 'src/api/workspace/entitys/Workspace.entity';
+import { WorkspaceMember } from 'src/api/workspace/entitys/WorkspaceMember.entity';
 import { WorkspaceTheme } from 'src/api/workspace/entitys/WorkspaceTheme.entity';
 import { DEFAULT_ONBOARDING } from 'src/constants/entity-constant';
 
@@ -96,8 +97,11 @@ export class User extends Model {
     @HasMany(() => Workspace)
     workspaces: Workspace[];
 
+    @HasMany(() => WorkspaceMember)
+    workspace_members: Workspace[];
+
     @HasMany(() => WorkspaceTheme)
-    workspace_theme: WorkspaceTheme[];
+    workspace_themes: WorkspaceTheme[];
 
     @HasMany(() => IssueProperty)
     issue_propertys: IssueProperty[];

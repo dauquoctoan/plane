@@ -19,7 +19,7 @@ export class PageController {
 
     @Get(':id')
     findOne(@Param('id') id: string) {
-        return this.pageService.findOne(+id);
+        return this.pageService.findOneById(+id);
     }
 
     @Patch(':id')

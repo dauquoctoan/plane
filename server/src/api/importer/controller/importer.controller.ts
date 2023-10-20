@@ -21,7 +21,7 @@ export class ImporterController {
 
     @Get(':id')
     findOne(@Param('id') id: string) {
-        return this.importerService.findOne(+id);
+        return this.importerService.findOneById(+id);
     }
 
     @Patch(':id')

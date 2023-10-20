@@ -20,7 +20,7 @@ export class InboxIssueController {
 
     @Get(':id')
     findOne(@Param('id') id: string) {
-        return this.inboxIssueService.findOne(+id);
+        return this.inboxIssueService.findOneById(+id);
     }
 
     @Patch(':id')

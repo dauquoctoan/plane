@@ -6,6 +6,13 @@ import sequelize from 'sequelize';
 
 @Table
 export class TeamMember extends Model {
+    /**
+    * ! table TeamMember
+    * @ForeignKey Workspace, Team, User;
+    */
+
+    /* ================================================== */
+
     @ForeignKey(() => Workspace)
     @Column({ allowNull: false })
     workspace: number;

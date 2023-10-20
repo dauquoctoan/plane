@@ -64,6 +64,7 @@ import { IssueSequence } from './entitys/IssueSequence.entity';
     IssueVote,
     Label
   ])],
+  exports: [IssueService],
   providers: [
     CommentReactionService,
     IssueService,

@@ -20,7 +20,7 @@ export class SocialLoginConnectionController {
 
     @Get(':id')
     findOne(@Query('id') id: string) {
-        return this.socialLoginConnectionService.findOne(+id);
+        return this.socialLoginConnectionService.findOneById(+id);
     }
 
     @Patch(':id')

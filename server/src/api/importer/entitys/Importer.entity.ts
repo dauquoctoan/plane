@@ -7,8 +7,17 @@ import { INVALID_SERVICE, INVALID_STATUS } from 'src/constants/message-constant'
 
 @Table
 export class Importer extends Model {
+
     /**
-    * !FK
+    * !Importer
+    * @ForeignKey: token, initiated_by
+    * @BelongsTo: APIToken, User;
+    */
+
+    /* ================================================== */
+
+    /**
+    * !FK: token, initiated_by
     */
 
     @ForeignKey(() => APIToken)
@@ -21,6 +30,7 @@ export class Importer extends Model {
 
     /**
     * ! RELATIONSHIP
+    * @BelongsTo: APIToken, User;
     */
 
     @BelongsTo(() => APIToken)

@@ -20,7 +20,7 @@ export class ProjectIdentifierController {
 
     @Get(':id')
     findOneProjectIdentifier(@Param('id') id: string) {
-        return this.projectIdentifierService.findOne(+id);
+        return this.projectIdentifierService.findOneById(+id);
     }
 
     @Patch(':id')

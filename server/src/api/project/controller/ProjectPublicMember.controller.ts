@@ -19,7 +19,7 @@ export class ProjectPublicMemberController {
 
     @Get(':id')
     findOneProjectPublicMember(@Param('id') id: string) {
-        return this.projectPublicMemberService.findOne(+id);
+        return this.projectPublicMemberService.findOneById(+id);
     }
 
     @Patch(':id')

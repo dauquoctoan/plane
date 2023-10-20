@@ -18,6 +18,16 @@ import { TeamMember } from './TeamMember.entity';
 
 @Table
 export class Workspace extends Model {
+    /**
+    * ! table Workspace
+    * @ForeignKey User
+    * @HasMany Project, GlobalView, Team, TeamMember, ProjectIdentifier, 
+    * WorkspaceTheme, AnalyticView, WorkspaceMemberInvite, WorkspaceMember, FileAsset, 
+    * APIToken, ExporterHistory, Notification;
+    */
+
+    /* ================================================== */
+
     @ForeignKey(() => User)
     @Column({ type: sequelize.UUID })
     owner: string;

@@ -5,6 +5,13 @@ import { INVALID_ACCESS } from 'src/constants/message-constant';
 
 @Table
 export class GlobalView extends Model {
+    /**
+    * ! table GlobalView
+    * @ForeignKey Workspace
+    */
+
+    /* ================================================== */
+
     @ForeignKey(() => Workspace)
     @Column({ allowNull: false })
     workspace_id: number;

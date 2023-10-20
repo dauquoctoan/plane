@@ -20,7 +20,7 @@ export class IssueVoteController {
 
     @Get(':id')
     findOne(@Param('id') id: string) {
-        return this.workspaceService.findOne(+id);
+        return this.workspaceService.findOneById(+id);
     }
 
     @Patch(':id')

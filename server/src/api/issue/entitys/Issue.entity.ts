@@ -23,8 +23,19 @@ import { PageBlock } from 'src/api/page/entitys/PageBlock.entity';
 
 @Table
 export class Issue extends Model {
+
     /**
-    * ! FK
+   * @ForeignKey: Issue, State
+   * @hasMany: InboxIssue, IssueBlocker, PageBlock, ModuleIssue ,IssueAttachment, IssueSubscriber, IssueLink, IssueSequence, IssueRelation, IssueActivity, InboxIssue, IssueComment
+   * @HasOne: CycleIssue
+   * @BelongsTo: State, Issue
+   * @BelongsToMany: User[IssueAssignee], Label[IssueLabel]
+   */
+
+    /* ================================================================= */
+
+    /**
+    * ! FK : Issue, State
     */
 
     @ForeignKey(() => Issue)
@@ -81,6 +92,15 @@ export class Issue extends Model {
     @HasMany(() => InboxIssue, { foreignKey: 'id_issue_duplicate_to' })
     inbox_issues_duplicate_to: InboxIssue[];
 
+    @HasMany(() => Issue)
+    issues: Issue[];
+
+    @HasMany(() => IssueActivity)
+    issue_activitys: IssueActivity[];
+
+    @HasOne(() => CycleIssue, { foreignKey: 'issueId' })
+    cycleIsue: CycleIssue;
+
     @BelongsToMany(() => User, () => IssueAssignee)
     assignees: User[];
 
@@ -90,17 +110,8 @@ export class Issue extends Model {
     @BelongsTo(() => Issue)
     issue: Issue;
 
-    @HasMany(() => Issue)
-    issues: Issue[];
-
-    @HasMany(() => IssueActivity)
-    issue_activitys: IssueActivity[];
-
     @BelongsTo(() => State)
     state: State;
-
-    @HasOne(() => CycleIssue, { foreignKey: 'issueId' })
-    cycleIsue: CycleIssue;
 
     /**
     * ! PR
@@ -157,10 +168,4 @@ export class Issue extends Model {
 
     @Column({ defaultValue: false })
     is_draft: boolean;
-
-    @Column
-    objects: boolean;
-
-    @Column
-    issue_objects: string;
 }

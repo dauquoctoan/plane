@@ -19,7 +19,7 @@ export class CycleIssueController {
 
     @Get(':id')
     findOne(@Param('id') id: string) {
-        return this.cycleIssueService.findOne(+id);
+        return this.cycleIssueService.findOneById(+id);
     }
 
     @Patch(':id')

@@ -11,12 +11,12 @@ export class State extends Model {
     @HasMany(() => Issue)
     issues: Issue[];
 
+    @HasMany(() => Project)
+    projects: Project[];
+
     @Length({ min: 1, max: 255 })
     @Column({ allowNull: false })
     name: string;
-
-    @HasMany(() => Project)
-    projects: Project[];
 
     @Column({ type: DataType.TEXT })
     description: string;

@@ -23,6 +23,7 @@ import { WorkspaceTheme } from './entitys/WorkspaceTheme.entity';
     WorkspaceTheme
   ])],
   providers: [WorkspaceService, TeamService, TeamMemberService],
+  exports: [WorkspaceService],
   controllers: [WorkspaceController, TeamController, TeamMemberController]
 })
 export class WorkspaceModule { }

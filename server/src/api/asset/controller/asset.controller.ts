@@ -19,7 +19,7 @@ export class FileAssetController {
 
     @Get(':id')
     findOne(@Param('id') id: string) {
-        return this.fileAssetService.findOne(+id);
+        return this.fileAssetService.findOneById(+id);
     }
 
     @Patch(':id')

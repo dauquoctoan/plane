@@ -20,7 +20,7 @@ export class IssueViewFavoriteController {
 
     @Get(':id')
     findOne(@Query('id') id: string) {
-        return this.issueViewFavorite.findOne(+id);
+        return this.issueViewFavorite.findOneById(+id);
     }
 
     @Patch(':id')

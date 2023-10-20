@@ -19,7 +19,7 @@ export class ExporterHistoryController {
 
     @Get(':id')
     findOne(@Param('id') id: string) {
-        return this.exporterService.findOne(+id);
+        return this.exporterService.findOneById(+id);
     }
 
     @Patch(':id')

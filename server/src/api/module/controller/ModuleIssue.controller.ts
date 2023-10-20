@@ -19,7 +19,7 @@ export class ModuleIssueController {
 
     @Get(':id')
     findOne(@Param('id') id: string) {
-        return this.moduleIssueService.findOne(+id);
+        return this.moduleIssueService.findOneById(+id);
     }
 
     @Patch(':id')

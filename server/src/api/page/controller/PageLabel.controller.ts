@@ -19,7 +19,7 @@ export class PageLabelController {
 
     @Get(':id')
     findOne(@Param('id') id: string) {
-        return this.pageLabelService.findOne(+id);
+        return this.pageLabelService.findOneById(+id);
     }
 
     @Patch(':id')
