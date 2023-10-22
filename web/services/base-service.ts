@@ -29,13 +29,21 @@ export class BaseService {
         };
     }
 
+    logOut() {
+        Cookie.remove(KEY_COOKIE_AUTH_ACCESS_TOKEN);
+        Cookie.remove(KEY_COOKIE_AUTH_REFRESH_TOKEN);
+    }
+
     get(url: string, config = {}) {
         return axios({
             method: "get",
             url: this.baseURL + url,
             headers: this.getAccessToken() ? this.getHeaders() : {},
             ...config,
-        }).then((res) => res.data);
+        }).then((res) => {
+            console.log(res)
+            return res.data
+        });
     }
 
     post(url: string, data = {}, config = {}) {

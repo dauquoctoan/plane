@@ -25,25 +25,25 @@ export class BaseService {
         }
     }
 
-    async findOneById(id: number, isHandleResult = true): Promise<IResult | any> {
+    async findOneById(id: number | string, isHandleResult: boolean = true): Promise<IResult | any> {
         try {
-            const result: any = await this.repository.findOne({ id: id });
+            const result: any = await this.repository.findOne({ where: { id } });
             return isHandleResult ? handleResultSuccess<IResult>(result) : result;
         } catch (error) {
             handleResultError({ message: messageFindFail(this.repository.getTableName()), messageDetail: error });
         }
     }
 
-    async findOne(qeury: FindOptions<any>, isHandleResult: true): Promise<IResult | any> {
+    async findOne(qeury: FindOptions<any>, isHandleResult: boolean = true): Promise<IResult | any> {
         try {
-            const result: any = await this.repository.findOne(qeury);
+            const result = await this.repository.findOne(qeury);
             return isHandleResult ? handleResultSuccess<IResult>(result) : result;
         } catch (error) {
             handleResultError({ message: messageFindFail(this.repository.getTableName()), messageDetail: error });
         }
     }
 
-    async updateById(id: number, teamUpdate: any, isHandleResult = true): Promise<IResult> {
+    async updateById(id: number, teamUpdate: any, isHandleResult: boolean = true): Promise<IResult> {
         try {
             const result = await this.repository.update(teamUpdate,
                 { where: { id } })

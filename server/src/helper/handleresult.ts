@@ -15,7 +15,7 @@ const handleResultSuccess = <T>(data: T): IResult => {
     return {
         code: 1,
         statusCode: 200,
-        data: data || [],
+        data: data,
         message: 'Sucess',
     }
 }

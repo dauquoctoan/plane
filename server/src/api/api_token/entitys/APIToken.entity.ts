@@ -11,6 +11,7 @@ export class APIToken extends Model {
     /**
     * !FK
     */
+
     @ForeignKey(() => Workspace)
     @Column
     workspace_id: number;

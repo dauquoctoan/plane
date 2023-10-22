@@ -1,10 +1,9 @@
-import "./globals.css";
-import type { Metadata } from "next";
+import { Providers } from "@/store/providers";
 import { Inter } from "next/font/google";
-import Head from "next/head";
-import { SWRConfig } from "swr/_internal";
+import "../styles/globals.css";
+import "../styles/theme.css";
 
-const inter = Inter({ subsets: ["latin"] });
+const inter = Inter({ subsets: ["vietnamese"] });
 
 export const metadata: any = {
   title: "Plane",
@@ -17,10 +16,12 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
-      <body className={inter.className}>
-           {children}
-      </body>
-    </html>
+    <Providers>
+      <html lang="en">
+        <body className={`${inter.className} theme-light`}>
+            {children}
+        </body>
+      </html>
+    </Providers> 
   );
 }

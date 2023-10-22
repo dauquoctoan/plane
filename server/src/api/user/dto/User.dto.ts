@@ -1,6 +1,4 @@
-import { Optional } from '@nestjs/common';
 import { PartialType } from '@nestjs/swagger';
-import { Length, IsJWT, IsJSON, IsBoolean, IsNotEmpty, IsEmpty, IsOptional, IsEmail, isNotEmpty } from 'class-validator';
 
 export class CreateUserDto {
     username: string;

@@ -1,4 +1,4 @@
-import { Controller, Post, Body, Get, Param, Patch, Delete, UseGuards, Session } from '@nestjs/common';
+import { Controller, Post, Body, Get, Param, Patch, Delete, UseGuards, Session, Query } from '@nestjs/common';
 import { UserService } from '../service/User.service';
 import { CreateUserDto, UpdateUserDto } from '../dto/User.dto';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
@@ -13,20 +13,11 @@ import { IssueService } from 'src/api/issue/service/issue.service';
 export class UserController {
     constructor(
         private readonly userService: UserService,
-        private readonly workspaceService: WorkspaceService,
-        private readonly issueService: IssueService,
     ) { }
 
     @Post()
     create(@Body() createUserDto: CreateUserDto) {
         return this.userService.create(createUserDto);
-    }
-
-    @Get('me/:id')
-    async findAllWorkSpaceAndUserAndIssue(@Param('id') id: string) {
-        const workSpace = this.workspaceService.findWorkspaceAndUser(id, false);
-        const issue = this.workspaceService.findWorkspaceAndUser(id, false);
-        return this.workspaceService.findWorkspaceAndUser(id, false);
     }
 
     @UseGuards(AuthGuard)
@@ -35,9 +26,9 @@ export class UserController {
         return this.userService.findAll();
     }
 
-    @Get(':id')
-    findOne(@Param('id') id: string) {
-        return this.userService.findOneById(+id);
+    @Get()
+    findOne(@Query('id') id: string) {
+        return this.userService.findOneById(id);
     }
 
     @Patch(':id')

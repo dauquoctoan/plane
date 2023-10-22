@@ -3,7 +3,6 @@ import { AnalyticView } from 'src/api/analytic/entitys/AnalyticView.entity';
 import { APIToken } from 'src/api/api_token/entitys/APIToken.entity';
 import { FileAsset } from 'src/api/asset/entitys/FileAsset.entity';
 import { ExporterHistory } from 'src/api/exporter/entitys/ExporterHistory.entity';
-import { Importer } from 'src/api/importer/entitys/Importer.entity';
 import { Notification } from 'src/api/notification/entitys/Notification.entity';
 import { User } from 'src/api/user/entitys/User.entity';
 import { WorkspaceMember } from './WorkspaceMember.entity';

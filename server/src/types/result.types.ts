@@ -5,3 +5,4 @@ interface IResult {
     messageDetail?: any
     data?: any
 }
+

@@ -11,7 +11,8 @@ import {
 import { Spinner } from "../commont/Sniper";
 import APP_CONFIG from "@/configs";
 import authService from "@/services/auth-services";
-import { useRouter } from 'next/navigation'
+import { useRouter } from 'next/navigation';
+import useSWR from 'swr'
 
 export interface IGoogleAuth{
   clientId: string;
@@ -27,17 +28,18 @@ export interface IGoogleLoginButton {
 
 export const GoogleLoginButton: FC<IGoogleLoginButton> = () => {
   const {GOOGLE_CLIENTID} = APP_CONFIG;
-  const router = useRouter()
-
+  const router = useRouter();
   const googleSignInButton = useRef<HTMLDivElement>(null);
   const [gsiScriptLoaded, setGsiScriptLoaded] = useState(false);
 
   async function handleSignIn(result: IGoogleAuth) {
     const respont =  await authService.singInGoogle({ idToken: result.credential, type: 'google'})
-    if(respont) router.push('/workspace');
+    const user = await authService.getUser('api/user/me');
+    if(respont) router.push(user.workspace.slug);
   }
   
   const loadScript = useCallback(() => {
+    console.log('load')
     if (!googleSignInButton.current || gsiScriptLoaded) return;
 
     (window as any)?.google?.accounts.id.initialize({
@@ -62,7 +64,6 @@ export const GoogleLoginButton: FC<IGoogleLoginButton> = () => {
     }
 
     (window as any)?.google?.accounts.id.prompt(); // also display the One Tap dialog
-
     setGsiScriptLoaded(true);
   }, [handleSignIn, gsiScriptLoaded]);
 
@@ -70,6 +71,7 @@ export const GoogleLoginButton: FC<IGoogleLoginButton> = () => {
     if ((window as any)?.google?.accounts?.id) {
       loadScript();
     }
+
     return () => {
       (window as any)?.google?.accounts.id.cancel();
     };
@@ -78,7 +80,7 @@ export const GoogleLoginButton: FC<IGoogleLoginButton> = () => {
   return (
     <>
       <div className={`w-full h-screen flex justify-center items-center`}>
-      <div className={`h-auto w-[376px] ${gsiScriptLoaded? 'visible' : 'hidden'}`}>
+      <div className={`h-[310px] w-[376px] ${gsiScriptLoaded? 'visited:' : 'invisible'}`}>
           <h3 className="text-center font-semibold mb-7 text-lg">Sign in to Plane</h3>
           <input placeholder="Enter your email address..."  className="outline-none border-[1px] rounded w-full mb-[16px] border-gray-400 py-[10px] box-border px-2"/>
           <Script

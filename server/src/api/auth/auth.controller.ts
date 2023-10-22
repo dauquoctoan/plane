@@ -25,13 +25,10 @@ export class AuthController {
       if (ticket) {
         const payload = ticket.getPayload();
 
-        //check user exists
-        const user = await this.userService.findOneById(
-          1
-          // { email: payload.email }
-          , false)
+        // Kiểm tra người dùng tồn tại
+        const user = await this.userService.findOne({ where: { email: payload.email } }, false)
 
-        //handle save user when user dont created
+        // xử lý lưu người dùng khi người dùng chưa tạo
         if (!user) {
           const info = await this.userService.create({
             username: payload.email,
