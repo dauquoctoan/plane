@@ -144,10 +144,10 @@ export const SORT_ORDER = 65535;
 
 
 export const DEFAULT_ONBOARDING = {
-    "profile_complete": false,
-    "workspace_create": false,
-    "workspace_invite": false,
-    "workspace_join": false,
+    "profile_complete": '0',
+    "workspace_create": '0',
+    "workspace_invite": '0',
+    "workspace_join": '0',
 }
 
 export const DEFAULT_PREFERENCES = {

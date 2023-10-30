@@ -4,7 +4,7 @@ import { CommentReaction } from '../entitys/CommentReaction.entity';
 import { BaseService } from 'src/api/Base.service';
 
 @Injectable()
-export class CommentReactionService extends BaseService {
+export class CommentReactionService extends BaseService<CommentReaction> {
     constructor(
         @InjectModel(CommentReaction)
         private commentReaction: typeof CommentReaction,

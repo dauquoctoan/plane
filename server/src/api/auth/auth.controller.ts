@@ -1,11 +1,11 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, UnauthorizedException } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { AuthenEndPointDto, CreateAuthDto } from './dto/create-auth.dto';
 import { UpdateAuthDto } from './dto/update-auth.dto';
 import { OAuth2Client } from 'google-auth-library';
 import { ApiTags } from '@nestjs/swagger';
 import { JwtService } from '@nestjs/jwt';
-import { handleResultError, handleResultSuccess } from 'src/helper/handleresult';
+import { handleResultSuccess } from 'src/helper/handleresult';
 import { UserService } from '../user/service/User.service';
 
 @Controller()
@@ -24,10 +24,8 @@ export class AuthController {
 
       if (ticket) {
         const payload = ticket.getPayload();
-
         // Kiểm tra người dùng tồn tại
-        const user = await this.userService.findOne({ where: { email: payload.email } }, false)
-
+        const user = await this.userService.findOne({ where: { email: payload.email } }, false);
         // xử lý lưu người dùng khi người dùng chưa tạo
         if (!user) {
           const info = await this.userService.create({
@@ -35,15 +33,14 @@ export class AuthController {
             email: payload.email,
             avatar: payload.picture
           }, false);
-          return handleResultSuccess(this.createToken({ id: info.User.dataValues.id, email: info.User.dataValues.email }));
+          const a = this.createToken({ id: info.id, email: info.email })
+          if (info) return handleResultSuccess(this.createToken(a));
         }
-
         return handleResultSuccess(this.createToken({ id: user.id, email: user.email }));
       }
-
-      handleResultError({ message: 'Invalid token', statusCode: 403 });
+      throw new UnauthorizedException();
     } catch (error) {
-      handleResultError({ message: 'Authen error', statusCode: 403 });
+      throw new UnauthorizedException();
     }
   };
 
@@ -74,9 +71,10 @@ export class AuthController {
 
   // function handle
   createToken(payload) {
-    return {
+    const a = {
       access_token: this.jwtService.sign({ payload }),
       refresh_token: this.jwtService.sign({ payload }, { expiresIn: process.env.REFRESH_TOKEN_EXPIRATION })
     }
+    return a;
   }
 }

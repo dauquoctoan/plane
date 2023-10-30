@@ -5,7 +5,7 @@ import { BaseService } from 'src/api/Base.service';
 import { Repository } from 'sequelize-typescript';
 
 @Injectable()
-export class UserService extends BaseService {
+export class UserService extends BaseService<User> {
     constructor(
         @InjectModel(User)
         public repository: Repository<User>,

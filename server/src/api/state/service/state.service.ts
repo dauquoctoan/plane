@@ -6,7 +6,7 @@ import { BaseService } from 'src/api/Base.service';
 
 
 @Injectable()
-export class StateService extends BaseService {
+export class StateService extends BaseService<State> {
     constructor(
         @InjectModel(State)
         private stateModel: Repository<State>,

@@ -1,4 +1,4 @@
-import { Column, Model, Table, Length, ForeignKey, Index, DataType, HasMany, BelongsTo } from 'sequelize-typescript';
+import { Column, Model, Table, Length, ForeignKey, Index, DataType, HasMany, BelongsTo, BeforeDestroy } from 'sequelize-typescript';
 import { AnalyticView } from 'src/api/analytic/entitys/AnalyticView.entity';
 import { APIToken } from 'src/api/api_token/entitys/APIToken.entity';
 import { FileAsset } from 'src/api/asset/entitys/FileAsset.entity';
@@ -26,9 +26,8 @@ export class Workspace extends Model {
     */
 
     /* ================================================== */
-
     @ForeignKey(() => User)
-    @Column({ type: sequelize.UUID })
+    @Column({ type: sequelize.UUID, allowNull: false })
     owner: string;
 
     @BelongsTo(() => User)

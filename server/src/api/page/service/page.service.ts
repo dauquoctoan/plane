@@ -5,7 +5,7 @@ import { Page } from '../entitys/Page.entity';
 import { Repository } from 'sequelize-typescript';
 
 @Injectable()
-export class PageService extends BaseService {
+export class PageService extends BaseService<Page> {
     constructor(@InjectModel(Page) public repository: Repository<Page>) {
         super(repository)
     }

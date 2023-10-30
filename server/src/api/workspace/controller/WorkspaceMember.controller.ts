@@ -5,7 +5,7 @@ import { WorkspaceMemberService } from '../service/WorkspaceMember.service';
 
 
 @Controller('workspaceMember')
-@ApiTags('WorkspaceMember')
+@ApiTags('Workspace Member')
 export class WorkspaceMemberController {
     constructor(private readonly workspaceMemberService: WorkspaceMemberService) { }
     @Post()

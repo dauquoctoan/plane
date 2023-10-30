@@ -5,7 +5,7 @@ import { InjectModel } from '@nestjs/sequelize';
 import { BaseService } from 'src/api/Base.service';
 
 @Injectable()
-export class TeamService extends BaseService {
+export class TeamService extends BaseService<Team>{
   constructor(
     @InjectModel(Team) public teamRepository: Repository<Team>,
   ) {

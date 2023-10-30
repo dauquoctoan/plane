@@ -6,7 +6,7 @@ import { ProjectDeployBoard } from '../entitys/ProjectDeployBoard.entity';
 import { InjectModel } from '@nestjs/sequelize';
 
 @Injectable()
-export class ProjectDeployBoardService extends BaseService {
+export class ProjectDeployBoardService extends BaseService<ProjectDeployBoard> {
     constructor(
         @InjectModel(ProjectDeployBoard) public repository: Repository<ProjectDeployBoard>,
     ) {

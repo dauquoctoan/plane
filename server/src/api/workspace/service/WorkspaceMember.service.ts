@@ -6,7 +6,7 @@ import { BaseService } from 'src/api/Base.service';
 
 
 @Injectable()
-export class WorkspaceMemberService extends BaseService {
+export class WorkspaceMemberService extends BaseService<WorkspaceMember> {
     constructor(
         @InjectModel(WorkspaceMember) public repository: Repository<WorkspaceMember>,
     ) {

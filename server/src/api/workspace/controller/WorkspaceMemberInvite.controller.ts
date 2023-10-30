@@ -1,16 +1,34 @@
 import { Controller, Get, Post, Body, Patch, Delete, Param } from '@nestjs/common';
 import { ApiTags } from "@nestjs/swagger";
 import { WorkspaceMemberInviteService } from '../service/WorkspaceMemberInvite.service';
-import { CreateWorkspaceMemberInviteDto, UpdateWorkspaceMemberInviteDto } from '../dto/WorkspaceMemberInvite.dto';
+import { CreateWorkspaceMemberInviteDto, CreatesWorkspaceMemberInviteDto, UpdateWorkspaceMemberInviteDto } from '../dto/WorkspaceMemberInvite.dto';
+import { JwtService } from '@nestjs/jwt';
 
 
 @Controller('workspaceMemberInvite')
-@ApiTags('WorkspaceMemberInvite')
+@ApiTags('Workspace Member Invite')
 export class WorkspaceMemberInviteController {
-    constructor(private readonly workspaceMemberInviteService: WorkspaceMemberInviteService) { }
+    constructor(private readonly workspaceMemberInviteService: WorkspaceMemberInviteService, private jwtService: JwtService) { }
     @Post()
     createWorkspaceMemberInvite(@Body() createWorkspaceMemberInviteDto: CreateWorkspaceMemberInviteDto) {
         return this.workspaceMemberInviteService.create(createWorkspaceMemberInviteDto);
+    }
+
+    @Post('creates')
+    createsWorkspaceMemberInvite(@Body() createWorkspaceMemberInvite: CreatesWorkspaceMemberInviteDto) {
+        const lsMember: CreateWorkspaceMemberInviteDto[] = Object.keys(createWorkspaceMemberInvite).map((key) => {
+            const email = createWorkspaceMemberInvite[key].email;
+            const role = createWorkspaceMemberInvite[key].role;
+
+            return {
+                ...createWorkspaceMemberInvite[key],
+                token: this.jwtService.sign({
+                    email,
+                    role
+                }, { expiresIn: process.env.TOKEN_TOKEN_EXPIRATION })
+            };
+        })
+        return this.workspaceMemberInviteService.creates(lsMember);
     }
 
     @Get()

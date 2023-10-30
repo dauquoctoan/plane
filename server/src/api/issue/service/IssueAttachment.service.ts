@@ -4,7 +4,7 @@ import { BaseService } from 'src/api/Base.service';
 import { IssueAttachment } from '../entitys/IssueAttachment.entity';
 
 @Injectable()
-export class IssueAttachmentService extends BaseService {
+export class IssueAttachmentService extends BaseService<IssueAttachment> {
     constructor(
         @InjectModel(IssueAttachment)
         private issueAttachment: typeof IssueAttachment,

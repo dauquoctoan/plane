@@ -5,7 +5,7 @@ import { CreateWorkspaceThemeDto, UpdateWorkspaceThemeDto } from '../dto/Workspa
 
 
 @Controller('workspaceMemberTheme')
-@ApiTags('WorkspaceMemberTheme')
+@ApiTags('Workspace Member Theme')
 export class WorkspaceThemeController {
     constructor(private readonly workspaceMemberThemeService: WorkspaceThemeService) { }
     @Post()

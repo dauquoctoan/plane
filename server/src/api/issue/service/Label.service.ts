@@ -4,7 +4,7 @@ import { BaseService } from 'src/api/Base.service';
 import { Label } from '../entitys/Label.entity';
 
 @Injectable()
-export class LabelService extends BaseService {
+export class LabelService extends BaseService<Label> {
     constructor(
         @InjectModel(Label)
         private label: typeof Label,

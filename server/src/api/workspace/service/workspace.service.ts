@@ -8,7 +8,7 @@ import { handleResultError, handleResultSuccess } from 'src/helper/handleresult'
 import { messageFindFail } from 'src/helper/message.create';
 
 @Injectable()
-export class WorkspaceService extends BaseService {
+export class WorkspaceService extends BaseService<Workspace>{
   constructor(
     @InjectModel(Workspace) public repository: Repository<Workspace>,
   ) {

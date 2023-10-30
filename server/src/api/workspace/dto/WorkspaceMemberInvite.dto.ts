@@ -9,6 +9,9 @@ export class CreateWorkspaceMemberInviteDto {
     role: string;
 }
 
+export interface CreatesWorkspaceMemberInviteDto {
+    [key: string]: CreateWorkspaceMemberInviteDto;
+}
 
 export class UpdateWorkspaceMemberInviteDto {
     workspace: number;

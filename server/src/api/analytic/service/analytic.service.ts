@@ -5,7 +5,7 @@ import { BaseService } from 'src/api/Base.service';
 import { AnalyticView } from '../entitys/AnalyticView.entity';
 
 @Injectable()
-export class AnalyticViewService extends BaseService {
+export class AnalyticViewService extends BaseService<AnalyticView> {
     constructor(@InjectModel(AnalyticView) public repository: Repository<AnalyticView>) {
         super(repository)
     }

@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Patch, Delete, Query, Param } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Delete, Param } from '@nestjs/common';
 import { WorkspaceService } from '../service/workspace.service';
 import { ApiTags } from "@nestjs/swagger";
 import { CreateWorkspaceDto, UpdateWorkspaceDto } from '../dto/Workspace.dto';
@@ -8,6 +8,7 @@ import { CreateWorkspaceDto, UpdateWorkspaceDto } from '../dto/Workspace.dto';
 @ApiTags('Workspace')
 export class WorkspaceController {
   constructor(private readonly workspaceService: WorkspaceService) { }
+
   @Post()
   createWorkSpace(@Body() createWorkspaceDto: CreateWorkspaceDto) {
     return this.workspaceService.create(createWorkspaceDto);

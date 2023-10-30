@@ -42,5 +42,5 @@ export class WorkspaceMemberInvite extends Model {
         }
     })
     @Column
-    role: string;
+    role: number;
 }

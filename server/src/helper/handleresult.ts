@@ -1,6 +1,6 @@
 import { HttpException, HttpStatus } from "@nestjs/common";
 
-const handleResultError = (error: Omit<IResult, 'code'>): void => {
+const handleResultError = <T>(error: Omit<IResult<T>, 'code'>): void => {
     throw new HttpException({
         code: 0,
         statusCode: error.statusCode || HttpStatus.INTERNAL_SERVER_ERROR,
@@ -11,7 +11,7 @@ const handleResultError = (error: Omit<IResult, 'code'>): void => {
     });
 }
 
-const handleResultSuccess = <T>(data: T): IResult => {
+const handleResultSuccess = <T>(data): IResult<T> => {
     return {
         code: 1,
         statusCode: 200,

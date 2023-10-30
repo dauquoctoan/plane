@@ -5,7 +5,7 @@ import { ProjectPublicMember } from '../entitys/ProjectPublicMember.entity';
 import { Repository } from 'sequelize-typescript';
 
 @Injectable()
-export class ProjectPublicMemberService extends BaseService {
+export class ProjectPublicMemberService extends BaseService<ProjectPublicMember> {
     constructor(
         @InjectModel(ProjectPublicMember) public repository: Repository<ProjectPublicMember>,
     ) {

@@ -5,7 +5,7 @@ import { BaseService } from 'src/api/Base.service';
 import { CycleIssue } from '../entitys/CycleIssue.entity';
 
 @Injectable()
-export class CycleIssueService extends BaseService {
+export class CycleIssueService extends BaseService<CycleIssue> {
     constructor(@InjectModel(CycleIssue) public repository: Repository<CycleIssue>) {
         super(repository)
     }

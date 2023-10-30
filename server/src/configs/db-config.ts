@@ -13,7 +13,7 @@ export const CONFIG_DB: SequelizeModuleAsyncOptions = {
         timezone: "+08:00",
         autoLoadModels: true,
         synchronize: true,
-        // sync: { force: true }//using when create db
+        //sync: { force: true }
     }),
     inject: [ConfigService]
 }

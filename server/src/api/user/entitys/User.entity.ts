@@ -1,5 +1,5 @@
 import sequelize, { Sequelize } from 'sequelize';
-import { BelongsToMany, Column, CreatedAt, DataType, HasMany, Length, Model, Table, PrimaryKey } from 'sequelize-typescript';
+import { BelongsToMany, Column, CreatedAt, DataType, HasMany, Length, Model, Table, PrimaryKey, Is } from 'sequelize-typescript';
 import { APIToken } from 'src/api/api_token/entitys/APIToken.entity';
 import { Cycle } from 'src/api/cycle/entitys/Cycle.entity';
 import { CycleFavorite } from 'src/api/cycle/entitys/CycleFavorite.entity';
@@ -29,6 +29,7 @@ import { Workspace } from 'src/api/workspace/entitys/Workspace.entity';
 import { WorkspaceMember } from 'src/api/workspace/entitys/WorkspaceMember.entity';
 import { WorkspaceTheme } from 'src/api/workspace/entitys/WorkspaceTheme.entity';
 import { DEFAULT_ONBOARDING } from 'src/constants/entity-constant';
+import { validEmail } from 'src/helper/regex';
 
 @Table
 export class User extends Model {
@@ -94,7 +95,7 @@ export class User extends Model {
     @HasMany(() => ModuleFavorite)
     module_favorites: ModuleFavorite[];
 
-    @HasMany(() => Workspace)
+    @HasMany(() => Workspace, { onDelete: 'CASCADE' })
     workspaces: Workspace[];
 
     @HasMany(() => WorkspaceMember)
@@ -142,6 +143,9 @@ export class User extends Model {
     @Column
     mobileNumber: string;
 
+    @Is('email', (data) => {
+        if (!validEmail(data)) throw Error('Invalid Email')
+    })
     @Length({ max: 255 })
     @Column({ allowNull: false, unique: true })
     email: string;
@@ -208,8 +212,8 @@ export class User extends Model {
     @Column
     has_billing_address: string;
 
-    @Column({ type: sequelize.DATEONLY, defaultValue: sequelize.NOW })
-    USER_TIMEZONE_CHOICES: Date;
+    @Column
+    USER_TIMEZONE_CHOICES: string;
 
     @Column({ type: sequelize.DATEONLY, defaultValue: sequelize.NOW })
     user_timezone: Date;

@@ -5,7 +5,7 @@ import { BaseService } from 'src/api/Base.service';
 import { ProjectMemberInvite } from '../entitys/ProjectMemberInvite.entity';
 
 @Injectable()
-export class ProjectMemberInviteService extends BaseService {
+export class ProjectMemberInviteService extends BaseService<ProjectMemberInvite> {
     constructor(
         @InjectModel(ProjectMemberInvite) public repository: Repository<ProjectMemberInvite>,
     ) {

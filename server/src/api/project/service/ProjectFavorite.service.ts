@@ -5,7 +5,7 @@ import { BaseService } from 'src/api/Base.service';
 import { ProjectFavorite } from '../entitys/rojectFavorite.entity';
 
 @Injectable()
-export class ProjectFavoriteService extends BaseService {
+export class ProjectFavoriteService extends BaseService<ProjectFavorite>{
     constructor(
         @InjectModel(ProjectFavorite) public repository: Repository<ProjectFavorite>,
     ) {

@@ -6,7 +6,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { InjectModel } from '@nestjs/sequelize';
 
 @Injectable()
-export class IssueViewService extends BaseService {
+export class IssueViewService extends BaseService<IssueView> {
     constructor(@InjectModel(IssueView) public repository: Repository<IssueView>) {
         super(repository);
     }
