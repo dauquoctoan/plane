@@ -6,16 +6,7 @@ import { Counter } from '../account/counter';
 
 const Test = () => {
     const { data, error, isLoading, isValidating } = useSWR('api/user/me',(user)=> authService.getUser(user) );
-    console.log(data, error,isLoading, isValidating);
-  // async function getData(){
-  //   const data = await  authService.getUser('api/user/me');
-  //   console.log(data);
-  // }
-  // useEffect(() => {
-  //   getData()
-  // }, [])
-  
-
+    console.log(data, error, isLoading, isValidating);
   return (
     <div><Counter/></div>
   )

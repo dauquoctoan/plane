@@ -1,12 +1,13 @@
 import { COOKIE_TIME_EXPRIRES, KEY_COOKIE_AUTH_ACCESS_TOKEN, KEY_COOKIE_AUTH_REFRESH_TOKEN } from "@/constants/services-constants";
+import { IResult } from "@/types";
 import axios from "axios";
 import Cookie from "js-cookie";
 import qs from "qs";
 
 export class BaseService {
     protected headers: any = {};
+    protected router: any;
     constructor(readonly baseURL: string) { }
-
     getAccessToken() {
         return Cookie.get(KEY_COOKIE_AUTH_ACCESS_TOKEN)
     }
@@ -34,26 +35,42 @@ export class BaseService {
         Cookie.remove(KEY_COOKIE_AUTH_REFRESH_TOKEN);
     }
 
-    get(url: string, config = {}) {
+    get<T>(url: string, config = {}) {
         return axios({
             method: "get",
             url: this.baseURL + url,
             headers: this.getAccessToken() ? this.getHeaders() : {},
             ...config,
-        }).then((res) => {
-            console.log(res)
-            return res.data
+        }).then((res) => res.data).then((result: IResult<T>) => {
+            if (result.code) return result.data;
+            else return 0;
         });
     }
 
-    post(url: string, data = {}, config = {}) {
+    post<T>(url: string, data = {}, config = {}) {
         return axios({
             method: "post",
             url: this.baseURL + url,
             data: qs.stringify(data),
             headers: this.getAccessToken() ? this.getHeaders() : {},
             ...config,
-        }).then((res) => res.data);
+        }).then((res) => res.data).then((result: IResult<T>) => {
+            if (result.code) return result.data;
+            else return 0
+        });
+    }
+
+    patch<T>(url: string, data = {}, config = {}) {
+        return axios({
+            method: "patch",
+            url: this.baseURL + url,
+            data: qs.stringify(data),
+            headers: this.getAccessToken() ? this.getHeaders() : {},
+            ...config,
+        }).then((res) => res.data).then((result: IResult<T>) => {
+            if (result.code) return result.data;
+            else return 0
+        });
     }
 
     put(url: string, config = {}) {

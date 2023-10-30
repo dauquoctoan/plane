@@ -8,11 +8,13 @@ import {
   useCallback,
   useState,
 } from "react";
-import { Spinner } from "../commont/Sniper";
+import { Spinner } from "../ui/loading/Spinner";
 import APP_CONFIG from "@/configs";
 import authService from "@/services/auth-services";
 import { useRouter } from 'next/navigation';
-import useSWR from 'swr'
+import { IInfo } from "@/types";
+import { useDispatch } from "@/store";
+import { authSlice } from "@/store/slices/authSlice";
 
 export interface IGoogleAuth{
   clientId: string;
@@ -31,15 +33,21 @@ export const GoogleLoginButton: FC<IGoogleLoginButton> = () => {
   const router = useRouter();
   const googleSignInButton = useRef<HTMLDivElement>(null);
   const [gsiScriptLoaded, setGsiScriptLoaded] = useState(false);
+  const dispatch = useDispatch();
 
   async function handleSignIn(result: IGoogleAuth) {
     const respont =  await authService.singInGoogle({ idToken: result.credential, type: 'google'})
-    const user = await authService.getUser('api/user/me');
-    if(respont) router.push(user.workspace.slug);
+    if(respont){
+      const info = await authService.getUser<IInfo>('api/user/me');
+      if(info && info.user?.id){
+        dispatch(authSlice.actions.setInfo(info));
+        if(!info.user.is_onboarded) router.push('/setup');
+        if(info.workspace?.slug) router.push(info.workspace?.slug);
+      }
+    }
   }
   
   const loadScript = useCallback(() => {
-    console.log('load')
     if (!googleSignInButton.current || gsiScriptLoaded) return;
 
     (window as any)?.google?.accounts.id.initialize({
@@ -57,13 +65,13 @@ export const GoogleLoginButton: FC<IGoogleLoginButton> = () => {
           logo_alignment: "center",
           width: 373,
           text: "signin_with",
-        } as any // customization attributes
+        } as any 
       );
     } catch (err) {
       console.log(err);
     }
 
-    (window as any)?.google?.accounts.id.prompt(); // also display the One Tap dialog
+    (window as any)?.google?.accounts.id.prompt(); 
     setGsiScriptLoaded(true);
   }, [handleSignIn, gsiScriptLoaded]);
 

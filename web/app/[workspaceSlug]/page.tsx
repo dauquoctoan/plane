@@ -1,11 +1,9 @@
-import Test from "@/components/commont/Test";
-import SWRProvider from "@/components/commont/swr-provider";
+import MainLayout from "@/layouts/auth.provider";
 
 export default function Page({ params }: { params: { workspaceSlug: string } }) {
-  return <div>
-    {params.workspaceSlug}
-    <SWRProvider>
-      <Test/>
-    </SWRProvider>
-  </div>
+  return (
+    <MainLayout>
+      <div>vlxx</div>
+    </MainLayout>
+  )
 }

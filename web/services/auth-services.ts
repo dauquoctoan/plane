@@ -1,4 +1,4 @@
-import { IResult } from '@/types';
+import { IResult, IUser } from '@/types';
 import { BaseService } from './base-service';
 import APP_CONFIG from '@/configs';
 
@@ -21,20 +21,21 @@ class AuthService extends BaseService {
 
     async singInGoogle(googleAuth: IGoogleAuth) {
         try {
-            const result: IResult<IResultLoginGoogle> = await this.post('api/auth/sign-in', googleAuth);
-
-            if (result?.code) {
-                this.setAccessToken(result?.data?.access_token);
-                this.setRefreshToken(result?.data?.refresh_token);
-                return result.data;
-            }
+            const result = await this.post<IResultLoginGoogle>('api/auth/sign-in', googleAuth);
+            result && this.setAccessToken(result?.access_token);
+            result && this.setRefreshToken(result.refresh_token);
+            return result;
         } catch (error) {
             console.log(error);
         }
     }
 
-    getUser(url: string) {
-        return this.get(url).then((result) => result.data)
+    getUser<T>(url: string) {
+        return this.get<T>(url)
+    }
+
+    upDateUser<T>(id: string, user: IUser) {
+        return this.patch<T>('api/user/' + id, user);
     }
 }
 

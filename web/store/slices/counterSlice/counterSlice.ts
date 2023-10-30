@@ -3,8 +3,9 @@ import { createSlice, type PayloadAction } from '@reduxjs/toolkit'
 
 /* Instruments */
 import { incrementAsync } from './thunks'
+import { IAsyncSliceState } from '@/store/types'
 
-const initialState: CounterSliceState = {
+const initialState: IAsyncSliceState = {
     value: 0,
     status: 'idle',
 }
@@ -26,7 +27,7 @@ export const counterSlice = createSlice({
         },
         // Use the PayloadAction type to declare the contents of `action.payload`
         incrementByAmount: (state, action: PayloadAction<number>) => {
-            state.value += action.payload
+            state.value += action.payload;
         },
     },
     // The `extraReducers` field lets the slice handle actions defined elsewhere,
@@ -42,9 +43,3 @@ export const counterSlice = createSlice({
             })
     },
 })
-
-/* Types */
-export interface CounterSliceState {
-    value: number
-    status: 'idle' | 'loading' | 'failed'
-}

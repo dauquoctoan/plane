@@ -43,4 +43,11 @@
     --color-light-theme-shadow-primary: 0 6px 16px 0 rgba(0,0,0,.08), 0 3px 6px -4px rgba(0,0,0,.12), 0 9px 28px 8px rgba(0,0,0,.05);
     --color-dark-theme-shadow-primary: 0 6px 16px 0 rgba(0,0,0,.08), 0 3px 6px -4px rgba(0,0,0,.12), 0 9px 28px 8px rgba(0,0,0,.05);
     --color-olet-theme-shadow-primary: 0 6px 16px 0 rgba(0,0,0,.08), 0 3px 6px -4px rgba(0,0,0,.12), 0 9px 28px 8px rgba(0,0,0,.05);
+
+    /* special */
+    /* dont using for theme */
+    --color-special-primary: rgba(63,118,255);
+
+    /* dont using for theme */
+    --color-warning: #d73a49;
 }

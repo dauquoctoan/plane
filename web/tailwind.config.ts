@@ -20,7 +20,7 @@ const config: Config = {
         popUp: {
           "0%": {
             opacity: '0',
-            transform: 'scaleY(1)'
+            transform: 'scaleY(1)',
           },
           '50%': {
             opacity: '.8'
@@ -29,16 +29,36 @@ const config: Config = {
             opacity: '1',
             transform: 'scaleY(1)'
           },
+        },
+        rangeLoading: {
+          "0%": {
+            width: '0%',
+            display: 'block',
+          },
+          '100%': {
+            width: '100%',
+            display: 'none',
+          },
+        },
+        ping: {
+          '75%, 100%': {
+            transform: 'scale(1.15)',
+            opacity: '0'
+          }
         }
       },
       animation: {
-        'pop-up': 'popUp 1s ease-in-out',
+        'pop-up': 'popUp .5s ease-out',
+        ping: 'ping 1.2s',
+        loadingRange: 'rangeLoading .2s ease-out'
       },
       colors: {
         "theme-primary": 'var(--color-theme-primary)',
         "theme-secondary": "var(--color-theme-secondary)",
         "theme-text-primary": 'var(--color-theme-text-primary)',
-        "theme-border-primary": 'var(--color-theme-border-primary)'
+        "theme-border-primary": 'var(--color-theme-border-primary)',
+        "color-special-primary": "var(--color-special-primary)",
+        'color-warning': "var(--color-warning)"
       }
     },
   },

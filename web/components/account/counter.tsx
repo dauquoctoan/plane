@@ -22,7 +22,7 @@ export const Counter = () => {
 
   return (
     <div>
-      <div >
+      <div className='w-full h-full bg-red-500'>
         <button
           
           aria-label="Decrement value"
@@ -47,7 +47,6 @@ export const Counter = () => {
           onChange={(e) => setIncrementAmount(Number(e.target.value ?? 0))}
         />
         <button
-          
           onClick={() =>
             dispatch(counterSlice.actions.incrementByAmount(incrementAmount))
           }

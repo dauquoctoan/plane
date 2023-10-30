@@ -2,12 +2,14 @@ import { Providers } from "@/store/providers";
 import { Inter } from "next/font/google";
 import "../styles/globals.css";
 import "../styles/theme.css";
+import "../styles/loading.css";
+import SWRProvider from "@/components/commont/swr-provider";
 
 const inter = Inter({ subsets: ["vietnamese"] });
 
 export const metadata: any = {
   title: "Plane",
-  description: "Sign-in google",
+  description: "Plane",
 };
 
 export default function RootLayout({
@@ -19,7 +21,9 @@ export default function RootLayout({
     <Providers>
       <html lang="en">
         <body className={`${inter.className} theme-light`}>
-            {children}
+            <SWRProvider>
+              {children}
+            </SWRProvider>
         </body>
       </html>
     </Providers> 
