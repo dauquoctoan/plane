@@ -2,6 +2,7 @@ import { Controller, Post, Body, Get, Param, Patch, Delete } from '@nestjs/commo
 import { InboxService } from '../service/inbox.service';
 import { CreateInboxDto, UpdateInboxDto } from '../dto/inbox.dto';
 import { ApiTags } from '@nestjs/swagger';
+import { handleResultSuccess } from 'src/helper/handleresult';
 
 @Controller()
 @ApiTags('Inbox')
@@ -9,26 +10,26 @@ export class InboxController {
     constructor(private readonly inboxService: InboxService) { }
     @Post()
     create(@Body() inbox: CreateInboxDto) {
-        return this.inboxService.create(inbox);
+        return handleResultSuccess(this.inboxService.create(inbox));
     }
 
     @Get()
     findAll() {
-        return this.inboxService.findAll();
+        return handleResultSuccess(this.inboxService.findAll());
     }
 
     @Get(':id')
     findOne(@Param('id') id: string) {
-        return this.inboxService.findOneById(+id);
+        return handleResultSuccess(this.inboxService.findOneById(+id));
     }
 
     @Patch(':id')
     update(@Param('id') id: string, @Body() updateWorkspaceDto: UpdateInboxDto) {
-        return this.inboxService.updateById(+id, updateWorkspaceDto);
+        return handleResultSuccess(this.inboxService.updateById(+id, updateWorkspaceDto));
     }
 
     @Delete(':id')
     remove(@Param('id') id: string) {
-        return this.inboxService.removeById(+id);
+        return handleResultSuccess(this.inboxService.removeById(+id));
     }
 }

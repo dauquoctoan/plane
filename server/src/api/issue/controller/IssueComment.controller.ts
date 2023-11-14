@@ -2,6 +2,7 @@ import { Controller, Post, Body, Get, Param, Patch, Delete } from '@nestjs/commo
 import { ApiTags } from '@nestjs/swagger';
 import { IssueCommentService } from '../service/IssueComment.service';
 import { CreateIssueCommentDto, UpdateIssueCommentDto } from '../dto/IssueComment.dto';
+import { handleResultSuccess } from 'src/helper/handleresult';
 
 @Controller('issue-comment')
 @ApiTags('Issue Comment')
@@ -9,26 +10,26 @@ export class IssueCommentController {
     constructor(private readonly workspaceService: IssueCommentService) { }
     @Post()
     create(@Body() createWorkspaceDto: CreateIssueCommentDto) {
-        return this.workspaceService.create(createWorkspaceDto);
+        return handleResultSuccess(this.workspaceService.create(createWorkspaceDto));
     }
 
     @Get()
     findAll() {
-        return this.workspaceService.findAll();
+        return handleResultSuccess(this.workspaceService.findAll());
     }
 
     @Get(':id')
     findOne(@Param('id') id: string) {
-        return this.workspaceService.findOneById(+id);
+        return handleResultSuccess(this.workspaceService.findOneById(+id));
     }
 
     @Patch(':id')
     update(@Param('id') id: string, @Body() updateWorkspaceDto: UpdateIssueCommentDto) {
-        return this.workspaceService.updateById(+id, updateWorkspaceDto);
+        return handleResultSuccess(this.workspaceService.updateById(+id, updateWorkspaceDto));
     }
 
     @Delete(':id')
     remove(@Param('id') id: string) {
-        return this.workspaceService.removeById(+id);
+        return handleResultSuccess(this.workspaceService.removeById(+id));
     }
 }

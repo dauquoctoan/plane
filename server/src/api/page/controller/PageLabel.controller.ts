@@ -2,6 +2,7 @@ import { Controller, Post, Body, Get, Param, Patch, Delete } from '@nestjs/commo
 import { ApiTags } from '@nestjs/swagger';
 import { PageLabelService } from '../service/PageLabel.service';
 import { CreatePageLabelDto, UpdatePageLabelDto } from '../dto/PageLabel.dto';
+import { handleResultSuccess } from 'src/helper/handleresult';
 
 @Controller('page-label')
 @ApiTags('Page Label')
@@ -9,26 +10,26 @@ export class PageLabelController {
     constructor(private readonly pageLabelService: PageLabelService) { }
     @Post()
     create(@Body() PageLabel: CreatePageLabelDto) {
-        return this.pageLabelService.create(PageLabel);
+        return handleResultSuccess(this.pageLabelService.create(PageLabel));
     }
 
     @Get()
     findAll() {
-        return this.pageLabelService.findAll();
+        return handleResultSuccess(this.pageLabelService.findAll());
     }
 
     @Get(':id')
     findOne(@Param('id') id: string) {
-        return this.pageLabelService.findOneById(+id);
+        return handleResultSuccess(this.pageLabelService.findOneById(+id));
     }
 
     @Patch(':id')
     update(@Param('id') id: string, @Body() updateWorkspaceDto: UpdatePageLabelDto) {
-        return this.pageLabelService.updateById(+id, updateWorkspaceDto);
+        return handleResultSuccess(this.pageLabelService.updateById(+id, updateWorkspaceDto));
     }
 
     @Delete(':id')
     remove(@Param('id') id: string) {
-        return this.pageLabelService.removeById(+id);
+        return handleResultSuccess(this.pageLabelService.removeById(+id));
     }
 }

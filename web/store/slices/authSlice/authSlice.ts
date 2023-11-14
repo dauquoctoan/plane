@@ -6,40 +6,33 @@ interface IAuthSlice {
     info?: IInfo | null;
     statusCode: number;
     isLoading: boolean;
-    test: {
-        name: string;
-        age: number
-    }
 }
 
 const initialState: IAuthSlice = {
     info: null,
     statusCode: 0,
     isLoading: false,
-    test: {
-        name: '',
-        age: 0
-    }
 }
 
 export const authSlice = createSlice({
     name: 'auth',
     initialState,
     reducers: {
-        setInfo: (state, action: PayloadAction<IInfo>) => {
+        setInfo: (state, action: PayloadAction<IInfo | null>) => {
             state.info = action.payload;
+        },
+        clearInfo: (state) => {
+            state.info = null;
         }
     },
     extraReducers: (builder) => {
         builder
             .addCase(getUsertAsync.pending, (state) => {
-                // state.isLoading = true;
+                state.isLoading = true;
             })
             .addCase(getUsertAsync.fulfilled, (state, action) => {
-                // state.info = action.payload || null;
-                // state.isLoading = false;
-                state.test.name = 'vai cal lon'
-                state.test.age = 100
+                state.info = action.payload || null;
+                state.isLoading = false;
             })
     },
 })

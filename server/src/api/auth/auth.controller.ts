@@ -25,18 +25,17 @@ export class AuthController {
       if (ticket) {
         const payload = ticket.getPayload();
         // Kiểm tra người dùng tồn tại
-        const user = await this.userService.findOne({ where: { email: payload.email } }, false);
+        const user = await this.userService.findOne({ where: { email: payload.email } });
         // xử lý lưu người dùng khi người dùng chưa tạo
         if (!user) {
           const info = await this.userService.create({
             username: payload.email,
             email: payload.email,
             avatar: payload.picture
-          }, false);
-          const a = this.createToken({ id: info.id, email: info.email })
-          if (info) return handleResultSuccess(this.createToken(a));
+          });
+          if (info) return handleResultSuccess(this.createToken({ id: info.id || '', email: info.email || '' }));
         }
-        return handleResultSuccess(this.createToken({ id: user.id, email: user.email }));
+        return handleResultSuccess(this.createToken({ id: user.id || '', email: user.email || '' }));
       }
       throw new UnauthorizedException();
     } catch (error) {
@@ -46,35 +45,33 @@ export class AuthController {
 
   @Post()
   create(@Body() createAuthDto: CreateAuthDto) {
-    return this.authService.create(createAuthDto);
+    return handleResultSuccess(this.authService.create(createAuthDto));
   }
 
   @Get()
   findAll() {
-    return this.authService.findAll();
+    return handleResultSuccess(this.authService.findAll());
   }
 
   @Get(':id')
   findOne(@Param('id') id: string) {
-    return this.authService.findOne(+id);
+    return handleResultSuccess(this.authService.findOne(+id));
   }
 
   @Patch(':id')
   update(@Param('id') id: string, @Body() updateAuthDto: UpdateAuthDto) {
-    return this.authService.update(+id, updateAuthDto);
+    return handleResultSuccess(this.authService.update(+id, updateAuthDto));
   }
 
   @Delete(':id')
   remove(@Param('id') id: string) {
-    return this.authService.remove(+id);
+    return handleResultSuccess(this.authService.remove(+id));
   }
 
-  // function handle
   createToken(payload) {
-    const a = {
+    return {
       access_token: this.jwtService.sign({ payload }),
       refresh_token: this.jwtService.sign({ payload }, { expiresIn: process.env.REFRESH_TOKEN_EXPIRATION })
     }
-    return a;
   }
 }

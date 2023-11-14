@@ -9,4 +9,5 @@ export class CreateUserDto {
     avatar: string;
 }
 
-export class UpdateUserDto extends PartialType(CreateUserDto) { }
+export class UpdateUserDto extends PartialType(CreateUserDto) {
+}

@@ -20,7 +20,8 @@ import { ProjectIdentifierService } from './service/ProjectIdentifier.service';
 import { ProjectMemberService } from './service/ProjectMember.service';
 import { ProjectMemberInviteService } from './service/ProjectMemberInvite.service';
 import { ProjectPublicMemberService } from './service/ProjectPublicMember.service';
-import { ProjectFavorite } from './entitys/rojectFavorite.entity';
+import { ProjectFavorite } from './entitys/projectFavorite.entity';
+import { UserModule } from '../user/User.module';
 
 @Module({
   imports: [SequelizeModule.forFeature(

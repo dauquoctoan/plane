@@ -2,6 +2,7 @@ import { Body, Controller, Delete, Get, Patch, Post, Query } from '@nestjs/commo
 import { ApiTags } from '@nestjs/swagger';
 import { IssueViewService } from '../service/IssueView.service';
 import { CreateIssueViewDto, UpdateIssueViewDto } from '../dto/IssueView.entity.dto';
+import { handleResultSuccess } from 'src/helper/handleresult';
 
 
 @Controller('issue-view')
@@ -11,26 +12,26 @@ export class IssueViewController {
     /* TeamMember */
     @Post()
     create(@Body() globalView: CreateIssueViewDto) {
-        return this.issueView.create(globalView);
+        return handleResultSuccess(this.issueView.create(globalView));
     }
 
     @Get()
     findAll() {
-        return this.issueView.findAll();
+        return handleResultSuccess(this.issueView.findAll());
     }
 
     @Get(':id')
     findOne(@Query('id') id: string) {
-        return this.issueView.findOneById(+id);
+        return handleResultSuccess(this.issueView.findOneById(+id));
     }
 
     @Patch(':id')
     update(@Query('id') id: string, @Body() globalView: UpdateIssueViewDto) {
-        return this.issueView.updateById(+id, globalView);
+        return handleResultSuccess(this.issueView.updateById(+id, globalView));
     }
 
     @Delete(':id')
     remove(@Query("id") id?: string) {
-        return this.issueView.removeById(+id);
+        return handleResultSuccess(this.issueView.removeById(+id));
     }
 }

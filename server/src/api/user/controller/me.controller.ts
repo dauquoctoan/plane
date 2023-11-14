@@ -1,16 +1,13 @@
 
 
-import { Controller, Post, Body, Get, Param, Patch, Delete, UseGuards, Session, Request as RequestNest, UnauthorizedException } from '@nestjs/common';
+import { Controller, Get, UseGuards, Request as RequestNest, UnauthorizedException, Patch, Body } from '@nestjs/common';
 import { UserService } from '../service/User.service';
-import { CreateUserDto, UpdateUserDto } from '../dto/User.dto';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { AuthGuard } from 'src/Guards/auth.guard';
-import { WorkspaceService } from 'src/api/workspace/service/workspace.service';
-import { Request } from 'express';
-import { extractTokenFromHeader } from 'src/helper/token';
-import { JwtService } from '@nestjs/jwt';
-import { handleResultError, handleResultSuccess } from 'src/helper/handleresult';
-
+import { handleResultSuccess } from 'src/helper/handleresult';
+import { Workspace } from 'src/api/workspace/entitys/Workspace.entity';
+import { UpdateUserDto } from '../dto/User.dto';
+import { IAuthRequest } from 'src/types/auth.types';
 
 @Controller('/me')
 @ApiTags('Me')
@@ -18,33 +15,19 @@ import { handleResultError, handleResultSuccess } from 'src/helper/handleresult'
 export class MeController {
     constructor(
         private readonly userService: UserService,
-        private readonly workspaceService: WorkspaceService,
-        private jwtService: JwtService
     ) { }
 
     @UseGuards(AuthGuard)
     @Get()
-    async findAllWorkSpaceAndUserAndIssue(@RequestNest() request: Request) {
-        const token = extractTokenFromHeader(request);
-        const info = this.jwtService.decode(token);
-        const user = await this.userService.findOneById(info['payload'].id || '', false);
-        if (user) {
-            const workspace = await this.workspaceService.findOne({ where: { owner: info['payload'].id } }, false)
-            return handleResultSuccess({ user, workspace });
-        }
-        throw new UnauthorizedException();
+    async findAllWorkSpaceAndUserAndIssue(@RequestNest() request: IAuthRequest) {
+        const user = await this.userService.findOne({ where: { id: request.user.id }, include: [{ model: Workspace, as: 'workspace' }] });
+        if (user) return handleResultSuccess(user);
+        else throw new UnauthorizedException();
     }
 
-    @Get()
-    updateUser(@RequestNest() request: Request) {
-        const token = extractTokenFromHeader(request);
-    }
-
-    /* test redux */
-    @Get('count/:count')
-    async count(@Param('count') count: number) {
-        const delay = ms => new Promise(resolve => setTimeout(resolve, ms))
-        await delay(1000)
-        return + count + 1;
+    @UseGuards(AuthGuard)
+    @Patch()
+    update(@Body() updateUserDto: UpdateUserDto, @RequestNest() request: IAuthRequest) {
+        return handleResultSuccess(this.userService.updateById(request.user.id, updateUserDto));
     }
 }

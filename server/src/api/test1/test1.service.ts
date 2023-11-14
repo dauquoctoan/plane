@@ -4,28 +4,23 @@ import { UpdateTest1Dto } from './dto/update-test1.dto';
 import { Test1 } from './entities/test1.entity';
 import { Repository } from 'sequelize-typescript';
 import { InjectModel } from '@nestjs/sequelize';
+import { BaseService } from '../Base.service';
+import { handleResultError, handleResultSuccess } from 'src/helper/handleresult';
+import { Test } from '../test/entities/test.entity';
 
 @Injectable()
-export class Test1Service {
-  constructor(@InjectModel(Test1) public repository: Repository<Test1>) { }
-
-  create(createTest1Dto: CreateTest1Dto) {
-    return 'This action adds a new test1';
+export class Test1Service extends BaseService<Test1> {
+  constructor(@InjectModel(Test1) public repository: Repository<Test1>) {
+    super(repository);
   }
 
-  findAll() {
-    return `This action returns all test1`;
-  }
 
-  findOne(id: number) {
-    return `This action returns a #${id} test1`;
-  }
-
-  update(id: number, updateTest1Dto: UpdateTest1Dto) {
-    return `This action updates a #${id} test1`;
-  }
-
-  remove(id: number) {
-    return `This action removes a #${id} test1`;
+  async getTest1ByTest() {
+    try {
+      const result = await this.repository.findAll({ include: [Test] })
+      return handleResultSuccess(result);
+    } catch (error) {
+      handleResultError({ message: 'vlxx', data: null, messageDetail: error, statusCode: 500 })
+    }
   }
 }

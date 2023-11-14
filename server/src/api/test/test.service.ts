@@ -1,26 +1,23 @@
 import { Injectable } from '@nestjs/common';
-import { CreateTestDto } from './dto/create-test.dto';
-import { UpdateTestDto } from './dto/update-test.dto';
+import { BaseService } from '../Base.service';
+import { InjectModel } from '@nestjs/sequelize';
+import { Test } from './entities/test.entity';
+import { handleResultError, handleResultSuccess } from 'src/helper/handleresult';
+import { Test1 } from '../test1/entities/test1.entity';
+import { User } from '../user/entitys/User.entity';
 
 @Injectable()
-export class TestService {
-  create(createTestDto: CreateTestDto) {
-    return 'This action adds a new test';
+export class TestService extends BaseService<Test> {
+  constructor(@InjectModel(Test) repository: typeof Test) {
+    super(repository)
   }
 
-  findAll() {
-    return `This action returns all test`;
-  }
-
-  findOne(id: number) {
-    return `This action returns a #${id} test`;
-  }
-
-  update(id: number, updateTestDto: UpdateTestDto) {
-    return `This action updates a #${id} test`;
-  }
-
-  remove(id: number) {
-    return `This action removes a #${id} test`;
+  async getTest1ByTest() {
+    try {
+      const result = await this.repository.findAll({ include: [{ model: Test1, as: 'author' }] })
+      return handleResultSuccess(result);
+    } catch (error) {
+      handleResultError({ message: 'vlxx', data: null, messageDetail: error, statusCode: 500 })
+    }
   }
 }

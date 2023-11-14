@@ -4,6 +4,7 @@ import { CreateCommentReactionDto, UpdateCommentReactionDto } from '../dto/Comme
 import { CommentReactionService } from '../service/CommentReaction.service';
 import { IssueLabelService } from '../service/IssueLabel.service';
 import { CreateIssueLabelDto, UpdateIssueLabelDto } from '../dto/IssueLabel.dto';
+import { handleResultSuccess } from 'src/helper/handleresult';
 
 @Controller('isssue-label')
 @ApiTags('Issue Label')
@@ -11,26 +12,26 @@ export class IssueLabelController {
     constructor(private readonly workspaceService: IssueLabelService) { }
     @Post()
     create(@Body() createWorkspaceDto: CreateIssueLabelDto) {
-        return this.workspaceService.create(createWorkspaceDto);
+        return handleResultSuccess(this.workspaceService.create(createWorkspaceDto));
     }
 
     @Get()
     findAll() {
-        return this.workspaceService.findAll();
+        return handleResultSuccess(this.workspaceService.findAll());
     }
 
     @Get(':id')
     findOne(@Param('id') id: string) {
-        return this.workspaceService.findOneById(+id);
+        return handleResultSuccess(this.workspaceService.findOneById(+id));
     }
 
     @Patch(':id')
     update(@Param('id') id: string, @Body() updateWorkspaceDto: UpdateIssueLabelDto) {
-        return this.workspaceService.updateById(+id, updateWorkspaceDto);
+        return handleResultSuccess(this.workspaceService.updateById(+id, updateWorkspaceDto));
     }
 
     @Delete(':id')
     remove(@Param('id') id: string) {
-        return this.workspaceService.removeById(+id);
+        return handleResultSuccess(this.workspaceService.removeById(+id));
     }
 }

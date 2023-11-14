@@ -2,6 +2,7 @@ import { Controller, Get, Post, Body, Param, Patch, Delete, Query } from '@nestj
 import { ApiTags } from '@nestjs/swagger';
 import { ProjectIdentifierService } from '../service/ProjectIdentifier.service';
 import { CreateProjectIdentifierDto, UpdateProjectIdentifierDto } from '../dto/ProjectIdentifier.dto';
+import { handleResultSuccess } from 'src/helper/handleresult';
 
 
 @Controller('project-identifier')
@@ -10,26 +11,26 @@ export class ProjectIdentifierController {
     constructor(private readonly projectIdentifierService: ProjectIdentifierService) { }
     @Post()
     create(@Body() project: CreateProjectIdentifierDto) {
-        return this.projectIdentifierService.create(project);
+        return handleResultSuccess(this.projectIdentifierService.create(project));
     }
 
     @Get()
     findAllProjectIdentifier() {
-        return this.projectIdentifierService.findAll();
+        return handleResultSuccess(this.projectIdentifierService.findAll());
     }
 
     @Get(':id')
     findOneProjectIdentifier(@Param('id') id: string) {
-        return this.projectIdentifierService.findOneById(+id);
+        return handleResultSuccess(this.projectIdentifierService.findOneById(+id));
     }
 
     @Patch(':id')
     updateProjectIdentifier(@Param('id') id: string, @Body() project: UpdateProjectIdentifierDto) {
-        return this.projectIdentifierService.updateById(+id, project);
+        return handleResultSuccess(this.projectIdentifierService.updateById(+id, project));
     }
 
     @Delete(':id')
     removeProjectIdentifier(@Param("id") id?: string) {
-        return this.projectIdentifierService.removeById(+id);
+        return handleResultSuccess(this.projectIdentifierService.removeById(+id));
     }
 }

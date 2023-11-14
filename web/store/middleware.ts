@@ -14,7 +14,7 @@ const middleware = [
             error: () => '#ff0005',
         },
         predicate: () => typeof window !== 'undefined',
-    }),
+    })
 ]
 
 export { middleware }

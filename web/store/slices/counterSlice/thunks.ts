@@ -25,7 +25,6 @@ export const incrementIfOddAsync =
     (amount: number): ReduxThunkAction =>
         (dispatch, getState) => {
             const currentValue = selectCount(getState())
-
             if (currentValue % 2 === 1) {
                 dispatch(counterSlice.actions.incrementByAmount(amount))
             }

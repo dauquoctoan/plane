@@ -11,6 +11,8 @@
     --color-theme-text-primary: var(--color-light-theme-text-primary);
     /* border */
     --color-theme-border-primary: var(--color-light-theme-border-primary);
+    --color-theme-border-secondary: var(--color-light-theme-border-secondary);
+    --color-theme-border-highligh: var(--color-light-theme-border-highligh);
     /* shadow */
     --color-theme-shadow-primary: var(--color-light-theme-shadow-primary);
 }
@@ -39,6 +41,15 @@
     --color-dark-theme-border-primary: rgba(229,229,229);
     --color-oled-theme-border-primary: rgba(229,229,229);
 
+    --color-light-theme-border-secondary: rgb(245,245,245);
+    --color-dark-theme-border-secondary: rgb(245,245,245);
+    --color-oled-theme-border-secondary: rgb(245,245,245);
+
+    --color-light-theme-border-highligh: rgb(212,212,212);
+    --color-dark-theme-border-highligh: rgb(212,212,212);
+    --color-oled-theme-border-highligh: rgb(212,212,212);
+
+
     /* shadow */
     --color-light-theme-shadow-primary: 0 6px 16px 0 rgba(0,0,0,.08), 0 3px 6px -4px rgba(0,0,0,.12), 0 9px 28px 8px rgba(0,0,0,.05);
     --color-dark-theme-shadow-primary: 0 6px 16px 0 rgba(0,0,0,.08), 0 3px 6px -4px rgba(0,0,0,.12), 0 9px 28px 8px rgba(0,0,0,.05);
@@ -47,7 +58,15 @@
     /* special */
     /* dont using for theme */
     --color-special-primary: rgba(63,118,255);
+    --color-special-secondary: rgba(63,118,255,.1);
 
     /* dont using for theme */
     --color-warning: #d73a49;
+
+    /* modal color */
+    --color-modal-overlay: rgba(0, 0, 0, 0.45);
+    
+    /* ======================================================= */
+    --width-menu: 270px;
+    --width-menu-collap: 70px;
 }

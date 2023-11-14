@@ -2,13 +2,12 @@ import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/sequelize';
 import { BaseService } from 'src/api/Base.service';
 import { IssueLabel } from '../entitys/IssueLabel.entity';
-import { IssueService } from './issue.service';
 
 @Injectable()
-export class IssueLabelService extends BaseService<IssueService> {
+export class IssueLabelService extends BaseService<IssueLabel> {
     constructor(
         @InjectModel(IssueLabel)
-        private issueLabel: typeof IssueService,
+        private issueLabel: typeof IssueLabel,
     ) {
         super(issueLabel)
     }

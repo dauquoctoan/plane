@@ -2,6 +2,7 @@ import { Body, Controller, Delete, Get, Patch, Post, Query } from '@nestjs/commo
 import { ApiTags } from '@nestjs/swagger';
 import { IssueViewFavoriteService } from '../service/IssueViewFavorite.service';
 import { CreateIssueViewFavoriteDto, UpdateIssueViewFavoriteDto } from '../dto/IssueViewFavorite.dto';
+import { handleResultSuccess } from 'src/helper/handleresult';
 
 @Controller('issue-view-favorite')
 @ApiTags('Issue View Favorite')
@@ -10,26 +11,26 @@ export class IssueViewFavoriteController {
     /* TeamMember */
     @Post()
     create(@Body() globalView: CreateIssueViewFavoriteDto) {
-        return this.issueViewFavorite.create(globalView);
+        return handleResultSuccess(this.issueViewFavorite.create(globalView));
     }
 
     @Get()
     findAll() {
-        return this.issueViewFavorite.findAll();
+        return handleResultSuccess(this.issueViewFavorite.findAll());
     }
 
     @Get(':id')
     findOne(@Query('id') id: string) {
-        return this.issueViewFavorite.findOneById(+id);
+        return handleResultSuccess(this.issueViewFavorite.findOneById(+id));
     }
 
     @Patch(':id')
     update(@Query('id') id: string, @Body() globalView: UpdateIssueViewFavoriteDto) {
-        return this.issueViewFavorite.updateById(+id, globalView);
+        return handleResultSuccess(this.issueViewFavorite.updateById(+id, globalView));
     }
 
     @Delete(':id')
     remove(@Query("id") id?: string) {
-        return this.issueViewFavorite.removeById(+id);
+        return handleResultSuccess(this.issueViewFavorite.removeById(+id));
     }
 }

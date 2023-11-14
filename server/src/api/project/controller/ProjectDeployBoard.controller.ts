@@ -2,6 +2,7 @@ import { Controller, Get, Post, Body, Param, Patch, Delete, Query } from '@nestj
 import { ApiTags } from '@nestjs/swagger';
 import { ProjectDeployBoardService } from '../service/ProjectDeployBoard.service';
 import { CreateProjectDeployBoardDto, UpdateProjectDeployBoardDto } from '../dto/ProjectDeployBoard.dto';
+import { handleResultSuccess } from 'src/helper/handleresult';
 
 @Controller('project-deploy-board')
 @ApiTags('Project Deploy Board')
@@ -9,26 +10,26 @@ export class ProjectDeployBoardController {
     constructor(private readonly workspaceService: ProjectDeployBoardService) { }
     @Post()
     create(@Body() project: CreateProjectDeployBoardDto) {
-        return this.workspaceService.create(project);
+        return handleResultSuccess(this.workspaceService.create(project));
     }
 
     @Get()
     findAllProjectDeployBoard() {
-        return this.workspaceService.findAll();
+        return handleResultSuccess(this.workspaceService.findAll());
     }
 
     @Get(':id')
     findOneProjectDeployBoard(@Param('id') id: string) {
-        return this.workspaceService.findOneById(+id);
+        return handleResultSuccess(this.workspaceService.findOneById(+id));
     }
 
     @Patch(':id')
     updateProjectDeployBoard(@Param('id') id: string, @Body() project: UpdateProjectDeployBoardDto) {
-        return this.workspaceService.updateById(+id, project);
+        return handleResultSuccess(this.workspaceService.updateById(+id, project));
     }
 
     @Delete(':id')
     removeProjectDeployBoard(@Param("id") id?: string) {
-        return this.workspaceService.removeById(+id);
+        return handleResultSuccess(this.workspaceService.removeById(+id));
     }
 }

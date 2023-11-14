@@ -1,5 +1,5 @@
 import sequelize, { Sequelize } from 'sequelize';
-import { BelongsToMany, Column, CreatedAt, DataType, HasMany, Length, Model, Table, PrimaryKey, Is } from 'sequelize-typescript';
+import { BelongsToMany, Column, CreatedAt, DataType, HasMany, Length, Model, Table, PrimaryKey, Is, ForeignKey, BelongsTo } from 'sequelize-typescript';
 import { APIToken } from 'src/api/api_token/entitys/APIToken.entity';
 import { Cycle } from 'src/api/cycle/entitys/Cycle.entity';
 import { CycleFavorite } from 'src/api/cycle/entitys/CycleFavorite.entity';
@@ -20,7 +20,7 @@ import { PageFavorite } from 'src/api/page/entitys/PageFavorite.entity';
 import { Project } from 'src/api/project/entitys/Project.entity';
 import { ProjectMember } from 'src/api/project/entitys/ProjectMember.entity';
 import { ProjectPublicMember } from 'src/api/project/entitys/ProjectPublicMember.entity';
-import { ProjectFavorite } from 'src/api/project/entitys/rojectFavorite.entity';
+import { ProjectFavorite } from 'src/api/project/entitys/projectFavorite.entity';
 import { SocialLoginConnection } from 'src/api/social_connection/entitys/SocialLoginConnection.entity';
 import { IssueViewFavorite } from 'src/api/view/entitys/IssueViewFavorite.entity';
 import { Team } from 'src/api/workspace/entitys/Team.entity';
@@ -39,6 +39,13 @@ export class User extends Model {
 
     @Column({ type: sequelize.UUID, defaultValue: sequelize.UUIDV4, allowNull: false, primaryKey: true })
     id: string;
+
+    @ForeignKey(() => Workspace)
+    @Column
+    last_workspace_id: number;
+
+    @BelongsTo(() => Workspace, 'last_workspace_id')
+    workspace: Workspace;
 
     /**
     * ! RELATIONSHIP
@@ -70,6 +77,9 @@ export class User extends Model {
 
     @HasMany(() => Project, { foreignKey: 'default_assignee' })
     default_assignes: Project[];
+
+    @HasMany(() => Project, 'created_by')
+    project: Project[];
 
     @HasMany(() => Project, { foreignKey: 'project_lead' })
     project_leads: Project[];
@@ -244,9 +254,6 @@ export class User extends Model {
 
     @Column
     token_updated_at: Date;
-
-    @Column({ type: DataType.BIGINT })
-    last_workspace_id: number;
 
     @Column({ type: DataType.JSON })
     my_issues_prop: string;

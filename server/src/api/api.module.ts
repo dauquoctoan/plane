@@ -24,6 +24,7 @@ import { SocialConnectionModule } from './social_connection/SocialConnection.mod
 
 @Module({
     imports: [
+        WorkspaceModule,
         StateModule,
         UserModule,
         ProjectModule,
@@ -41,7 +42,6 @@ import { SocialConnectionModule } from './social_connection/SocialConnection.mod
         ApiTokenModule,
         AnalyticModule,
         ViewModule,
-        WorkspaceModule,
         AuthModule,
         TestModule,
         Test1Module,
@@ -50,6 +50,7 @@ import { SocialConnectionModule } from './social_connection/SocialConnection.mod
                 path: 'api',
                 module: ApiModule,
                 children: [
+                    { path: 'work-space', module: WorkspaceModule },
                     { path: 'state', module: StateModule },
                     { path: 'user', module: UserModule },
                     { path: 'project', module: ProjectModule },
@@ -67,7 +68,6 @@ import { SocialConnectionModule } from './social_connection/SocialConnection.mod
                     { path: 'api-token', module: ApiTokenModule },
                     { path: 'analytic', module: AnalyticModule },
                     { path: 'view', module: ViewModule },
-                    { path: 'work-space', module: WorkspaceModule },
                     { path: 'auth', module: AuthModule },
                     { path: 'test', module: TestModule },
                     { path: 'test1', module: Test1Module },

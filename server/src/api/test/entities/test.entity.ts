@@ -5,13 +5,20 @@ import { Test1 } from 'src/api/test1/entities/test1.entity';
 
 @Table
 export class Test extends Model {
-    // @ForeignKey(() => Test1)
-    // @Column({ allowNull: false, type: sequelize.UUID })
-    // test: string;
+    @ForeignKey(() => Test1)
+    @Column
+    authorId: number;
 
-    // @BelongsTo(() => Test1)
-    // test: Test1;
+    @ForeignKey(() => Test1)
+    @Column
+    proofreaderId: number;
 
-    // @Column({ allowNull: false })
-    // name: string;
+    @BelongsTo(() => Test1, 'authorId')
+    author: Test1;
+
+    @BelongsTo(() => Test1, 'proofreaderId')
+    proofreader: Test1;
+
+    @Column
+    name: string;
 }

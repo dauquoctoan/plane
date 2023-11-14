@@ -2,6 +2,7 @@ import { Body, Controller, Delete, Get, Param, Patch, Post } from '@nestjs/commo
 import { CycleIssueService } from '../service/CycleIssue.entity';
 import { CreateCycleIssueDto, UpdateCycleIssueDto } from '../dto/CycleIssue.dto';
 import { ApiTags } from '@nestjs/swagger';
+import { handleResultSuccess } from 'src/helper/handleresult';
 
 @Controller('cycle-issue')
 @ApiTags('Cycle Issue')
@@ -9,26 +10,26 @@ export class CycleIssueController {
     constructor(private readonly cycleIssueService: CycleIssueService) { }
     @Post()
     create(@Body() cycleIssue: CreateCycleIssueDto) {
-        return this.cycleIssueService.create(cycleIssue);
+        return handleResultSuccess(this.cycleIssueService.create(cycleIssue));
     }
 
     @Get()
     findAll() {
-        return this.cycleIssueService.findAll();
+        return handleResultSuccess(this.cycleIssueService.findAll());
     }
 
     @Get(':id')
     findOne(@Param('id') id: string) {
-        return this.cycleIssueService.findOneById(+id);
+        return handleResultSuccess(this.cycleIssueService.findOneById(+id));
     }
 
     @Patch(':id')
     update(@Param('id') id: string, @Body() cycleIssue: UpdateCycleIssueDto) {
-        return this.cycleIssueService.updateById(+id, cycleIssue);
+        return handleResultSuccess(this.cycleIssueService.updateById(+id, cycleIssue));
     }
 
     @Delete(':id')
     remove(@Param('id') id: string) {
-        return this.cycleIssueService.removeById(+id);
+        return handleResultSuccess(this.cycleIssueService.removeById(+id));
     }
 }

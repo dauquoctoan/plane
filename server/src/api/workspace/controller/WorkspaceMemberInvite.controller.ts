@@ -3,6 +3,7 @@ import { ApiTags } from "@nestjs/swagger";
 import { WorkspaceMemberInviteService } from '../service/WorkspaceMemberInvite.service';
 import { CreateWorkspaceMemberInviteDto, CreatesWorkspaceMemberInviteDto, UpdateWorkspaceMemberInviteDto } from '../dto/WorkspaceMemberInvite.dto';
 import { JwtService } from '@nestjs/jwt';
+import { handleResultSuccess } from 'src/helper/handleresult';
 
 
 @Controller('workspaceMemberInvite')
@@ -11,7 +12,7 @@ export class WorkspaceMemberInviteController {
     constructor(private readonly workspaceMemberInviteService: WorkspaceMemberInviteService, private jwtService: JwtService) { }
     @Post()
     createWorkspaceMemberInvite(@Body() createWorkspaceMemberInviteDto: CreateWorkspaceMemberInviteDto) {
-        return this.workspaceMemberInviteService.create(createWorkspaceMemberInviteDto);
+        return handleResultSuccess(this.workspaceMemberInviteService.create(createWorkspaceMemberInviteDto));
     }
 
     @Post('creates')
@@ -28,26 +29,26 @@ export class WorkspaceMemberInviteController {
                 }, { expiresIn: process.env.TOKEN_TOKEN_EXPIRATION })
             };
         })
-        return this.workspaceMemberInviteService.creates(lsMember);
+        return handleResultSuccess(this.workspaceMemberInviteService.creates(lsMember));
     }
 
     @Get()
     findAllWorkspaceMemberInvite() {
-        return this.workspaceMemberInviteService.findAll();
+        return handleResultSuccess(this.workspaceMemberInviteService.findAll());
     }
 
     @Get(":id")
     findOneWorkspaceMemberInvite(@Param('id') id: string) {
-        return this.workspaceMemberInviteService.findOneById(+id);
+        return handleResultSuccess(this.workspaceMemberInviteService.findOneById(+id));
     }
 
     @Patch(":id")
     updateWorkspaceMemberInvite(@Param('id') id: string, @Body() updateWorkspaceMemberInviteDto: UpdateWorkspaceMemberInviteDto) {
-        return this.workspaceMemberInviteService.updateById(+id, updateWorkspaceMemberInviteDto);
+        return handleResultSuccess(this.workspaceMemberInviteService.updateById(+id, updateWorkspaceMemberInviteDto));
     }
 
     @Delete(":id")
     removeWorkspaceMemberInvite(@Param('id') id: string) {
-        return this.workspaceMemberInviteService.removeById(+id);
+        return handleResultSuccess(this.workspaceMemberInviteService.removeById(+id));
     }
 }

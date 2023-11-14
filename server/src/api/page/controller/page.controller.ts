@@ -2,6 +2,7 @@ import { Controller, Post, Body, Get, Param, Patch, Delete } from '@nestjs/commo
 import { ApiTags } from '@nestjs/swagger';
 import { PageService } from '../service/page.service';
 import { CreatePageDto, UpdatePageDto } from '../dto/Page.dto';
+import { handleResultSuccess } from 'src/helper/handleresult';
 
 @Controller()
 @ApiTags('Page')
@@ -9,26 +10,26 @@ export class PageController {
     constructor(private readonly pageService: PageService) { }
     @Post()
     create(@Body() Page: CreatePageDto) {
-        return this.pageService.create(Page);
+        return handleResultSuccess(this.pageService.create(Page));
     }
 
     @Get()
     findAll() {
-        return this.pageService.findAll();
+        return handleResultSuccess(this.pageService.findAll());
     }
 
     @Get(':id')
     findOne(@Param('id') id: string) {
-        return this.pageService.findOneById(+id);
+        return handleResultSuccess(this.pageService.findOneById(+id));
     }
 
     @Patch(':id')
     update(@Param('id') id: string, @Body() updateWorkspaceDto: UpdatePageDto) {
-        return this.pageService.updateById(+id, updateWorkspaceDto);
+        return handleResultSuccess(this.pageService.updateById(+id, updateWorkspaceDto));
     }
 
     @Delete(':id')
     remove(@Param('id') id: string) {
-        return this.pageService.removeById(+id);
+        return handleResultSuccess(this.pageService.removeById(+id));
     }
 }

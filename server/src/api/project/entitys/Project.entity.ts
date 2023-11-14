@@ -1,4 +1,5 @@
-import { BelongsTo, Column, DataType, ForeignKey, HasMany, HasOne, Is, Length, Model, PrimaryKey, Table } from 'sequelize-typescript';
+import { AllowNull, BelongsTo, Column, DataType, ForeignKey, HasMany, HasOne, Is, Length, Model, Table } from 'sequelize-typescript';
+import { Notification } from 'src/api/notification/entitys/Notification.entity';
 import { Estimate } from 'src/api/estimate/entitys/Estimate.entity';
 import { State } from 'src/api/state/entitys/State.entity';
 import { User } from 'src/api/user/entitys/User.entity';
@@ -7,7 +8,6 @@ import { NETWORK } from 'src/constants/entity-constant';
 import { INVALID_NETWORK } from 'src/constants/message-constant';
 import { ProjectIdentifier } from './ProjectIdentifier.entity';
 import sequelize from 'sequelize';
-import { Notification } from 'src/api/notification/entitys/Notification.entity';
 
 @Table
 export class Project extends Model {
@@ -17,40 +17,47 @@ export class Project extends Model {
     @HasMany(() => Notification)
     notifications: Notification[];
 
+    @ForeignKey(() => User)
+    @Column({ type: sequelize.UUID, allowNull: false })
+    created_by: string;
+
+    @BelongsTo(() => User, 'created_by')
+    created_by_user: User;
+
     @ForeignKey(() => Estimate)
-    @Column({ allowNull: false })
+    @Column({ allowNull: true })
     estimate_id: number;
 
-    @BelongsTo(() => Estimate)
+    @BelongsTo(() => Estimate, { foreignKey: 'estimate_id' })
     estimate: Estimate;
 
     @ForeignKey(() => State)
-    @Column({ allowNull: false })
+    @Column({ allowNull: true })
     default_state: number;
 
-    @BelongsTo(() => State)
+    @BelongsTo(() => State, { foreignKey: 'default_state' })
     state: State;
 
     @ForeignKey(() => User)
-    @Column({ type: sequelize.UUID })
+    @Column({ type: sequelize.UUID, allowNull: true })
     default_assignee: string;
 
-    @BelongsTo(() => User)
+    @BelongsTo(() => User, { foreignKey: 'default_assignee' })
     default_assignee_user: User;
 
     @ForeignKey(() => User)
-    @Column({ type: sequelize.UUID })
+    @Column({ type: sequelize.UUID, allowNull: true })
     project_lead: string;
 
-    @BelongsTo(() => User)
+    @BelongsTo(() => User, { foreignKey: 'project_lead' })
     project_lead_user: User;
 
 
     @ForeignKey(() => Workspace)
     @Column({ allowNull: false })
-    workspace: number;
+    workspace_id: number;
 
-    @BelongsTo(() => Workspace)
+    @BelongsTo(() => Workspace, { foreignKey: 'workspace_id' })
     workspaces: Workspace;
 
     @Length({ max: 225 })
@@ -72,7 +79,7 @@ export class Project extends Model {
         }
     })
     @Column({ defaultValue: 1 })
-    network: string;
+    network: number;
 
     @Length({ max: 12 })
     @Column({ allowNull: false })
@@ -104,9 +111,9 @@ export class Project extends Model {
     @Column({ type: DataType.TEXT })
     cover_image: string;
 
-    @Column({ defaultValue: 0, type: DataType.INTEGER })
+    @Column({ defaultValue: 0 })
     archive_in: number;
 
-    @Column({ defaultValue: 0, type: DataType.INTEGER })
+    @Column({ defaultValue: 0 })
     close_in: number;
 }

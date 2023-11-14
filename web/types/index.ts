@@ -4,6 +4,11 @@ export interface IResult<T> {
     message: string
     statusCode: number
 }
+export interface LinkProps {
+    href: string;
+    nickname?: string;
+}
+
 export interface IUser {
     USER_TIMEZONE_CHOICES?: string;
     avatar?: string;
@@ -13,6 +18,7 @@ export interface IUser {
     created_location?: string;
     display_name?: string;
     email?: string;
+
     first_name?: string;
     has_billing_address?: string;
     id?: string;
@@ -49,9 +55,8 @@ export interface IUser {
     user_timezone?: string;
     username?: string;
 }
-export interface IInfo {
-    user: IUser | null;
-    workspace: IWorkspace | null;
+export interface IInfo extends IUser {
+    workspace?: IWorkspace | null;
 }
 
 export interface IWorkspace {
@@ -72,4 +77,31 @@ export interface IWorkspaceMemberInvite {
     message?: string;
     responded_at?: Date;
     role?: number;
+}
+
+
+export interface IProject {
+    id?: number;
+    estimate_id?: number;
+    created_by?: string;
+    default_state?: number;
+    default_assignee?: string;
+    project_lead?: string;
+    workspace_id?: number;
+    name?: string;
+    description?: string;
+    description_text?: string;
+    description_html?: string;
+    network?: string;
+    identifier?: string;
+    emoji?: string;
+    icon_prop?: string;
+    module_view?: boolean;
+    cycle_view?: boolean;
+    issue_views_view?: boolean;
+    page_view?: boolean;
+    inbox_view?: boolean;
+    cover_image?: string;
+    archive_in?: number;
+    close_in?: number;
 }

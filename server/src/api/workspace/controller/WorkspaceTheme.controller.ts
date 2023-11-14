@@ -2,6 +2,7 @@ import { Controller, Get, Post, Body, Patch, Delete, Param } from '@nestjs/commo
 import { ApiTags } from "@nestjs/swagger";
 import { WorkspaceThemeService } from '../service/WorkspaceTheme.service';
 import { CreateWorkspaceThemeDto, UpdateWorkspaceThemeDto } from '../dto/WorkspaceTheme.dto';
+import { handleResultSuccess } from 'src/helper/handleresult';
 
 
 @Controller('workspaceMemberTheme')
@@ -10,26 +11,26 @@ export class WorkspaceThemeController {
     constructor(private readonly workspaceMemberThemeService: WorkspaceThemeService) { }
     @Post()
     createWorkspaceMemberTheme(@Body() createWorkspaceMemberThemeDto: CreateWorkspaceThemeDto) {
-        return this.workspaceMemberThemeService.create(createWorkspaceMemberThemeDto);
+        return handleResultSuccess(this.workspaceMemberThemeService.create(createWorkspaceMemberThemeDto));
     }
 
     @Get()
     findAllWorkspaceMemberTheme() {
-        return this.workspaceMemberThemeService.findAll();
+        return handleResultSuccess(this.workspaceMemberThemeService.findAll());
     }
 
     @Get(":id")
     findOneWorkspaceMemberTheme(@Param('id') id: string) {
-        return this.workspaceMemberThemeService.findOneById(+id);
+        return handleResultSuccess(this.workspaceMemberThemeService.findOneById(+id));
     }
 
     @Patch(":id")
     updateWorkspaceMemberTheme(@Param('id') id: string, @Body() updateWorkspaceMemberThemeDto: UpdateWorkspaceThemeDto) {
-        return this.workspaceMemberThemeService.updateById(+id, updateWorkspaceMemberThemeDto);
+        return handleResultSuccess(this.workspaceMemberThemeService.updateById(+id, updateWorkspaceMemberThemeDto));
     }
 
     @Delete(":id")
     removeWorkspaceMemberTheme(@Param('id') id: string) {
-        return this.workspaceMemberThemeService.removeById(+id);
+        return handleResultSuccess(this.workspaceMemberThemeService.removeById(+id));
     }
 }

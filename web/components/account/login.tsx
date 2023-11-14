@@ -1,39 +1,43 @@
 'use client';
-import React,{useEffect} from 'react'
-import { GoogleLoginButton } from './google-login'
-import useSWR,{SWRResponse} from 'swr';
+import React, { useState, useLayoutEffect } from 'react';
+import { GoogleLoginButton } from './google-login';
 import authService from '@/services/auth-services';
-import { useRouter } from 'next/navigation'
-import { Spinner } from '../ui/loading/Spinner';
-import { useDispatch } from '@/store';
+import { useRouter } from 'next/navigation';
+import { useDispatch, useSelector } from '@/store';
 import { authSlice } from '@/store/slices/authSlice';
 import { IInfo } from '@/types';
+import { selectInfo } from '@/store/slices/authSlice/selectors';
+import { Spinner } from '../ui/loading/Spinner';
 
 const Login = () => {
-    const dispatch = useDispatch()
+    const dispatch = useDispatch();
     const router = useRouter();
+    const [loading, setLoading] = useState(true);
+    const info = useSelector(selectInfo);
 
-    const { data, error, isLoading} = useSWR('api/user/me', (user)=> authService.getUser<IInfo>(user), {
-        refreshInterval: 1,
-        revalidateOnFocus: false,
-        revalidateOnMount: false,
-        shouldRetryOnError: false
-    });
-
-    useEffect(() => {
-        if(data && !error){
-            dispatch(authSlice.actions.setInfo(data));
-            if(data.workspace?.slug && data.user?.is_onboarded)router.push(data.workspace?.slug);
-            else router.push('/setup');
+    async function getData() {
+        try {
+            const data = await authService.getUser<IInfo>('api/user/me');
+            if (data) dispatch(authSlice.actions.setInfo(data));
+        } catch (error) {
+            console.log(error);
+        } finally {
+            setLoading(false);
         }
-    }, [data])
+    }
 
-  return (
-    <div className='w-full h-[100vh]'>
-       {isLoading && <Spinner/>}
-       {!isLoading && error && <GoogleLoginButton />}
-    </div>
-  )
-}
+    useLayoutEffect(() => {
+        getData();
+    }, []);
 
-export default Login
+    if (info?.workspace?.slug && info?.is_onboarded)
+        router.push(info?.workspace?.slug || '');
+
+    if (loading) return <Spinner />;
+
+    if (!loading && !info) return <GoogleLoginButton />;
+
+    return <></>;
+};
+
+export default React.memo(Login);

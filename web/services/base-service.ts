@@ -3,10 +3,8 @@ import { IResult } from "@/types";
 import axios from "axios";
 import Cookie from "js-cookie";
 import qs from "qs";
-
 export class BaseService {
     protected headers: any = {};
-    protected router: any;
     constructor(readonly baseURL: string) { }
     getAccessToken() {
         return Cookie.get(KEY_COOKIE_AUTH_ACCESS_TOKEN)

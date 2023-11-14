@@ -6,6 +6,7 @@ import { Post, Body, Get, Param, Patch, Delete } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 import { IssueActivityService } from '../service/IssueActivity.service';
 import { CreateIssueActivityDto, UpdateIssueActivityDto } from '../dto/IssueActivity.dto';
+import { handleResultSuccess } from 'src/helper/handleresult';
 
 @Controller('issue-activity')
 @ApiTags('Issue Activity')
@@ -13,26 +14,26 @@ export class IssueActivityController {
     constructor(private readonly workspaceService: IssueActivityService) { }
     @Post()
     create(@Body() createWorkspaceDto: CreateIssueActivityDto) {
-        return this.workspaceService.create(createWorkspaceDto);
+        return handleResultSuccess(this.workspaceService.create(createWorkspaceDto));
     }
 
     @Get()
     findAll() {
-        return this.workspaceService.findAll();
+        return handleResultSuccess(this.workspaceService.findAll());
     }
 
     @Get(':id')
     findOne(@Param('id') id: string) {
-        return this.workspaceService.findOneById(+id);
+        return handleResultSuccess(this.workspaceService.findOneById(+id));
     }
 
     @Patch(':id')
     update(@Param('id') id: string, @Body() updateWorkspaceDto: UpdateIssueActivityDto) {
-        return this.workspaceService.updateById(+id, updateWorkspaceDto);
+        return handleResultSuccess(this.workspaceService.updateById(+id, updateWorkspaceDto));
     }
 
     @Delete(':id')
     remove(@Param('id') id: string) {
-        return this.workspaceService.removeById(+id);
+        return handleResultSuccess(this.workspaceService.removeById(+id));
     }
 }

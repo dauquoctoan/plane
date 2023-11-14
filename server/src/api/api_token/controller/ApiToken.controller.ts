@@ -2,6 +2,7 @@ import { Body, Controller, Delete, Get, Param, Patch, Post } from '@nestjs/commo
 import { ApiTags } from '@nestjs/swagger';
 import { ApiTokenService } from '../service/ApiToken.service';
 import { CreateAPITokenDto, UpdateAPITokenDto } from '../dto/APIToken.dto';
+import { handleResultSuccess } from 'src/helper/handleresult';
 
 @Controller()
 @ApiTags('Api Token')
@@ -9,26 +10,26 @@ export class ApiTokenController {
     constructor(private readonly apiTokenService: ApiTokenService) { }
     @Post()
     create(@Body() apiToken: CreateAPITokenDto) {
-        return this.apiTokenService.create(apiToken);
+        return handleResultSuccess(this.apiTokenService.create(apiToken));
     }
 
     @Get()
     findAll() {
-        return this.apiTokenService.findAll();
+        return handleResultSuccess(this.apiTokenService.findAll());
     }
 
     @Get(':id')
     findOne(@Param('id') id: string) {
-        return this.apiTokenService.findOneById(+id);
+        return handleResultSuccess(this.apiTokenService.findOneById(+id));
     }
 
     @Patch(':id')
     update(@Param('id') id: string, @Body() apiToken: UpdateAPITokenDto) {
-        return this.apiTokenService.updateById(+id, apiToken);
+        return handleResultSuccess(this.apiTokenService.updateById(+id, apiToken));
     }
 
     @Delete(':id')
     remove(@Param('id') id: string) {
-        return this.apiTokenService.removeById(+id);
+        return handleResultSuccess(this.apiTokenService.removeById(+id));
     }
 }

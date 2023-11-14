@@ -2,6 +2,7 @@ import { Controller, Get, Post, Body, Patch, Delete, Query, Param } from '@nestj
 import { ApiTags } from "@nestjs/swagger";
 import { CreateWorkspaceMemberDto, UpdateWorkspaceMemberDto } from '../dto/WorkspaceMember.dto';
 import { WorkspaceMemberService } from '../service/WorkspaceMember.service';
+import { handleResultSuccess } from 'src/helper/handleresult';
 
 
 @Controller('workspaceMember')
@@ -10,26 +11,26 @@ export class WorkspaceMemberController {
     constructor(private readonly workspaceMemberService: WorkspaceMemberService) { }
     @Post()
     createWorkspaceMember(@Body() createWorkspaceMemberDto: CreateWorkspaceMemberDto) {
-        return this.workspaceMemberService.create(createWorkspaceMemberDto);
+        return handleResultSuccess(this.workspaceMemberService.create(createWorkspaceMemberDto));
     }
 
     @Get()
     findAllWorkspaceMember() {
-        return this.workspaceMemberService.findAll();
+        return handleResultSuccess(this.workspaceMemberService.findAll());
     }
 
     @Get(":id")
     findOneWorkspaceMember(@Param('id') id: string) {
-        return this.workspaceMemberService.findOneById(+id);
+        return handleResultSuccess(this.workspaceMemberService.findOneById(+id));
     }
 
     @Patch(":id")
     updateWorkspaceMember(@Param('id') id: string, @Body() updateWorkspaceMemberDto: UpdateWorkspaceMemberDto) {
-        return this.workspaceMemberService.updateById(+id, updateWorkspaceMemberDto);
+        return handleResultSuccess(this.workspaceMemberService.updateById(+id, updateWorkspaceMemberDto));
     }
 
     @Delete(":id")
     removeWorkspaceMember(@Param('id') id: string) {
-        return this.workspaceMemberService.removeById(+id);
+        return handleResultSuccess(this.workspaceMemberService.removeById(+id));
     }
 }

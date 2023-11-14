@@ -6,7 +6,6 @@ import { IInfo } from '@/types';
 export const getUsertAsync = createAppAsyncThunk(
     'auth/fetchGetUser',
     async () => {
-        const response = await authService.getUser<IInfo>('api/user/me');
-        return response
+        return await authService.getUser<IInfo>('api/user/me');
     }
 )

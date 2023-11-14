@@ -1,35 +1,48 @@
-import { Controller, Get, Post, Body, Param, Patch, Delete } from '@nestjs/common';
-import { ApiTags } from '@nestjs/swagger';
+import { Controller, Get, Post, Body, Param, Patch, Delete, Request as RequestNestjs, UseGuards } from '@nestjs/common';
+import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { ProjectService } from '../service/Project.service';
 import { CreateProjectDto, UpdateProjectDto } from '../dto/Project.dto';
+import { handleResultSuccess } from 'src/helper/handleresult';
+import { IAuthRequest } from 'src/types/auth.types';
+import { AuthGuard } from 'src/Guards/auth.guard';
 
 
 @Controller()
 @ApiTags('Project')
+@ApiBearerAuth('access-token')
 export class ProjectController {
     constructor(private readonly projectService: ProjectService) { }
     @Post()
-    create(@Body() project: CreateProjectDto) {
-        return this.projectService.create(project);
+    async create(@Body() project: CreateProjectDto) {
+        return handleResultSuccess(await this.projectService.create({ ...project, network: +project.network || '' }));
     }
 
+    @UseGuards(AuthGuard)
     @Get()
-    findAllProject() {
-        return this.projectService.findAll();
+    async findAllProject() {
+        return handleResultSuccess(await this.projectService.findAll());
     }
 
-    @Get(':id')
+    @UseGuards(AuthGuard)
+    @Get('by-id:id')
     findOneProject(@Param('id') id: string) {
-        return this.projectService.findOneById(+id);
+        return handleResultSuccess(this.projectService.findOneById(+id));
+    }
+
+    @UseGuards(AuthGuard)
+    @Get('by-user')
+    async findWorkSpaceByUserId(@RequestNestjs() request: IAuthRequest) {
+        const result = await this.projectService.getProjectByUserId(request.user.id);
+        return handleResultSuccess(result);
     }
 
     @Patch(':id')
     updateProject(@Param('id') id: string, @Body() project: UpdateProjectDto) {
-        return this.projectService.updateById(+id, project);
+        return handleResultSuccess(this.projectService.updateById(+id, project));
     }
 
     @Delete(':id')
     removeProject(@Param("id") id?: string) {
-        return this.projectService.removeById(+id);
+        return handleResultSuccess(this.projectService.removeById(+id));
     }
 }

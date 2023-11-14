@@ -33,8 +33,14 @@ export class Workspace extends Model {
     @BelongsTo(() => User)
     user: User;
 
+    @HasMany(() => User, 'last_workspace_id')
+    lasWorkSpaceUser: User[];
+
     @HasMany(() => Project)
     project_leads: Project[];
+
+    @HasMany(() => Project, { foreignKey: 'workspace_id' })
+    workspace_project: Project[];
 
     @HasMany(() => GlobalView)
     global_views: GlobalView[];

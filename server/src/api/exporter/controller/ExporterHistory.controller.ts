@@ -2,6 +2,7 @@ import { Body, Controller, Delete, Get, Param, Patch, Post } from '@nestjs/commo
 import { ExporterService } from '../service/ExporterHistory.service';
 import { ApiTags } from '@nestjs/swagger';
 import { CreateExporterHistoryDto, UpdateExporterHistoryDto } from '../dto/ExporterHistory.dto';
+import { handleResultSuccess } from 'src/helper/handleresult';
 
 @Controller()
 @ApiTags('Exporter')
@@ -9,26 +10,26 @@ export class ExporterHistoryController {
     constructor(private readonly exporterService: ExporterService) { }
     @Post()
     create(@Body() exporter: CreateExporterHistoryDto) {
-        return this.exporterService.create(exporter);
+        return handleResultSuccess(this.exporterService.create(exporter));
     }
 
     @Get()
     findAll() {
-        return this.exporterService.findAll();
+        return handleResultSuccess(this.exporterService.findAll());
     }
 
     @Get(':id')
     findOne(@Param('id') id: string) {
-        return this.exporterService.findOneById(+id);
+        return handleResultSuccess(this.exporterService.findOneById(+id));
     }
 
     @Patch(':id')
     update(@Param('id') id: string, @Body() exporter: UpdateExporterHistoryDto) {
-        return this.exporterService.updateById(+id, exporter);
+        return handleResultSuccess(this.exporterService.updateById(+id, exporter));
     }
 
     @Delete(':id')
     remove(@Param('id') id: string) {
-        return this.exporterService.removeById(+id);
+        return handleResultSuccess(this.exporterService.removeById(+id));
     }
 }

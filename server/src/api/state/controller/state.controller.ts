@@ -3,6 +3,7 @@ import { StateService } from '../service/State.service';
 import { CreateStateDto, UpdateStateDto } from '../dto/State.dto';
 import jstz from 'jstz';
 import { ApiTags } from '@nestjs/swagger';
+import { handleResultSuccess } from 'src/helper/handleresult';
 
 @Controller()
 @ApiTags('state')
@@ -11,7 +12,7 @@ export class StateController {
 
   @Post()
   createState(@Body() createStateDto: CreateStateDto): any {
-    return this.stateService.create(createStateDto);
+    return handleResultSuccess(this.stateService.create(createStateDto));
   }
 
   @Get()
@@ -22,16 +23,16 @@ export class StateController {
 
   @Get(':id')
   findOne(@Param('id') id: string) {
-    return this.stateService.findOneById(+id);
+    return handleResultSuccess(this.stateService.findOneById(+id));
   }
 
   @Patch(':id')
   update(@Param('id') id: string, @Body() updateWorkspaceDto: UpdateStateDto) {
-    return this.stateService.updateById(+id, updateWorkspaceDto);
+    return handleResultSuccess(this.stateService.updateById(+id, updateWorkspaceDto));
   }
 
   @Delete(':id')
   remove(@Param('id') id: string) {
-    return this.stateService.removeById(+id);
+    return handleResultSuccess(this.stateService.removeById(+id));
   }
 }
