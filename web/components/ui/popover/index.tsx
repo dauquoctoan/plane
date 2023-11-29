@@ -54,6 +54,7 @@ const Popover: React.FC<IProps> = ({
     const refPopup = useRef<HTMLDivElement>(null);
     const [scrollTop, setScrollTop] = useState(0);
     const timeoutId = useRef<any>(0);
+    const mouse = useRef({isKeyDown:false,isDrag:false});
     const [position, setPosition] = useState<IPosition>({
         pop_left: 0,
         pop_top: 0,
@@ -109,9 +110,10 @@ const Popover: React.FC<IProps> = ({
         function handleClick(e: any) {
             if (refPopover.current?.contains(e.target)) {
                 setOpen((state) => !state);
-            } else if (!refPopup.current?.contains(e.target) && open == false) {
+            } else if (!refPopup.current?.contains(e.target) && open == false && !mouse.current.isDrag) {
                 setOpen(() => false);
             }
+            mouse.current={isDrag:false, isKeyDown:false};
         }
 
         function handleChangeWhenScroll(e: any) {
@@ -129,7 +131,10 @@ const Popover: React.FC<IProps> = ({
                 handleMouseleave,
                 true,
             );
-        } else window.addEventListener('click', handleClick, true);
+        } else{
+            window.addEventListener('click', handleClick, true);
+        }
+
         window.addEventListener('scroll', handleChangeWhenScroll, true);
 
         return () => {
@@ -152,25 +157,28 @@ const Popover: React.FC<IProps> = ({
     useEffect(() => {
         if (isHover) {
             refPopup.current &&
-                refPopup.current.addEventListener(
-                    'mouseover',
-                    handleMouseover,
-                    true,
-                );
+            refPopup.current.addEventListener(
+                'mouseover',
+                handleMouseover,
+                true,
+            );
             refPopup.current &&
-                refPopup.current.addEventListener(
-                    'mouseleave',
-                    handleMouseleave,
-                    true,
-                );
-        }
+            refPopup.current.addEventListener(
+                'mouseleave',
+                handleMouseleave,
+                true,
+            );
+    }
     }, [refPopup.current]);
 
     function renderPop() {
         return (
             <div
-                onClick={(e) => {
-                    e.stopPropagation();
+                onMouseDown={()=>{
+                    mouse.current.isKeyDown=true
+                }}
+                onMouseOver={()=>{
+                    if(mouse.current.isKeyDown) mouse.current.isDrag=true;
                 }}
                 ref={refPopup}
                 style={{

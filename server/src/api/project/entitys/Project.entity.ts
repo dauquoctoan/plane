@@ -8,11 +8,22 @@ import { NETWORK } from 'src/constants/entity-constant';
 import { INVALID_NETWORK } from 'src/constants/message-constant';
 import { ProjectIdentifier } from './ProjectIdentifier.entity';
 import sequelize from 'sequelize';
+import { Issue } from 'src/api/issue/entitys/Issue.entity';
+import { Label } from 'src/api/issue/entitys/Label.entity';
 
 @Table
 export class Project extends Model {
     @HasOne(() => ProjectIdentifier, { foreignKey: 'projectId' })
     project: ProjectIdentifier;
+
+    @HasMany(() => Label, { foreignKey: 'project_id' })
+    label: Label[];
+
+    @HasMany(() => State, { foreignKey: 'project_id' })
+    state: State[];
+
+    @HasMany(() => Issue, { foreignKey: 'project_id' })
+    issue: Issue[];
 
     @HasMany(() => Notification)
     notifications: Notification[];
@@ -30,13 +41,6 @@ export class Project extends Model {
 
     @BelongsTo(() => Estimate, { foreignKey: 'estimate_id' })
     estimate: Estimate;
-
-    @ForeignKey(() => State)
-    @Column({ allowNull: true })
-    default_state: number;
-
-    @BelongsTo(() => State, { foreignKey: 'default_state' })
-    state: State;
 
     @ForeignKey(() => User)
     @Column({ type: sequelize.UUID, allowNull: true })

@@ -4,7 +4,7 @@ import { ApiTags } from '@nestjs/swagger';
 import { CreateExporterHistoryDto, UpdateExporterHistoryDto } from '../dto/ExporterHistory.dto';
 import { handleResultSuccess } from 'src/helper/handleresult';
 
-@Controller()
+@Controller('exporter')
 @ApiTags('Exporter')
 export class ExporterHistoryController {
     constructor(private readonly exporterService: ExporterService) { }

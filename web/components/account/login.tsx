@@ -17,7 +17,7 @@ const Login = () => {
 
     async function getData() {
         try {
-            const data = await authService.getUser<IInfo>('api/user/me');
+            const data = await authService.getUser<IInfo>('me');
             if (data) dispatch(authSlice.actions.setInfo(data));
         } catch (error) {
             console.log(error);

@@ -4,7 +4,7 @@ import { CreateEstimateDto, UpdateEstimateDto } from 'src/api/estimate/dto/Estim
 import { ApiTags } from '@nestjs/swagger';
 import { handleResultSuccess } from 'src/helper/handleresult';
 
-@Controller()
+@Controller('cycle')
 @ApiTags('Cycle')
 export class CycleController {
     constructor(private readonly cycleService: CycleService) { }

@@ -10,11 +10,11 @@ class ProjectService extends BaseService {
     }
 
     async createProject<T>(project: IProject) {
-        return await this.post<T>('api/project', project);
+        return await this.post<T>('project', project);
     }
 
-    async getProjects<T>() {
-        const result = await this.get<T>('api/project/by-user');
+    async getProjects<T>(workspaceId: number) {
+        const result = await this.get<T>('project/by-user/' + workspaceId);
         return result
     }
 }

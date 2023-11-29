@@ -4,7 +4,7 @@ import { CreateModuleDto, UpdateModuleDto } from '../dto/Module.dto';
 import { ModuleService } from '../service/Module.service';
 import { handleResultSuccess } from 'src/helper/handleresult';
 
-@Controller()
+@Controller('Mmodule')
 @ApiTags('Module')
 export class ModuleController {
     constructor(private readonly moduleService: ModuleService) { }

@@ -50,7 +50,6 @@ const Workspace: React.FC<IPropsComponent> = ({ nextStep, prevStep }) => {
 
                         if(!info.is_onboarded){
                             const resultUser = await authService.upDateUser<number>(
-                                info.id,
                                 {
                                     onboarding_step: {
                                         workspace_join: 1,

@@ -9,6 +9,12 @@ const config: Config = {
   ],
   theme: {
     extend: {
+      gridTemplateColumns: {
+        '25': 'repeat(25, minmax(0, 1fr))',
+      },
+      gridTemplateRows: {
+        '7': 'repeat(7, minmax(0, 1fr))',
+      },
       backgroundImage: {
         'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
         'gradient-conic':
@@ -21,17 +27,20 @@ const config: Config = {
         'out-expo': 'cubic-bezier(.4,0,.2,1)',
       },
       keyframes: {
-        popUp: {
+        dropDown: {
           "0%": {
-            opacity: '0',
-            transform: 'scaleY(1)',
-          },
-          '50%': {
-            opacity: '.8'
+            transform: 'scaleY(.95)',
           },
           '100%': {
-            opacity: '1',
             transform: 'scaleY(1)'
+          },
+        },
+        popUp: {
+          "0%": {
+            transform: 'scale(.95)',
+          },
+          '100%': {
+            transform: 'scale(1)'
           },
         },
         rangeLoading: {
@@ -61,7 +70,7 @@ const config: Config = {
         modalContentPopup: {
           from: {
             transform: 'scale(.9)',
-            opacity: '0',
+            opacity: '.5',
           },
           to: {
             transform: 'scale(1)',
@@ -86,7 +95,8 @@ const config: Config = {
         }
       },
       animation: {
-        'pop-up': 'popUp .5s ease-out',
+        'pop-up': 'popUp .3s ease-out',
+        'dropDown': 'dropDown .3s ease-out',
         'overlay': 'overlay .3s ease-out',
         ping: 'ping 1.2s',
         loadingRange: 'rangeLoading .2s ease-out',

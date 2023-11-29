@@ -1,4 +1,5 @@
-import React from 'react';
+'use client';
+import React, { createContext } from 'react';
 import Navbar from './layout-components/navbar/navbar';
 import Header from './layout-components/header/header';
 import AuthProvider from './authprovider';
@@ -7,8 +8,11 @@ interface IProps {
     children: React.ReactNode;
 }
 
+const ProductContext = createContext([]);
+
 const AuthLayout: React.FC<IProps> = ({ children }) => {
     return (
+        // <ProductContext.Provider value={}>
         <AuthProvider>
             <div className="relative w-full h-screen flex">
                 <Navbar />
@@ -18,6 +22,7 @@ const AuthLayout: React.FC<IProps> = ({ children }) => {
                 </div>
             </div>
         </AuthProvider>
+        // </ProductContext.Provider>
     );
 };
 

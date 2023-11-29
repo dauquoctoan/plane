@@ -4,7 +4,7 @@ import { PageService } from '../service/page.service';
 import { CreatePageDto, UpdatePageDto } from '../dto/Page.dto';
 import { handleResultSuccess } from 'src/helper/handleresult';
 
-@Controller()
+@Controller('page')
 @ApiTags('Page')
 export class PageController {
     constructor(private readonly pageService: PageService) { }

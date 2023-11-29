@@ -1,5 +1,5 @@
 'use client';
-import React, { useState } from 'react';
+import React from 'react';
 import Info from './info';
 import FooterNav from './footerNav';
 import { useSelector } from '@/store';
@@ -13,7 +13,7 @@ const Navbar = () => {
         <div
             className={`${
                 isCollap ? 'w-width-menu-collap' : 'w-width-menu'
-            } transition-all border-r border-theme-border-primary box-border flex flex-col overflow-hidden sm:border-r-0 sm:w-0`}
+            } transition-all border-r border-theme-border-primary box-border flex flex-col overflow-hidden lg:border-r-0 lg:w-0`}
         >
             <Info />
             <MenuMain />

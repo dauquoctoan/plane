@@ -4,7 +4,7 @@ import { ApiTokenService } from '../service/ApiToken.service';
 import { CreateAPITokenDto, UpdateAPITokenDto } from '../dto/APIToken.dto';
 import { handleResultSuccess } from 'src/helper/handleresult';
 
-@Controller()
+@Controller('api-token')
 @ApiTags('Api Token')
 export class ApiTokenController {
     constructor(private readonly apiTokenService: ApiTokenService) { }

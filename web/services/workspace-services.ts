@@ -10,11 +10,15 @@ class WorkSpaceService extends BaseService {
     }
 
     createWorkSpace<T>(workspace: IWorkspace) {
-        return this.post<T>('api/work-space', workspace);
+        return this.post<T>('workspace', workspace);
+    }
+
+    async getAllWorkSpaces<T>() {
+        return await this.get<T>('workspace');
     }
 
     createsWorkspaceMemberInvite<T>(workspaces: IWorkspaceMemberInvite[]) {
-        return this.post<T>('api/work-space/workspaceMemberInvite/creates', workspaces);
+        return this.post<T>('workspace/workspace-member-invite/creates', workspaces);
     }
 }
 

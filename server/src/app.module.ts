@@ -1,11 +1,12 @@
-import { Module } from '@nestjs/common';
+import { Module, OnApplicationShutdown } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { SequelizeModule } from '@nestjs/sequelize';
 import { ConfigModule } from '@nestjs/config';
-import { CONFIG_DB } from './configs/db-config';
+import { CONFIG_DB, DatabaseModule } from './configs/db-config';
 import { ApiModule } from './api/api.module';
 import { JwtModule } from '@nestjs/jwt';
+import { Sequelize } from 'sequelize';
 
 @Module({
   imports: [
@@ -13,6 +14,7 @@ import { JwtModule } from '@nestjs/jwt';
       envFilePath: '.env',
       isGlobal: true,
     }),
+    DatabaseModule,
     SequelizeModule.forRootAsync(CONFIG_DB),
     ApiModule,
     JwtModule.register({

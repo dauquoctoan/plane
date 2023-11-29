@@ -4,7 +4,7 @@ import { CreateTest1Dto } from './dto/create-test1.dto';
 import { UpdateTest1Dto } from './dto/update-test1.dto';
 import { handleResultSuccess } from 'src/helper/handleresult';
 
-@Controller()
+@Controller('project')
 export class Test1Controller {
   constructor(private readonly test1Service: Test1Service) { }
 

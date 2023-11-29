@@ -20,9 +20,9 @@ const Info = () => {
                 wrClassName="p-1 bg-theme-secondary flex-1 rounded"
                 content={<WorkspacePopover />}
             >
-                <div className='flex'>
+                <div className='flex h-fit'>
                     <Avatar>{info?.workspace?.name || ''}</Avatar>
-                    <span className="ml-2 font-[500]">{info?.workspace?.name}</span>
+                    {!isCollap && <span className="ml-2 font-[500] whitespace-nowrap overflow-hidden">{info?.workspace?.name}</span>}
                 </div>
             </Popover>
             {!isCollap ? (

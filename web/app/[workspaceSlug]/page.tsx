@@ -1,3 +1,9 @@
+import Dashboard from "@/components/dashboard/page";
+
 export default function Page({ params }: { params: { slug: string } }) {
-    return (<div className="w-full h-[200vh]">workspace slug</div>);
+    return (
+    <div className="w-full p-8 box-border">
+        <Dashboard/>
+    </div>
+);
 }

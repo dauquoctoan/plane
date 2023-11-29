@@ -4,7 +4,7 @@ import { selectInfo } from '@/store/slices/authSlice/selectors';
 import React, { useEffect } from 'react';
 import authService from '@/services/auth-services';
 import useSWR from 'swr';
-import { IInfo } from '@/types';
+import { IData, IInfo } from '@/types';
 import { Spinner } from '@/components/ui/loading/Spinner';
 
 interface IProps {
@@ -14,9 +14,8 @@ interface IProps {
 const AuthProvider: React.FC<IProps> = ({ children }) => {
     const dispatch = useDispatch();
     const info = useSelector(selectInfo);
-    const { data, error } = useSWR<IInfo | 0>(
-        'api/user/me',
-        (url: string) => authService.getUser<IInfo | 0>(url),
+    const { data, error } = useSWR<IData<IInfo>>('me', (url: string) =>
+        authService.getUser<IData<IInfo>>(url),
     );
 
     useEffect(() => {
@@ -25,11 +24,11 @@ const AuthProvider: React.FC<IProps> = ({ children }) => {
         }
     }, [data]);
 
-    if(info){
-        return <>{children}</>
+    if (info) {
+        return <>{children}</>;
     }
 
-    return <Spinner />
+    return <Spinner />;
 };
 
 export default AuthProvider;

@@ -4,7 +4,7 @@ import { CreateEstimateDto, UpdateEstimateDto } from '../dto/Estimate.dto';
 import { ApiTags } from '@nestjs/swagger';
 import { handleResultSuccess } from 'src/helper/handleresult';
 
-@Controller()
+@Controller('estimate')
 @ApiTags('Estimate')
 export class EstimateController {
     constructor(private readonly estimateService: EstimateService) { }

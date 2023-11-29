@@ -40,7 +40,7 @@ export const GoogleLoginButton: FC<IGoogleLoginButton> = () => {
             type: 'google',
         });
         if (respont) {
-            const info = await authService.getUser<IInfo>('api/user/me');
+            const info = await authService.getUser<IInfo>('me');
             if (info && info?.id) {
                 dispatch(authSlice.actions.setInfo(info));
                 if (!info.is_onboarded) router.push('/setup');

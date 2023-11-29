@@ -21,7 +21,7 @@ class AuthService extends BaseService {
 
     async singInGoogle(googleAuth: IGoogleAuth) {
         try {
-            const result = await this.post<IResultLoginGoogle>('api/auth/sign-in', googleAuth);
+            const result = await this.post<IResultLoginGoogle>('auth/sign-in', googleAuth);
             result && this.setAccessToken(result?.access_token);
             result && this.setRefreshToken(result.refresh_token);
             return result;
@@ -34,8 +34,8 @@ class AuthService extends BaseService {
         return this.get<T>(url)
     }
 
-    upDateUser<T>(id: string, user: IUser) {
-        return this.patch<T>('api/user/' + id, user);
+    upDateUser<T>(user: IUser) {
+        return this.patch<T>('user', user);
     }
 }
 

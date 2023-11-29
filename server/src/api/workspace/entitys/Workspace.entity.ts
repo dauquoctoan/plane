@@ -14,6 +14,8 @@ import { ProjectIdentifier } from 'src/api/project/entitys/ProjectIdentifier.ent
 import { GlobalView } from 'src/api/view/entitys/GlobalView.entity';
 import { Team } from './Team.entity';
 import { TeamMember } from './TeamMember.entity';
+import { Issue } from 'src/api/issue/entitys/Issue.entity';
+import { Label } from 'src/api/issue/entitys/Label.entity';
 
 @Table
 export class Workspace extends Model {
@@ -30,14 +32,20 @@ export class Workspace extends Model {
     @Column({ type: sequelize.UUID, allowNull: false })
     owner: string;
 
-    @BelongsTo(() => User)
+    @BelongsTo(() => User, {foreignKey:'owner'})
     user: User;
 
+    @HasMany(() => Label, { foreignKey: 'workspace_id' })
+    labels: Label[];
+
     @HasMany(() => User, 'last_workspace_id')
-    lasWorkSpaceUser: User[];
+    last_workspace_detail: User[];
 
     @HasMany(() => Project)
     project_leads: Project[];
+
+    @HasMany(() => Issue, { foreignKey: 'workspace_id' })
+    issue: Issue[];
 
     @HasMany(() => Project, { foreignKey: 'workspace_id' })
     workspace_project: Project[];

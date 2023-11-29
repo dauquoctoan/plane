@@ -16,7 +16,7 @@ const ListResult: React.FC<IProps> = ({
     return (
         <div
             datatype={uuid}
-            className={`max-h-[200px] z-30 overflow-y-auto cursor-pointer bg-theme-primary rounded-md box-border border absolute top-[106%] shadow-theme-primary left-0 right-0 animate-pop-up`}
+            className={`max-h-[200px] z-30 overflow-y-auto cursor-pointer bg-theme-primary origin-top rounded-md box-border border absolute scale-[1] top-[106%] shadow-theme-primary left-0 right-0 animate-dropDown`}
         >
             {lsResult.map((item, i) => (
                 <div

@@ -95,7 +95,6 @@ const Setup = () => {
     );
     const [Loading, setLoading] = useState(false);
     const router = useRouter();
-
     const nextStep = useCallback(() => {
         setLoading(true);
 

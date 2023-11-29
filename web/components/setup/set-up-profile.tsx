@@ -26,7 +26,7 @@ const Profile: React.FC<IPropsComponent> = ({ nextStep }) => {
             className="mt-3"
             onSubmit={handleSubmit(async (data) => {
                 if (info && info?.id) {
-                    const result = await authService.upDateUser(info?.id, {
+                    const result = await authService.upDateUser({
                         first_name: data['first-name'],
                         last_name: data['last-name'],
                         role: data['your-role'],

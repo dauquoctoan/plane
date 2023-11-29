@@ -13,9 +13,9 @@ export class ProjectService extends BaseService<Project>{
         super(repository);
     }
 
-    async getProjectByUserId(userid: string) {
+    async getProjectByUserId(userId: string, workspaceId: string) {
         try {
-            return await this.repository.findAll({ where: { created_by: userid }, include: [{ model: User, as: 'created_by_user' }] });
+            return await this.repository.findAll({ where: { created_by: userId, workspace_id: workspaceId }, include: [{ model: User, as: 'created_by_user' }] });
         } catch (error) {
             handleResultError({ message: messageFindFail(this.repository.getTableName()), messageDetail: error });
         }

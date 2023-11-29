@@ -2,6 +2,11 @@ export const insertIntoTheBlank = (str: string, character: string = '-'): string
     return str.replace(/\s/g, character);
 }
 
+export function UpCaseFirstLetter(srt: string) {
+    if (typeof srt === 'string') return srt.replace(/./, srt[0].toUpperCase())
+    return ''
+}
+
 export const repaceWhiteSpace = (str: string): string => {
     return str.replace(/\s/g, '');
 }

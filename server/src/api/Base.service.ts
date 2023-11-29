@@ -1,4 +1,4 @@
-import { FindOptions, Model, ModelCtor } from "sequelize";
+import { Attributes, FindOptions, Model, ModelCtor } from "sequelize";
 import { MakeNullishOptional } from "sequelize/types/utils";
 import { handleResultError } from "src/helper/handleresult";
 import { removeKeyNull } from "src/helper/key";
@@ -26,9 +26,9 @@ export abstract class BaseService<T extends Model>{
         }
     }
 
-    async findAll(): Promise<T[]> {
+    async findAll(options?: FindOptions<Attributes<T>>): Promise<T[]> {
         try {
-            return this.repository.findAll();
+            return this.repository.findAll(options);
         } catch (error) {
             handleResultError({ message: messageFindFail(this.repository.getTableName()), messageDetail: error });
         }

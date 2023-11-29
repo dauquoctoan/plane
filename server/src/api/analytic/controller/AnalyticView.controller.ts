@@ -4,7 +4,7 @@ import { AnalyticViewService } from '../service/analytic.service';
 import { CreateAnalyticViewDto, UpdateAnalyticViewDto } from '../dto/AnalyticView.dto';
 import { handleResultSuccess } from 'src/helper/handleresult';
 
-@Controller()
+@Controller('analytic')
 @ApiTags('Analytic')
 export class AnalyticViewController {
     constructor(private readonly analyticViewService: AnalyticViewService) { }

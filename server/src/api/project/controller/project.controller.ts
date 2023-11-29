@@ -7,7 +7,7 @@ import { IAuthRequest } from 'src/types/auth.types';
 import { AuthGuard } from 'src/Guards/auth.guard';
 
 
-@Controller()
+@Controller('project')
 @ApiTags('Project')
 @ApiBearerAuth('access-token')
 export class ProjectController {
@@ -30,9 +30,9 @@ export class ProjectController {
     }
 
     @UseGuards(AuthGuard)
-    @Get('by-user')
-    async findWorkSpaceByUserId(@RequestNestjs() request: IAuthRequest) {
-        const result = await this.projectService.getProjectByUserId(request.user.id);
+    @Get('by-user/:id')
+    async findWorkSpaceByUserId(@Param('id') id: string, @RequestNestjs() request: IAuthRequest) {
+        const result = await this.projectService.getProjectByUserId(request.user.id, id);
         return handleResultSuccess(result);
     }
 

@@ -20,6 +20,8 @@ import { IssueSequence } from './IssueSequence.entity';
 import { IssueSubscriber } from './IssueSubscriber.entity';
 import { ModuleIssue } from 'src/api/module/entitys/ModuleIssue.entity';
 import { PageBlock } from 'src/api/page/entitys/PageBlock.entity';
+import { Project } from 'src/api/project/entitys/Project.entity';
+import { Workspace } from 'src/api/workspace/entitys/Workspace.entity';
 
 @Table
 export class Issue extends Model {
@@ -37,6 +39,13 @@ export class Issue extends Model {
     /**
     * ! FK : Issue, State
     */
+    @ForeignKey(() => Project)
+    @Column({ allowNull: true })
+    project_id: number;
+
+    @ForeignKey(() => Workspace)
+    @Column({ allowNull: true })
+    workspace_id: number;
 
     @ForeignKey(() => Issue)
     @Column({ allowNull: true })
@@ -49,6 +58,24 @@ export class Issue extends Model {
     /**
     * ! RELATIONSHIP
     */
+
+    @BelongsTo(() => Project, { foreignKey: 'project_id' })
+    project: Project;
+
+    @BelongsTo(() => Workspace, { foreignKey: 'workspace_id' })
+    workspace: Workspace;
+
+    @BelongsTo(() => Issue)
+    issue: Issue;
+
+    @BelongsTo(() => State)
+    state: State;
+
+    @BelongsToMany(() => User, () => IssueAssignee)
+    assignees: User[];
+
+    @BelongsToMany(() => Label, () => IssueLabel)
+    labels: Label[];
 
     @HasMany(() => InboxIssue, { foreignKey: 'issue_id' })
     inbox_issues: InboxIssue[];
@@ -101,28 +128,9 @@ export class Issue extends Model {
     @HasOne(() => CycleIssue, { foreignKey: 'issueId' })
     cycleIsue: CycleIssue;
 
-    @BelongsToMany(() => User, () => IssueAssignee)
-    assignees: User[];
-
-    @BelongsToMany(() => Label, () => IssueLabel)
-    labels: Label[];
-
-    @BelongsTo(() => Issue)
-    issue: Issue;
-
-    @BelongsTo(() => State)
-    state: State;
-
     /**
     * ! PR
     */
-
-    @Is('PRIORITY_CHOICES', (value) => {
-        if (!PRIORITY.includes(value)) throw Error(INVALID_PRIORITY)
-    })
-    @Column
-    PRIORITY_CHOICES: string;
-
     @Is('estimate_point', (value) => {
         if (value > 7 && value < 0) throw Error('0 <= estimate_point <= 7')
     })

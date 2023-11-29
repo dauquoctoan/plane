@@ -171,7 +171,6 @@ const Member: React.FC<IPropsComponent> = () => {
                         );
                     if (result) {
                         const resultInfo = await authService.upDateUser(
-                            info.id,
                             {
                                 is_onboarded: true,
                                 onboarding_step: {

@@ -1,7 +1,7 @@
 export const fetchIdentityCount = async (
     amount = 1
 ): Promise<number> => {
-    const response = await fetch('http://localhost:3009/api/user/me/count/' + amount, {
+    const response = await fetch('http://localhost:3009/api/me/count/' + amount, {
         method: 'GET',
         headers: { 'Content-Type': 'application/json' },
     })

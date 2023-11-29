@@ -5,9 +5,8 @@ import authService from '@/services/auth-services';
 import { Counter } from '../account/counter';
 
 const Test = () => {
-    const { data, error, isLoading, isValidating } = useSWR(
-        'api/user/me',
-        (user) => authService.getUser(user),
+    const { data, error, isLoading, isValidating } = useSWR('me', (user) =>
+        authService.getUser(user),
     );
     return (
         <div>

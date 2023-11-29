@@ -5,8 +5,8 @@ import { ApiTags } from '@nestjs/swagger';
 import { handleResultSuccess } from 'src/helper/handleresult';
 
 
-@Controller()
-@ApiTags('importer')
+@Controller('importer')
+@ApiTags('Importer')
 export class ImporterController {
     constructor(private readonly importerService: ImporterService) { }
     @Post()

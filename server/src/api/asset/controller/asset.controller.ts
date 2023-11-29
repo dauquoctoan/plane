@@ -4,7 +4,7 @@ import { CreateFileAssetDto, UpdateFileAssetDto } from '../dto/FileAssetDto';
 import { FileAssetService } from '../service/asset.service';
 import { handleResultSuccess } from 'src/helper/handleresult';
 
-@Controller()
+@Controller('asset')
 @ApiTags('File Asset')
 export class FileAssetController {
     constructor(private readonly fileAssetService: FileAssetService) { }

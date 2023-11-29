@@ -29,9 +29,9 @@ interface Props
     typeInput?: string;
     wrClassName?: string;
     validator?: RegisterOptions<FieldValues, string>;
-    register?: UseFormRegister<FieldValues>;
+    register?: UseFormRegister<any>;
     defaultValue?: string;
-    setValue?: UseFormSetValue<FieldValues>;
+    setValue?: UseFormSetValue<any>;
     nameForm?: string;
     onChangeCB?: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
@@ -61,6 +61,9 @@ const Input: React.FC<Props> = ({
         | FieldError
         | Merge<FieldError, FieldErrorsImpl<any>>
         | undefined = error && error[keyForm || ''];
+
+    const sdfdsf = 1;
+    
     return (
         <div className={`flex flex-col ${wrClassName}`}>
             {label && (

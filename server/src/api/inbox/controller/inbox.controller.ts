@@ -4,7 +4,7 @@ import { CreateInboxDto, UpdateInboxDto } from '../dto/inbox.dto';
 import { ApiTags } from '@nestjs/swagger';
 import { handleResultSuccess } from 'src/helper/handleresult';
 
-@Controller()
+@Controller('inbox')
 @ApiTags('Inbox')
 export class InboxController {
     constructor(private readonly inboxService: InboxService) { }

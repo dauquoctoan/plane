@@ -3,28 +3,36 @@ import React, { ReactElement, memo, useState } from 'react';
 import { BiChevronDown } from 'react-icons/bi';
 import ProjectTools from './projectTools';
 import Avatar from '../../ui/avatar';
+import { renderEmoji } from '@/helpers/emoji';
+import Tooltip from '@/components/ui/test';
+// import Tooltip from '@/components/ui/tooltip';
 
 interface IProjectMenuitem {
     text?: string;
     idProject?: number;
+    emoji?: string;
 }
 
-const ProjectMenuItem: React.FC<IProjectMenuitem> = ({ text, idProject }) => {
+const ProjectMenuItem: React.FC<IProjectMenuitem> = ({
+    text,
+    idProject,
+    emoji,
+}) => {
     const isCollap = useSelector(selectIsCollap);
     const [isExpan, setIsExpan] = useState(false);
-    
     return (
         <div className={`${isCollap ? 'flex flex-col items-center' : ''}`}>
             {!isCollap && (
                 <div className="flex items-center justify-between hover:bg-theme-secondary rounded px-2">
-                    <span
+                    <div
                         onClick={() => {
                             setIsExpan(!isExpan);
                         }}
-                        className="cursor-pointer select-none flex-1"
+                        className="cursor-pointer select-none flex-1 whitespace-nowrap overflow-hidden text-ellipsis flex items-center"
                     >
-                        {text}
-                    </span>
+                        {renderEmoji(emoji || '')}
+                        <div className="ml-1">{text}</div>
+                    </div>
                     <div className="flex items-center gap-2">
                         <div className="flex items-center text-center box-border pb-2 cursor-pointer">
                             ...
@@ -47,7 +55,7 @@ const ProjectMenuItem: React.FC<IProjectMenuitem> = ({ text, idProject }) => {
                         setIsExpan(!isExpan);
                     }}
                 >
-                    <Avatar>{text||''}</Avatar>
+                    <Avatar size="lg">{text || ''}</Avatar>
                 </div>
             )}
             {isExpan && <ProjectTools idProject={idProject} />}

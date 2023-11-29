@@ -5,7 +5,7 @@ import { WorkspaceMemberService } from '../service/WorkspaceMember.service';
 import { handleResultSuccess } from 'src/helper/handleresult';
 
 
-@Controller('workspaceMember')
+@Controller('workspace-member')
 @ApiTags('Workspace Member')
 export class WorkspaceMemberController {
     constructor(private readonly workspaceMemberService: WorkspaceMemberService) { }
@@ -15,8 +15,8 @@ export class WorkspaceMemberController {
     }
 
     @Get()
-    findAllWorkspaceMember() {
-        return handleResultSuccess(this.workspaceMemberService.findAll());
+    async findAllWorkspaceMember() {
+        return handleResultSuccess(await this.workspaceMemberService.findAll());
     }
 
     @Get(":id")

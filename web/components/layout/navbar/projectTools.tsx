@@ -1,4 +1,4 @@
-'use client'
+'use client';
 import React, { ReactElement, useId } from 'react';
 import { AiOutlineSetting } from 'react-icons/ai';
 import { BsCircleHalf } from 'react-icons/bs';
@@ -10,13 +10,12 @@ import { selectIsCollap, useSelector } from '@/store';
 import { changeRoute, ContainerLink } from 'nextjs-progressloader';
 import { selectInfo } from '@/store/slices/authSlice/selectors';
 
-
 export interface LinkProps {
     href: string;
     nickname?: string;
 }
 
-interface CustomeLink extends LinkProps{ 
+interface CustomeLink extends LinkProps {
     icon: ReactElement;
     name: string;
 }
@@ -25,8 +24,8 @@ const links: CustomeLink[] = [
     {
         icon: <CgStack />,
         name: 'Issues',
-        href: "issues",
-        nickname: "ProjectToolIssues",
+        href: 'issues',
+        nickname: 'ProjectToolIssues',
     },
     {
         icon: <BsCircleHalf />,
@@ -53,7 +52,6 @@ const links: CustomeLink[] = [
         href: 'pages',
     },
     {
-
         icon: <AiOutlineSetting />,
         name: 'Settings',
         nickname: 'ProjectToolSettings',
@@ -61,18 +59,23 @@ const links: CustomeLink[] = [
     },
 ];
 
-interface IProjectTools{
+interface IProjectTools {
     idProject?: number;
 }
 
-
-const ProjectTools: React.FC<IProjectTools> = ({idProject}) => {
+const ProjectTools: React.FC<IProjectTools> = ({ idProject }) => {
     const info = useSelector(selectInfo);
     const isCollap = useSelector(selectIsCollap);
-    const curentLink: CustomeLink[] = info ? getLink(links, idProject || 0):[];
+    const curentLink: CustomeLink[] = info
+        ? getLink(links, idProject || 0)
+        : [];
 
-    function getLink(links: CustomeLink[], id :number){
-        return links.map((e)=>({...e, nickname: e.nickname as string + id, href: `/${info?.workspace?.slug}/projects/${id}/${e.href}`}))
+    function getLink(links: CustomeLink[], id: number) {
+        return links.map((e) => ({
+            ...e,
+            nickname: (e.nickname as string) + id,
+            href: `/${info?.workspace?.slug}/projects/${id}/${e.href}`,
+        }));
     }
 
     return (

@@ -4,7 +4,7 @@ import { NotificationService } from '../service/notification.service';
 import { CreateNotificationDto, UpdateNotificationDto } from '../dto/Notification.dto';
 import { handleResultSuccess } from 'src/helper/handleresult';
 
-@Controller()
+@Controller('notification')
 @ApiTags('Notification')
 export class NotificationController {
     constructor(private readonly notificationService: NotificationService) { }

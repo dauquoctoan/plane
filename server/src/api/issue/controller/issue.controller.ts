@@ -4,13 +4,13 @@ import { IssueService } from '../service/issue.service';
 import { CreateIssueDto, UpdateIssueDto } from '../dto/Issue.dto';
 import { handleResultSuccess } from 'src/helper/handleresult';
 
-@Controller()
+@Controller('issue')
 @ApiTags('Issue')
 export class IssueController {
     constructor(private readonly workspaceService: IssueService) { }
     @Post()
-    create(@Body() createWorkspaceDto: CreateIssueDto) {
-        return handleResultSuccess(this.workspaceService.create(createWorkspaceDto));
+    async create(@Body() createWorkspaceDto: CreateIssueDto) {
+        return handleResultSuccess(await this.workspaceService.create(createWorkspaceDto));
     }
 
     @Get()

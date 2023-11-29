@@ -4,8 +4,11 @@ import { HiChartBar } from 'react-icons/hi';
 import { AiFillTags } from 'react-icons/ai';
 import { PiSuitcaseSimpleBold } from 'react-icons/pi';
 import { selectIsCollap, useSelector } from '@/store';
-import { ContainerLink, ContainerLinkProps, changeRoute } from 'nextjs-progressloader';
-import { usePathname } from 'next/navigation';
+import {
+    ContainerLink,
+    ContainerLinkProps,
+    changeRoute,
+} from 'nextjs-progressloader';
 import { selectInfo } from '@/store/slices/authSlice/selectors';
 
 export interface IMenu extends IBaseMenu {
@@ -25,19 +28,17 @@ const menus: IBaseMenu[] = [
     {
         icon: <MdOutlineWindow />,
         text: 'Dashboard',
-        path: '/dashboard',
+        path: '',
     },
     {
         icon: <HiChartBar />,
         text: 'Analytics',
         path: '/analytics',
-
     },
     {
         icon: <PiSuitcaseSimpleBold />,
         text: 'Projects',
         path: '/projects',
-
     },
     {
         icon: <AiFillTags />,
@@ -46,22 +47,22 @@ const menus: IBaseMenu[] = [
     },
 ];
 
-const links: ContainerLinkProps["links"] = [
+const links: ContainerLinkProps['links'] = [
     {
-        href: "/dashboard",
-        nickname: "dashboard",
+        href: '',
+        nickname: 'dashboard',
     },
     {
-        href: "/analytics",
-        nickname: "analytics",
+        href: '/analytics',
+        nickname: 'analytics',
     },
     {
-        href: "/projects",
-        nickname: "projects"
+        href: '/projects',
+        nickname: 'projects',
     },
     {
-        href: "/all-issues",
-        nickname: "all-issues"
+        href: '/all-issues',
+        nickname: 'all-issues',
     },
 ];
 
@@ -71,7 +72,7 @@ const MenuItem: React.FC<IMenu> = ({
     isActive,
     setIndex,
     index,
-    path
+    path,
 }) => {
     return (
         <div
@@ -93,8 +94,8 @@ const MenuItem: React.FC<IMenu> = ({
     );
 };
 
-function getPathName(menus: any[],key:string, path:string){
-    return menus.map((e)=>({...e,[key]:path + e[key]}))
+function getPathName(menus: any[], key: string, path: string) {
+    return menus.map((e) => ({ ...e, [key]: path + e[key] }));
 }
 
 const Menus = () => {
@@ -104,18 +105,26 @@ const Menus = () => {
 
     return (
         <div className="px-2">
-            <ContainerLink links={getPathName(links, 'href', '/'+info?.workspace?.slug || '')} />
-            {getPathName(menus, 'path', '/' + info?.workspace?.slug || '').map((item, index) => (
-                <MenuItem
-                    path={item.path}
-                    index={index}
-                    setIndex={setIndexMenu}
-                    isActive={indexMenu == index}
-                    key={index}
-                    icon={item.icon}
-                    text={isCollap ? undefined : item.text}
-                />
-            ))}
+            <ContainerLink
+                links={getPathName(
+                    links,
+                    'href',
+                    '/' + info?.workspace?.slug || '',
+                )}
+            />
+            {getPathName(menus, 'path', '/' + info?.workspace?.slug || '').map(
+                (item, index) => (
+                    <MenuItem
+                        path={item.path}
+                        index={index}
+                        setIndex={setIndexMenu}
+                        isActive={indexMenu == index}
+                        key={index}
+                        icon={item.icon}
+                        text={isCollap ? undefined : item.text}
+                    />
+                ),
+            )}
         </div>
     );
 };

@@ -9,6 +9,8 @@ export interface LinkProps {
     nickname?: string;
 }
 
+export type IData<T> = T | undefined;
+
 export interface IUser {
     USER_TIMEZONE_CHOICES?: string;
     avatar?: string;
@@ -39,7 +41,7 @@ export interface IUser {
     last_logout_ip?: string;
     last_logout_time?: string;
     last_name?: string;
-    last_workspace_id?: string;
+    last_workspace_id?: number;
     mobileNumber?: string;
     my_issues_prop?: string;
     onboarding_step?: {
@@ -79,7 +81,6 @@ export interface IWorkspaceMemberInvite {
     role?: number;
 }
 
-
 export interface IProject {
     id?: number;
     estimate_id?: number;
@@ -104,4 +105,49 @@ export interface IProject {
     cover_image?: string;
     archive_in?: number;
     close_in?: number;
+}
+
+export interface Istate {
+    id: number;
+    project_id?: number;
+    project_detail?: IProject;
+    created_by?: string;
+    project_info?: IUser;
+    name?: string;
+    description?: string;
+    color?: string;
+    slug?: string;
+    sequence?: number;
+    group?: string;
+    default?: boolean;
+}
+
+export interface IIssue {
+    project_id?: number;
+    workspace_id?: number;
+    parent?: number;
+    state_id?: number;
+    estimate_point?: number;
+    name?: string;
+    description?: string;
+    description_html?: string;
+    description_stripped?: string;
+    priority?: string;
+    start_date?: string;
+    target_date?: string;
+    sequence_id?: number;
+    sort_order?: number;
+    completed_at?: string;
+    archived_at?: string;
+    is_draft?: boolean;
+}
+export interface ILabel {
+    id: number;
+    project_id: number;
+    created_at: string;
+    workspace_id: number;
+    parent: string;
+    name: string;
+    description: string;
+    color: string;
 }

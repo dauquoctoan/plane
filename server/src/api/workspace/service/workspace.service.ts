@@ -16,10 +16,9 @@ export class WorkspaceService extends BaseService<Workspace>{
     super(repository);
   }
 
-  async findWorkspaceAndUser(id: string, isHandleResult = true) {
+  async findWorkspaceAndUser(id: string) {
     try {
-      const data = await this.repository.findOne({ where: { owner: id } });
-      return isHandleResult ? handleResultSuccess(data) : data;
+      return await this.repository.findAll({ where: { owner: id } });
     } catch (error) {
       handleResultError({ message: messageFindFail(this.repository.getTableName()), messageDetail: error });
     }

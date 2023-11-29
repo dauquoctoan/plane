@@ -1,26 +1,26 @@
-import { Controller, Post, Body, Get, Param, Patch, Delete } from '@nestjs/common';
-import { ApiTags } from '@nestjs/swagger';
+import { Controller, Post, Body, Get, Param, Patch, Delete, Request as RequestNest, UseGuards } from '@nestjs/common';
+import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { CreateCommentReactionDto, UpdateCommentReactionDto } from '../dto/CommentReaction.dto';
 import { LabelService } from '../service/Label.service';
 import { handleResultSuccess } from 'src/helper/handleresult';
+import { IAuthRequest } from 'src/types/auth.types';
+import { AuthGuard } from 'src/Guards/auth.guard';
 
 @Controller('label')
 @ApiTags('Label')
+@ApiBearerAuth('access-token')
 export class LabelController {
     constructor(private readonly workspaceService: LabelService) { }
+    @UseGuards(AuthGuard)
     @Post()
-    create(@Body() createWorkspaceDto: CreateCommentReactionDto) {
-        return handleResultSuccess(this.workspaceService.create(createWorkspaceDto));
+    async create(@Body() createWorkspaceDto: CreateCommentReactionDto, @RequestNest() request: IAuthRequest) {
+        return handleResultSuccess(await this.workspaceService.createLabel(createWorkspaceDto, request?.user?.id));
     }
 
-    @Get()
-    findAll() {
-        return handleResultSuccess(this.workspaceService.findAll());
-    }
-
-    @Get(':id')
-    findOne(@Param('id') id: string) {
-        return handleResultSuccess(this.workspaceService.findOneById(+id));
+    @UseGuards(AuthGuard)
+    @Get('by-project-id/:id')
+    async findAll(@Param('id') id: string) {
+        return handleResultSuccess(await this.workspaceService.findLabelByWorspaceIdAndProjectId(+id));
     }
 
     @Patch(':id')

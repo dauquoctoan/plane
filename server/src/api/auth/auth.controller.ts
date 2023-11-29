@@ -8,7 +8,7 @@ import { JwtService } from '@nestjs/jwt';
 import { handleResultSuccess } from 'src/helper/handleresult';
 import { UserService } from '../user/service/User.service';
 
-@Controller()
+@Controller('auth')
 @ApiTags('Auth')
 export class AuthController {
   constructor(private readonly authService: AuthService, private jwtService: JwtService, public userService: UserService) { }

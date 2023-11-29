@@ -6,7 +6,7 @@ import { JwtService } from '@nestjs/jwt';
 import { handleResultSuccess } from 'src/helper/handleresult';
 
 
-@Controller('workspaceMemberInvite')
+@Controller('workspace-member-invite')
 @ApiTags('Workspace Member Invite')
 export class WorkspaceMemberInviteController {
     constructor(private readonly workspaceMemberInviteService: WorkspaceMemberInviteService, private jwtService: JwtService) { }
@@ -33,8 +33,8 @@ export class WorkspaceMemberInviteController {
     }
 
     @Get()
-    findAllWorkspaceMemberInvite() {
-        return handleResultSuccess(this.workspaceMemberInviteService.findAll());
+    async findAllWorkspaceMemberInvite() {
+        return handleResultSuccess(await this.workspaceMemberInviteService.findAll());
     }
 
     @Get(":id")

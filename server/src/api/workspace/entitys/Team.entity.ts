@@ -10,7 +10,6 @@ export class Team extends Model {
     * @ForeignKey Workspace
     * @BelongsToMany User[TeamMember]
     */
-
     /* ================================================== */
 
     @BelongsToMany(() => User, () => TeamMember)
@@ -23,7 +22,6 @@ export class Team extends Model {
     @BelongsTo(() => Workspace)
     workspace: Workspace;
 
-    @Length({ max: 225 })
     @Column({ allowNull: false })
     name: string;
 

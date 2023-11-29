@@ -1,18 +1,28 @@
 import { ApiTags } from '@nestjs/swagger';
-import { Column, Model, Table, Length, Is, DataType, HasMany, } from 'sequelize-typescript';
+import { Column, Model, Table, Length, Is, DataType, HasMany, ForeignKey, BelongsTo, } from 'sequelize-typescript';
 import { Issue } from 'src/api/issue/entitys/Issue.entity';
 import { Project } from 'src/api/project/entitys/Project.entity';
+import { User } from 'src/api/user/entitys/User.entity';
 import { GROUP } from 'src/constants/entity-constant';
 import { INVALID_GROUP } from 'src/constants/message-constant';
 
 @Table
 @ApiTags('workspace')
 export class State extends Model {
+    @ForeignKey(() => Project)
+    project_id: number;
+
+    @BelongsTo(() => Project, 'project_id')
+    project_detail: string;
+
+    @ForeignKey(() => User)
+    created_by: string;
+
+    @BelongsTo(() => User, 'created_by')
+    project_info: User;
+
     @HasMany(() => Issue)
     issues: Issue[];
-
-    @HasMany(() => Project)
-    projects: Project[];
 
     @Length({ min: 1, max: 255 })
     @Column({ allowNull: false })

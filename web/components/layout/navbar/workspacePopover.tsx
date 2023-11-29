@@ -1,30 +1,72 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Avatar from '../../ui/avatar';
 import { BsCheck2 } from 'react-icons/bs';
 import { HiOutlinePlusSmall } from 'react-icons/hi2';
-import { useSelector } from '@/store';
+import { authSlice, useSelector } from '@/store';
 import { selectInfo } from '@/store/slices/authSlice/selectors';
 import { changeRoute } from 'nextjs-progressloader';
+import workspaceService from '@/services/workspace-services';
+import { IData, IProject } from '@/types';
+import authService from '@/services/auth-services';
+import { VscLoading } from 'react-icons/vsc';
+import { useRouter } from 'next/navigation';
+import { useDispatch } from 'react-redux';
+import { useFetch } from '@/hooks/fetch';
 
 const WorkspacePopover = () => {
     const info = useSelector(selectInfo);
+    const router = useRouter();
+    const dispatch = useDispatch();
+    const [loading, setLoading] = useState(false);
+    const { data: workspaces } = useFetch<IData<IProject[]>>(
+        workspaceService.getAllWorkSpaces as any,
+    );
+
+    const handleChangeWorkspace = async (id: number) => {
+        setLoading(true);
+        await authService.upDateUser({ last_workspace_id: id });
+        dispatch(authSlice.actions.clearInfo());
+        setLoading(false);
+        router.push('/');
+    };
 
     return (
         <div className="w-[300px] text-sm">
-            <div className="py-2 px-3">Workspace</div>
+            <div className="py-2 px-3 flex justify-between items-center">
+                <span>Workspace</span>
+                {loading && <VscLoading className="animate-spin" />}
+            </div>
             <div className="border-b border-theme-border-secondary"></div>
             <div className="py-2 px-3 select-none">
-                <div className="py-1 px-2 flex rounded justify-between items-center hover:bg-theme-secondary cursor-pointer">
-                    <div className="flex items-center">
-                        <Avatar>T</Avatar>
-                        <span className="ml-2">{info?.workspace?.name}</span>
-                    </div>
-                    <BsCheck2 />
-                </div>
-                <div 
-                    onClick={()=>{
-                        changeRoute('/create-workspace')
-                    }} 
+                {workspaces && workspaces.length > 0 ? (
+                    workspaces.map((item, index) => {
+                        return (
+                            <div
+                                key={index}
+                                onClick={() => {
+                                    item.id && handleChangeWorkspace(item.id);
+                                }}
+                                className="py-1 px-2 flex rounded justify-between items-center hover:bg-theme-secondary cursor-pointer"
+                            >
+                                <div className="flex items-center">
+                                    <Avatar>{item?.name || ''}</Avatar>
+                                    <span className="ml-2">
+                                        {item?.name || ''}
+                                    </span>
+                                </div>
+                                {info?.last_workspace_id === item.id && (
+                                    <BsCheck2 />
+                                )}
+                            </div>
+                        );
+                    })
+                ) : (
+                    <div className="py-1 px-2 flex rounded h-10 justify-between items-center bg-theme-secondary cursor-pointer"></div>
+                )}
+                <div
+                    onClick={() => {
+                        changeRoute('/create-workspace');
+                    }}
                     className="py-1 px-2 flex rounded hover:bg-theme-secondary cursor-pointer items-center"
                 >
                     <HiOutlinePlusSmall />

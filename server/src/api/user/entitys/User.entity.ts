@@ -11,6 +11,7 @@ import { IssueComment } from 'src/api/issue/entitys/IssueComment.entity';
 import { IssueProperty } from 'src/api/issue/entitys/IssueProperty.entity';
 import { IssueReaction } from 'src/api/issue/entitys/IssueReaction.entity';
 import { IssueSubscriber } from 'src/api/issue/entitys/IssueSubscriber.entity';
+import { Label } from 'src/api/issue/entitys/Label.entity';
 import { Module } from 'src/api/module/entitys/Module.entity';
 import { ModuleFavorite } from 'src/api/module/entitys/ModuleFavorite.entity';
 import { ModuleMember } from 'src/api/module/entitys/ModuleMember.entity';
@@ -22,6 +23,7 @@ import { ProjectMember } from 'src/api/project/entitys/ProjectMember.entity';
 import { ProjectPublicMember } from 'src/api/project/entitys/ProjectPublicMember.entity';
 import { ProjectFavorite } from 'src/api/project/entitys/projectFavorite.entity';
 import { SocialLoginConnection } from 'src/api/social_connection/entitys/SocialLoginConnection.entity';
+import { State } from 'src/api/state/entitys/State.entity';
 import { IssueViewFavorite } from 'src/api/view/entitys/IssueViewFavorite.entity';
 import { Team } from 'src/api/workspace/entitys/Team.entity';
 import { TeamMember } from 'src/api/workspace/entitys/TeamMember.entity';
@@ -41,15 +43,21 @@ export class User extends Model {
     id: string;
 
     @ForeignKey(() => Workspace)
-    @Column
+    @Column({ allowNull: true })
     last_workspace_id: number;
 
-    @BelongsTo(() => Workspace, 'last_workspace_id')
+    @BelongsTo(() => Workspace, { foreignKey: 'last_workspace_id' })
     workspace: Workspace;
 
     /**
     * ! RELATIONSHIP
     */
+
+    @HasMany(() => Label, { foreignKey: 'created_at' })
+    label: Label[];
+
+    @HasMany(() => State, 'created_by')
+    state: State;
 
     @HasMany(() => IssueSubscriber)
     issue_subscribers: IssueSubscriber[];
@@ -105,7 +113,7 @@ export class User extends Model {
     @HasMany(() => ModuleFavorite)
     module_favorites: ModuleFavorite[];
 
-    @HasMany(() => Workspace, { onDelete: 'CASCADE' })
+    @HasMany(() => Workspace, {foreignKey: 'owner'})
     workspaces: Workspace[];
 
     @HasMany(() => WorkspaceMember)
@@ -145,42 +153,33 @@ export class User extends Model {
     * ! PR
     */
 
-    @Length({ max: 128 })
     @Column({ allowNull: false, unique: true })
     username: string;
 
-    @Length({ max: 255 })
     @Column
     mobileNumber: string;
 
     @Is('email', (data) => {
         if (!validEmail(data)) throw Error('Invalid Email')
     })
-    @Length({ max: 255 })
     @Column({ allowNull: false, unique: true })
     email: string;
 
-    @Length({ max: 255 })
     @Column
     first_name: string;
 
-    @Length({ max: 255 })
     @Column
     last_name: string;
 
-    @Length({ max: 255 })
     @Column
     avatar: string;
 
-    @Length({ max: 800 })
     @Column
     cover_image: string;
 
-    @Length({ max: 255 })
     @Column
     last_location: string;
 
-    @Length({ max: 255 })
     @Column
     created_location: string;
 
@@ -208,11 +207,9 @@ export class User extends Model {
     @Column({ defaultValue: false })
     is_onboarded: boolean;
 
-    @Length({ max: 64 })
     @Column
     token: string;
 
-    @Length({ max: 255 })
     @Column({ defaultValue: 'VIETNAMESE' })
     billing_address_country: string;
 
@@ -237,15 +234,12 @@ export class User extends Model {
     @CreatedAt
     last_logout_time: Date;
 
-    @Length({ max: 255 })
     @Column
     last_login_ip: string;
 
-    @Length({ max: 255 })
     @Column
     last_logout_ip: string;
 
-    @Length({ max: 20 })
     @Column({ defaultValue: 'email' })
     last_login_medium: string;
 
@@ -258,7 +252,6 @@ export class User extends Model {
     @Column({ type: DataType.JSON })
     my_issues_prop: string;
 
-    @Length({ max: 300 })
     @Column
     role: string;
 
@@ -268,8 +261,7 @@ export class User extends Model {
     @Column({ type: DataType.JSON, defaultValue: {} })
     theme: string;
 
-    @Length({ max: 300 })
-    @Column({ defaultValue: '' })
+    @Column({ })
     display_name: string;
 
     @Column({ defaultValue: false })

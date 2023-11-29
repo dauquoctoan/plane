@@ -11,7 +11,7 @@ import { messageCreateFail } from 'src/helper/message.create';
 import { AuthGuard } from 'src/Guards/auth.guard';
 
 
-@Controller()
+@Controller('workspace')
 @ApiTags('Workspace')
 @ApiBearerAuth('access-token')
 export class WorkspaceController {
@@ -28,6 +28,7 @@ export class WorkspaceController {
     handleResultError({ message: messageCreateFail('workspace'), data: null, statusCode: 500 })
   }
 
+  @UseGuards(AuthGuard)
   @Get()
   async findAllWorkSpace(@RequestNest() request: IAuthRequest) {
     return handleResultSuccess(await this.workspaceService.findWorkspaceAndUser(request.user.id));

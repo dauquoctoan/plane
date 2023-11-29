@@ -1,4 +1,4 @@
-'use client'
+'use client';
 import React, { useEffect, useId, useState, useRef } from 'react';
 import {
     UseFormRegister,
@@ -24,9 +24,9 @@ interface IProps {
     data?: string[];
     nameForm?: string;
     keyForm?: string;
-    setValue?: UseFormSetValue<FieldValues>;
-    validator?: RegisterOptions<FieldValues, string>;
-    register?: UseFormRegister<FieldValues>;
+    setValue?: UseFormSetValue<any>;
+    validator?: RegisterOptions<any, any>;
+    register?: UseFormRegister<any>;
     defaultValue?: string;
 }
 
@@ -81,6 +81,7 @@ const AutoComplete: React.FC<IProps> = ({
             setIsPopUp(false);
         }, 100);
     };
+
     return (
         <div className={`flex flex-col ${wrClassName}`}>
             <div>

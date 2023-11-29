@@ -1,5 +1,5 @@
 import { HttpAdapterHost, NestFactory } from "@nestjs/core";
-import { ValidationPipe } from '@nestjs/common';
+import { RequestMethod, ValidationPipe } from '@nestjs/common';
 import { AllExceptionsFilter } from "src/helper/all-exceptions.filter";
 import { ConfigService } from '@nestjs/config';
 import { SwaggerModule, DocumentBuilder, SwaggerDocumentOptions } from '@nestjs/swagger';
@@ -16,6 +16,9 @@ async function bootstrap() {
     }),
   );
   const configService = app.get(ConfigService);
+  app.setGlobalPrefix('api/v1', {
+    exclude: [{ path: 'page', method: RequestMethod.GET }],
+  });
 
   /* config validator */
   app.useGlobalPipes(new ValidationPipe());
