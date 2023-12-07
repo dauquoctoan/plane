@@ -2,7 +2,7 @@ import { BelongsTo, Column, DataType, ForeignKey, Model, Table } from 'sequelize
 import { Issue } from './Issue.entity';
 
 @Table
-export class IssueAttachment extends Model {
+export class IssueAttachment extends Model<IssueAttachment> {
     /**
     * ! FK
     */

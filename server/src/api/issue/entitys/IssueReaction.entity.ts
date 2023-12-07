@@ -4,19 +4,19 @@ import { Issue } from './Issue.entity';
 import sequelize from 'sequelize';
 
 @Table
-export class IssueReaction extends Model {
+export class IssueReaction extends Model<IssueReaction> {
     @ForeignKey(() => User)
     @Column({ allowNull: false, type: sequelize.UUID })
     actor: string;
-
-    @BelongsTo(() => User)
-    User: User[];
 
     @ForeignKey(() => Issue)
     @Column({ allowNull: false })
     issue_id: number;
 
-    @BelongsTo(() => Issue)
+    @BelongsTo(() => User, {foreignKey:'actor'})
+    User: User[];
+
+    @BelongsTo(() => Issue, {foreignKey:'issue_id'})
     issue: Issue[];
 
     @Length({ max: 255 })

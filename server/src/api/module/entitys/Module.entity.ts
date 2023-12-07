@@ -8,7 +8,7 @@ import { ModuleLink } from './ModuleLink.entity';
 import { ModuleMember } from './ModuleMember.entity';
 
 @Table
-export class Module extends Model {
+export class Module extends Model<Module> {
     @ForeignKey(() => User)
     @Column({ allowNull: false, type: sequelize.UUID })
     lead: string;

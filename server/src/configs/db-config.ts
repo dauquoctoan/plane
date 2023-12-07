@@ -15,7 +15,7 @@ export const CONFIG_DB: SequelizeModuleAsyncOptions = {
         autoLoadModels: true,
         synchronize: true,
         logging: console.log,
-        sync: { force: true }
+        //sync: { force: true }
     }),
     inject: [ConfigService]
 }

@@ -21,6 +21,10 @@ class IssueService extends BaseService {
         return await this.post<T>('issue', issue);
     }
 
+    async findIssues<T>(query?:{idProject?:string, idMember?:string}){
+        return await this.get<T>(`issue`,query);
+    }
+
     async createLabel<T>(label: Partial<ILabel>) {
         return await this.post<T>('label', label);
     }

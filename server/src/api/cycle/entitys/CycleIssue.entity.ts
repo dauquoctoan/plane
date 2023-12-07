@@ -3,7 +3,7 @@ import { Issue } from 'src/api/issue/entitys/Issue.entity';
 import { Cycle } from './Cycle.entity';
 
 @Table
-export class CycleIssue extends Model {
+export class CycleIssue extends Model<CycleIssue> {
     /**
     * !FK
     */

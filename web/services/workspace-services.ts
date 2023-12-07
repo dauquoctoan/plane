@@ -18,7 +18,7 @@ class WorkSpaceService extends BaseService {
     }
 
     createsWorkspaceMemberInvite<T>(workspaces: IWorkspaceMemberInvite[]) {
-        return this.post<T>('workspace/workspace-member-invite/creates', workspaces);
+        return this.post<T>('workspace-member-invite/creates', workspaces);
     }
 }
 

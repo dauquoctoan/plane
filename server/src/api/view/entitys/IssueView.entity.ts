@@ -4,7 +4,7 @@ import { INVALID_ACCESS } from 'src/constants/message-constant';
 import { IssueViewFavorite } from './IssueViewFavorite.entity';
 
 @Table
-export class IssueView extends Model {
+export class IssueView extends Model<IssueView> {
     /**
     * ! table GlobalView
     * @HasMany IssueViewFavorite

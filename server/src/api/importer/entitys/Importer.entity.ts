@@ -6,7 +6,7 @@ import { SERVICE, STATUS } from 'src/constants/entity-constant';
 import { INVALID_SERVICE, INVALID_STATUS } from 'src/constants/message-constant';
 
 @Table
-export class Importer extends Model {
+export class Importer extends Model<Importer> {
 
     /**
     * !Importer
@@ -33,10 +33,10 @@ export class Importer extends Model {
     * @BelongsTo: APIToken, User;
     */
 
-    @BelongsTo(() => APIToken)
+    @BelongsTo(() => APIToken, {foreignKey:'token'})
     api_token: APIToken;
 
-    @BelongsTo(() => User)
+    @BelongsTo(() => User, {foreignKey:'initiated_by'})
     user: User;
 
     /**

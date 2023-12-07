@@ -125,16 +125,16 @@ const AutoComplete: React.FC<IProps> = ({
                         id={id}
                         className={`w-full  border ${
                             error && error[keyForm ?? '']
-                                ? 'border-color-warning'
+                                ? 'border-color-error'
                                 : ''
                         }  rounded outline-none p-1 ${
                             size == 'sm' ? '' : size == 'md' ? '' : ''
                         } ${className || ''}`}
                     />
                     {lsResult.length > 0 && isPopUp ? (
-                        <FiChevronUp className="absolute right-2 top-[25%] animate-pop-up" />
+                        <FiChevronUp className="absolute right-2 top-[25%] animate-popUp" />
                     ) : (
-                        <FiChevronDown className="absolute right-2 top-[25%] animate-pop-up" />
+                        <FiChevronDown className="absolute right-2 top-[25%] animate-popUp" />
                     )}
                     {lsResult.length > 0 && isPopUp && (
                         <ListResult

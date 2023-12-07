@@ -2,20 +2,20 @@ import { BelongsTo, Column, DataType, ForeignKey, Length, Model, Table } from 's
 import { Workspace } from 'src/api/workspace/entitys/Workspace.entity';
 
 @Table
-export class AnalyticView extends Model {
+export class AnalyticView extends Model<AnalyticView> {
     /**
     * !FK
     */
     @ForeignKey(() => Workspace)
     @Column({ allowNull: false })
-    workspace: number;
+    workspace_id: number;
 
     /**
     * ! RELATIONSHIP
     */
 
-    @BelongsTo(() => Workspace)
-    Workspace: Workspace;
+    @BelongsTo(() => Workspace, {foreignKey:'workspace_id'})
+    workpsaceInfo: Workspace;
 
     /**
     * ! PR

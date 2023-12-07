@@ -2,7 +2,7 @@ import { BelongsTo, Column, ForeignKey, Model, Table } from 'sequelize-typescrip
 import { Issue } from './Issue.entity';
 
 @Table
-export class IssueBlocker extends Model {
+export class IssueBlocker extends Model<IssueBlocker> {
     /**
     * ! FK
     */

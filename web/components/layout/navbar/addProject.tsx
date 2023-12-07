@@ -19,6 +19,7 @@ import Avatar from '@/components/ui/avatar';
 import { useSelector } from '@/store';
 import { selectInfo } from '@/store/slices/authSlice/selectors';
 import { IProject } from '@/types';
+import { useNoti } from '@/hooks';
 
 interface IProps {
     setOpen: (e: boolean) => void;
@@ -27,7 +28,6 @@ interface IProps {
 
 const AddProject: React.FC<IProps> = ({ setOpen, handleCreateProject }) => {
     const info = useSelector(selectInfo);
-    const [loading, setLoading] = useState(false);
     const {
         register,
         handleSubmit,
@@ -55,13 +55,11 @@ const AddProject: React.FC<IProps> = ({ setOpen, handleCreateProject }) => {
         <form
             id="create-project-form"
             onSubmit={handleSubmit(async (formData) => {
-                setLoading(true);
                 handleCreateProject({
                     ...formData,
                     created_by: info?.id,
                     workspace_id: info?.workspace?.id,
                 });
-                setLoading(false);
             })}
             className="p-2"
         >
@@ -197,7 +195,6 @@ const AddProject: React.FC<IProps> = ({ setOpen, handleCreateProject }) => {
                     form="create-project-form"
                     type="submit"
                     text="Create Project"
-                    loading={loading}
                 />
             </div>
         </form>

@@ -13,7 +13,7 @@ const Navbar = () => {
         <div
             className={`${
                 isCollap ? 'w-width-menu-collap' : 'w-width-menu'
-            } transition-all border-r border-theme-border-primary box-border flex flex-col overflow-hidden lg:border-r-0 lg:w-0`}
+            } transition-all border-r border-theme-border-primary box-border flex flex-col overflow-hidden lg:border-r-0 lg:w-0 md:w-0`}
         >
             <Info />
             <MenuMain />

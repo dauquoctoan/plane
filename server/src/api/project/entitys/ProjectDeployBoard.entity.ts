@@ -5,7 +5,7 @@ import { Inbox } from 'src/api/inbox/entitys/Inbox.entiy';
 import { DEFAULT_VIEWS } from 'src/constants/entity-constant';
 
 @Table
-export class ProjectDeployBoard extends Model {
+export class ProjectDeployBoard extends Model<ProjectDeployBoard> {
     @ForeignKey(() => Inbox)
     @Column
     inbox_id: number;

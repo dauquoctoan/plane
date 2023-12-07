@@ -43,7 +43,7 @@ const menus: IBaseMenu[] = [
     {
         icon: <AiFillTags />,
         text: 'All Issues',
-        path: '/all-issues',
+        path: '/workspace-views/all-issues',
     },
 ];
 
@@ -61,8 +61,8 @@ const links: ContainerLinkProps['links'] = [
         nickname: 'projects',
     },
     {
-        href: '/all-issues',
-        nickname: 'all-issues',
+        href: '/workspace-views/all-issues',
+        nickname: 'workspace-views-all-issues',
     },
 ];
 
@@ -87,9 +87,7 @@ const MenuItem: React.FC<IMenu> = ({
             }`}
         >
             {icon}
-            {text && (
-                <label className="cursor-pointer animate-showNav">{text}</label>
-            )}
+            {text && <label className="cursor-pointer">{text}</label>}
         </div>
     );
 };

@@ -5,7 +5,7 @@ import { User } from 'src/api/user/entitys/User.entity';
 import sequelize from 'sequelize';
 
 @Table
-export class IssueActivity extends Model {
+export class IssueActivity extends Model<IssueActivity> {
     /**
     * ! FK
     */
@@ -25,13 +25,13 @@ export class IssueActivity extends Model {
     * ! RELATIONSHIP
     */
 
-    @BelongsTo(() => IssueComment)
+    @BelongsTo(() => IssueComment,{foreignKey:'issue_comment_id'})
     issue_comment: IssueComment;
 
-    @BelongsTo(() => User)
+    @BelongsTo(() => User, {foreignKey:'actor'})
     user: User;
 
-    @BelongsTo(() => Issue)
+    @BelongsTo(() => Issue,{foreignKey:'issue_id'})
     issue: Issue;
 
     /**

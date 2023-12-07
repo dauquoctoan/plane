@@ -34,7 +34,7 @@ import { DEFAULT_ONBOARDING } from 'src/constants/entity-constant';
 import { validEmail } from 'src/helper/regex';
 
 @Table
-export class User extends Model {
+export class User extends Model<User> {
     /**
     * ! PK
     */
@@ -46,7 +46,7 @@ export class User extends Model {
     @Column({ allowNull: true })
     last_workspace_id: number;
 
-    @BelongsTo(() => Workspace, { foreignKey: 'last_workspace_id' })
+    @BelongsTo(() => Workspace, { foreignKey: 'last_workspace_id', onDelete:'CASCADE' })
     workspace: Workspace;
 
     /**
@@ -59,22 +59,22 @@ export class User extends Model {
     @HasMany(() => State, 'created_by')
     state: State;
 
-    @HasMany(() => IssueSubscriber)
+    @HasMany(() => IssueSubscriber,{foreignKey:'subscriber'})
     issue_subscribers: IssueSubscriber[];
 
-    @HasMany(() => ProjectMember)
+    @HasMany(() => ProjectMember,{foreignKey:'member'})
     project_members: ProjectMember[];
 
-    @HasMany(() => IssueViewFavorite)
+    @HasMany(() => IssueViewFavorite,{foreignKey:'user_id'})
     issue_view_favorites: IssueViewFavorite[];
 
-    @HasMany(() => SocialLoginConnection)
+    @HasMany(() => SocialLoginConnection,{foreignKey:'user_id'})
     social_login_connections: SocialLoginConnection[];
 
-    @HasMany(() => ProjectFavorite)
+    @HasMany(() => ProjectFavorite,{foreignKey:'user_id'})
     project_favorites: ProjectFavorite[];
 
-    @HasMany(() => ProjectPublicMember)
+    @HasMany(() => ProjectPublicMember,{foreignKey:'member'})
     project_public_member: ProjectPublicMember[];
 
     @HasMany(() => Module, { foreignKey: 'lead' })
@@ -92,13 +92,13 @@ export class User extends Model {
     @HasMany(() => Project, { foreignKey: 'project_lead' })
     project_leads: Project[];
 
-    @HasMany(() => APIToken)
+    @HasMany(() => APIToken, {foreignKey:'user_id'})
     api_tokens: APIToken[];
 
-    @HasMany(() => PageFavorite)
+    @HasMany(() => PageFavorite, {foreignKey:'user_id'})
     page_favorites: PageFavorite[];
 
-    @HasMany(() => Page)
+    @HasMany(() => Page, {foreignKey:'owned_by'})
     pages: Page[];
 
     @HasMany(() => Notification, { foreignKey: 'triggered_by' })
@@ -107,40 +107,40 @@ export class User extends Model {
     @HasMany(() => Notification, { foreignKey: 'receiver' })
     receivers: Notification[];
 
-    @HasMany(() => ModuleMember)
+    @HasMany(() => ModuleMember,{foreignKey:'member'})
     module_members: ModuleMember[];
 
-    @HasMany(() => ModuleFavorite)
+    @HasMany(() => ModuleFavorite, {foreignKey:'user_id'})
     module_favorites: ModuleFavorite[];
 
-    @HasMany(() => Workspace, {foreignKey: 'owner'})
+    @HasMany(() => Workspace, {foreignKey: 'owner', onDelete:'CASCADE'})
     workspaces: Workspace[];
 
-    @HasMany(() => WorkspaceMember)
+    @HasMany(() => WorkspaceMember, {foreignKey:'member'})
     workspace_members: Workspace[];
 
-    @HasMany(() => WorkspaceTheme)
+    @HasMany(() => WorkspaceTheme, {foreignKey:'actor'})
     workspace_themes: WorkspaceTheme[];
 
-    @HasMany(() => IssueProperty)
+    @HasMany(() => IssueProperty,{foreignKey:'user_id'})
     issue_propertys: IssueProperty[];
 
-    @HasMany(() => IssueComment)
+    @HasMany(() => IssueComment, {foreignKey:'actor'})
     issue_comments: IssueComment[];
 
-    @HasMany(() => IssueReaction)
+    @HasMany(() => IssueReaction, {foreignKey:'actor'})
     issue_reactions: IssueReaction[];
 
-    @HasMany(() => IssueActivity)
+    @HasMany(() => IssueActivity, {foreignKey:'actor'})
     issue_activitys: IssueActivity[];
 
-    @HasMany(() => Importer)
+    @HasMany(() => Importer, {foreignKey:'initiated_by'})
     importers: Importer[];
 
-    @HasMany(() => Cycle)
+    @HasMany(() => Cycle, {foreignKey:'owned_by'})
     cycles: Cycle[];
 
-    @HasMany(() => CycleFavorite)
+    @HasMany(() => CycleFavorite, {foreignKey:'user_id'})
     cycle_favorites: CycleFavorite[];
 
     @BelongsToMany(() => Team, () => TeamMember)

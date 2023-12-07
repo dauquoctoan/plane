@@ -3,7 +3,7 @@ import { ROLE } from 'src/constants/entity-constant';
 import { INVALID_ROLE } from 'src/constants/message-constant';
 
 @Table
-export class ProjectMemberInvite extends Model {
+export class ProjectMemberInvite extends Model<ProjectMemberInvite> {
     @Length({ max: 225 })
     @Column({ allowNull: false })
     email: string;

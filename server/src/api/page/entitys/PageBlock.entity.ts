@@ -4,7 +4,7 @@ import { SORT_ORDER } from 'src/constants/entity-constant';
 import { Page } from './Page.entity';
 
 @Table
-export class PageBlock extends Model {
+export class PageBlock extends Model<PageBlock> {
     @ForeignKey(() => Page)
     @Column({ allowNull: false })
     page_id: number;

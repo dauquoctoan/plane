@@ -1,9 +1,12 @@
-import React from 'react'
+import IssueTable from '@/components/issue/issueTable';
+import React from 'react';
 
 const Issues = () => {
-  return (
-    <div>Issues</div>
-  )
-}
+    return (
+        <div>
+            <IssueTable />
+        </div>
+    );
+};
 
-export default Issues
+export default Issues;

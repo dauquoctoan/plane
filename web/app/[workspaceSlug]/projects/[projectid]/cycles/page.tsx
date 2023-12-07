@@ -1,9 +1,12 @@
-import React from 'react'
+import IssueTable from '@/components/issue/issueTable';
+import React from 'react';
 
 const Cycles = () => {
-  return (
-    <div>Cycles</div>
-  )
-}
+    return (
+        <div>
+            <IssueTable></IssueTable>
+        </div>
+    );
+};
 
-export default Cycles
+export default Cycles;

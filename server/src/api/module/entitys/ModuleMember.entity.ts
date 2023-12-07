@@ -4,18 +4,21 @@ import { User } from 'src/api/user/entitys/User.entity';
 import sequelize from 'sequelize';
 
 @Table
-export class ModuleMember extends Model {
+export class ModuleMember extends Model<ModuleMember> {
     @ForeignKey(() => Module)
     @Column({ allowNull: false })
     module_id: number;
 
-    @BelongsTo(() => Module)
-    module: Module;
 
     @ForeignKey(() => User)
     @Column({ allowNull: false, type: sequelize.UUID })
     member: string;
+    
+    /* ================================================== */
 
-    @BelongsTo(() => User)
+    @BelongsTo(() => Module, {foreignKey:'module_id'})
+    module: Module;
+
+    @BelongsTo(() => User,{foreignKey:'member'})
     user: User;
 }

@@ -4,7 +4,7 @@ import { User } from 'src/api/user/entitys/User.entity';
 import sequelize from 'sequelize';
 
 @Table
-export class IssueAssignee extends Model {
+export class IssueAssignee extends Model<IssueAssignee> {
     @ForeignKey(() => Issue)
     @Column
     issue_id: number;

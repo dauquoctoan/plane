@@ -5,12 +5,12 @@ import { DEFAULT_PREFERENCES, DEFAULT_PROPS, ROLE } from 'src/constants/entity-c
 import { INVALID_ROLE } from 'src/constants/message-constant';
 
 @Table
-export class ProjectMember extends Model {
+export class ProjectMember extends Model<ProjectMember> {
     @ForeignKey(() => User)
     @Column({ allowNull: false, type: sequelize.UUID })
     member: string;
 
-    @BelongsTo(() => User)
+    @BelongsTo(() => User,{foreignKey:'member'})
     user: User;
 
     @Column

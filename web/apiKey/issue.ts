@@ -1,0 +1,1 @@
+export const LS_ALL_ISSUE = () => `API_ALL_ISSUE`;

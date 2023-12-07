@@ -1,3 +1,4 @@
+import { IsNotEmpty, IsOptional } from "class-validator";
 
 export class CreateIssueDto {
     parent: number;
@@ -38,4 +39,18 @@ export class UpdateIssueDto {
     is_draft: boolean;
     objects: boolean;
     issue_objects: string;
+}
+
+export class QueryIssueDto{
+    @IsOptional()
+    @IsNotEmpty()
+    assignee?: string;
+
+    @IsOptional()
+    @IsNotEmpty()
+    projectId?: string;
+
+    @IsOptional()
+    @IsNotEmpty()
+    userId?: string;
 }

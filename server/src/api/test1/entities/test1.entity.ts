@@ -5,7 +5,7 @@ import { Test } from 'src/api/test/entities/test.entity';
 import { text } from 'stream/consumers';
 
 @Table
-export class Test1 extends Model {
+export class Test1 extends Model<Test1> {
     @HasMany(() => Test, 'authorId')
     writtenBooks: Test[];
 

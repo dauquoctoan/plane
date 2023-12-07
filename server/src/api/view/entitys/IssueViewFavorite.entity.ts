@@ -4,20 +4,20 @@ import { IssueView } from './IssueView.entity';
 import sequelize from 'sequelize';
 
 @Table
-export class IssueViewFavorite extends Model {
+export class IssueViewFavorite extends Model<IssueViewFavorite> {
     /**
     * ! table GlobalView
     * @ForeignKey User, IssueView
     * @HasMany IssueViewFavorite
     */
 
-    /* ================================================== */
-
     @ForeignKey(() => User)
     @Column({ type: sequelize.UUID })
     user_id: string;
+   
+    /* ================================================== */
 
-    @BelongsTo(() => User)
+    @BelongsTo(() => User,{foreignKey:'user_id'})
     user: User;
 
     @ForeignKey(() => IssueView)

@@ -2,7 +2,7 @@ import { BelongsTo, Column, DataType, ForeignKey, Length, Model, Table } from 's
 import { Issue } from './Issue.entity';
 
 @Table
-export class IssueLink extends Model {
+export class IssueLink extends Model<IssueLink> {
     /**
     * ! FK
     */

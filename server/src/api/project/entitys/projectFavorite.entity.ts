@@ -3,11 +3,11 @@ import { BelongsTo, Column, ForeignKey, Model, Table } from 'sequelize-typescrip
 import { User } from 'src/api/user/entitys/User.entity';
 
 @Table
-export class ProjectFavorite extends Model {
+export class ProjectFavorite extends Model<ProjectFavorite> {
     @ForeignKey(() => User)
     @Column({ allowNull: false, type: sequelize.UUID })
-    user: string;
+    user_id: string;
 
-    @BelongsTo(() => User)
-    state: User;
+    @BelongsTo(() => User,'user_id')
+    user: User;
 }

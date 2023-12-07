@@ -3,12 +3,12 @@ import { Workspace } from 'src/api/workspace/entitys/Workspace.entity';
 import { Project } from './Project.entity';
 
 @Table
-export class ProjectIdentifier extends Model {
+export class ProjectIdentifier extends Model<ProjectIdentifier> {
     @ForeignKey(() => Workspace)
     @Column({ allowNull: true })
     workspace_id: number;
 
-    @BelongsTo(() => Workspace)
+    @BelongsTo(() => Workspace, {foreignKey:'workspace_id'})
     workspace: Workspace;
 
     @ForeignKey(() => Project)

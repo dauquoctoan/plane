@@ -1,4 +1,4 @@
-'use client'
+'use client';
 import React, { useEffect, memo } from 'react';
 import {
     UseFormRegister,
@@ -62,8 +62,6 @@ const Input: React.FC<Props> = ({
         | Merge<FieldError, FieldErrorsImpl<any>>
         | undefined = error && error[keyForm || ''];
 
-    const sdfdsf = 1;
-    
     return (
         <div className={`flex flex-col ${wrClassName}`}>
             {label && (
@@ -84,7 +82,7 @@ const Input: React.FC<Props> = ({
                     }}
                     className={`border rounded ${
                         error && error[keyForm || '']
-                            ? 'border-color-warning'
+                            ? 'border-color-error'
                             : ''
                     }  outline-none p-1 ${
                         sizeInput == 'sm' ? '' : sizeInput == 'md' ? '' : ''
@@ -104,7 +102,7 @@ const Input: React.FC<Props> = ({
                     }}
                     className={`border rounded ${
                         error && error[keyForm || '']
-                            ? 'border-color-warning'
+                            ? 'border-color-error'
                             : ''
                     }  outline-none p-1 ${
                         sizeInput == 'sm' ? '' : sizeInput == 'md' ? '' : ''

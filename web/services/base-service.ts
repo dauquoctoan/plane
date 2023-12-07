@@ -3,11 +3,17 @@ import { IData, IResult } from "@/types";
 import axios from "axios";
 import Cookie from "js-cookie";
 import qs from "qs";
+import queryString from "query-string";
+import { IQuery } from "./base-services";
 export class BaseService {
     protected headers: any = {};
     constructor(readonly baseURL: string) { }
     getAccessToken() {
         return Cookie.get(KEY_COOKIE_AUTH_ACCESS_TOKEN)
+    }
+
+    parseUrl(url: string, query?: IQuery): string {
+        return queryString.stringifyUrl({ url: url, query });
     }
 
     setAccessToken(token: string = '') {
@@ -38,10 +44,10 @@ export class BaseService {
         else return undefined;
     }
 
-    get<T>(url: string, config = {}): Promise<IData<T>> {
+    get<T>(url: string, query={}, config = {}): Promise<IData<T>> {
         return axios<IResult<T>>({
             method: "get",
-            url: this.baseURL + url,
+            url: this.parseUrl(this.baseURL + url, query),
             headers: this.getAccessToken() ? this.getHeaders() : {},
             ...config,
         }).then((res) => res.data).then(this.handleResult);

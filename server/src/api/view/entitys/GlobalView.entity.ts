@@ -4,7 +4,7 @@ import { ACCESS } from 'src/constants/entity-constant';
 import { INVALID_ACCESS } from 'src/constants/message-constant';
 
 @Table
-export class GlobalView extends Model {
+export class GlobalView extends Model<GlobalView> {
     /**
     * ! table GlobalView
     * @ForeignKey Workspace
@@ -16,7 +16,7 @@ export class GlobalView extends Model {
     @Column({ allowNull: false })
     workspace_id: number;
 
-    @BelongsTo(() => Workspace)
+    @BelongsTo(() => Workspace,{foreignKey:'workspace_id'})
     workspace: Workspace;
 
     @Length({ max: 255 })

@@ -4,11 +4,11 @@ import { User } from 'src/api/user/entitys/User.entity';
 import { Project } from './Project.entity';
 
 @Table
-export class ProjectPublicMember extends Model {
+export class ProjectPublicMember extends Model<ProjectPublicMember> {
     @ForeignKey(() => User)
     @Column({ allowNull: false, type: sequelize.UUID })
     member: string;
 
-    @BelongsTo(() => User)
+    @BelongsTo(() => User,{foreignKey:'member'})
     user: User[];
 }

@@ -44,10 +44,13 @@ import { IssueSubscriberController } from './controller/IssueSubscriber.controll
 import { CommentReactionController } from './controller/CommentReaction.controller';
 import { IssueRelation } from './entitys/IssueRelation.entity';
 import { IssueSequence } from './entitys/IssueSequence.entity';
+import { User } from '../user/entitys/User.entity';
+import { UserService } from '../user/service/User.service';
 
 @Module({
   imports: [SequelizeModule.forFeature([
     Issue,
+    User,
     IssueRelation,
     IssueSequence,
     CommentReaction,
@@ -66,6 +69,7 @@ import { IssueSequence } from './entitys/IssueSequence.entity';
   ])],
   exports: [IssueService],
   providers: [
+    UserService,
     CommentReactionService,
     IssueService,
     // IssueRelation,

@@ -13,16 +13,24 @@ const Info = () => {
     const info = useSelector(selectInfo);
     return (
         <div className="w-full flex items-center  cursor-pointer pt-4 pl-4 pr-4">
-            <ContainerLink links={[{href:'/create-workspace', nickname:'create-workspace'}]} />
+            <ContainerLink
+                links={[
+                    { href: '/create-workspace', nickname: 'create-workspace' },
+                ]}
+            />
             <Popover
                 pxContent={0}
                 pyContent={0}
                 wrClassName="p-1 bg-theme-secondary flex-1 rounded"
                 content={<WorkspacePopover />}
             >
-                <div className='flex h-fit'>
+                <div className="flex h-fit">
                     <Avatar>{info?.workspace?.name || ''}</Avatar>
-                    {!isCollap && <span className="ml-2 font-[500] whitespace-nowrap overflow-hidden">{info?.workspace?.name}</span>}
+                    {!isCollap && (
+                        <div className="ml-2 font-[500] whitespace-nowrap overflow-hidden text-ellipsis w-[150px]">
+                            {info?.workspace?.name}
+                        </div>
+                    )}
                 </div>
             </Popover>
             {!isCollap ? (

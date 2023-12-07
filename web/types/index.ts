@@ -1,3 +1,7 @@
+interface IBaseData{
+    createdAt?:string;
+    updatedAt?:string;
+}
 export interface IResult<T> {
     code: 0 | 1
     data: T
@@ -11,7 +15,7 @@ export interface LinkProps {
 
 export type IData<T> = T | undefined;
 
-export interface IUser {
+export interface IUser extends IBaseData{
     USER_TIMEZONE_CHOICES?: string;
     avatar?: string;
     billing_address?: string;
@@ -53,7 +57,6 @@ export interface IUser {
     role?: string;
     token?: string;
     token_updated_at?: string;
-    updatedAt?: string;
     user_timezone?: string;
     username?: string;
 }
@@ -61,7 +64,7 @@ export interface IInfo extends IUser {
     workspace?: IWorkspace | null;
 }
 
-export interface IWorkspace {
+export interface IWorkspace extends IBaseData{
     id?: number;
     owner?: string;
     user?: string;
@@ -71,7 +74,7 @@ export interface IWorkspace {
     organization_size?: string;
 }
 
-export interface IWorkspaceMemberInvite {
+export interface IWorkspaceMemberInvite extends IBaseData{
     workspace_id?: number;
     email?: string;
     accepted?: boolean;
@@ -81,7 +84,7 @@ export interface IWorkspaceMemberInvite {
     role?: number;
 }
 
-export interface IProject {
+export interface IProject extends IBaseData{
     id?: number;
     estimate_id?: number;
     created_by?: string;
@@ -107,7 +110,7 @@ export interface IProject {
     close_in?: number;
 }
 
-export interface Istate {
+export interface Istate extends IBaseData{
     id: number;
     project_id?: number;
     project_detail?: IProject;
@@ -122,7 +125,7 @@ export interface Istate {
     default?: boolean;
 }
 
-export interface IIssue {
+export interface IIssue extends IBaseData{
     project_id?: number;
     workspace_id?: number;
     parent?: number;
@@ -141,7 +144,7 @@ export interface IIssue {
     archived_at?: string;
     is_draft?: boolean;
 }
-export interface ILabel {
+export interface ILabel extends IBaseData{
     id: number;
     project_id: number;
     created_at: string;

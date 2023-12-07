@@ -8,7 +8,7 @@ import { INVALID_GROUP } from 'src/constants/message-constant';
 
 @Table
 @ApiTags('workspace')
-export class State extends Model {
+export class State extends Model<State> {
     @ForeignKey(() => Project)
     project_id: number;
 
@@ -21,7 +21,7 @@ export class State extends Model {
     @BelongsTo(() => User, 'created_by')
     project_info: User;
 
-    @HasMany(() => Issue)
+    @HasMany(() => Issue, {foreignKey:'state_id'})
     issues: Issue[];
 
     @Length({ min: 1, max: 255 })

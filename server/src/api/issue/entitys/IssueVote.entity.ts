@@ -6,7 +6,7 @@ import { INVALID_VOTE } from 'src/constants/message-constant';
 import sequelize from 'sequelize';
 
 @Table
-export class IssueVote extends Model {
+export class IssueVote extends Model<IssueVote> {
     @ForeignKey(() => Issue)
     @Column({ allowNull: false })
     issue: number;

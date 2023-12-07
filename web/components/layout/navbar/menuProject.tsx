@@ -9,8 +9,10 @@ import { IData, IProject } from '@/types';
 import { selectInfo } from '@/store/slices/authSlice/selectors';
 import useSWR, { useSWRConfig } from 'swr';
 import { LS_PROJECT_KEY } from '@/apiKey/project';
+import { useNoti } from '@/hooks';
 
 const MenuProject = () => {
+    const noti = useNoti();
     const { mutate } = useSWRConfig();
     const isCollap = useSelector(selectIsCollap);
     const info = useSelector(selectInfo);
@@ -33,6 +35,7 @@ const MenuProject = () => {
                 );
                 if (result) {
                     setOpen(false);
+                    noti?.success('Create project success');
                     return [...project, result];
                 }
                 return [...project];

@@ -3,7 +3,7 @@ import { InboxIssue } from './InboxIssue.entity';
 import { ProjectDeployBoard } from 'src/api/project/entitys/ProjectDeployBoard.entity';
 
 @Table
-export class Inbox extends Model {
+export class Inbox extends Model<Inbox> {
     /**
     * ! RELATIONSHIP
     */

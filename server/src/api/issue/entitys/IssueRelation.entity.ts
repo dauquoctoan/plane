@@ -4,7 +4,7 @@ import { RELATION } from 'src/constants/entity-constant';
 import { INVALID_RELATION } from 'src/constants/message-constant';
 
 @Table
-export class IssueRelation extends Model {
+export class IssueRelation extends Model<IssueRelation> {
     @ForeignKey(() => Issue)
     @Column
     issue_id: number;

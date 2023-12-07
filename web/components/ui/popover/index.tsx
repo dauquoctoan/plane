@@ -1,4 +1,5 @@
 'use client';
+import usePopUp, { IPosition, TPlacement } from '@/hooks/popUp';
 import React, {
     ReactElement,
     useEffect,
@@ -26,14 +27,9 @@ interface IProps
     className?: string;
     pxContent?: number;
     pyContent?: number;
-    placement?: 'left' | 'center' | 'right';
+    placement?: TPlacement;
     wrClassName?: string;
     isHover?: boolean;
-}
-
-interface IPosition {
-    pop_left: number|string;
-    pop_top: number|string;
 }
 
 const Popover: React.FC<IProps> = ({
@@ -49,143 +45,25 @@ const Popover: React.FC<IProps> = ({
     isHover = false,
     ...rest
 }) => {
-    const [open, setOpen] = useState<Boolean>(false);
     const refPopover = useRef<HTMLDivElement>(null);
     const refPopup = useRef<HTMLDivElement>(null);
-    const [scrollTop, setScrollTop] = useState(0);
-    const timeoutId = useRef<any>(0);
-    const mouse = useRef({isKeyDown:false,isDrag:false});
-    const [position, setPosition] = useState<IPosition>({
-        pop_left: 0,
-        pop_top: 0,
-    });
 
-    function getPosiTion(wre: HTMLDivElement, poe: HTMLDivElement): IPosition {
-        const wr: DOMRect | undefined = wre?.getBoundingClientRect();
-        const spaceWrCenter = wre.offsetWidth / 2;
-        const spacePopCenter = poe.offsetWidth / 2;
-
-        const margin = wre.offsetWidth - poe.offsetWidth;
-        const marginC = spaceWrCenter - spacePopCenter;
-
-        const position = {
-            center: isChildRen ? marginC : wr.left + marginC,
-            left: isChildRen ? 0 : wr.left,
-            right: isChildRen ? margin : wr.left + margin,
-        };
-
-        return {
-            pop_left: position[placement],
-            pop_top: isChildRen ? "100%" : wr.top + wr.height,
-        };
-    }
-
-    function handleMouseover() {
-        clearTimeout(timeoutId.current);
-        setOpen(true);
-    }
-
-    function handleMouseleave() {
-        timeoutId.current = setTimeout(() => {
-            refPopup.current?.removeEventListener(
-                'mouseover',
-                handleMouseover,
-                true,
-            );
-            refPopup.current?.removeEventListener(
-                'mouseleave',
-                handleMouseleave,
-                true,
-            );
-            setOpen(false);
-        }, 500);
-    }
-
-    useEffect(() => {
-        if (refPopover.current && refPopup.current)
-            setPosition(getPosiTion(refPopover.current, refPopup.current));
-    }, [refPopover.current, refPopup.current, scrollTop, open]);
-
-    useEffect(() => {
-        function handleClick(e: any) {
-            if (refPopover.current?.contains(e.target)) {
-                setOpen((state) => !state);
-            } else if (!refPopup.current?.contains(e.target) && open == false && !mouse.current.isDrag) {
-                setOpen(() => false);
-            }
-            mouse.current={isDrag:false, isKeyDown:false};
-        }
-
-        function handleChangeWhenScroll(e: any) {
-            setScrollTop(e.target.scrollTop);
-        }
-
-        if (isHover) {
-            refPopover?.current?.addEventListener(
-                'mouseover',
-                handleMouseover,
-                true,
-            );
-            refPopover?.current?.addEventListener(
-                'mouseleave',
-                handleMouseleave,
-                true,
-            );
-        } else{
-            window.addEventListener('click', handleClick, true);
-        }
-
-        window.addEventListener('scroll', handleChangeWhenScroll, true);
-
-        return () => {
-            if (isHover) {
-                refPopover?.current?.removeEventListener(
-                    'mouseover',
-                    handleMouseover,
-                    true,
-                );
-                refPopover?.current?.removeEventListener(
-                    'mouseleave',
-                    handleMouseleave,
-                    true,
-                );
-            } else window.removeEventListener('click', handleClick, true);
-            window.removeEventListener('scroll', handleClick, true);
-        };
-    }, []);
-
-    useEffect(() => {
-        if (isHover) {
-            refPopup.current &&
-            refPopup.current.addEventListener(
-                'mouseover',
-                handleMouseover,
-                true,
-            );
-            refPopup.current &&
-            refPopup.current.addEventListener(
-                'mouseleave',
-                handleMouseleave,
-                true,
-            );
-    }
-    }, [refPopup.current]);
+    const { style, open, handleWhenMouseDown, handleWhenMouseOver } = usePopUp(
+        refPopover,
+        refPopup,
+        isHover,
+        isChildRen,
+        placement,
+    );
 
     function renderPop() {
         return (
             <div
-                onMouseDown={()=>{
-                    mouse.current.isKeyDown=true
-                }}
-                onMouseOver={()=>{
-                    if(mouse.current.isKeyDown) mouse.current.isDrag=true;
-                }}
+                onMouseDown={handleWhenMouseDown}
+                onMouseOver={handleWhenMouseOver}
                 ref={refPopup}
-                style={{
-                    top: position.pop_top,
-                    left: position.pop_left,
-                }}
-                className={`absolute rounded px-${pxContent} py-${pyContent} mt-[5px] shadow-theme-primary bg-theme-primary animate-modalContentPopup z-[100] ${contentClassName}`}
+                style={style}
+                className={`rounded px-${pxContent} py-${pyContent} mt-[5px] shadow-theme-primary bg-theme-primary animate-modalContentPopup z-[100] ${contentClassName}`}
             >
                 {content}
             </div>
@@ -197,10 +75,8 @@ const Popover: React.FC<IProps> = ({
             <div className={className} ref={refPopover}>
                 {children}
             </div>
-            {open &&
-                (!isChildRen
-                    ? createPortal(renderPop(), document.body)
-                    : renderPop())}
+            {open && !isChildRen && createPortal(renderPop(), document.body)}
+            {open && isChildRen && renderPop()}
         </div>
     );
 };

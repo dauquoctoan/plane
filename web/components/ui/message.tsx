@@ -13,7 +13,7 @@ const Message: React.FC<IProps> = ({
     className,
 }) => {
     return (
-        <div className={`text-color-warning text-sm ${className}`}>
+        <div className={`text-color-error text-sm ${className}`}>
             {children}
         </div>
     );

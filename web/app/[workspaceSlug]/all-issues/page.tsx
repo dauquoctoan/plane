@@ -1,13 +1,9 @@
-'use client'
-import TiptapPopover from '@/components/ui/tiptap/tiptapPopover'
-import React from 'react'
+'use client';
+import AllIsue from '@/components/issue/layout';
+import React from 'react';
 
 const page = () => {
-  return (
-    <div>
-      <TiptapPopover />
-    </div>
-  )
-}
+    return <AllIsue />;
+};
 
-export default page
+export default page;

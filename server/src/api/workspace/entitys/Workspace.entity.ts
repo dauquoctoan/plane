@@ -18,7 +18,7 @@ import { Issue } from 'src/api/issue/entitys/Issue.entity';
 import { Label } from 'src/api/issue/entitys/Label.entity';
 
 @Table
-export class Workspace extends Model {
+export class Workspace extends Model<Workspace> {
     /**
     * ! table Workspace
     * @ForeignKey User
@@ -26,65 +26,65 @@ export class Workspace extends Model {
     * WorkspaceTheme, AnalyticView, WorkspaceMemberInvite, WorkspaceMember, FileAsset, 
     * APIToken, ExporterHistory, Notification;
     */
-
-    /* ================================================== */
     @ForeignKey(() => User)
     @Column({ type: sequelize.UUID, allowNull: false })
     owner: string;
 
+    /* ================================================== */
     @BelongsTo(() => User, {foreignKey:'owner'})
     user: User;
 
     @HasMany(() => Label, { foreignKey: 'workspace_id' })
     labels: Label[];
 
-    @HasMany(() => User, 'last_workspace_id')
+    @HasMany(() => User, {foreignKey:'last_workspace_id'})
     last_workspace_detail: User[];
 
-    @HasMany(() => Project)
-    project_leads: Project[];
+    @HasMany(() => Project, { foreignKey: 'workspace_id' })
+    workspace_projects: Project[];
 
     @HasMany(() => Issue, { foreignKey: 'workspace_id' })
     issue: Issue[];
 
-    @HasMany(() => Project, { foreignKey: 'workspace_id' })
-    workspace_project: Project[];
-
-    @HasMany(() => GlobalView)
+    @HasMany(() => GlobalView,{foreignKey: 'workspace_id'})
     global_views: GlobalView[];
 
-    @HasMany(() => Team)
+    @HasMany(() => Team, {foreignKey:'workspace_id'})
     teams: Team[];
 
-    @HasMany(() => TeamMember)
-    team_members: Team[];
+    @HasMany(() => TeamMember, {foreignKey:'workspace_id'})
+    team_members: TeamMember[];
 
-    @HasMany(() => ProjectIdentifier)
+    @HasMany(() => ProjectIdentifier, {foreignKey:'workspace_id'})
     project_identifiers: ProjectIdentifier[];
 
-    @HasMany(() => WorkspaceTheme)
+    @HasMany(() => WorkspaceTheme, {foreignKey:'workspace_id'})
     workspace_themes: WorkspaceTheme[];
 
-    @HasMany(() => AnalyticView, { foreignKey: 'workspace' })
+    @HasMany(() => AnalyticView, { foreignKey: 'workspace_id' })
     analytic_views: AnalyticView[];
 
-    @HasMany(() => WorkspaceMemberInvite)
+    @HasMany(() => WorkspaceMemberInvite, {foreignKey:'workspace_id'})
     workspace_member_invites: WorkspaceMemberInvite[];
 
-    @HasMany(() => WorkspaceMember)
+    @HasMany(() => WorkspaceMember, {foreignKey:'workspace_id'})
     workspace_members: WorkspaceMember[];
 
-    @HasMany(() => FileAsset)
+    @HasMany(() => FileAsset, {foreignKey:'workspace_id'})
     file_assets: FileAsset[];
 
-    @HasMany(() => Notification)
+    @HasMany(() => Notification, {foreignKey:'workspace_id'})
     notifications: Notification[];
 
-    @HasMany(() => ExporterHistory)
+    @HasMany(() => ExporterHistory, {foreignKey:'workspace_id'})
     exporter_historys: ExporterHistory[];
 
-    @HasMany(() => APIToken)
+    @HasMany(() => APIToken, {foreignKey:'workspace_id'})
     apitokens: APIToken[];
+
+    /**
+    * MyMetho pr
+    */
 
     @Length({ max: 80 })
     @Column({ allowNull: false })
@@ -93,7 +93,6 @@ export class Workspace extends Model {
     @Column
     logo: string;
 
-    @Index('slug-index')
     @Length({ max: 48 })
     @Column({ type: DataType.CHAR, unique: true })
     slug: string;

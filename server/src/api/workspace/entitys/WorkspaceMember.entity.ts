@@ -6,26 +6,26 @@ import { INVALID_ROLE } from 'src/constants/message-constant';
 import sequelize from 'sequelize';
 
 @Table
-export class WorkspaceMember extends Model {
+export class WorkspaceMember extends Model<WorkspaceMember> {
     /**
     * ! WorkspaceMember
     * @ForeignKey Workspace, User
     */
 
-    /* ================================================== */
-
     @ForeignKey(() => Workspace)
     @Column({ allowNull: false })
     workspace_id: number;
-
-    @BelongsTo(() => Workspace)
-    workspace: Workspace;
 
     @ForeignKey(() => User)
     @Column({ allowNull: false, type: sequelize.UUID })
     member: number;
 
-    @BelongsTo(() => User)
+    /* ================================================== */
+
+    @BelongsTo(() => Workspace, {foreignKey:'workspace_id'})
+    workspace: Workspace;
+
+    @BelongsTo(() => User,{foreignKey:'member'})
     user: User;
 
     @Is('role', (value) => {

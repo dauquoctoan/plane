@@ -5,12 +5,13 @@ import { HiOutlinePencilSquare } from 'react-icons/hi2';
 import Popover from '@/components/ui/popover';
 import { selectIsCollap, useSelector } from '@/store';
 import Modal from '@/components/ui/modal';
-import CreateIssue from './createIssue';
+import CreateIssue from '../../issue/createIssue';
 import useSWR from 'swr';
 import { IData, IProject } from '@/types';
 import projectService from '@/services/project-services';
 import { selectInfo } from '@/store/slices/authSlice/selectors';
 import { LS_PROJECT_KEY } from '@/apiKey/project';
+import { useNoti } from '@/hooks';
 
 interface IPopsMenuTools {
     setModalState: (i: IStateModal) => void;
@@ -41,6 +42,7 @@ const DrafIssue: React.FC<Omit<IPopsMenuTools, 'isOpenModal'>> = ({
 
 const MenuTools = () => {
     const info = useSelector(selectInfo);
+    const noti = useNoti();
     const isCollap = useSelector(selectIsCollap);
     const [disableOverlay, setDisableOverlay] = useState(false);
     const { data: projects } = useSWR<IData<IProject[]>>(
@@ -61,7 +63,9 @@ const MenuTools = () => {
             if (projects && projects.length > 0) {
                 setOpenModal(payload);
             } else {
-                alert('chuwa co project nao ban can tao mot project');
+                noti?.warning(
+                    'Your work does not contain any projects, please create a project to implement this feature.',
+                );
             }
         } catch (error) {
             console.log(error);
@@ -119,7 +123,7 @@ const MenuTools = () => {
                             className="flex items-center px-2"
                         >
                             <HiOutlinePencilSquare className="w-[16px] h-[16px]" />
-                            <span className="ml-1 animate-showNav whitespace-nowrap">
+                            <span className="ml-1 whitespace-nowrap">
                                 New issue
                             </span>
                         </div>

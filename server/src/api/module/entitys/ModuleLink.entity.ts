@@ -2,7 +2,7 @@ import { BelongsTo, Column, DataType, ForeignKey, Model, Table } from 'sequelize
 import { Module } from './Module.entity';
 
 @Table
-export class ModuleLink extends Model {
+export class ModuleLink extends Model<ModuleLink> {
     @ForeignKey(() => Module)
     @Column
     module_id: number;

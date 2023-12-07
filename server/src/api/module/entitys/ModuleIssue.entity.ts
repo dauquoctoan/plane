@@ -3,7 +3,7 @@ import { Module } from './Module.entity';
 import { Issue } from 'src/api/issue/entitys/Issue.entity';
 
 @Table
-export class ModuleIssue extends Model {
+export class ModuleIssue extends Model<ModuleIssue> {
     @ForeignKey(() => Module)
     @Column({ allowNull: false })
     module_id: number;

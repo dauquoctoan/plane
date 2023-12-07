@@ -1,8 +1,6 @@
 import React, { ReactElement } from 'react';
 import { BsFillPersonLinesFill } from 'react-icons/bs';
 import { IOptionItem } from '@/components/ui/select/select';
-import useSWRImmutable from 'swr/immutable';
-import issueService from '@/services/issue-services';
 import { IData, Istate } from '@/types';
 import Avatar from '@/components/ui/avatar';
 import { useSelector } from '@/store';
@@ -23,36 +21,13 @@ import DatePickerField from '@/components/ui/datepicker/datePickerField';
 import { IOpenModal } from './createIssue';
 import SelectField from '@/components/ui/select/selectField';
 import { IFiledReactHookForm } from '@/components/ui/types/form';
-import SelectLabel from './SelectLabel';
+import SelectLabel from '../layout/navbar/SelectLabel';
+import { convertDataOptions } from '@/helpers';
 
 interface IIssueTools extends IFiledReactHookForm {
     setIsOpen: (a: IOpenModal) => void;
     states?: Istate[];
     projectId: string | undefined;
-}
-
-type IOptions = IOptionItem[] | string[] | undefined;
-
-function getIcons(group: string = '', color = 'red'): ReactElement {
-    switch (group) {
-        case 'backlog':
-            return <TbProgress style={{ color: color }} />;
-        case 'cancelled':
-            return <IoCloseCircleOutline style={{ color: color }} />;
-        case 'completed':
-            return <IoIosCheckmarkCircleOutline style={{ color: color }} />;
-        case 'started':
-            return <CiCircleMore style={{ color: color }} />;
-        case 'unstarted':
-            return (
-                <FaRegCircle
-                    style={{ color: color }}
-                    className={`text-[11px]`}
-                />
-            );
-        default:
-            return <IoCloseCircleOutline style={{ color: color }} />;
-    }
 }
 
 const IssueTools: React.FC<IIssueTools> = ({
@@ -63,12 +38,8 @@ const IssueTools: React.FC<IIssueTools> = ({
 }) => {
     const info = useSelector(selectInfo);
     const optionsState: IOptionItem[] | undefined =
-        states &&
-        states.map((e) => ({
-            name: e.name || '',
-            key: e?.id.toString(),
-            icon: getIcons(e.group, e.color),
-        }));
+        states && convertDataOptions(states);
+
     const optionsMember: IOptionItem[] | undefined = [
         {
             icon: <Avatar size="sm">{info?.email || ''}</Avatar>,
@@ -77,9 +48,10 @@ const IssueTools: React.FC<IIssueTools> = ({
         },
         { icon: <Avatar size="sm">test</Avatar>, name: 'test', key: '123' },
     ];
+
     const optionLevel: IOptionItem[] | undefined = [
         { icon: <RiErrorWarningLine />, name: 'Urgent', key: 'urgent' },
-        { icon: <MdOutlineSignalCellularAlt />, name: 'Hight', key: 'hight' },
+        { icon: <MdOutlineSignalCellularAlt />, name: 'High', key: 'high' },
         {
             icon: <MdOutlineSignalCellularAlt2Bar />,
             name: 'Medium',

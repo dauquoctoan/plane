@@ -4,12 +4,12 @@ import { Page } from './Page.entity';
 import sequelize from 'sequelize';
 
 @Table
-export class PageFavorite extends Model {
+export class PageFavorite extends Model<PageFavorite> {
     @ForeignKey(() => User)
     @Column({ type: sequelize.UUID })
     user_id: string;
 
-    @BelongsTo(() => User)
+    @BelongsTo(() => User, {foreignKey:'user_id'})
     user: User;
 
     @ForeignKey(() => Page)

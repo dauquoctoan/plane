@@ -1,35 +1,27 @@
-import { Controller, Post, Body, Get, Param, Patch, Delete } from '@nestjs/common';
-import { ApiTags } from '@nestjs/swagger';
+import { Controller, Post, Body, Get, Param, Patch, Delete,Query, Request as RequestNest, UseGuards } from '@nestjs/common';
+import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { IssueService } from '../service/issue.service';
-import { CreateIssueDto, UpdateIssueDto } from '../dto/Issue.dto';
+import { CreateIssueDto, QueryIssueDto, UpdateIssueDto } from '../dto/Issue.dto';
 import { handleResultSuccess } from 'src/helper/handleresult';
+import { IAuthRequest } from 'src/types/auth.types';
+import { Issue } from '../entitys/Issue.entity';
+import { AuthGuard } from 'src/Guards/auth.guard';
 
 @Controller('issue')
 @ApiTags('Issue')
+@ApiBearerAuth('access-token')
 export class IssueController {
-    constructor(private readonly workspaceService: IssueService) { }
+    constructor(private readonly issueService: IssueService) { }
+
     @Post()
-    async create(@Body() createWorkspaceDto: CreateIssueDto) {
-        return handleResultSuccess(await this.workspaceService.create(createWorkspaceDto));
+    @UseGuards(AuthGuard)
+    async create(@Body() createWorkspaceDto: Issue, @RequestNest() request: IAuthRequest  ) {
+        return handleResultSuccess(await this.issueService.createIssue(createWorkspaceDto, request.user.id));
     }
 
     @Get()
-    findAll() {
-        return handleResultSuccess(this.workspaceService.findAll());
-    }
-
-    @Get(':id')
-    findOne(@Param('id') id: string) {
-        return handleResultSuccess(this.workspaceService.findOneById(+id));
-    }
-
-    @Patch(':id')
-    update(@Param('id') id: string, @Body() updateWorkspaceDto: UpdateIssueDto) {
-        return handleResultSuccess(this.workspaceService.updateById(+id, updateWorkspaceDto));
-    }
-
-    @Delete(':id')
-    remove(@Param('id') id: string) {
-        return handleResultSuccess(this.workspaceService.removeById(+id));
+    @UseGuards(AuthGuard)
+    async findAll(@Query() query: QueryIssueDto, @RequestNest() request: IAuthRequest) {
+        return handleResultSuccess(await this.issueService.findIssues({...query, userId: request.user.id}))
     }
 }

@@ -1,10 +1,15 @@
-import FuzzySearch from 'fuzzy-search';
 import React, { ReactElement, memo, useEffect, useRef, useState } from 'react';
 import { BsCheck2 } from 'react-icons/bs';
 import { IoCloseCircleOutline } from 'react-icons/io5';
 import { ICurentFieldProps } from '../types/form';
+import SelectPopup from './selectPopup';
 
-type FontSize = 'text-sm' | 'text-lg' | 'text-xl' | 'text-2xl' | 'text-[12px]';
+export type FontSize =
+    | 'text-sm'
+    | 'text-lg'
+    | 'text-xl'
+    | 'text-2xl'
+    | 'text-[12px]';
 
 export interface IProps extends ICurentFieldProps {
     children?: ReactElement | string;
@@ -41,11 +46,11 @@ interface IItemSelect {
     fontSize: FontSize;
 }
 
-type Item = IOptionItem | string;
+export type Item = IOptionItem | string;
 
-type ICurentField = IProps & ICurentFieldProps;
+export type ICurentField = IProps & ICurentFieldProps;
 
-const ItemSelect: React.FC<IItemSelect> = ({
+export const ItemSelect: React.FC<IItemSelect> = ({
     item,
     setValue,
     isActive,
@@ -107,10 +112,10 @@ const Select: React.FC<ICurentField> = ({
     defaultValue,
     className,
     moreItem,
-    iconActive = <BsCheck2 />,
+    iconActive,
     fontSize = 'text-lg',
     isIconCheck,
-    placement = 'bottomLeft',
+    placement,
     onChange,
     isSearch = false,
     isClear,
@@ -119,36 +124,7 @@ const Select: React.FC<ICurentField> = ({
     const [open, setOpen] = useState(false);
     const [curentValue, setCurentValue] = useState<string>(defaultValue || '');
     const [lsResult, setResult] = useState(options || []);
-    const refLsREsult = useRef<HTMLDivElement>(null);
     const refBtn = useRef<HTMLDivElement>(null);
-
-    function checkActive(item: IOptionItem | string, curent: Item) {
-        if (typeof item === 'string') return item === curent;
-        else if (typeof item === 'object') {
-            return item.key === curent;
-        }
-        return false;
-    }
-
-    const handleSearch = (search: string) => {
-        if (options) {
-            const searcher = new FuzzySearch(
-                [...options],
-                ['', 'name', 'key'],
-                {
-                    caseSensitive: false,
-                },
-            );
-            setResult(searcher.search(search) as any[]);
-        }
-    };
-
-    const styleOptions = {
-        bottomLeft: 'top-[100%] left-0 mt-1',
-        bottomRight: 'top-[100%] right-0 mt-1',
-        topRight: 'bottom-[100%] right-0 mb-1',
-        topLeft: 'bottom-[100%] left-0 mb-1',
-    };
 
     useEffect(() => {
         setTimeout(() => {
@@ -161,27 +137,8 @@ const Select: React.FC<ICurentField> = ({
         options && setResult(options);
     }, [options]);
 
-    const handleClickOverlay = (e: any) => {
-        if (refBtn.current?.contains(e.target)) {
-            setOpen(true);
-            return;
-        }
-
-        if (!refLsREsult.current?.contains(e.target as any)) {
-            setOpen(false);
-            return;
-        }
-    };
-
     useEffect(() => {
         defaultValue && setCurentValue(defaultValue);
-    }, []);
-
-    useEffect(() => {
-        document.addEventListener('click', handleClickOverlay);
-        return () => {
-            document.removeEventListener('click', handleClickOverlay);
-        };
     }, []);
 
     useEffect(() => {
@@ -196,14 +153,17 @@ const Select: React.FC<ICurentField> = ({
         }
     }, [value]);
 
-    const curentStyle = styleOptions[placement];
     const curentItemSelected = getCurentItem(options || [], curentValue);
+
     return (
         <div className="relative">
             <div
+                onClick={() => {
+                    setOpen(true);
+                }}
                 ref={refBtn}
                 className={`${
-                    error ? 'border border-color-warning' : 'border'
+                    error ? 'border border-color-error' : 'border'
                 } rounded hover:bg-theme-secondary cursor-pointer`}
             >
                 {(curentItemSelected &&
@@ -223,47 +183,29 @@ const Select: React.FC<ICurentField> = ({
                     )}
             </div>
             {!disableMessage && error && (
-                <div className="text-color-warning text-sm">{error}</div>
+                <div className="text-color-error text-sm">{error}</div>
             )}
             {open && (lsResult.length > 0 || isSearch) && (
-                <div
-                    ref={refLsREsult}
-                    className={`bg-theme-primary border py-1 absolute rounded origin-top-left shadow-theme-primary animate-pop-up z-50 ${curentStyle} w-max`}
-                >
-                    {isSearch && (
-                        <div className="py-2 px-2">
-                            <input
-                                placeholder="Type to search"
-                                onChange={(e) => {
-                                    handleSearch(e.target.value);
-                                }}
-                                className={
-                                    'outline-none border rounded px-2 py-1 ' +
-                                    fontSize
-                                }
-                            />
-                        </div>
-                    )}
-                    <div className="w-full max-h-[300px] hover-scroll overflow-y-auto px-1">
-                        {lsResult.map((item, index) => (
-                            <ItemSelect
-                                fontSize={fontSize}
-                                isIconCheck={isIconCheck}
-                                iconActive={iconActive}
-                                setOpen={setOpen}
-                                isActive={
-                                    curentValue
-                                        ? checkActive(item, curentValue)
-                                        : false
-                                }
-                                setValue={setCurentValue}
-                                key={index}
-                                item={item}
-                            />
-                        ))}
-                    </div>
-                    <div className="px-2">{moreItem}</div>
-                </div>
+                <SelectPopup
+                    fontSize={fontSize}
+                    isSearch={isSearch}
+                    lsResult={lsResult}
+                    refBtn={refBtn}
+                    setOpen={setOpen}
+                    options={options}
+                    setResult={setResult}
+                    moreItem={moreItem}
+                    iconActive={iconActive}
+                    isClear={isClear}
+                    isIconCheck={isIconCheck}
+                    placement={placement}
+                    className={className}
+                    curentValue={curentValue}
+                    defaultValue={defaultValue}
+                    customeSelected={customeSelected}
+                    disableMessage={disableMessage}
+                    setCurentValue={setCurentValue}
+                />
             )}
         </div>
     );

@@ -4,7 +4,7 @@ import { IssueComment } from './IssueComment.entity';
 import sequelize from 'sequelize';
 
 @Table
-export class CommentReaction extends Model {
+export class CommentReaction extends Model<CommentReaction> {
     @ForeignKey(() => User)
     @Column({ type: sequelize.UUID })
     actor: string;

@@ -4,18 +4,18 @@ import { Module } from './Module.entity';
 import sequelize from 'sequelize';
 
 @Table
-export class ModuleFavorite extends Model {
+export class ModuleFavorite extends Model<ModuleFavorite> {
     @ForeignKey(() => User)
     @Column({ allowNull: false, type: sequelize.UUID })
     user_id: string;
-
-    @BelongsTo(() => User)
-    user: User;
 
     @ForeignKey((() => Module))
     @Column({ allowNull: false })
     module_id: number;
 
-    @BelongsTo(() => Module)
+    @BelongsTo(() => User,{foreignKey:'user_id'})
+    user: User;
+
+    @BelongsTo(() => Module,{foreignKey:'module_id'})
     module: Module;
 }   

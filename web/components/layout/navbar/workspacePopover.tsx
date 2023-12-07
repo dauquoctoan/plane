@@ -90,7 +90,7 @@ const WorkspacePopover = () => {
 
             <div className="border-b border-theme-border-secondary"></div>
 
-            <div className="py-2 px-3 text-color-warning">
+            <div className="py-2 px-3 text-color-error">
                 <div className="py-1 px-2 hover:bg-theme-secondary  font-medium select-none rounded cursor-pointer">
                     Sign out
                 </div>

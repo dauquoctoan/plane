@@ -5,12 +5,12 @@ import { MEDIUM } from 'src/constants/entity-constant';
 import { INVALID_MEDIUM } from 'src/constants/message-constant';
 
 @Table
-export class SocialLoginConnection extends Model {
+export class SocialLoginConnection extends Model<SocialLoginConnection> {
     @ForeignKey(() => User)
     @Column({ allowNull: false, type: sequelize.UUID })
     user_id: string;
 
-    @BelongsTo(() => User)
+    @BelongsTo(() => User,{foreignKey:'user_id'})
     user: User;
 
     @Is('medium', (value) => {

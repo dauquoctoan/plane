@@ -96,9 +96,7 @@ const ProjectTools: React.FC<IProjectTools> = ({ idProject }) => {
                     } items-center gap-2 cursor-pointer px-3 py-1 hover:bg-color-special-secondary rounded`}
                 >
                     {e.icon}
-                    {!isCollap && (
-                        <div className="animate-showNav">{e.name}</div>
-                    )}
+                    {!isCollap && <div className="">{e.name}</div>}
                 </div>
             ))}
         </div>

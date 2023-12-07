@@ -18,7 +18,7 @@ export class ExporterHistory extends Model {
     * ! RELATIONSHIP
     */
 
-    @BelongsTo(() => Workspace)
+    @BelongsTo(() => Workspace, {foreignKey:'workspace_id'})
     workspace: Workspace;
 
     /**

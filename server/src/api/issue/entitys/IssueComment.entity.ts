@@ -7,7 +7,7 @@ import { IssueActivity } from './IssueActivity.entity';
 import sequelize from 'sequelize';
 
 @Table
-export class IssueComment extends Model {
+export class IssueComment extends Model<IssueComment> {
 
     /**
     * ! FK
@@ -32,7 +32,7 @@ export class IssueComment extends Model {
     issue: Issue;
 
 
-    @BelongsTo(() => User)
+    @BelongsTo(() => User, {foreignKey:'actor'})
     user: User;
 
     /**

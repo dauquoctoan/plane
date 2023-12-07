@@ -2,7 +2,7 @@ import { BelongsTo, Column, DataType, ForeignKey, Is, Length, Model, Table } fro
 import { Estimate } from './Estimate.entity';
 
 @Table
-export class EstimatePoint extends Model {
+export class EstimatePoint extends Model<EstimatePoint> {
     /**
     * !FK
     */

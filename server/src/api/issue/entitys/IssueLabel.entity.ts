@@ -3,7 +3,7 @@ import { Issue } from './Issue.entity';
 import { Label } from './Label.entity';
 
 @Table
-export class IssueLabel extends Model {
+export class IssueLabel extends Model<IssueLabel> {
     @ForeignKey(() => Issue)
     @Column({ allowNull: false })
     issue_id: number;

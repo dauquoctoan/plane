@@ -3,7 +3,7 @@ import { EstimatePoint } from './EstimatePoint.entity';
 import { Project } from 'src/api/project/entitys/Project.entity';
 
 @Table
-export class Estimate extends Model {
+export class Estimate extends Model<Estimate> {
     /**
     * ! RELATIONSHIP
     */

@@ -9,12 +9,12 @@ import { PageBlock } from './PageBlock.entity';
 import { PageFavorite } from './PageFavorite.entity';
 
 @Table
-export class Page extends Model {
+export class Page extends Model<Page> {
     @ForeignKey(() => User)
     @Column({ type: sequelize.UUID })
     owned_by: string;
 
-    @BelongsTo(() => User)
+    @BelongsTo(() => User, {foreignKey:'owned_by'})
     user: User;
 
     @HasMany(() => PageBlock)

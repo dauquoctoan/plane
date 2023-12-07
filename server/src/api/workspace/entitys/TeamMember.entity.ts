@@ -5,32 +5,32 @@ import { User } from 'src/api/user/entitys/User.entity';
 import sequelize from 'sequelize';
 
 @Table
-export class TeamMember extends Model {
+export class TeamMember extends Model<TeamMember> {
     /**
     * ! table TeamMember
     * @ForeignKey Workspace, Team, User;
     */
 
-    /* ================================================== */
-
     @ForeignKey(() => Workspace)
     @Column({ allowNull: false })
-    workspace: number;
-
-    @BelongsTo(() => Workspace)
-    workspace_id: Workspace;
+    workspace_id: number;
 
     @ForeignKey(() => Team)
     @Column({ allowNull: false })
     team_id: number;
 
-    @BelongsTo(() => Team)
-    team: Team;
-
     @ForeignKey(() => User)
     @Column({ allowNull: false, type: sequelize.UUID })
     member: string;
 
-    @BelongsTo(() => User)
-    user: User;
+    /* ================================================== */
+
+    @BelongsTo(() => Workspace, {foreignKey:'workspace_id'})
+    workspace: Workspace;
+
+    @BelongsTo(() => Team, {foreignKey:'team_id'})
+    team: Team;
+
+    @BelongsTo(() => User, {foreignKey:'member'})
+    memberInfo: User;
 }

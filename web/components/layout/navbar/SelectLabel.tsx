@@ -3,7 +3,7 @@ import { IFiledReactHookForm } from '@/components/ui/types';
 import React from 'react';
 import { IoMdPricetags } from 'react-icons/Io';
 import { HiPlusSmall } from 'react-icons/hi2';
-import { IOpenModal } from './createIssue';
+import { IOpenModal } from '../../issue/createIssue';
 import useSWR from 'swr';
 import { LABELS_BY_PROJECT_KEY } from '@/apiKey/project';
 import { IData, ILabel, Istate } from '@/types';

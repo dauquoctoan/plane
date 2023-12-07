@@ -1,7 +1,9 @@
 import { LABELS_BY_PROJECT_KEY } from '@/apiKey/project';
 import Button from '@/components/ui/button';
 import Colorpicker from '@/components/ui/colorpicker/colorpicker';
+import ColorPickerField from '@/components/ui/colorpicker/colorpickerField';
 import Input from '@/components/ui/input/Input';
+import { useNoti } from '@/hooks';
 import issueService from '@/services/issue-services';
 import { selectInfo } from '@/store/slices/authSlice/selectors';
 import { ILabel } from '@/types';
@@ -21,6 +23,7 @@ const CreateLabel: React.FC<IPropsCreateLabel> = ({
 }) => {
     const refForm = useRef<HTMLFormElement>(null);
     const info = useSelector(selectInfo);
+    const noti = useNoti();
     const {
         register,
         handleSubmit,
@@ -48,13 +51,20 @@ const CreateLabel: React.FC<IPropsCreateLabel> = ({
                         });
 
                         if (result) {
+                            noti?.success('Label is Created');
                             setTimeout(() => {
                                 handleClose();
                             }, 200);
                             return [result, ...state];
+                        } else {
+                            setTimeout(() => {
+                                handleClose();
+                            }, 200);
+                            noti?.error(
+                                'An error occurred, please try again later',
+                            );
+                            return [...state];
                         }
-
-                        return [...state];
                     },
                     { revalidate: false },
                 );
@@ -63,11 +73,10 @@ const CreateLabel: React.FC<IPropsCreateLabel> = ({
         >
             <div className="font-bold text-lg">Create Label</div>
             <div className="flex items-center gap-2">
-                <Controller
+                <ColorPickerField
                     name="color"
                     control={control}
                     rules={{ required: 'This field is required' }}
-                    render={({ field }) => <Colorpicker {...field} />}
                 />
                 <Input
                     wrClassName="flex-1"

@@ -5,12 +5,14 @@ import { CycleFavorite } from './CycleFavorite.entity';
 import sequelize from 'sequelize';
 
 @Table
-export class Cycle extends Model {
+export class Cycle extends Model<Cycle> {
     @ForeignKey(() => User)
     @Column({ type: sequelize.UUID })
     owned_by: string;
 
-    @BelongsTo(() => User)
+    /* ================================================== */
+
+    @BelongsTo(() => User, {foreignKey:'owned_by'})
     user: User;
 
     @HasMany(() => CycleIssue)

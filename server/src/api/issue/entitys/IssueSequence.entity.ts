@@ -3,7 +3,7 @@ import { BelongsTo, Column, DataType, ForeignKey, Model, Table } from 'sequelize
 import { Issue } from './Issue.entity';
 
 @Table
-export class IssueSequence extends Model {
+export class IssueSequence extends Model<IssueSequence> {
     @ForeignKey(() => Issue)
     @Column
     issue_id: number;

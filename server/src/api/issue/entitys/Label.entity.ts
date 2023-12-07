@@ -9,7 +9,7 @@ import { User } from 'src/api/user/entitys/User.entity';
 import sequelize from 'sequelize';
 
 @Table
-export class Label extends Model {
+export class Label extends Model<Label> {
     @ForeignKey(() => Project)
     @Column
     project_id: number;

@@ -1,5 +1,4 @@
 import { Attributes, FindOptions, Model, ModelCtor } from "sequelize";
-import { MakeNullishOptional } from "sequelize/types/utils";
 import { handleResultError } from "src/helper/handleresult";
 import { removeKeyNull } from "src/helper/key";
 import { messageCreateFail, messageDeleteFail, messageFindFail, messageUpdateFail } from "src/helper/message.create";

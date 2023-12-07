@@ -63,8 +63,9 @@ export class StateService extends BaseService<State> {
                         { created_by: userId },
                         { created_by: null },
                     ],
-                }
-            }
+                },
+            },
+            order:[['created_by', 'ASC']]
         })
     }
 }

@@ -4,7 +4,7 @@ import { Cycle } from './Cycle.entity';
 import sequelize from 'sequelize';
 
 @Table
-export class CycleFavorite extends Model {
+export class CycleFavorite extends Model<CycleFavorite> {
     /**
     * !FK
     */
@@ -21,10 +21,10 @@ export class CycleFavorite extends Model {
     * ! RELATIONSHIP
     */
 
-    @BelongsTo(() => User)
+    @BelongsTo(() => User,{foreignKey:'user_id'})
     user: User;
 
 
-    @BelongsTo(() => Cycle)
+    @BelongsTo(() => Cycle,{foreignKey:'cycle_id'})
     cycle: Cycle;
 }

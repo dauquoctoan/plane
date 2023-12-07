@@ -5,12 +5,12 @@ import { User } from 'src/api/user/entitys/User.entity';
 import { Workspace } from 'src/api/workspace/entitys/Workspace.entity';
 
 @Table
-export class Notification extends Model {
+export class Notification extends Model<Notification> {
     @ForeignKey(() => Workspace)
     @Column({ allowNull: false })
     workspace_id: number;
 
-    @BelongsTo(() => Workspace)
+    @BelongsTo(() => Workspace, {foreignKey:'workspace_id'})
     workspace: Workspace;
 
     @ForeignKey(() => Project)

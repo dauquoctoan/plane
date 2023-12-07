@@ -4,19 +4,18 @@ import { ROLE } from 'src/constants/entity-constant';
 import { INVALID_ROLE } from 'src/constants/message-constant';
 
 @Table
-export class WorkspaceMemberInvite extends Model {
+export class WorkspaceMemberInvite extends Model<WorkspaceMemberInvite> {
     /**
     * ! WorkspaceMemberInvite
     * @ForeignKey Workspace
     */
-
-    /* ================================================== */
-
     @ForeignKey(() => Workspace)
     @Column({ allowNull: false })
     workspace_id: number;
 
-    @BelongsTo(() => Workspace)
+    /* ================================================== */
+
+    @BelongsTo(() => Workspace, {foreignKey:'workspace_id'})
     workspace: Workspace;
 
     @Length({ max: 255 })

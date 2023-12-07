@@ -2,7 +2,7 @@ import { BelongsTo, Column, DataType, ForeignKey, Model, Table } from 'sequelize
 import { Workspace } from 'src/api/workspace/entitys/Workspace.entity';
 
 @Table
-export class FileAsset extends Model {
+export class FileAsset extends Model<FileAsset> {
     /**
     * !FK
     */
@@ -14,7 +14,7 @@ export class FileAsset extends Model {
     * ! RELATIONSHIP
     */
 
-    @BelongsTo(() => Workspace)
+    @BelongsTo(() => Workspace, {foreignKey:'workspace_id'})
     workspace: Workspace;
 
     /**

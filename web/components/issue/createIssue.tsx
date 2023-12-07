@@ -1,5 +1,5 @@
 import Input from '@/components/ui/input/Input';
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { GiNotebook } from 'react-icons/gi';
 import { useForm } from 'react-hook-form';
 import Button from '@/components/ui/button';
@@ -9,7 +9,7 @@ import IssueTools from './issueTools';
 import { IData, IIssue, IProject, Istate } from '@/types';
 import Select, { IOptionItem } from '@/components/ui/select/select';
 import Modal from '@/components/ui/modal';
-import CreateState from './createState';
+import CreateState from '../layout/navbar/createState';
 import CreateLabel from './createLabel';
 import TiptapPopoverField from '@/components/ui/tiptap/tiptapPopoverField';
 import SelectField from '@/components/ui/select/selectField';
@@ -19,6 +19,7 @@ import { STATES_KEY } from '@/apiKey/project';
 import { useSelector } from '@/store';
 import { selectInfo } from '@/store/slices/authSlice/selectors';
 import moment from 'moment';
+import { INotiConext, NotiContext } from '@/components/ui/notification';
 
 interface IProps {
     isDraft: boolean;
@@ -50,6 +51,7 @@ const CreateIssue: React.FC<IProps> = ({
     handleCloseModel,
     projects,
 }) => {
+    const noti = useContext(NotiContext);
     const info = useSelector(selectInfo);
     const [isMore, setIsMore] = useState(false);
     const [isOpen, setIsOpen] = useState<IOpenModal>({
@@ -122,8 +124,16 @@ const CreateIssue: React.FC<IProps> = ({
                         start_date: moment(data.start_date).format(),
                         target_date: moment(data.target_date).format(),
                     });
-                    issueResult && closeModal();
-                    handleClearForm();
+
+                    if (issueResult) {
+                        noti?.success('Issue created');
+                        closeModal();
+                        handleClearForm();
+                    } else {
+                        noti?.error(
+                            'An error occurred, please try again later',
+                        );
+                    }
                 })}
                 className="min-w-[700px] max-h-[900px] pt-4"
             >

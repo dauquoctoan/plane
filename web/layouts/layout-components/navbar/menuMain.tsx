@@ -6,7 +6,7 @@ import MenuTools from '@/components/layout/navbar/menuTools';
 const MenuMain = () => {
     return (
         <div className="flex-1 overflow-y-auto hover-scroll overflow-x-hidden select-none">
-            <MenuTools/>
+            <MenuTools />
             <Menus />
             <MenuProject />
         </div>

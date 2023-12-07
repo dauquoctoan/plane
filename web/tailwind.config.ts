@@ -1,4 +1,5 @@
 import type { Config } from 'tailwindcss'
+import {keyframes, animation, colors} from './tailwindConfigs'
 
 const config: Config = {
   content: [
@@ -26,6 +27,15 @@ const config: Config = {
       transitionTimingFunction: {
         'out-expo': 'cubic-bezier(.4,0,.2,1)',
       },
+      screens: {
+        md: { max: "768px", min: '0' },
+        lg: { max: "1024px", min: '768px' },
+        xl: { min: '1024px' }
+      },
+      width: {
+        'width-menu': 'var(--width-menu)',
+        'width-menu-collap': 'var(--width-menu-collap)'
+      },
       keyframes: {
         dropDown: {
           "0%": {
@@ -41,6 +51,34 @@ const config: Config = {
           },
           '100%': {
             transform: 'scale(1)'
+          },
+        },
+        openNoti: {
+          "0%": {
+            opacity: '0',
+            transform: 'translateY(-50%)',
+          },
+          '100%': {
+            opacity: '1',
+            transform: 'translateY(0)',
+          },
+        },
+        closeNoti: {
+          "0%": {
+            opacity: '1',
+            maxHeight: '100px',
+            marginTop: '8px',
+            paddingTop:'4px',
+            paddingBottom:'4px',
+            transform: 'translateY(0)',
+          },
+          '100%': {
+            opacity: '0',
+            maxHeight: '0px',
+            marginTop: '0px',
+            paddingTop:'0px',
+            paddingBottom:'0px',
+            transform: 'translateY(-50%)',
           },
         },
         rangeLoading: {
@@ -77,43 +115,25 @@ const config: Config = {
             opacity: '1'
           }
         },
-        showNav: {
-          from: {
-            opacity: '0',
-          },
-          to: {
-            opacity: '1'
-          }
-        },
         fadeMenu: {
           from: {
-            height: '0px',
+            'max-height': '0px',
           },
           to: {
-            height: '168px'
+            'max-height': '500px'
           }
         }
-      },
+    },
       animation: {
-        'pop-up': 'popUp .3s ease-out',
-        'dropDown': 'dropDown .3s ease-out',
-        'overlay': 'overlay .3s ease-out',
+        openNoti: 'openNoti .4s ease-out',
+        closeNoti: 'closeNoti .4s ease-out',
+        popUp: 'popUp .3s ease-out',
+        dropDown: 'dropDown .3s ease-out',
+        overlay: 'overlay .3s ease-out',
         ping: 'ping 1.2s',
         loadingRange: 'rangeLoading .2s ease-out',
         modalContentPopup: 'modalContentPopup .2s',
-        showNav: 'showNav 1.2s ease-out',
         fadeMenu: 'fadeMenu .1s',
-      },
-      screens: {
-        sm: { max: "640px" },
-        md: { max: "768px" },
-        lg: { max: "1024px" },
-        xl: { max: "1280px" },
-        "2xl": { max: "1536px" },
-      },
-      width: {
-        'width-menu': 'var(--width-menu)',
-        'width-menu-collap': 'var(--width-menu-collap)'
       },
       colors: {
         "theme-primary": 'var(--color-theme-primary)',
@@ -125,7 +145,12 @@ const config: Config = {
         "color-special-primary": "var(--color-special-primary)",
         "color-special-secondary": "var(--color-special-secondary)",
         'color-warning': "var(--color-warning)",
+        'color-error': "var(--color-error)",
+        'color-info': "var(--color-info)",
+        'color-success': "var(--color-success)",
         'color-modal-overlay': 'var(--color-modal-overlay)',
+        'table-shadow-left-primary':'var(--color-light-table-shadow-left-primary)',
+        'table-shadow-right-primary':'var(--color-light-table-shadow-right-primary)'
       }
     },
   },

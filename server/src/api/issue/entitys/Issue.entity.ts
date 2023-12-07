@@ -24,7 +24,7 @@ import { Project } from 'src/api/project/entitys/Project.entity';
 import { Workspace } from 'src/api/workspace/entitys/Workspace.entity';
 
 @Table
-export class Issue extends Model {
+export class Issue extends Model<Issue> {
 
     /**
    * @ForeignKey: Issue, State
@@ -68,7 +68,7 @@ export class Issue extends Model {
     @BelongsTo(() => Issue)
     issue: Issue;
 
-    @BelongsTo(() => State)
+    @BelongsTo(() => State, {foreignKey:'state_id'})
     state: State;
 
     @BelongsToMany(() => User, () => IssueAssignee)

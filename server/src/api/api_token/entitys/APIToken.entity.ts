@@ -7,7 +7,7 @@ import { USER_TYPE } from 'src/constants/entity-constant';
 import { INVALID_USER_TYPE } from 'src/constants/message-constant';
 
 @Table
-export class APIToken extends Model {
+export class APIToken extends Model<APIToken> {
     /**
     * !FK
     */
@@ -16,22 +16,22 @@ export class APIToken extends Model {
     @Column
     workspace_id: number;
 
-    /**
-    * ! RELATIONSHIP
-    */
-
-    @BelongsTo(() => Workspace)
-    workspace: Workspace;
-
-    @HasMany(() => Importer)
-    importers: Importer[];
-
     @ForeignKey(() => User)
     @Column({ type: sequelize.UUID })
     user_id: string;
 
-    @BelongsTo(() => User)
+    /**
+    * ! RELATIONSHIP
+    */
+
+    @BelongsTo(() => Workspace, {foreignKey:'workspace_id'})
+    workspace: Workspace;
+
+    @BelongsTo(() => User, {foreignKey:'user_id'})
     user: User;
+
+    @HasMany(() => Importer)
+    importers: Importer[];
 
     /**
     * ! PR

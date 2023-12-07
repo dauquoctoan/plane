@@ -12,7 +12,7 @@ import { Issue } from 'src/api/issue/entitys/Issue.entity';
 import { Label } from 'src/api/issue/entitys/Label.entity';
 
 @Table
-export class Project extends Model {
+export class Project extends Model<Project> {
     @HasOne(() => ProjectIdentifier, { foreignKey: 'projectId' })
     project: ProjectIdentifier;
 

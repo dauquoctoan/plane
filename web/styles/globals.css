@@ -2,75 +2,76 @@
 @tailwind components;
 @tailwind utilities;
 
-body{
+body {
     height: 100vh;
 }
 
 /* custome scroll */
-*::-webkit-scrollbar-track
-{
-	background-color: var(--color-light-theme-secondary);
+*::-webkit-scrollbar-track {
+    background-color: var(--color-light-theme-secondary);
     border-radius: 5px;
 }
 
-*::-webkit-scrollbar
-{
-	width: 6px;
-	background-color: var(--color-light-theme-secondary);
+*::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+    background-color: var(--color-light-theme-secondary);
 }
 
-*::-webkit-scrollbar-thumb
-{
-	background-color: #8b7979;
+*::-webkit-scrollbar-thumb {
+    background-color: #8b7979;
     border-radius: 5px;
 }
 /* disable */
-.no-scrool::-webkit-scrollbar-track
-{
-	display: none;
+.no-scrool::-webkit-scrollbar-track {
+    display: none;
 }
 
-.no-scrool::-webkit-scrollbar
-{
-	display: none;
+.no-scrool::-webkit-scrollbar {
+    display: none;
 }
 
-.no-scrool::-webkit-scrollbar-thumb
-{
-	display: none;
+.no-scrool::-webkit-scrollbar-thumb {
+    display: none;
 }
 /* scroll hover */
-.hover-scroll:not(:hover)::-webkit-scrollbar-track
-{
-	background-color: transparent;
+.hover-scroll:not(:hover)::-webkit-scrollbar-track {
+    background-color: transparent;
     border-radius: 5px;
 }
 
-.hover-scroll:not(:hover)::-webkit-scrollbar
-{
-	width: 6px;
-	background-color: transparent;
+.hover-scroll:not(:hover)::-webkit-scrollbar {
+    width: 6px;
+    background-color: transparent;
 }
-.hover-scroll:not(:hover)::-webkit-scrollbar-thumb
-{
-	background-color: transparent;
+.hover-scroll:not(:hover)::-webkit-scrollbar-thumb {
+    background-color: transparent;
     border-radius: 5px;
 }
 /* Tip tap */
-.ProseMirror-focused{
-	outline: none;
+.ProseMirror-focused {
+    outline: none;
 }
 
-.ProseMirror{
-	padding: 4px;
-	box-sizing: border-box;
+.ProseMirror {
+    padding: 4px;
+    box-sizing: border-box;
 }
 
-.ProseMirror .is-empty:before, .ProseMirror p.is-editor-empty:first-child:before {
+.ProseMirror .is-empty:before,
+.ProseMirror p.is-editor-empty:first-child:before {
     content: attr(data-placeholder);
     float: left;
     pointer-events: none;
     height: 0;
-	opacity: 1;
-	color: #9ca3af;
+    opacity: 1;
+    color: #9ca3af;
+}
+
+.table-shadow-left::after {
+    box-shadow: var(--table-shadow-left-primary);
+}
+
+.table-shadow-right::after {
+    box-shadow: var(--table-shadow-right-primary);
 }

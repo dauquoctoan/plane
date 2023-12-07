@@ -5,7 +5,7 @@ import { ISSUE_STATUS } from 'src/constants/entity-constant';
 import { INVALID_ISSUE_STATUS } from 'src/constants/message-constant';
 
 @Table
-export class InboxIssue extends Model {
+export class InboxIssue extends Model<InboxIssue> {
     /**
     * !FK
     */

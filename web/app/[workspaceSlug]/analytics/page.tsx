@@ -1,10 +1,8 @@
-import Analytics from '@/components/analytics/page'
-import React from 'react'
+import Analytics from '@/components/analytics/page';
+import React from 'react';
 
 const Page = () => {
-  return (
-    <Analytics/>
-  )
-}
+    return <Analytics />;
+};
 
-export default Page
+export default Page;
