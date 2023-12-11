@@ -62,14 +62,16 @@ const MenuProject = () => {
                 )}
                 <div>
                     {data &&
-                        data.map((item, index) => (
-                            <ProjectMenuItem
-                                key={index}
-                                idProject={item?.id}
-                                emoji={item.emoji}
-                                text={item?.name}
-                            />
-                        ))}
+                        data.map((item, index) =>
+                            item.is_member ? (
+                                <ProjectMenuItem
+                                    key={index}
+                                    idProject={item?.id}
+                                    emoji={item.emoji}
+                                    text={item?.name}
+                                />
+                            ) : undefined,
+                        )}
                 </div>
             </div>
             <Modal

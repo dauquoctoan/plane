@@ -9,35 +9,30 @@ import { convertDataOptions } from '@/helpers';
 interface IProps {
     projectId?: number;
     stateId: string;
-    onChange: (id: string | number) => void;
+    onChange?: (id: string | number) => void;
+    beforeUpdateValue: (e: string) => Promise<any>;
 }
 
 const SelectStateTable: React.FC<IProps> = ({
     projectId,
     stateId,
     onChange,
+    beforeUpdateValue,
 }) => {
     const { data: states } = useSWR(
         () => STATES_KEY(projectId),
         () => issueService.getState<IData<Istate[]>>(projectId || 0),
     );
-
     return (
         <Select
             defaultValue={stateId}
             options={states && convertDataOptions(states)}
             isIconCheck
+            isChildren={false}
             onChange={onChange}
             fontSize="text-[12px]"
             isSearch={true}
-            customeSelected={(e: any) => {
-                return (
-                    <div className="z-0 px-2 py-[3px] select-none flex items-center text-[12px]">
-                        {e?.icon}
-                        <span className="ml-1">{e.name}</span>
-                    </div>
-                );
-            }}
+            beforeUpdateValue={beforeUpdateValue}
         ></Select>
     );
 };

@@ -23,6 +23,7 @@ import SelectField from '@/components/ui/select/selectField';
 import { IFiledReactHookForm } from '@/components/ui/types/form';
 import SelectLabel from '../layout/navbar/SelectLabel';
 import { convertDataOptions } from '@/helpers';
+import { optionLevel } from '@/constants';
 
 interface IIssueTools extends IFiledReactHookForm {
     setIsOpen: (a: IOpenModal) => void;
@@ -40,25 +41,13 @@ const IssueTools: React.FC<IIssueTools> = ({
     const optionsState: IOptionItem[] | undefined =
         states && convertDataOptions(states);
 
-    const optionsMember: IOptionItem[] | undefined = [
+    const optionsMember: IOptionItem[] = [
         {
             icon: <Avatar size="sm">{info?.email || ''}</Avatar>,
             name: info?.email || '',
             key: info?.id,
         },
         { icon: <Avatar size="sm">test</Avatar>, name: 'test', key: '123' },
-    ];
-
-    const optionLevel: IOptionItem[] | undefined = [
-        { icon: <RiErrorWarningLine />, name: 'Urgent', key: 'urgent' },
-        { icon: <MdOutlineSignalCellularAlt />, name: 'High', key: 'high' },
-        {
-            icon: <MdOutlineSignalCellularAlt2Bar />,
-            name: 'Medium',
-            key: 'medium',
-        },
-        { icon: <MdSignalCellularAlt1Bar />, name: 'Low', key: 'low' },
-        { icon: <IoBan />, name: 'None', key: 'none' },
     ];
 
     return (

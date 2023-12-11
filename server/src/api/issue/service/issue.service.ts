@@ -3,7 +3,7 @@ import { InjectModel } from '@nestjs/sequelize';
 import { BaseService } from 'src/api/Base.service';
 import { Issue } from '../entitys/Issue.entity';
 import { handleResultError } from 'src/helper/handleresult';
-import { messageCreateFail, messageFindFail } from 'src/helper/message.create';
+import { messageCreateFail, messageFindFail, messageUpdateFail } from 'src/helper/message.create';
 import { IssueAssignee } from '../entitys/IssueAssignee.entity';
 import { User } from 'src/api/user/entitys/User.entity';
 import { CreateIssueDto, QueryIssueDto } from '../dto/Issue.dto';

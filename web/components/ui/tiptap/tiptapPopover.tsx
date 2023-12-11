@@ -118,7 +118,6 @@ export default function TiptapPopover(props: IProps) {
         onUpdate: async ({ editor }) => {
             if (editor.getHTML() == '<p></p>') onChange && onChange('');
             else {
-                console.log('change', editor.getHTML());
                 onChange && onChange(editor.getHTML());
             }
         },

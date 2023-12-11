@@ -49,11 +49,11 @@ export abstract class BaseService<T extends Model>{
         }
     }
 
-    async updateById(id: number | string, teamUpdate: any): Promise<number> {
+    async updateById(id: number | string, itemUpdate: any): Promise<[affectedCount: number]> {
         try {
-            return this.repository.update(teamUpdate, {
+            return this.repository.update(itemUpdate, {
                 where: { id: id as any },
-            })[0]
+            })
         } catch (error) {
             handleResultError({ message: messageUpdateFail(this.repository.getTableName()), messageDetail: error });
         }

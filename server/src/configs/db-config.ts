@@ -4,29 +4,22 @@ import { Dialect, Sequelize } from "sequelize";
 import { OnApplicationShutdown } from '@nestjs/common';
 
 export const CONFIG_DB: SequelizeModuleAsyncOptions = {
-    useFactory: (configService: ConfigService) => ({
+    useFactory:async(configService: ConfigService) => ({
         dialect: configService.get<Dialect>('DATABASE') || 'mysql',
         host: 'localhost',
         port: configService.get<number>('DB_PORT') || 3006,
         username: configService.get<string>('DB_USER_NAME') || 'root',
         password: configService.get<string>('DB_PASSWORD') || '123456',
         database: configService.get<string>('DB_NAME') || 'plane',
-        //timezone: "+08:00",
+        timezone: "+08:00",
         autoLoadModels: true,
-        synchronize: true,
+        synchronize: true,//true : production
         logging: console.log,
-        //sync: { force: true }
+        cache: {
+          max: 500,       // Số lượng model được lưu trữ trong bộ nhớ
+          maxAge: 60000,  // Thời gian sống của cache (milliseconds)
+        },
+        sync: { force: true }//true : create new model
     }),
     inject: [ConfigService]
 }
-
-export class DatabaseModule implements OnApplicationShutdown {
-    constructor(private readonly sequelize: Sequelize) {}
-  
-    onApplicationShutdown(signal?: string): any {
-      // Đóng connection pool khi ứng dụng kết thúc
-      if (this.sequelize) {
-        this.sequelize.close();
-      }
-    }
-  }

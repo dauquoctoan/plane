@@ -2,7 +2,7 @@
 import React, { useState, useLayoutEffect } from 'react';
 import { GoogleLoginButton } from './google-login';
 import authService from '@/services/auth-services';
-import { useRouter } from 'next/navigation';
+import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { useDispatch, useSelector } from '@/store';
 import { authSlice } from '@/store/slices/authSlice';
 import { IInfo } from '@/types';
@@ -14,10 +14,11 @@ const Login = () => {
     const router = useRouter();
     const [loading, setLoading] = useState(true);
     const info = useSelector(selectInfo);
+    const next = useSearchParams().get('next');
 
     async function getData() {
         try {
-            const data = await authService.getUser<IInfo>('me');
+            const data = await authService.getUser<IInfo>();
             if (data) dispatch(authSlice.actions.setInfo(data));
         } catch (error) {
             console.log(error);
@@ -31,7 +32,7 @@ const Login = () => {
     }, []);
 
     if (info?.workspace?.slug && info?.is_onboarded)
-        router.push(info?.workspace?.slug || '');
+        router.push(next || info?.workspace?.slug);
 
     if (loading) return <Spinner />;
 

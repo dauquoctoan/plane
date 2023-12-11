@@ -18,7 +18,7 @@ export class WorkspaceMember extends Model<WorkspaceMember> {
 
     @ForeignKey(() => User)
     @Column({ allowNull: false, type: sequelize.UUID })
-    member: number;
+    member: string;
 
     /* ================================================== */
 

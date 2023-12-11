@@ -19,9 +19,12 @@ import { WorkspaceMemberService } from './service/WorkspaceMember.service';
 import { WorkspaceMemberInviteService } from './service/WorkspaceMemberInvite.service';
 import { WorkspaceThemeService } from './service/WorkspaceTheme.service';
 import { UserModule } from '../user/User.module';
+import { User } from '../user/entitys/User.entity';
+import { UserService } from '../user/service/User.service';
 
 @Module({
   imports: [SequelizeModule.forFeature([
+    User,
     Workspace,
     Team,
     TeamMember,
@@ -31,7 +34,7 @@ import { UserModule } from '../user/User.module';
   ]),
   forwardRef(() => UserModule)
   ],
-  providers: [TeamService, TeamMemberService, WorkspaceService, WorkspaceMemberService, WorkspaceMemberInviteService, WorkspaceThemeService],
+  providers: [UserService, TeamService, TeamMemberService, WorkspaceService, WorkspaceMemberService, WorkspaceMemberInviteService, WorkspaceThemeService],
   controllers: [TeamController, TeamMemberController, WorkspaceController, WorkspaceMemberController, WorkspaceMemberInviteController, WorkspaceThemeController],
   exports: [WorkspaceService],
 })

@@ -5,6 +5,8 @@ import { CreateProjectDto, UpdateProjectDto } from '../dto/Project.dto';
 import { handleResultSuccess } from 'src/helper/handleresult';
 import { IAuthRequest } from 'src/types/auth.types';
 import { AuthGuard } from 'src/Guards/auth.guard';
+import { User } from 'src/api/user/entitys/User.entity';
+import { Sequelize } from 'sequelize';
 
 
 @Controller('project')
@@ -18,22 +20,34 @@ export class ProjectController {
     }
 
     @UseGuards(AuthGuard)
-    @Get()
-    async findAllProject() {
-        return handleResultSuccess(await this.projectService.findAll());
+    @Get('test')
+    async findAllProject(@RequestNestjs() request: IAuthRequest) {
+        return handleResultSuccess(await this.projectService.findAll({ where: { workspace_id: 1 }, attributes: {
+            include: [
+              [
+                Sequelize.literal(
+                  `(SELECT 1 FROM projectmembers WHERE
+                    projectmembers.id = Project.id AND
+                      projectmembers.member = '${request.user.id}' 
+                    )
+                  `
+                ),
+                'is_member',
+              ],
+            ],
+          },include: [{ model: User, as: 'created_by_user' }] }));
     }
 
     @UseGuards(AuthGuard)
     @Get('by-id:id')
-    findOneProject(@Param('id') id: string) {
-        return handleResultSuccess(this.projectService.findOneById(+id));
+    async findOneProject(@Param('id') id: string) {
+        return handleResultSuccess(await this.projectService.findOneById(+id));
     }
 
     @UseGuards(AuthGuard)
     @Get('by-user/:id')
-    async findWorkSpaceByUserId(@Param('id') id: string, @RequestNestjs() request: IAuthRequest) {
-        const result = await this.projectService.getProjectByUserId(request.user.id, id);
-        return handleResultSuccess(result);
+    async findWorkSpaceByUserId(@RequestNestjs() request: IAuthRequest) {
+        return handleResultSuccess(await this.projectService.getProjectByUserId(request.user.id));
     }
 
     @Patch(':id')

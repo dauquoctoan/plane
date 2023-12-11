@@ -1,6 +1,6 @@
 
 export class CreateWorkspaceMemberInviteDto {
-    workspace: number;
+    workspace_id: number;
     email: string;
     accepted: boolean;
     token: string;
@@ -10,7 +10,7 @@ export class CreateWorkspaceMemberInviteDto {
 }
 
 export interface CreatesWorkspaceMemberInviteDto {
-    [key: string]: CreateWorkspaceMemberInviteDto;
+    data: CreateWorkspaceMemberInviteDto[];
 }
 
 export class UpdateWorkspaceMemberInviteDto {

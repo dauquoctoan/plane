@@ -27,7 +27,7 @@ export class MeController {
 
     @UseGuards(AuthGuard)
     @Patch()
-    update(@Body() updateUserDto: UpdateUserDto, @RequestNest() request: IAuthRequest) {
-        return handleResultSuccess(this.userService.updateById(request.user.id, updateUserDto));
+    async update(@Body() updateUserDto: UpdateUserDto, @RequestNest() request: IAuthRequest) {
+        return handleResultSuccess(await this.userService.updateById(request.user.id, updateUserDto));
     }
 }

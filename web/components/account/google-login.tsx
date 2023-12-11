@@ -11,7 +11,7 @@ import {
 import { Spinner } from '../ui/loading/Spinner';
 import APP_CONFIG from '@/configs';
 import authService from '@/services/auth-services';
-import { useRouter } from 'next/navigation';
+import { useParams, useRouter, useSearchParams } from 'next/navigation';
 import { IInfo } from '@/types';
 import { useDispatch } from '@/store';
 import { authSlice } from '@/store/slices/authSlice';
@@ -33,17 +33,26 @@ export const GoogleLoginButton: FC<IGoogleLoginButton> = () => {
     const googleSignInButton = useRef<HTMLDivElement>(null);
     const [gsiScriptLoaded, setGsiScriptLoaded] = useState(false);
     const dispatch = useDispatch();
+    const next = useSearchParams().get('next');
 
     async function handleSignIn(result: IGoogleAuth) {
         const respont = await authService.singInGoogle({
             idToken: result.credential,
             type: 'google',
         });
+
         if (respont) {
-            const info = await authService.getUser<IInfo>('me');
+            const info = await authService.getUser<IInfo>();
             if (info && info?.id) {
                 dispatch(authSlice.actions.setInfo(info));
-                if (!info.is_onboarded) router.push('/setup');
+                if (!info.is_onboarded) {
+                    router.push('/setup');
+                    return;
+                }
+                if (next) {
+                    router.push(next);
+                    return;
+                }
                 if (info.workspace?.slug) router.push(info.workspace?.slug);
             }
         }

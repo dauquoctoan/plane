@@ -73,13 +73,14 @@ export class BaseService {
         }).then((res) => res.data).then(this.handleResult);
     }
 
-    put(url: string, config = {}) {
-        // return axios({
-        //     method: "put",
-        //     url: this.baseURL + url,
-        //     headers: this.getAccessToken() ? this.getHeaders() : {},
-        //     ...config,
-        // });
+    put<T>(url: string, data = {}, config = {}): Promise<IData<T>> {
+        return axios<IResult<T>>({
+            method: "put",
+            url: this.baseURL + url,
+            headers: this.getAccessToken() ? this.getHeaders() : {},
+            data: qs.stringify(data),
+            ...config,
+        }).then((res) => res.data).then(this.handleResult);
     }
 
     delete(url: string, config = {}) {

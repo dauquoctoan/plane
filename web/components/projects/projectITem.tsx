@@ -29,7 +29,7 @@ const ProjectITem: React.FC<IPropsProjectItem> = ({ dataItem }) => {
                     className="w-full h-full rounded-tl rounded-tr"
                 />
                 <div className="absolute left-0 bottom-0 mb-4 ml-4 bg-green-500 px-2 py-[2px] select-none text-theme-primary text-sm rounded z-20">
-                    joined
+                    {dataItem.is_member ? 'Join' : 'Select to join'}
                 </div>
             </div>
             <div className="h-40 px-4 py-3 flex flex-col">

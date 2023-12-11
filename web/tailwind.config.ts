@@ -48,9 +48,22 @@ const config: Config = {
         popUp: {
           "0%": {
             transform: 'scale(.95)',
+            opacity: '.8',
           },
           '100%': {
-            transform: 'scale(1)'
+            transform: 'scale(1)',
+            opacity: '1',
+          },
+        },
+        closePopUp: {
+          '0%': {
+            transform: 'scale(1)',
+            opacity: '1',
+
+          },
+          "100%": {
+            transform: 'scale(.8)',
+            opacity: '0',
           },
         },
         openNoti: {
@@ -105,6 +118,14 @@ const config: Config = {
             'background-color': 'var(--color-modal-overlay)'
           }
         },
+        closeOverlay: {
+          '0%': {
+            'background-color': 'transparent'
+          },
+          '100%': {
+            'background-color': 'var(--color-modal-overlay)'
+          }
+        },
         modalContentPopup: {
           from: {
             transform: 'scale(.9)',
@@ -128,6 +149,7 @@ const config: Config = {
         openNoti: 'openNoti .4s ease-out',
         closeNoti: 'closeNoti .4s ease-out',
         popUp: 'popUp .3s ease-out',
+        closePopUp: 'closePopUp .3s ease-out',
         dropDown: 'dropDown .3s ease-out',
         overlay: 'overlay .3s ease-out',
         ping: 'ping 1.2s',

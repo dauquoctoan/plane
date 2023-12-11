@@ -1,13 +1,17 @@
 
 export class CreateWorkspaceMemberDto {
     workspace: number;
-    member: number;
+    member: string;
     role: number;
-    company_role: string;
-    view_props: string;
-    default_props: string;
+    company_role?: string;
+    view_props?: string;
+    default_props?: string;
 }
 
+export class CreateWorkspaceMemberDtoWidthToken{
+    workspace_id: number;
+    token: string;
+}
 export class UpdateWorkspaceMemberDto {
     workspace: number;
     member: number;

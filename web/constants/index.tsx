@@ -1,3 +1,12 @@
+import { IOptionItem } from '@/components/ui/select/select';
+import { IoBan } from 'react-icons/io5';
+import {
+    MdOutlineSignalCellularAlt,
+    MdOutlineSignalCellularAlt2Bar,
+    MdSignalCellularAlt1Bar,
+} from 'react-icons/md';
+import { RiErrorWarningLine } from 'react-icons/ri';
+
 export const TIME_ZONE_CHOICE = [
     'Africa/Abidjan, GMT',
     'Africa/Accra, GMT',
@@ -607,3 +616,15 @@ export const ORGANIZATION_SIZE = [
 ];
 
 export const MEMBER_ROLE = ['Guest', 'Viewer', 'Member', 'Admin'];
+
+export const optionLevel: IOptionItem[] = [
+    { icon: <RiErrorWarningLine />, name: 'Urgent', key: 'urgent' },
+    { icon: <MdOutlineSignalCellularAlt />, name: 'High', key: 'high' },
+    {
+        icon: <MdOutlineSignalCellularAlt2Bar />,
+        name: 'Medium',
+        key: 'medium',
+    },
+    { icon: <MdSignalCellularAlt1Bar />, name: 'Low', key: 'low' },
+    { icon: <IoBan />, name: 'None', key: 'none' },
+];

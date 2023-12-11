@@ -1,5 +1,5 @@
 import sequelize, { Sequelize } from 'sequelize';
-import { BelongsToMany, Column, CreatedAt, DataType, HasMany, Length, Model, Table, PrimaryKey, Is, ForeignKey, BelongsTo } from 'sequelize-typescript';
+import { BelongsToMany, Column, CreatedAt, DataType, HasMany, Length, Model, Table, PrimaryKey, Is, ForeignKey, BelongsTo, Unique } from 'sequelize-typescript';
 import { APIToken } from 'src/api/api_token/entitys/APIToken.entity';
 import { Cycle } from 'src/api/cycle/entitys/Cycle.entity';
 import { CycleFavorite } from 'src/api/cycle/entitys/CycleFavorite.entity';
@@ -152,8 +152,8 @@ export class User extends Model<User> {
     /**
     * ! PR
     */
-
-    @Column({ allowNull: false, unique: true })
+    @Unique({name: 'username_unique', msg: 'username_should_be_unique'})
+    @Column({ allowNull: false})
     username: string;
 
     @Column
@@ -162,7 +162,8 @@ export class User extends Model<User> {
     @Is('email', (data) => {
         if (!validEmail(data)) throw Error('Invalid Email')
     })
-    @Column({ allowNull: false, unique: true })
+    @Unique({name: 'email_unique', msg: 'email_should_be_unique'})
+    @Column({ allowNull: false })
     email: string;
 
     @Column

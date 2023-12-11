@@ -10,6 +10,7 @@ import { ProjectIdentifier } from './ProjectIdentifier.entity';
 import sequelize from 'sequelize';
 import { Issue } from 'src/api/issue/entitys/Issue.entity';
 import { Label } from 'src/api/issue/entitys/Label.entity';
+import { ProjectMember } from './ProjectMember.entity';
 
 @Table
 export class Project extends Model<Project> {
@@ -24,6 +25,9 @@ export class Project extends Model<Project> {
 
     @HasMany(() => Issue, { foreignKey: 'project_id' })
     issue: Issue[];
+
+    @HasMany(() => ProjectMember, { foreignKey: 'project_id' })
+    project_member: ProjectMember[];
 
     @HasMany(() => Notification)
     notifications: Notification[];

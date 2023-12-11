@@ -1,4 +1,4 @@
-import { Column, Model, Table, Length, ForeignKey, Index, DataType, HasMany, BelongsTo, BeforeDestroy } from 'sequelize-typescript';
+import { Column, Model, Table, Length, ForeignKey, DataType, HasMany, BelongsTo, BeforeDestroy, Unique } from 'sequelize-typescript';
 import { AnalyticView } from 'src/api/analytic/entitys/AnalyticView.entity';
 import { APIToken } from 'src/api/api_token/entitys/APIToken.entity';
 import { FileAsset } from 'src/api/asset/entitys/FileAsset.entity';
@@ -16,6 +16,7 @@ import { Team } from './Team.entity';
 import { TeamMember } from './TeamMember.entity';
 import { Issue } from 'src/api/issue/entitys/Issue.entity';
 import { Label } from 'src/api/issue/entitys/Label.entity';
+import { ProjectMember } from 'src/api/project/entitys/ProjectMember.entity';
 
 @Table
 export class Workspace extends Model<Workspace> {
@@ -29,6 +30,7 @@ export class Workspace extends Model<Workspace> {
     @ForeignKey(() => User)
     @Column({ type: sequelize.UUID, allowNull: false })
     owner: string;
+    
 
     /* ================================================== */
     @BelongsTo(() => User, {foreignKey:'owner'})
@@ -36,6 +38,9 @@ export class Workspace extends Model<Workspace> {
 
     @HasMany(() => Label, { foreignKey: 'workspace_id' })
     labels: Label[];
+
+    @HasMany(() => ProjectMember, { foreignKey: 'workspace_id' })
+    project_member: ProjectMember[];
 
     @HasMany(() => User, {foreignKey:'last_workspace_id'})
     last_workspace_detail: User[];
@@ -93,8 +98,9 @@ export class Workspace extends Model<Workspace> {
     @Column
     logo: string;
 
+    @Unique({name: 'slug_unique', msg: 'slug_should_be_unique'})
     @Length({ max: 48 })
-    @Column({ type: DataType.CHAR, unique: true })
+    @Column({ type: DataType.CHAR })
     slug: string;
 
     @Length({ max: 20 })

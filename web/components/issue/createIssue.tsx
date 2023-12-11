@@ -14,12 +14,13 @@ import CreateLabel from './createLabel';
 import TiptapPopoverField from '@/components/ui/tiptap/tiptapPopoverField';
 import SelectField from '@/components/ui/select/selectField';
 import issueService from '@/services/issue-services';
-import useSWR from 'swr';
+import useSWR, { mutate } from 'swr';
 import { STATES_KEY } from '@/apiKey/project';
 import { useSelector } from '@/store';
 import { selectInfo } from '@/store/slices/authSlice/selectors';
 import moment from 'moment';
 import { INotiConext, NotiContext } from '@/components/ui/notification';
+import { useParams, usePathname, useRouter } from 'next/navigation';
 
 interface IProps {
     isDraft: boolean;
@@ -39,7 +40,7 @@ export interface IForm {
     name: string;
     priority: string;
     state: string;
-    labels: string[];
+    labels: string;
     members: string[];
     start_date: string;
     target_date: string;
@@ -51,6 +52,7 @@ const CreateIssue: React.FC<IProps> = ({
     handleCloseModel,
     projects,
 }) => {
+    const pathName = usePathname();
     const noti = useContext(NotiContext);
     const info = useSelector(selectInfo);
     const [isMore, setIsMore] = useState(false);
@@ -58,7 +60,6 @@ const CreateIssue: React.FC<IProps> = ({
         value: false,
         index: 0,
     });
-
     const {
         register: registerParent,
         handleSubmit,
@@ -98,6 +99,7 @@ const CreateIssue: React.FC<IProps> = ({
             ...values,
             state: (states && states[0].id.toString()) || '',
             priority: 'urgent',
+            labels: '',
             desc: '',
             name: '',
         }));
@@ -108,32 +110,48 @@ const CreateIssue: React.FC<IProps> = ({
         key: e.id?.toString(),
     }));
     const CurentModal = LsModals[isOpen.index];
+
     return (
         <div>
             <form
                 id="create-issue-form"
                 onSubmit={handleSubmit(async (data) => {
-                    const issueResult = await issueService.createIssue<IIssue>({
-                        name: data.name,
-                        description_html: data.desc,
-                        project_id: Number(data.project) || projects[0].id,
-                        workspace_id: info?.last_workspace_id,
-                        is_draft: isDraft,
-                        priority: data.priority,
-                        state_id: Number(data.state),
-                        start_date: moment(data.start_date).format(),
-                        target_date: moment(data.target_date).format(),
-                    });
-
-                    if (issueResult) {
-                        noti?.success('Issue created');
-                        closeModal();
-                        handleClearForm();
-                    } else {
-                        noti?.error(
-                            'An error occurred, please try again later',
-                        );
-                    }
+                    mutate(
+                        pathName.split('/').pop(),
+                        async (issue: any) => {
+                            const issueResult =
+                                await issueService.createIssue<IIssue>({
+                                    name: data.name,
+                                    description_html: data.desc,
+                                    project_id:
+                                        Number(data.project) || projects[0].id,
+                                    workspace_id: info?.last_workspace_id,
+                                    is_draft: isDraft,
+                                    priority: data.priority,
+                                    state_id: Number(data.state),
+                                    start_date: moment(
+                                        data.start_date,
+                                    ).format(),
+                                    target_date: moment(
+                                        data.target_date,
+                                    ).format(),
+                                });
+                            if (issueResult) {
+                                noti?.success('Issue created');
+                                closeModal();
+                                handleClearForm();
+                                return issue
+                                    ? [...issue, issueResult]
+                                    : [issueResult];
+                            } else {
+                                noti?.error(
+                                    'An error occurred, please try again later',
+                                );
+                                return issue && [...issue];
+                            }
+                        },
+                        { revalidate: false },
+                    );
                 })}
                 className="min-w-[700px] max-h-[900px] pt-4"
             >

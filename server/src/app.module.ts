@@ -3,7 +3,7 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { SequelizeModule } from '@nestjs/sequelize';
 import { ConfigModule } from '@nestjs/config';
-import { CONFIG_DB, DatabaseModule } from './configs/db-config';
+import { CONFIG_DB } from './configs/db-config';
 import { ApiModule } from './api/api.module';
 import { JwtModule } from '@nestjs/jwt';
 import { Sequelize } from 'sequelize';
@@ -13,8 +13,8 @@ import { Sequelize } from 'sequelize';
     ConfigModule.forRoot({
       envFilePath: '.env',
       isGlobal: true,
+      cache: true,
     }),
-    DatabaseModule,
     SequelizeModule.forRootAsync(CONFIG_DB),
     ApiModule,
     JwtModule.register({

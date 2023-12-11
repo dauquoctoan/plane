@@ -10,27 +10,59 @@ class IssueService extends BaseService {
     }
 
     async getState<T>(projectId: number) {
-        return await this.get<T>('state/project/' + projectId);
+        try {
+            return await this.get<T>('state/project/' + projectId);
+        } catch (error) {
+            console.log(error)
+        }
     }
 
     async createState<T>(state: Partial<Istate>) {
-        return await this.post<T>('state', state);
+        try {
+            return await this.post<T>('state', state);
+        } catch (error) {
+            console.log(error)
+        }
     }
 
     async createIssue<T>(issue: IIssue) {
-        return await this.post<T>('issue', issue);
+        try {
+            return await this.post<T>('issue', issue);
+        } catch (error) {
+            console.log(error)
+        }
     }
 
     async findIssues<T>(query?:{idProject?:string, idMember?:string}){
-        return await this.get<T>(`issue`,query);
+        try {
+            return await this.get<T>(`issue`,query);
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+    async updateIssue<T>(idIssue?:number, issue?:IIssue){
+        try {
+            return await this.put<T>(`issue/${idIssue}`,issue);
+        } catch (error) {
+            console.log(error)
+        }
     }
 
     async createLabel<T>(label: Partial<ILabel>) {
-        return await this.post<T>('label', label);
+        try {
+            return await this.post<T>('label', label);
+        } catch (error) {
+            console.log(error)
+        }
     }
 
     async findLabelsByProject<T>(projectId: string) {
-        return await this.get<T>('label/by-project-id/' + projectId);
+        try {
+            return await this.get<T>('label/by-project-id/' + projectId);
+        } catch (error) {
+            console.log(error)
+        }
     }
 }
 

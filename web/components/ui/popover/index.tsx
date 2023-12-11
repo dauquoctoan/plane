@@ -48,19 +48,19 @@ const Popover: React.FC<IProps> = ({
     const refPopover = useRef<HTMLDivElement>(null);
     const refPopup = useRef<HTMLDivElement>(null);
 
-    const { style, open, handleWhenMouseDown, handleWhenMouseOver } = usePopUp(
+    const { style, open, handleWhenMouseDown, handleWhenMouseLeave } = usePopUp(
         refPopover,
         refPopup,
+        placement,
         isHover,
         isChildRen,
-        placement,
     );
 
     function renderPop() {
         return (
             <div
                 onMouseDown={handleWhenMouseDown}
-                onMouseOver={handleWhenMouseOver}
+                onMouseLeave={handleWhenMouseLeave}
                 ref={refPopup}
                 style={style}
                 className={`rounded px-${pxContent} py-${pyContent} mt-[5px] shadow-theme-primary bg-theme-primary animate-modalContentPopup z-[100] ${contentClassName}`}

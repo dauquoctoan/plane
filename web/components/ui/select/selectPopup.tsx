@@ -1,7 +1,9 @@
 import React, { useEffect, useRef } from 'react';
 import FuzzySearch from 'fuzzy-search';
-import { FontSize, IOptionItem, IProps, Item, ItemSelect } from './select';
+import { FontSize, IOptionItem, IProps, Item } from './select';
 import { BsCheck2 } from 'react-icons/bs';
+import { IPositionResult } from '@/hooks';
+import ItemSelect from './itemSelect';
 
 interface ISelectPopup extends IProps {
     setOpen: (e: boolean) => void;
@@ -12,6 +14,9 @@ interface ISelectPopup extends IProps {
     curentValue?: string;
     setCurentValue?: (e: string) => void;
     setResult: (e: IOptionItem[] | string[]) => void;
+    refPopUp: React.RefObject<HTMLDivElement>;
+    style: IPositionResult;
+    updateValue: (e: string) => void;
 }
 
 function checkActive(item: IOptionItem | string, curent: Item) {
@@ -36,21 +41,10 @@ const SelectPopup: React.FC<ISelectPopup> = ({
     moreItem,
     placement = 'bottomLeft',
     options,
+    refPopUp,
+    style,
+    updateValue,
 }) => {
-    const refLsREsult = useRef<HTMLDivElement>(null);
-
-    const handleClickOverlay = (e: any) => {
-        if (refBtn.current?.contains(e.target)) {
-            setOpen(true);
-            return;
-        }
-
-        if (!refLsREsult.current?.contains(e.target as any)) {
-            setOpen(false);
-            return;
-        }
-    };
-
     const handleSearch = (search: string) => {
         if (options) {
             const searcher = new FuzzySearch(
@@ -64,25 +58,11 @@ const SelectPopup: React.FC<ISelectPopup> = ({
         }
     };
 
-    useEffect(() => {
-        document.addEventListener('click', handleClickOverlay);
-        return () => {
-            document.removeEventListener('click', handleClickOverlay);
-        };
-    }, []);
-
-    const styleOptions: { [e: string]: string } = {
-        bottomLeft: 'top-[100%] left-0 mt-1',
-        bottomRight: 'top-[100%] right-0 mt-1',
-        topRight: 'bottom-[100%] right-0 mb-1',
-        topLeft: 'bottom-[100%] left-0 mb-1',
-    };
-    const curentStyle = styleOptions[placement];
-
     return (
         <div
-            ref={refLsREsult}
-            className={`bg-theme-primary border py-1 absolute rounded origin-top-left shadow-theme-primary animate-popUp z-50 ${curentStyle} w-max`}
+            ref={refPopUp}
+            style={style}
+            className={`bg-theme-primary border py-1 absolute rounded origin-top-left shadow-theme-primary animate-popUp z-50 w-max`}
         >
             {isSearch && (
                 <div className="py-2 px-2">
@@ -100,6 +80,8 @@ const SelectPopup: React.FC<ISelectPopup> = ({
             <div className="w-full max-h-[300px] hover-scroll overflow-y-auto px-1">
                 {lsResult.map((item, index) => (
                     <ItemSelect
+                        isItem
+                        updateValue={updateValue}
                         fontSize={fontSize}
                         isIconCheck={isIconCheck}
                         iconActive={iconActive}

@@ -1,6 +1,6 @@
 import { Controller, Get, Post, Body, Patch, Delete, Query, Param } from '@nestjs/common';
 import { ApiTags } from "@nestjs/swagger";
-import { CreateWorkspaceMemberDto, UpdateWorkspaceMemberDto } from '../dto/WorkspaceMember.dto';
+import { CreateWorkspaceMemberDto, CreateWorkspaceMemberDtoWidthToken, UpdateWorkspaceMemberDto } from '../dto/WorkspaceMember.dto';
 import { WorkspaceMemberService } from '../service/WorkspaceMember.service';
 import { handleResultSuccess } from 'src/helper/handleresult';
 
@@ -10,8 +10,9 @@ import { handleResultSuccess } from 'src/helper/handleresult';
 export class WorkspaceMemberController {
     constructor(private readonly workspaceMemberService: WorkspaceMemberService) { }
     @Post()
-    createWorkspaceMember(@Body() createWorkspaceMemberDto: CreateWorkspaceMemberDto) {
-        return handleResultSuccess(this.workspaceMemberService.create(createWorkspaceMemberDto));
+    async createWorkspaceMember(@Body() createWorkspaceMemberDto: CreateWorkspaceMemberDtoWidthToken) {
+        const {token, workspace_id} = createWorkspaceMemberDto;
+        return handleResultSuccess(await this.workspaceMemberService.createWorkspaceMemberWhenJoin(workspace_id, token));
     }
 
     @Get()

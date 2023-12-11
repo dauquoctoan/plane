@@ -6,16 +6,37 @@ import { handleResultError } from 'src/helper/handleresult';
 import { messageCreateFail, messageFindFail } from 'src/helper/message.create';
 import { Workspace } from 'src/api/workspace/entitys/Workspace.entity';
 import { User } from 'src/api/user/entitys/User.entity';
+import { UserService } from 'src/api/user/service/User.service';
+import { Sequelize } from 'sequelize';
 
 @Injectable()
 export class ProjectService extends BaseService<Project>{
-    constructor(@InjectModel(Project) public repository: typeof Project) {
+    constructor(@InjectModel(Project) public repository: typeof Project,
+    readonly userService: UserService
+    ) {
         super(repository);
     }
 
-    async getProjectByUserId(userId: string, workspaceId: string) {
+    async getProjectByUserId(userId: string) {
         try {
-            return await this.repository.findAll({ where: { created_by: userId, workspace_id: workspaceId }, include: [{ model: User, as: 'created_by_user' }] });
+            const user = await this.userService.findOneById(userId)
+            if(user){
+                return await this.repository.findAll({ where: { workspace_id: user.last_workspace_id }, attributes: {
+                    include: [
+                      [
+                        Sequelize.literal(
+                          `(SELECT 1 FROM projectmembers WHERE
+                            projectmembers.id = Project.id AND
+                              projectmembers.member = '${userId}' 
+                            )
+                          `
+                        ),
+                        'is_member',
+                      ],
+                    ],
+                  }, include: [{ model: User, as: 'created_by_user' }] });
+            }
+            handleResultError({ message: messageFindFail(this.repository.getTableName()), messageDetail: 'Invalid user' });
         } catch (error) {
             handleResultError({ message: messageFindFail(this.repository.getTableName()), messageDetail: error });
         }

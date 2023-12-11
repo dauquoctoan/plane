@@ -30,12 +30,20 @@ class AuthService extends BaseService {
         }
     }
 
-    getUser<T>(url: string) {
-        return this.get<T>(url)
+    getUser<T>() {
+        try {
+            return this.get<T>('me');
+        } catch (error) {
+            console.log(error)
+        }
     }
 
     upDateUser<T>(user: IUser) {
-        return this.patch<T>('user', user);
+        try {
+            return this.patch<T>('user', user);
+        } catch (error) {
+            console.log(error)
+        }
     }
 }
 

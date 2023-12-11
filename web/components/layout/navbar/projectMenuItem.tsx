@@ -4,8 +4,6 @@ import { BiChevronDown } from 'react-icons/bi';
 import ProjectTools from './projectTools';
 import Avatar from '../../ui/avatar';
 import { renderEmoji } from '@/helpers/emoji';
-import Tooltip from '@/components/ui/test';
-// import Tooltip from '@/components/ui/tooltip';
 
 interface IProjectMenuitem {
     text?: string;

@@ -2,6 +2,26 @@
 @tailwind components;
 @tailwind utilities;
 
+@keyframes closePopUp {
+    from {
+        opacity: 1;
+        scale: 1;
+    }
+    to {
+        opacity: 0;
+        scale: 0.8;
+    }
+}
+
+@keyframes closeOverlay {
+    from {
+        background-color: var(--color-modal-overlay);
+    }
+    to {
+        background-color: transparent;
+    }
+}
+
 body {
     height: 100vh;
 }
@@ -35,16 +55,16 @@ body {
     display: none;
 }
 /* scroll hover */
-.hover-scroll:not(:hover)::-webkit-scrollbar-track {
+.hover-scroll::-webkit-scrollbar-track:not(:hover) {
     background-color: transparent;
     border-radius: 5px;
 }
 
-.hover-scroll:not(:hover)::-webkit-scrollbar {
+.hover-scroll::-webkit-scrollbar:not(:hover) {
     width: 6px;
     background-color: transparent;
 }
-.hover-scroll:not(:hover)::-webkit-scrollbar-thumb {
+.hover-scroll::-webkit-scrollbar-thumb:not(:hover) {
     background-color: transparent;
     border-radius: 5px;
 }

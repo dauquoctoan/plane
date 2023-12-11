@@ -14,8 +14,11 @@ class ProjectService extends BaseService {
     }
 
     async getProjects<T>(workspaceId: number) {
-        const result = await this.get<T>('project/by-user/' + workspaceId);
-        return result
+        try {
+            return await this.get<T>('project/by-user/' + workspaceId);
+        } catch (error) {
+            console.log(error)
+        }
     }
 }
 

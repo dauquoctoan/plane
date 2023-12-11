@@ -9,23 +9,19 @@ import { UpdateUserDto } from 'src/api/user/dto/User.dto';
 import { IAuthRequest } from 'src/types/auth.types';
 import { messageCreateFail } from 'src/helper/message.create';
 import { AuthGuard } from 'src/Guards/auth.guard';
+import { WorkspaceMember } from '../entitys/WorkspaceMember.entity';
 
 
 @Controller('workspace')
 @ApiTags('Workspace')
 @ApiBearerAuth('access-token')
 export class WorkspaceController {
-  constructor(private readonly workspaceService: WorkspaceService, private readonly userService: UserService) { }
+  constructor(private readonly workspaceService: WorkspaceService) { }
 
   @UseGuards(AuthGuard)
   @Post()
   async createWorkSpace(@Body() createWorkspaceDto: CreateWorkspaceDto, @RequestNest() request: IAuthRequest) {
-    const workspace = await this.workspaceService.create(createWorkspaceDto);
-    if (workspace) {
-      await this.userService.updateById(request.user.id, { last_workspace_id: workspace.id });
-      return handleResultSuccess(workspace);
-    }
-    handleResultError({ message: messageCreateFail('workspace'), data: null, statusCode: 500 })
+    return handleResultSuccess(await this.workspaceService.createWorkspace(request.user.id, createWorkspaceDto))
   }
 
   @UseGuards(AuthGuard)
@@ -34,9 +30,25 @@ export class WorkspaceController {
     return handleResultSuccess(await this.workspaceService.findWorkspaceAndUser(request.user.id));
   }
 
+  // @UseGuards(AuthGuard)
+  // @Get("test")
+  // async test(@RequestNest() request: IAuthRequest) {
+  //   return handleResultSuccess(await this.workspaceService.findAll({include:[
+  //     {
+  //       model: WorkspaceMember,
+  //       as
+  //       required: true,
+  //       where: {
+  //         memberId: request.user.id, 
+  //       },
+  //     },
+  //   ]}));
+  // }
+  
+
   @Get(":id")
-  findOneWorkSpace(@Param('id') id: string) {
-    return handleResultSuccess(this.workspaceService.findOneById(+id));
+  async findOneWorkSpace(@Param('id') id: string) {
+    return handleResultSuccess(await this.workspaceService.findOneById(+id));
   }
 
   @Patch(":id")

@@ -13,6 +13,14 @@ class WorkSpaceService extends BaseService {
         return this.post<T>('workspace', workspace);
     }
 
+    joinWorkspace<T>(data:{workspace_id:number,token:string}){
+        return this.post<T>('workspace-member', data)
+    }
+
+    async findWorkspaceById<T>(id: number){
+        return await this.get<T>('workspace/'+id)
+    }
+
     async getAllWorkSpaces<T>() {
         return await this.get<T>('workspace');
     }

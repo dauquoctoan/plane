@@ -1,4 +1,4 @@
-'use client'
+'use client';
 import AutoComplete from '@/components/ui/auto-complete';
 import Input from '@/components/ui/input/Input';
 import React, { useState, useEffect } from 'react';
@@ -47,13 +47,13 @@ function getRole(role: string) {
         case 'Guest':
             return 5;
         case 'Member':
-            return 5;
+            return 10;
         case 'Admin':
-            return 5;
+            return 15;
         case 'Owner':
-            return 5;
+            return 20;
         default:
-            return 1;
+            return 10;
     }
 }
 
@@ -170,17 +170,15 @@ const Member: React.FC<IPropsComponent> = () => {
                             lsMember,
                         );
                     if (result) {
-                        const resultInfo = await authService.upDateUser(
-                            {
-                                is_onboarded: true,
-                                onboarding_step: {
-                                    profile_complete: 1,
-                                    workspace_create: 1,
-                                    workspace_invite: 1,
-                                    workspace_join: 1,
-                                },
+                        const resultInfo = await authService.upDateUser({
+                            is_onboarded: true,
+                            onboarding_step: {
+                                profile_complete: 1,
+                                workspace_create: 1,
+                                workspace_invite: 1,
+                                workspace_join: 1,
                             },
-                        );
+                        });
                         if (resultInfo) {
                             setLoading(false);
                             router.push(info?.workspace?.slug || '');

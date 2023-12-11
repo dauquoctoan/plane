@@ -27,6 +27,7 @@ const SelectLabel: React.FC<ISelectLabel> = ({
                 projectId as string,
             ),
     );
+
     const options: IOptionItem[] | undefined =
         labels &&
         labels.map((e) => ({

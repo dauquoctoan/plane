@@ -1,12 +1,13 @@
 import React, { useEffect, useRef, useState } from "react";
 
 export interface IPosition {
-    left: number | string;
-    top: number | string;
+    left: number | string | undefined;
+    top: number | string | undefined;
 }
 
 export interface IPositionResult extends IPosition{
-    position: 'absolute'
+    position: 'absolute';
+    visibility: 'visible'|'hidden';
 }
 
 export type TPlacement = 'left' | 'center' | 'right';
@@ -14,14 +15,13 @@ export type TPlacement = 'left' | 'center' | 'right';
 type TRef = React.RefObject<HTMLDivElement>
 
 
-const usePopUp = (refPopover:TRef, refPopup:TRef, isHover:boolean=false, isChildRen:boolean=false, placement:TPlacement='left')=>{
+const usePopUp = (refPopover:TRef, refPopup:TRef, placement:TPlacement='left',isHover:boolean=false, isChildRen:boolean=false,)=>{
     const [open, setOpen] = useState<Boolean>(false);
-    const [scrollTop, setScrollTop] = useState(0);
     const timeoutId = useRef<any>(0);
     const mouse = useRef({ isKeyDown: false, isDrag: false });
     const [position, setPosition] = useState<IPosition>({
-        left: 0,
-        top: 0,
+        left: undefined,
+        top: undefined,
     });
 
     function getPosiTion(wre: HTMLDivElement, poe: HTMLDivElement): IPosition {
@@ -32,15 +32,22 @@ const usePopUp = (refPopover:TRef, refPopup:TRef, isHover:boolean=false, isChild
         const margin = wre.offsetWidth - poe.offsetWidth;
         const marginC = spaceWrCenter - spacePopCenter;
 
+        var screenWidth = window.innerWidth || document.documentElement.clientWidth;
+        var screenHeight = window.innerHeight || document.documentElement.clientHeight;
+
+        
+
         const position = {
             center: isChildRen ? marginC : wr.left + marginC,
             left: isChildRen ? 0 : wr.left,
             right: isChildRen ? margin : wr.left + margin,
         };
 
+        const overOverFlow = (screenHeight - (wr.top + wr.height + poe.offsetHeight)) < 0 ? true : false;
+
         return {
             left: position[placement],
-            top: isChildRen ? '100%' : wr.top + wr.height,
+            top: isChildRen ? '100%' :overOverFlow ? wr.top - poe.offsetHeight: wr.top + wr.height,
         };
     }
 
@@ -61,66 +68,95 @@ const usePopUp = (refPopover:TRef, refPopup:TRef, isHover:boolean=false, isChild
                 handleMouseleave,
                 true,
             );
-            setOpen(false);
+            handleClosePopUp();
         }, 500);
+    }
+
+    function handleClick(e: any) {
+        if (
+            !refPopup.current?.contains(e.target) &&
+           !mouse.current.isDrag
+        ) {
+            handleClosePopUp()
+        }
+        mouse.current = { isDrag: false, isKeyDown: false };
+    }
+
+    function addEventClick(){
+        window.addEventListener('click', handleClick, true);
+    }
+
+    function  removeEventClick(){
+        window.removeEventListener('click', handleClick, true);
+    }
+
+    function addEventMouse(){
+        refPopover?.current?.addEventListener(
+            'mouseover',
+            handleMouseover,
+            true,
+        );
+        refPopover?.current?.addEventListener(
+            'mouseleave',
+            handleMouseleave,
+            true,
+        );
+    }
+
+    function removeEventMouse(){
+        refPopover?.current?.addEventListener(
+            'mouseover',
+            handleMouseover,
+            true,
+        );
+        refPopover?.current?.addEventListener(
+            'mouseleave',
+            handleMouseleave,
+            true,
+        );
     }
 
     useEffect(() => {
         if (refPopover.current && refPopup.current)
             setPosition(getPosiTion(refPopover.current, refPopup.current));
-    }, [refPopover.current, refPopup.current, scrollTop, open]);
+    }, [refPopover.current, refPopup.current, open]);
 
     useEffect(() => {
-        function handleClick(e: any) {
-            if (refPopover.current?.contains(e.target)) {
-                setOpen((state) => !state);
-            } else if (
-                !refPopup.current?.contains(e.target) &&
-                open == false &&
-                !mouse.current.isDrag
-            ) {
-                setOpen(() => false);
-            }
-            mouse.current = { isDrag: false, isKeyDown: false };
+        function handleClikOpenPopUp(){
+            setOpen(true);
         }
 
-        function handleChangeWhenScroll(e: any) {
-            setScrollTop(e.target.scrollTop);
-        }
-
-        if (isHover) {
-            refPopover?.current?.addEventListener(
-                'mouseover',
-                handleMouseover,
-                true,
-            );
-            refPopover?.current?.addEventListener(
-                'mouseleave',
-                handleMouseleave,
-                true,
-            );
-        } else {
-            window.addEventListener('click', handleClick, true);
-        }
-
-        window.addEventListener('scroll', handleChangeWhenScroll, true);
+        if (isHover) addEventMouse();
+        else refPopover?.current?.addEventListener('click', handleClikOpenPopUp);
 
         return () => {
-            if (isHover) {
-                refPopover?.current?.removeEventListener(
-                    'mouseover',
-                    handleMouseover,
-                    true,
-                );
-                refPopover?.current?.removeEventListener(
-                    'mouseleave',
-                    handleMouseleave,
-                    true,
-                );
-            } else window.removeEventListener('click', handleClick, true);
-            window.removeEventListener('scroll', handleClick, true);
+            if (isHover) removeEventMouse();
+            else refPopover?.current?.addEventListener('click', handleClikOpenPopUp);
         };
     }, []);
+
+    function handleClosePopUp(){
+        // @ts-ignore: Unreachable code error
+        if(refPopup.current) refPopup.current.style.animation = 'closePopUp .3s ease-out';
+        
+        // @ts-ignore: Unreachable code error
+        if(refPopup.current) refPopup.current.style.opacity = '0';
+
+        // @ts-ignore: Unreachable code error
+        if(refPopup.current) refPopup.current.style.scale ='.8';
+
+        setTimeout(()=>{
+           open && setOpen(false);
+        },300)
+    }
+
+    useEffect(()=>{
+        if(open) addEventClick();
+        else removeEventClick();
+        return ()=>{
+            removeEventClick();
+        }
+    },[open])
 
     useEffect(() => {
         if (isHover) {
@@ -143,19 +179,20 @@ const usePopUp = (refPopover:TRef, refPopup:TRef, isHover:boolean=false, isChild
         mouse.current.isKeyDown = true;
     }
 
-    function handleWhenMouseOver(){
+    function handleWhenMouseLeave(){
         if (mouse.current.isKeyDown) mouse.current.isDrag = true;
     }
 
-    const style = {...position,position:'absolute'} as IPositionResult
+    const style:IPositionResult= {...position, position: 'absolute', visibility: (position?.left == undefined || position?.top == undefined) ? 'hidden': 'visible'}
 
     return {
         style,
         mouse,
         open,
         setOpen,
+        handleClose: handleClosePopUp,
         handleWhenMouseDown,
-        handleWhenMouseOver,
+        handleWhenMouseLeave,
     }
 }
 

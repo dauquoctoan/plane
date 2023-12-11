@@ -3,6 +3,7 @@ import { Workspace } from 'src/api/workspace/entitys/Workspace.entity';
 
 @Table
 export class AnalyticView extends Model<AnalyticView> {
+    
     /**
     * !FK
     */

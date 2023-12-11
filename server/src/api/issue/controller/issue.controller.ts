@@ -1,4 +1,4 @@
-import { Controller, Post, Body, Get, Param, Patch, Delete,Query, Request as RequestNest, UseGuards } from '@nestjs/common';
+import { Controller, Post, Body, Get, Param, Patch, Delete,Query, Request as RequestNest, UseGuards, Put } from '@nestjs/common';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { IssueService } from '../service/issue.service';
 import { CreateIssueDto, QueryIssueDto, UpdateIssueDto } from '../dto/Issue.dto';
@@ -23,5 +23,12 @@ export class IssueController {
     @UseGuards(AuthGuard)
     async findAll(@Query() query: QueryIssueDto, @RequestNest() request: IAuthRequest) {
         return handleResultSuccess(await this.issueService.findIssues({...query, userId: request.user.id}))
+    }
+
+
+    @Put(':id')
+    @UseGuards(AuthGuard)
+    async update(@Body() issue: UpdateIssueDto, @Param('id') id:string) {
+        return handleResultSuccess(await this.issueService.updateById(+id,issue))
     }
 }

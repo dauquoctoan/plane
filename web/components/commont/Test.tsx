@@ -6,7 +6,7 @@ import { Counter } from '../account/counter';
 
 const Test = () => {
     const { data, error, isLoading, isValidating } = useSWR('me', (user) =>
-        authService.getUser(user),
+        authService.getUser(),
     );
     return (
         <div>

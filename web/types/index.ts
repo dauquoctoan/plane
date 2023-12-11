@@ -108,6 +108,7 @@ export interface IProject extends IBaseData{
     cover_image?: string;
     archive_in?: number;
     close_in?: number;
+    is_member?: boolean;
 }
 
 export interface Istate extends IBaseData{
@@ -143,6 +144,7 @@ export interface IIssue extends IBaseData{
     completed_at?: string;
     archived_at?: string;
     is_draft?: boolean;
+    assignees?:IUser[]
 }
 export interface ILabel extends IBaseData{
     id: number;

@@ -3,12 +3,12 @@ import { BaseService } from "@/services/base-service";
 import { IData } from "@/types";
 import { useEffect, useState } from "react"
 
-type apifetch = <T>(a: string | undefined) => Promise<T | null>;
+type apifetch = <T>(a: string | undefined) => Promise<T | undefined>;
 
 const { API_BASE_URL } = APP_CONFIG;
 
 export const useFetch = <T>(apifetch: apifetch, url?: string) => {
-    const [data, setData] = useState<IData<T>>(null);
+    const [data, setData] = useState<IData<T>>(undefined);
 
     const api = apifetch.bind(new BaseService(API_BASE_URL));
 

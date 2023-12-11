@@ -22,10 +22,13 @@ import { ProjectMemberInviteService } from './service/ProjectMemberInvite.servic
 import { ProjectPublicMemberService } from './service/ProjectPublicMember.service';
 import { ProjectFavorite } from './entitys/projectFavorite.entity';
 import { UserModule } from '../user/User.module';
+import { UserService } from '../user/service/User.service';
+import { User } from '../user/entitys/User.entity';
 
 @Module({
   imports: [SequelizeModule.forFeature(
     [
+      User,
       Project,
       ProjectDeployBoard,
       ProjectFavorite,
@@ -36,6 +39,7 @@ import { UserModule } from '../user/User.module';
     ])
   ],
   providers: [
+    UserService,
     ProjectService,
     ProjectDeployBoardService,
     ProjectFavoriteService,

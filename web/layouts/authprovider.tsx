@@ -15,7 +15,7 @@ const AuthProvider: React.FC<IProps> = ({ children }) => {
     const dispatch = useDispatch();
     const info = useSelector(selectInfo);
     const { data, error } = useSWR<IData<IInfo>>('me', (url: string) =>
-        authService.getUser<IData<IInfo>>(url),
+        authService.getUser<IData<IInfo>>(),
     );
 
     useEffect(() => {

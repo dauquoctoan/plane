@@ -11,12 +11,12 @@ import { handleResultSuccess } from 'src/helper/handleresult';
 export class WorkspaceMemberInviteController {
     constructor(private readonly workspaceMemberInviteService: WorkspaceMemberInviteService, private jwtService: JwtService) { }
     @Post()
-    createWorkspaceMemberInvite(@Body() createWorkspaceMemberInviteDto: CreateWorkspaceMemberInviteDto) {
-        return handleResultSuccess(this.workspaceMemberInviteService.create(createWorkspaceMemberInviteDto));
+    async createWorkspaceMemberInvite(@Body() createWorkspaceMemberInviteDto: CreateWorkspaceMemberInviteDto) {
+        return handleResultSuccess(await this.workspaceMemberInviteService.create(createWorkspaceMemberInviteDto));
     }
 
     @Post('creates')
-    createsWorkspaceMemberInvite(@Body() createWorkspaceMemberInvite: CreatesWorkspaceMemberInviteDto) {
+    async createsWorkspaceMemberInvite(@Body() createWorkspaceMemberInvite: CreatesWorkspaceMemberInviteDto) {
         const lsMember: CreateWorkspaceMemberInviteDto[] = Object.keys(createWorkspaceMemberInvite).map((key) => {
             const email = createWorkspaceMemberInvite[key].email;
             const role = createWorkspaceMemberInvite[key].role;
@@ -29,7 +29,7 @@ export class WorkspaceMemberInviteController {
                 }, { expiresIn: process.env.TOKEN_TOKEN_EXPIRATION })
             };
         })
-        return handleResultSuccess(this.workspaceMemberInviteService.creates(lsMember));
+        return handleResultSuccess(await this.workspaceMemberInviteService.createsWorkspaceMemberInviteService(lsMember));
     }
 
     @Get()
