@@ -9,15 +9,15 @@ const TabsIssue = () => {
 
     const customeLink: LinkProps[] = [
         {
-            href: `/${info?.workspace?.name}/workspace-views/assigned`,
+            href: `/${info?.workspace?.slug}/workspace-views/assigned`,
             nickname: 'workspace-views-assigned',
         },
         {
-            href: `/${info?.workspace?.name}/workspace-views/created`,
+            href: `/${info?.workspace?.slug}/workspace-views/created`,
             nickname: 'workspace-views-created',
         },
         {
-            href: `/${info?.workspace?.name}/workspace-views/subscribed`,
+            href: `/${info?.workspace?.slug}/workspace-views/subscribed`,
             nickname: 'workspace-views-subscribed',
         },
     ];
@@ -36,7 +36,7 @@ const TabsIssue = () => {
                     changeRoute(
                         customeLink[e - 1]
                             ? customeLink[e - 1].href
-                            : `/${info?.workspace?.name}/workspace-views/all-issues`,
+                            : `/${info?.workspace?.slug}/workspace-views/all-issues`,
                     );
                 }}
             />

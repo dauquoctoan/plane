@@ -6,18 +6,20 @@ import sequelize from 'sequelize';
 
 @Table
 export class TeamMember extends Model<TeamMember> {
+    @Column({ type: sequelize.UUID, defaultValue: sequelize.UUIDV4, allowNull: false, primaryKey: true })
+    id: string;
     /**
     * ! table TeamMember
     * @ForeignKey Workspace, Team, User;
     */
 
     @ForeignKey(() => Workspace)
-    @Column({ allowNull: false })
-    workspace_id: number;
+    @Column({ type: sequelize.UUID, allowNull: false })
+    workspace_id: string;
 
     @ForeignKey(() => Team)
-    @Column({ allowNull: false })
-    team_id: number;
+    @Column({ type: sequelize.UUID, allowNull: false })
+    team_id: string;
 
     @ForeignKey(() => User)
     @Column({ allowNull: false, type: sequelize.UUID })

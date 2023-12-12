@@ -5,6 +5,9 @@ import { Project } from './Project.entity';
 
 @Table
 export class ProjectPublicMember extends Model<ProjectPublicMember> {
+    @Column({ type: sequelize.UUID, defaultValue: sequelize.UUIDV4, allowNull: false, primaryKey: true })
+    id: string;
+
     @ForeignKey(() => User)
     @Column({ allowNull: false, type: sequelize.UUID })
     member: string;

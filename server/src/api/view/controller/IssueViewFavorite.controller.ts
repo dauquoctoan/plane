@@ -21,16 +21,16 @@ export class IssueViewFavoriteController {
 
     @Get(':id')
     findOne(@Query('id') id: string) {
-        return handleResultSuccess(this.issueViewFavorite.findOneById(+id));
+        return handleResultSuccess(this.issueViewFavorite.findOneById(id));
     }
 
     @Patch(':id')
     update(@Query('id') id: string, @Body() globalView: UpdateIssueViewFavoriteDto) {
-        return handleResultSuccess(this.issueViewFavorite.updateById(+id, globalView));
+        return handleResultSuccess(this.issueViewFavorite.updateById(id, globalView));
     }
 
     @Delete(':id')
     remove(@Query("id") id?: string) {
-        return handleResultSuccess(this.issueViewFavorite.removeById(+id));
+        return handleResultSuccess(this.issueViewFavorite.removeById(id));
     }
 }

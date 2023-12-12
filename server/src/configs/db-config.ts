@@ -13,7 +13,7 @@ export const CONFIG_DB: SequelizeModuleAsyncOptions = {
         database: configService.get<string>('DB_NAME') || 'plane',
         timezone: "+08:00",
         autoLoadModels: true,
-        synchronize: true,//true : production
+        synchronize: false,//true : production
         logging: console.log,
         cache: {
           max: 500,       // Số lượng model được lưu trữ trong bộ nhớ

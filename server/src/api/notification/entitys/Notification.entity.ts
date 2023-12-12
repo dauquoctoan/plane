@@ -6,16 +6,19 @@ import { Workspace } from 'src/api/workspace/entitys/Workspace.entity';
 
 @Table
 export class Notification extends Model<Notification> {
+    @Column({ type: sequelize.UUID, defaultValue: sequelize.UUIDV4, allowNull: false, primaryKey: true })
+    id: string;
+
     @ForeignKey(() => Workspace)
-    @Column({ allowNull: false })
-    workspace_id: number;
+    @Column({ type: sequelize.UUID, allowNull: false })
+    workspace_id: string;
 
     @BelongsTo(() => Workspace, {foreignKey:'workspace_id'})
     workspace: Workspace;
 
     @ForeignKey(() => Project)
-    @Column
-    project_id: number;
+    @Column({ type: sequelize.UUID, allowNull: true })
+    project_id: string;
 
     @BelongsTo(() => Project)
     project: Project;

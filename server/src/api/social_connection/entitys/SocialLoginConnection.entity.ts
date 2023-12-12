@@ -6,6 +6,9 @@ import { INVALID_MEDIUM } from 'src/constants/message-constant';
 
 @Table
 export class SocialLoginConnection extends Model<SocialLoginConnection> {
+    @Column({ type: sequelize.UUID, defaultValue: sequelize.UUIDV4, allowNull: false, primaryKey: true })
+    id: string;
+
     @ForeignKey(() => User)
     @Column({ allowNull: false, type: sequelize.UUID })
     user_id: string;

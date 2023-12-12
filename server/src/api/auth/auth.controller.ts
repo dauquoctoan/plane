@@ -55,17 +55,17 @@ export class AuthController {
 
   @Get(':id')
   findOne(@Param('id') id: string) {
-    return handleResultSuccess(this.authService.findOne(+id));
+    return handleResultSuccess(this.authService.findOne(id));
   }
 
   @Patch(':id')
   update(@Param('id') id: string, @Body() updateAuthDto: UpdateAuthDto) {
-    return handleResultSuccess(this.authService.update(+id, updateAuthDto));
+    return handleResultSuccess(this.authService.update(id, updateAuthDto));
   }
 
   @Delete(':id')
   remove(@Param('id') id: string) {
-    return handleResultSuccess(this.authService.remove(+id));
+    return handleResultSuccess(this.authService.remove(id));
   }
 
   createToken(payload) {

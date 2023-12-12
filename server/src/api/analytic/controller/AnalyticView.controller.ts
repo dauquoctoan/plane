@@ -20,16 +20,16 @@ export class AnalyticViewController {
 
     @Get(':id')
     findOne(@Param('id') id: string) {
-        return handleResultSuccess(this.analyticViewService.findOneById(+id));
+        return handleResultSuccess(this.analyticViewService.findOneById(id));
     }
 
     @Patch(':id')
     update(@Param('id') id: string, @Body() analytic: UpdateAnalyticViewDto) {
-        return handleResultSuccess(this.analyticViewService.updateById(+id, analytic));
+        return handleResultSuccess(this.analyticViewService.updateById(id, analytic));
     }
 
     @Delete(':id')
     remove(@Param('id') id: string) {
-        return handleResultSuccess(this.analyticViewService.removeById(+id));
+        return handleResultSuccess(this.analyticViewService.removeById(id));
     }
 }

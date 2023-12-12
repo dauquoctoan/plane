@@ -21,8 +21,8 @@ export class IssueViewFavorite extends Model<IssueViewFavorite> {
     user: User;
 
     @ForeignKey(() => IssueView)
-    @Column
-    view: number;
+    @Column({ type: sequelize.UUID, allowNull: true })
+    view: string;
 
     @BelongsTo(() => IssueView)
     issue_view: IssueView;

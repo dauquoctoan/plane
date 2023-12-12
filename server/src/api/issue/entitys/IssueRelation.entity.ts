@@ -2,19 +2,23 @@ import { BelongsTo, Column, ForeignKey, Is, Model, Table } from 'sequelize-types
 import { Issue } from './Issue.entity';
 import { RELATION } from 'src/constants/entity-constant';
 import { INVALID_RELATION } from 'src/constants/message-constant';
+import sequelize from 'sequelize';
 
 @Table
 export class IssueRelation extends Model<IssueRelation> {
+    @Column({ type: sequelize.UUID, defaultValue: sequelize.UUIDV4, allowNull: false, primaryKey: true })
+    id: string;
+
     @ForeignKey(() => Issue)
-    @Column
-    issue_id: number;
+    @Column({ type: sequelize.UUID, allowNull: true })
+    issue_id: string;
 
     @BelongsTo(() => Issue)
     issue: Issue;
 
     @ForeignKey(() => Issue)
-    @Column
-    related_issue_id: number;
+    @Column({ type: sequelize.UUID, allowNull: true })
+    related_issue_id: string;
 
     @BelongsTo(() => Issue)
     related_issue: Issue;

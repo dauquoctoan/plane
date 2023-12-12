@@ -47,7 +47,7 @@ const CreateLabel: React.FC<IPropsCreateLabel> = ({
                             color: data.color,
                             name: data.name,
                             workspace_id: info?.last_workspace_id,
-                            project_id: +projectId,
+                            project_id: projectId,
                         });
 
                         if (result) {

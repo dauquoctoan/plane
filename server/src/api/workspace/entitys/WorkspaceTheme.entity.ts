@@ -5,18 +5,20 @@ import sequelize from 'sequelize';
 
 @Table
 export class WorkspaceTheme extends Model<WorkspaceTheme> {
+    @Column({ type: sequelize.UUID, defaultValue: sequelize.UUIDV4, allowNull: false, primaryKey: true })
+    id: string;
     /**
     * ! WorkspaceTheme
     * @ForeignKey Workspace, User
     */
 
     @ForeignKey(() => Workspace)
-    @Column({ allowNull: false })
-    workspace_id: number;
+    @Column({ type: sequelize.UUID, allowNull: false })
+    workspace_id: string;
 
     @ForeignKey(() => User)
     @Column({ allowNull: false, type: sequelize.UUID })
-    actor: number;
+    actor: string;
 
     /* ================================================== */
 

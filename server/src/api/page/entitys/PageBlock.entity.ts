@@ -2,19 +2,23 @@ import { BelongsTo, Column, DataType, ForeignKey, Length, Model, Table } from 's
 import { Issue } from 'src/api/issue/entitys/Issue.entity';
 import { SORT_ORDER } from 'src/constants/entity-constant';
 import { Page } from './Page.entity';
+import sequelize from 'sequelize';
 
 @Table
 export class PageBlock extends Model<PageBlock> {
+    @Column({ type: sequelize.UUID, defaultValue: sequelize.UUIDV4, allowNull: false, primaryKey: true })
+    id: string;
+
     @ForeignKey(() => Page)
-    @Column({ allowNull: false })
-    page_id: number;
+    @Column({ type: sequelize.UUID, allowNull: true })
+    page_id: string;
 
     @BelongsTo(() => Page)
     page: Page;
 
     @ForeignKey(() => Issue)
-    @Column
-    issue_id: number;
+    @Column({ type: sequelize.UUID, allowNull: true })
+    issue_id: string;
 
     @BelongsTo(() => Issue)
     issue: Issue;

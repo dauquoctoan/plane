@@ -7,7 +7,7 @@ import { IData, Istate } from '@/types';
 import { convertDataOptions } from '@/helpers';
 
 interface IProps {
-    projectId?: number;
+    projectId?: string;
     stateId: string;
     onChange?: (id: string | number) => void;
     beforeUpdateValue: (e: string) => Promise<any>;
@@ -21,7 +21,7 @@ const SelectStateTable: React.FC<IProps> = ({
 }) => {
     const { data: states } = useSWR(
         () => STATES_KEY(projectId),
-        () => issueService.getState<IData<Istate[]>>(projectId || 0),
+        () => issueService.getState<IData<Istate[]>>(projectId || ''),
     );
     return (
         <Select

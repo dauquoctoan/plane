@@ -8,18 +8,19 @@ import sequelize from 'sequelize';
 
 @Table
 export class IssueComment extends Model<IssueComment> {
-
+    @Column({ type: sequelize.UUID, defaultValue: sequelize.UUIDV4, allowNull: false, primaryKey: true })
+    id: string;
     /**
     * ! FK
     */
 
     @ForeignKey(() => User)
-    @Column({ type: sequelize.UUID })
+    @Column({ type: sequelize.UUID, allowNull: true })
     actor: string;
 
     @ForeignKey(() => Issue)
-    @Column
-    issue_id: number;
+    @Column({ type: sequelize.UUID, allowNull: true })
+    issue_id: string;
 
     /**
     * ! RELATIONSHIP

@@ -1,3 +1,4 @@
+import sequelize from 'sequelize';
 import { BelongsTo, Column, DataType, ForeignKey, Is, Length, Model, Table } from 'sequelize-typescript';
 import { Workspace } from 'src/api/workspace/entitys/Workspace.entity';
 import { ACCESS } from 'src/constants/entity-constant';
@@ -5,6 +6,8 @@ import { INVALID_ACCESS } from 'src/constants/message-constant';
 
 @Table
 export class GlobalView extends Model<GlobalView> {
+    @Column({ type: sequelize.UUID, defaultValue: sequelize.UUIDV4, allowNull: false, primaryKey: true })
+    id: string;
     /**
     * ! table GlobalView
     * @ForeignKey Workspace
@@ -13,14 +16,14 @@ export class GlobalView extends Model<GlobalView> {
     /* ================================================== */
 
     @ForeignKey(() => Workspace)
-    @Column({ allowNull: false })
-    workspace_id: number;
+    @Column({ type: sequelize.UUID, allowNull: false })
+    workspace_id: string;
 
     @BelongsTo(() => Workspace,{foreignKey:'workspace_id'})
     workspace: Workspace;
 
     @Length({ max: 255 })
-    @Column({ allowNull: false })
+    @Column({ type: sequelize.UUID, allowNull: false })
     name: string;
 
     @Column

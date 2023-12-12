@@ -35,16 +35,15 @@ import { validEmail } from 'src/helper/regex';
 
 @Table
 export class User extends Model<User> {
+    @Column({ type: sequelize.UUID, defaultValue: sequelize.UUIDV4, allowNull: false, primaryKey: true })
+    id: string;
     /**
     * ! PK
     */
 
-    @Column({ type: sequelize.UUID, defaultValue: sequelize.UUIDV4, allowNull: false, primaryKey: true })
-    id: string;
-
     @ForeignKey(() => Workspace)
-    @Column({ allowNull: true })
-    last_workspace_id: number;
+    @Column({ type: sequelize.UUID, allowNull: true })
+    last_workspace_id: string;
 
     @BelongsTo(() => Workspace, { foreignKey: 'last_workspace_id', onDelete:'CASCADE' })
     workspace: Workspace;

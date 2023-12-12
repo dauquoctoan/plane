@@ -7,9 +7,12 @@ import sequelize from 'sequelize';
 
 @Table
 export class IssueVote extends Model<IssueVote> {
+    @Column({ type: sequelize.UUID, defaultValue: sequelize.UUIDV4, allowNull: false, primaryKey: true })
+    id: string;
+
     @ForeignKey(() => Issue)
-    @Column({ allowNull: false })
-    issue: number;
+    @Column({ type: sequelize.UUID, allowNull: true })
+    issue: string;
 
     @ForeignKey(() => User)
     @Column({ allowNull: false, type: sequelize.UUID })

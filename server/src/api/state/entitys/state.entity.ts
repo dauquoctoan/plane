@@ -1,4 +1,5 @@
 import { ApiTags } from '@nestjs/swagger';
+import sequelize from 'sequelize';
 import { Column, Model, Table, Length, Is, DataType, HasMany, ForeignKey, BelongsTo, } from 'sequelize-typescript';
 import { Issue } from 'src/api/issue/entitys/Issue.entity';
 import { Project } from 'src/api/project/entitys/Project.entity';
@@ -9,13 +10,18 @@ import { INVALID_GROUP } from 'src/constants/message-constant';
 @Table
 @ApiTags('workspace')
 export class State extends Model<State> {
+    @Column({ type: sequelize.UUID, defaultValue: sequelize.UUIDV4, allowNull: false, primaryKey: true })
+    id: string;
+
     @ForeignKey(() => Project)
-    project_id: number;
+    @Column({ type: sequelize.UUID, allowNull: true })
+    project_id: string;
 
     @BelongsTo(() => Project, 'project_id')
     project_detail: string;
 
     @ForeignKey(() => User)
+    @Column({ type: sequelize.UUID, allowNull: true })
     created_by: string;
 
     @BelongsTo(() => User, 'created_by')

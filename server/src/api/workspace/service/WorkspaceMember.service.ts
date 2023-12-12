@@ -20,7 +20,7 @@ export class WorkspaceMemberService extends BaseService<WorkspaceMember> {
         super(repository);
     }
 
-    async createWorkspaceMemberWhenJoin(workspace_id:number, token:string){
+    async createWorkspaceMemberWhenJoin(workspace_id:string, token:string){
         try {
             const info = this.jwtService.verify<{email:string; role: number}>(token);
             if(info && workspace_id){

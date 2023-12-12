@@ -20,16 +20,16 @@ export class ProjectDeployBoardController {
 
     @Get(':id')
     findOneProjectDeployBoard(@Param('id') id: string) {
-        return handleResultSuccess(this.workspaceService.findOneById(+id));
+        return handleResultSuccess(this.workspaceService.findOneById(id));
     }
 
     @Patch(':id')
     updateProjectDeployBoard(@Param('id') id: string, @Body() project: UpdateProjectDeployBoardDto) {
-        return handleResultSuccess(this.workspaceService.updateById(+id, project));
+        return handleResultSuccess(this.workspaceService.updateById(id, project));
     }
 
     @Delete(':id')
     removeProjectDeployBoard(@Param("id") id?: string) {
-        return handleResultSuccess(this.workspaceService.removeById(+id));
+        return handleResultSuccess(this.workspaceService.removeById(id));
     }
 }

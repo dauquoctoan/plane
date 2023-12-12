@@ -22,16 +22,16 @@ export class IssueViewController {
 
     @Get(':id')
     findOne(@Query('id') id: string) {
-        return handleResultSuccess(this.issueView.findOneById(+id));
+        return handleResultSuccess(this.issueView.findOneById(id));
     }
 
     @Patch(':id')
     update(@Query('id') id: string, @Body() globalView: UpdateIssueViewDto) {
-        return handleResultSuccess(this.issueView.updateById(+id, globalView));
+        return handleResultSuccess(this.issueView.updateById(id, globalView));
     }
 
     @Delete(':id')
     remove(@Query("id") id?: string) {
-        return handleResultSuccess(this.issueView.removeById(+id));
+        return handleResultSuccess(this.issueView.removeById(id));
     }
 }

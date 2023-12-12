@@ -6,19 +6,21 @@ import sequelize from 'sequelize';
 
 @Table
 export class IssueActivity extends Model<IssueActivity> {
+    @Column({ type: sequelize.UUID, defaultValue: sequelize.UUIDV4, allowNull: false, primaryKey: true })
+    id: string;
     /**
     * ! FK
     */
     @ForeignKey(() => Issue)
-    @Column
-    issue_id: number;
+    @Column({ type: sequelize.UUID, allowNull: true })
+    issue_id: string;
 
     @ForeignKey((() => IssueComment))
-    @Column
-    issue_comment_id: number;
+    @Column({ type: sequelize.UUID, allowNull: true })
+    issue_comment_id: string;
 
     @ForeignKey(() => User)
-    @Column({ type: sequelize.UUID })
+    @Column({ type: sequelize.UUID, allowNull: true })
     actor: string;
 
     /**

@@ -1,9 +1,12 @@
 import { Column, DataType, HasMany, Length, Model, Table } from 'sequelize-typescript';
 import { EstimatePoint } from './EstimatePoint.entity';
 import { Project } from 'src/api/project/entitys/Project.entity';
+import sequelize from 'sequelize';
 
 @Table
 export class Estimate extends Model<Estimate> {
+    @Column({ type: sequelize.UUID, defaultValue: sequelize.UUIDV4, allowNull: false, primaryKey: true })
+    id: string;
     /**
     * ! RELATIONSHIP
     */

@@ -41,7 +41,7 @@ export class ProjectController {
     @UseGuards(AuthGuard)
     @Get('by-id:id')
     async findOneProject(@Param('id') id: string) {
-        return handleResultSuccess(await this.projectService.findOneById(+id));
+        return handleResultSuccess(await this.projectService.findOneById(id));
     }
 
     @UseGuards(AuthGuard)
@@ -52,11 +52,11 @@ export class ProjectController {
 
     @Patch(':id')
     updateProject(@Param('id') id: string, @Body() project: UpdateProjectDto) {
-        return handleResultSuccess(this.projectService.updateById(+id, project));
+        return handleResultSuccess(this.projectService.updateById(id, project));
     }
 
     @Delete(':id')
     removeProject(@Param("id") id?: string) {
-        return handleResultSuccess(this.projectService.removeById(+id));
+        return handleResultSuccess(this.projectService.removeById(id));
     }
 }

@@ -4,12 +4,12 @@ import { User } from 'src/api/user/entitys/User.entity';
 import sequelize from 'sequelize';
 
 @Table
-export class IssueAssignee extends Model<IssueAssignee> {
+export class IssueAssignee extends Model<IssueAssignee> {;
     @ForeignKey(() => Issue)
-    @Column
-    issue_id: number;
+    @Column({ type: sequelize.UUID, allowNull: true })
+    issue_id: string;
 
     @ForeignKey(() => User)
-    @Column({ type: sequelize.UUID })
+    @Column({ type: sequelize.UUID, allowNull: true })
     assignee: string;
 }

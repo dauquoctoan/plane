@@ -6,6 +6,9 @@ import { text } from 'stream/consumers';
 
 @Table
 export class Test1 extends Model<Test1> {
+    @Column({ type: sequelize.UUID, defaultValue: sequelize.UUIDV4, allowNull: false, primaryKey: true })
+    id: string;
+    
     @HasMany(() => Test, 'authorId')
     writtenBooks: Test[];
 

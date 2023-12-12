@@ -6,8 +6,8 @@ import sequelize from 'sequelize';
 @Table
 export class IssueSubscriber extends Model<IssueSubscriber> {
     @ForeignKey(() => Issue)
-    @Column({ allowNull: false })
-    issue_id: number;
+    @Column({ type: sequelize.UUID, allowNull: true })
+    issue_id: string;
 
     @ForeignKey(() => User)
     @Column({ allowNull: false, type: sequelize.UUID })

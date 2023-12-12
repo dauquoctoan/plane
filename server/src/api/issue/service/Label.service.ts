@@ -24,7 +24,7 @@ export class LabelService extends BaseService<Label> {
         }
     }
 
-    async findLabelByWorspaceIdAndProjectId(projectId: number) {
+    async findLabelByWorspaceIdAndProjectId(projectId: string) {
         try {
             return await this.repository.findAll({ where: { project_id: projectId } });
         } catch (error) {

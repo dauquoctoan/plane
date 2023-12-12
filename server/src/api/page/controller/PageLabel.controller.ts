@@ -20,16 +20,16 @@ export class PageLabelController {
 
     @Get(':id')
     findOne(@Param('id') id: string) {
-        return handleResultSuccess(this.pageLabelService.findOneById(+id));
+        return handleResultSuccess(this.pageLabelService.findOneById(id));
     }
 
     @Patch(':id')
     update(@Param('id') id: string, @Body() updateWorkspaceDto: UpdatePageLabelDto) {
-        return handleResultSuccess(this.pageLabelService.updateById(+id, updateWorkspaceDto));
+        return handleResultSuccess(this.pageLabelService.updateById(id, updateWorkspaceDto));
     }
 
     @Delete(':id')
     remove(@Param('id') id: string) {
-        return handleResultSuccess(this.pageLabelService.removeById(+id));
+        return handleResultSuccess(this.pageLabelService.removeById(id));
     }
 }

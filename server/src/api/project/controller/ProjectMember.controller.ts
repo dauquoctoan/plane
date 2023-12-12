@@ -21,16 +21,16 @@ export class ProjectMemberController {
 
     @Get(':id')
     findOneprojectMember(@Param('id') id: string) {
-        return handleResultSuccess(this.projectMemberService.findOneById(+id));
+        return handleResultSuccess(this.projectMemberService.findOneById(id));
     }
 
     @Patch(':id')
     updateprojectMember(@Param('id') id: string, @Body() project: UpdateProjectMemberDto) {
-        return handleResultSuccess(this.projectMemberService.updateById(+id, project));
+        return handleResultSuccess(this.projectMemberService.updateById(id, project));
     }
 
     @Delete(':id')
     removeprojectMember(@Param("id") id?: string) {
-        return handleResultSuccess(this.projectMemberService.removeById(+id));
+        return handleResultSuccess(this.projectMemberService.removeById(id));
     }
 }

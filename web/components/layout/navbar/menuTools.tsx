@@ -49,7 +49,7 @@ const MenuTools = () => {
         LS_PROJECT_KEY(info?.last_workspace_id),
         () =>
             projectService.getProjects<IData<IProject[]>>(
-                info?.last_workspace_id || 0,
+                info?.last_workspace_id || '',
             ),
     );
 

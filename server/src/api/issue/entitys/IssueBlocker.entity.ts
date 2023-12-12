@@ -1,18 +1,21 @@
 import { BelongsTo, Column, ForeignKey, Model, Table } from 'sequelize-typescript';
 import { Issue } from './Issue.entity';
+import sequelize from 'sequelize';
 
 @Table
 export class IssueBlocker extends Model<IssueBlocker> {
+    @Column({ type: sequelize.UUID, defaultValue: sequelize.UUIDV4, allowNull: false, primaryKey: true })
+    id: string;
     /**
     * ! FK
     */
     @ForeignKey(() => Issue)
-    @Column
-    block: number;
+    @Column({ type: sequelize.UUID, allowNull: true })
+    block: string;
 
     @ForeignKey(() => Issue)
-    @Column
-    blocked_by: number;
+    @Column({ type: sequelize.UUID, allowNull: true })
+    blocked_by: string;
 
     /**
     * ! RELATIONSHIP

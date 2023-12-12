@@ -6,8 +6,11 @@ import sequelize from 'sequelize';
 
 @Table
 export class Cycle extends Model<Cycle> {
+    @Column({ type: sequelize.UUID, defaultValue: sequelize.UUIDV4, allowNull: false, primaryKey: true })
+    id: string;
+
     @ForeignKey(() => User)
-    @Column({ type: sequelize.UUID })
+    @Column({ type: sequelize.UUID, allowNull: true })
     owned_by: string;
 
     /* ================================================== */

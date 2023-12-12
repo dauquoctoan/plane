@@ -48,16 +48,16 @@ export class WorkspaceController {
 
   @Get(":id")
   async findOneWorkSpace(@Param('id') id: string) {
-    return handleResultSuccess(await this.workspaceService.findOneById(+id));
+    return handleResultSuccess(await this.workspaceService.findOneById(id));
   }
 
   @Patch(":id")
   updateWorkSpace(@Param('id') id: string, @Body() updateWorkspaceDto: UpdateWorkspaceDto) {
-    return handleResultSuccess(this.workspaceService.updateById(+id, updateWorkspaceDto));
+    return handleResultSuccess(this.workspaceService.updateById(id, updateWorkspaceDto));
   }
 
   @Delete(":id")
   removeWorkSpace(@Param('id') id: string) {
-    return handleResultSuccess(this.workspaceService.removeById(+id));
+    return handleResultSuccess(this.workspaceService.removeById(id));
   }
 }

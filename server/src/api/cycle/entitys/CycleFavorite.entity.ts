@@ -5,17 +5,19 @@ import sequelize from 'sequelize';
 
 @Table
 export class CycleFavorite extends Model<CycleFavorite> {
+    @Column({ type: sequelize.UUID, defaultValue: sequelize.UUIDV4, allowNull: false, primaryKey: true })
+    id: string;
     /**
     * !FK
     */
 
     @ForeignKey(() => User)
-    @Column({ type: sequelize.UUID })
+    @Column({ type: sequelize.UUID, allowNull: true })
     user_id: string;
 
     @ForeignKey(() => Cycle)
-    @Column
-    cycle_id: number;
+    @Column({ type: sequelize.UUID, allowNull: true })
+    cycle_id: string;
 
     /**
     * ! RELATIONSHIP

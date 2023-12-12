@@ -20,16 +20,16 @@ export class EstimateController {
 
     @Get(':id')
     findOne(@Param('id') id: string) {
-        return handleResultSuccess(this.estimateService.findOneById(+id));
+        return handleResultSuccess(this.estimateService.findOneById(id));
     }
 
     @Patch(':id')
     update(@Param('id') id: string, @Body() estimate: UpdateEstimateDto) {
-        return handleResultSuccess(this.estimateService.updateById(+id, estimate));
+        return handleResultSuccess(this.estimateService.updateById(id, estimate));
     }
 
     @Delete(':id')
     remove(@Param('id') id: string) {
-        return handleResultSuccess(this.estimateService.removeById(+id));
+        return handleResultSuccess(this.estimateService.removeById(id));
     }
 }

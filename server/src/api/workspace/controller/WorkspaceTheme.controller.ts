@@ -21,16 +21,16 @@ export class WorkspaceThemeController {
 
     @Get(":id")
     findOneWorkspaceMemberTheme(@Param('id') id: string) {
-        return handleResultSuccess(this.workspaceMemberThemeService.findOneById(+id));
+        return handleResultSuccess(this.workspaceMemberThemeService.findOneById(id));
     }
 
     @Patch(":id")
     updateWorkspaceMemberTheme(@Param('id') id: string, @Body() updateWorkspaceMemberThemeDto: UpdateWorkspaceThemeDto) {
-        return handleResultSuccess(this.workspaceMemberThemeService.updateById(+id, updateWorkspaceMemberThemeDto));
+        return handleResultSuccess(this.workspaceMemberThemeService.updateById(id, updateWorkspaceMemberThemeDto));
     }
 
     @Delete(":id")
     removeWorkspaceMemberTheme(@Param('id') id: string) {
-        return handleResultSuccess(this.workspaceMemberThemeService.removeById(+id));
+        return handleResultSuccess(this.workspaceMemberThemeService.removeById(id));
     }
 }

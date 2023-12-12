@@ -51,11 +51,11 @@ export class StateService extends BaseService<State> {
         ])
     }
 
-    async findState(id: number, userId: string) {
+    async findState(id: string, userId: string) {
         return await this.findAll({
             where: {
                 [Op.or]: [
-                    { project_id: +id },
+                    { project_id: id },
                     { project_id: null },
                 ],
                 [Op.and]: {

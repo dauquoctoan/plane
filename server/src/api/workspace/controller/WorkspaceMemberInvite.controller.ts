@@ -39,16 +39,16 @@ export class WorkspaceMemberInviteController {
 
     @Get(":id")
     findOneWorkspaceMemberInvite(@Param('id') id: string) {
-        return handleResultSuccess(this.workspaceMemberInviteService.findOneById(+id));
+        return handleResultSuccess(this.workspaceMemberInviteService.findOneById(id));
     }
 
     @Patch(":id")
     updateWorkspaceMemberInvite(@Param('id') id: string, @Body() updateWorkspaceMemberInviteDto: UpdateWorkspaceMemberInviteDto) {
-        return handleResultSuccess(this.workspaceMemberInviteService.updateById(+id, updateWorkspaceMemberInviteDto));
+        return handleResultSuccess(this.workspaceMemberInviteService.updateById(id, updateWorkspaceMemberInviteDto));
     }
 
     @Delete(":id")
     removeWorkspaceMemberInvite(@Param('id') id: string) {
-        return handleResultSuccess(this.workspaceMemberInviteService.removeById(+id));
+        return handleResultSuccess(this.workspaceMemberInviteService.removeById(id));
     }
 }

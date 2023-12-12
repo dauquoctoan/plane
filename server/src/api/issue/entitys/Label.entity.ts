@@ -10,9 +10,12 @@ import sequelize from 'sequelize';
 
 @Table
 export class Label extends Model<Label> {
+    @Column({ type: sequelize.UUID, defaultValue: sequelize.UUIDV4, allowNull: false, primaryKey: true })
+    id: string;
+
     @ForeignKey(() => Project)
-    @Column
-    project_id: number;
+    @Column({ type: sequelize.UUID, allowNull: true })
+    project_id: string;
 
     @BelongsTo(() => Project, { foreignKey: 'project_id' })
     project_info: Project;
@@ -25,8 +28,8 @@ export class Label extends Model<Label> {
     user_info: User;
 
     @ForeignKey(() => Workspace)
-    @Column
-    workspace_id: number;
+    @Column({ type: sequelize.UUID, allowNull: true })
+    workspace_id: string;
 
     @BelongsTo(() => Workspace, { foreignKey: 'workspace_id' })
     worspace_info: Workspace;

@@ -6,9 +6,12 @@ import { DEFAULT_VIEWS } from 'src/constants/entity-constant';
 
 @Table
 export class ProjectDeployBoard extends Model<ProjectDeployBoard> {
+    @Column({ type: sequelize.UUID, defaultValue: sequelize.UUIDV4, allowNull: false, primaryKey: true })
+    id: string;
+
     @ForeignKey(() => Inbox)
-    @Column
-    inbox_id: number;
+    @Column({ type: sequelize.UUID, allowNull: true })
+    inbox_id: string;
 
     @BelongsTo(() => Inbox)
     inbox: Inbox;

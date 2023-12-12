@@ -11,8 +11,8 @@ export class ExporterHistory extends Model {
     */
 
     @ForeignKey(() => Workspace)
-    @Column
-    workspace_id: number;
+    @Column({ type: sequelize.UUID, allowNull: true })
+    workspace_id: string;
 
     /**
     * ! RELATIONSHIP

@@ -1,9 +1,12 @@
 import { Column, DataType, HasMany, Length, Model, Table } from 'sequelize-typescript';
 import { InboxIssue } from './InboxIssue.entity';
 import { ProjectDeployBoard } from 'src/api/project/entitys/ProjectDeployBoard.entity';
+import sequelize from 'sequelize';
 
 @Table
 export class Inbox extends Model<Inbox> {
+    @Column({ type: sequelize.UUID, defaultValue: sequelize.UUIDV4, allowNull: false, primaryKey: true })
+    id: string;
     /**
     * ! RELATIONSHIP
     */

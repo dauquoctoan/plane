@@ -20,16 +20,16 @@ export class InboxController {
 
     @Get(':id')
     findOne(@Param('id') id: string) {
-        return handleResultSuccess(this.inboxService.findOneById(+id));
+        return handleResultSuccess(this.inboxService.findOneById(id));
     }
 
     @Patch(':id')
     update(@Param('id') id: string, @Body() updateWorkspaceDto: UpdateInboxDto) {
-        return handleResultSuccess(this.inboxService.updateById(+id, updateWorkspaceDto));
+        return handleResultSuccess(this.inboxService.updateById(id, updateWorkspaceDto));
     }
 
     @Delete(':id')
     remove(@Param('id') id: string) {
-        return handleResultSuccess(this.inboxService.removeById(+id));
+        return handleResultSuccess(this.inboxService.removeById(id));
     }
 }

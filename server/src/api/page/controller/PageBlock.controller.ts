@@ -20,16 +20,16 @@ export class PageBlockBlockController {
 
     @Get(':id')
     findOne(@Param('id') id: string) {
-        return handleResultSuccess(this.pageBlockService.findOneById(+id));
+        return handleResultSuccess(this.pageBlockService.findOneById(id));
     }
 
     @Patch(':id')
     update(@Param('id') id: string, @Body() updateWorkspaceDto: UpdatePageBlockDto) {
-        return handleResultSuccess(this.pageBlockService.updateById(+id, updateWorkspaceDto));
+        return handleResultSuccess(this.pageBlockService.updateById(id, updateWorkspaceDto));
     }
 
     @Delete(':id')
     remove(@Param('id') id: string) {
-        return handleResultSuccess(this.pageBlockService.removeById(+id));
+        return handleResultSuccess(this.pageBlockService.removeById(id));
     }
 }

@@ -75,7 +75,7 @@ const CreateIssue: React.FC<IProps> = ({
 
     const { data: states } = useSWR(
         () => STATES_KEY(watch('project')),
-        () => issueService.getState<IData<Istate[]>>(+watch('project')),
+        () => issueService.getState<IData<Istate[]>>(watch('project')),
     );
 
     function closeModal() {
@@ -123,12 +123,11 @@ const CreateIssue: React.FC<IProps> = ({
                                 await issueService.createIssue<IIssue>({
                                     name: data.name,
                                     description_html: data.desc,
-                                    project_id:
-                                        Number(data.project) || projects[0].id,
+                                    project_id: data.project || projects[0].id,
                                     workspace_id: info?.last_workspace_id,
                                     is_draft: isDraft,
                                     priority: data.priority,
-                                    state_id: Number(data.state),
+                                    state_id: data.state,
                                     start_date: moment(
                                         data.start_date,
                                     ).format(),

@@ -3,11 +3,9 @@ import { InjectModel } from '@nestjs/sequelize';
 import { BaseService } from 'src/api/Base.service';
 import { Issue } from '../entitys/Issue.entity';
 import { handleResultError } from 'src/helper/handleresult';
-import { messageCreateFail, messageFindFail, messageUpdateFail } from 'src/helper/message.create';
-import { IssueAssignee } from '../entitys/IssueAssignee.entity';
+import { messageCreateFail, messageFindFail } from 'src/helper/message.create';
 import { User } from 'src/api/user/entitys/User.entity';
-import { CreateIssueDto, QueryIssueDto } from '../dto/Issue.dto';
-import sequelize from 'sequelize';
+import { QueryIssueDto } from '../dto/Issue.dto';
 import { UserService } from 'src/api/user/service/User.service';
 import { State } from 'src/api/state/entitys/State.entity';
 
@@ -41,19 +39,19 @@ export class IssueService extends BaseService<Issue>{
         const user = await this.userService.getUser(userId);
         if(user.last_workspace_id){
             if(assignee && projectId){
-                return this.findIssuesAssign(user.last_workspace_id, +projectId, assignee);
+                return this.findIssuesAssign(user.last_workspace_id, projectId, assignee);
             }
 
             if(projectId){
                 return await this.findIssuesByProject(user.last_workspace_id, +projectId);
             }
 
-            return this.findAllIssues(+user.last_workspace_id);
+            return this.findAllIssues(user.last_workspace_id);
         }
         handleResultError({ message: messageFindFail(this.repository.getTableName()), messageDetail: 'Dont find your workspace' });
     }
     
-    async findIssuesByProject(workspaceId:number, projectId:number){
+    async findIssuesByProject(workspaceId:string, projectId:number){
         try {
             return await this.repository.findAll(
                 {
@@ -74,7 +72,7 @@ export class IssueService extends BaseService<Issue>{
         }
     }
 
-    async findAllIssues(workspaceId:number){
+    async findAllIssues(workspaceId:string){
         try {
             return await this.repository.findAll(
                 {
@@ -92,8 +90,8 @@ export class IssueService extends BaseService<Issue>{
             handleResultError({ message: messageFindFail(this.repository.getTableName()), messageDetail: error });
         }
     }
-
-    async findIssuesAssign(workspaceId:number, projectId:number, userId?:string){
+    last_workspace_id
+    async findIssuesAssign(workspaceId:string, projectId:string, userId?:string){
         try {
             return await this.repository.findAll({
                 where: {project_id: projectId, workspace_id: workspaceId},

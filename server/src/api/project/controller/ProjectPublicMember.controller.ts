@@ -20,16 +20,16 @@ export class ProjectPublicMemberController {
 
     @Get(':id')
     findOneProjectPublicMember(@Param('id') id: string) {
-        return handleResultSuccess(this.projectPublicMemberService.findOneById(+id));
+        return handleResultSuccess(this.projectPublicMemberService.findOneById(id));
     }
 
     @Patch(':id')
     updateProjectPublicMember(@Param('id') id: string, @Body() project: UpdateProjectPublicMemberDto) {
-        return handleResultSuccess(this.projectPublicMemberService.updateById(+id, project));
+        return handleResultSuccess(this.projectPublicMemberService.updateById(id, project));
     }
 
     @Delete(':id')
     removeProjectPublicMember(@Param("id") id?: string) {
-        return handleResultSuccess(this.projectPublicMemberService.removeById(+id));
+        return handleResultSuccess(this.projectPublicMemberService.removeById(id));
     }
 }

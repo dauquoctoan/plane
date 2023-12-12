@@ -6,12 +6,12 @@ import { Test1 } from 'src/api/test1/entities/test1.entity';
 @Table
 export class Test extends Model {
     @ForeignKey(() => Test1)
-    @Column
-    authorId: number;
+    @Column({ type: sequelize.UUID, allowNull: true })
+    authorId: string;
 
     @ForeignKey(() => Test1)
-    @Column
-    proofreaderId: number;
+    @Column({ type: sequelize.UUID, allowNull: true })
+    proofreaderId: string;
 
     @BelongsTo(() => Test1, 'authorId')
     author: Test1;

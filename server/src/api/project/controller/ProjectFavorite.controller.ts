@@ -20,16 +20,16 @@ export class ProjectFavoriteController {
 
     @Get(':id')
     findOneProjectFavorite(@Param('id') id: string) {
-        return handleResultSuccess(this.projectFavoriteService.findOneById(+id));
+        return handleResultSuccess(this.projectFavoriteService.findOneById(id));
     }
 
     @Patch(':id')
     updateProjectFavorite(@Param('id') id: string, @Body() project: UpdateProjectFavoriteDto) {
-        return handleResultSuccess(this.projectFavoriteService.updateById(+id, project));
+        return handleResultSuccess(this.projectFavoriteService.updateById(id, project));
     }
 
     @Delete(':id')
     removeProjectFavorite(@Param("id") id?: string) {
-        return handleResultSuccess(this.projectFavoriteService.removeById(+id));
+        return handleResultSuccess(this.projectFavoriteService.removeById(id));
     }
 }

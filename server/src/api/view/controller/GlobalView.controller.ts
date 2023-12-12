@@ -20,16 +20,16 @@ export class GlobalViewController {
 
     @Get(':id')
     findOne(@Query('id') id: string) {
-        return handleResultSuccess(this.globalView.findOneById(+id));
+        return handleResultSuccess(this.globalView.findOneById(id));
     }
 
     @Patch(':id')
     update(@Query('id') id: string, @Body() globalView: UpdateGlobalViewDto) {
-        return handleResultSuccess(this.globalView.updateById(+id, globalView));
+        return handleResultSuccess(this.globalView.updateById(id, globalView));
     }
 
     @Delete(':id')
     remove(@Query("id") id?: string) {
-        return handleResultSuccess(this.globalView.removeById(+id));
+        return handleResultSuccess(this.globalView.removeById(id));
     }
 }

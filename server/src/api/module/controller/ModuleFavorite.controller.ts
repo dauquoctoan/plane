@@ -21,16 +21,16 @@ export class ModuleFavoriteController {
 
     @Get(':id')
     findOne(@Param('id') id: string) {
-        return handleResultSuccess(this.moduleFavoriteService.findOneById(+id));
+        return handleResultSuccess(this.moduleFavoriteService.findOneById(id));
     }
 
     @Patch(':id')
     update(@Param('id') id: string, @Body() module: UpdateModuleFavoriteDto) {
-        return handleResultSuccess(this.moduleFavoriteService.updateById(+id, module));
+        return handleResultSuccess(this.moduleFavoriteService.updateById(id, module));
     }
 
     @Delete(':id')
     remove(@Param('id') id: string) {
-        return handleResultSuccess(this.moduleFavoriteService.removeById(+id));
+        return handleResultSuccess(this.moduleFavoriteService.removeById(id));
     }
 }

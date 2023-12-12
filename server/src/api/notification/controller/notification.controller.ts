@@ -20,16 +20,16 @@ export class NotificationController {
 
     @Get(':id')
     findOne(@Param('id') id: string) {
-        return handleResultSuccess(this.notificationService.findOneById(+id));
+        return handleResultSuccess(this.notificationService.findOneById(id));
     }
 
     @Patch(':id')
     update(@Param('id') id: string, @Body() updateWorkspaceDto: UpdateNotificationDto) {
-        return handleResultSuccess(this.notificationService.updateById(+id, updateWorkspaceDto));
+        return handleResultSuccess(this.notificationService.updateById(id, updateWorkspaceDto));
     }
 
     @Delete(':id')
     remove(@Param('id') id: string) {
-        return handleResultSuccess(this.notificationService.removeById(+id));
+        return handleResultSuccess(this.notificationService.removeById(id));
     }
 }

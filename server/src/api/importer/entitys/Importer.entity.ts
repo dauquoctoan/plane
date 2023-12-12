@@ -7,6 +7,8 @@ import { INVALID_SERVICE, INVALID_STATUS } from 'src/constants/message-constant'
 
 @Table
 export class Importer extends Model<Importer> {
+    @Column({ type: sequelize.UUID, defaultValue: sequelize.UUIDV4, allowNull: false, primaryKey: true })
+    id: string;
 
     /**
     * !Importer
@@ -21,11 +23,11 @@ export class Importer extends Model<Importer> {
     */
 
     @ForeignKey(() => APIToken)
-    @Column
-    token: number;
+    @Column({ type: sequelize.UUID, allowNull: true })
+    token: string;
 
     @ForeignKey(() => User)
-    @Column({ allowNull: false, type: sequelize.UUID })
+    @Column({ type: sequelize.UUID, allowNull: false })
     initiated_by: string;
 
     /**

@@ -33,16 +33,16 @@ export class StateController {
   @Get('project/:id')
   @UseGuards(AuthGuard)
   async findStateByProject(@Param('id') id: string, @RequestNestjs() request: IAuthRequest) {
-    return handleResultSuccess(await this.stateService.findState(+id, request.user.id));
+    return handleResultSuccess(await this.stateService.findState(id, request.user.id));
   }
 
   @Patch(':id')
   update(@Param('id') id: string, @Body() updateWorkspaceDto: UpdateStateDto) {
-    return handleResultSuccess(this.stateService.updateById(+id, updateWorkspaceDto));
+    return handleResultSuccess(this.stateService.updateById(id, updateWorkspaceDto));
   }
 
   @Delete(':id')
   remove(@Param('id') id: string) {
-    return handleResultSuccess(this.stateService.removeById(+id));
+    return handleResultSuccess(this.stateService.removeById(id));
   }
 }

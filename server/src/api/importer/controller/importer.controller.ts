@@ -21,16 +21,16 @@ export class ImporterController {
 
     @Get(':id')
     findOne(@Param('id') id: string) {
-        return handleResultSuccess(this.importerService.findOneById(+id));
+        return handleResultSuccess(this.importerService.findOneById(id));
     }
 
     @Patch(':id')
     update(@Param('id') id: string, @Body() updateImporterDto: UpdateImporterDto) {
-        return handleResultSuccess(this.importerService.updateById(+id, updateImporterDto));
+        return handleResultSuccess(this.importerService.updateById(id, updateImporterDto));
     }
 
     @Delete(':id')
     remove(@Param('id') id: string) {
-        return handleResultSuccess(this.importerService.removeById(+id));
+        return handleResultSuccess(this.importerService.removeById(id));
     }
 }

@@ -29,6 +29,6 @@ export class IssueController {
     @Put(':id')
     @UseGuards(AuthGuard)
     async update(@Body() issue: UpdateIssueDto, @Param('id') id:string) {
-        return handleResultSuccess(await this.issueService.updateById(+id,issue))
+        return handleResultSuccess(await this.issueService.updateById(id,issue))
     }
 }

@@ -6,8 +6,8 @@ import sequelize from 'sequelize';
 @Table
 export class ModuleMember extends Model<ModuleMember> {
     @ForeignKey(() => Module)
-    @Column({ allowNull: false })
-    module_id: number;
+    @Column({ type: sequelize.UUID, allowNull: true })
+    module_id: string;
 
 
     @ForeignKey(() => User)

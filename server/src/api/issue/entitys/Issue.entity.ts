@@ -22,6 +22,7 @@ import { ModuleIssue } from 'src/api/module/entitys/ModuleIssue.entity';
 import { PageBlock } from 'src/api/page/entitys/PageBlock.entity';
 import { Project } from 'src/api/project/entitys/Project.entity';
 import { Workspace } from 'src/api/workspace/entitys/Workspace.entity';
+import sequelize from 'sequelize';
 
 @Table
 export class Issue extends Model<Issue> {
@@ -35,25 +36,27 @@ export class Issue extends Model<Issue> {
    */
 
     /* ================================================================= */
-
+    @Column({ type: sequelize.UUID, defaultValue: sequelize.UUIDV4, allowNull: false, primaryKey: true })
+    id: string;
+    
     /**
     * ! FK : Issue, State
     */
     @ForeignKey(() => Project)
-    @Column({ allowNull: true })
-    project_id: number;
+    @Column({ type: sequelize.UUID, allowNull: false })
+    project_id: string;
 
     @ForeignKey(() => Workspace)
-    @Column({ allowNull: true })
-    workspace_id: number;
+    @Column({ type: sequelize.UUID, allowNull: false })
+    workspace_id: string;
 
     @ForeignKey(() => Issue)
-    @Column({ allowNull: true })
-    parent: number;
+    @Column({ type: sequelize.UUID, allowNull: true })
+    parent: string;
 
     @ForeignKey(() => State)
-    @Column
-    state_id: number;
+    @Column({ type: sequelize.UUID, allowNull: false })
+    state_id: string;
 
     /**
     * ! RELATIONSHIP

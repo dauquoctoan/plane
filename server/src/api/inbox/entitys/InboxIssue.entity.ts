@@ -3,24 +3,28 @@ import { Inbox } from './Inbox.entiy';
 import { Issue } from 'src/api/issue/entitys/Issue.entity';
 import { ISSUE_STATUS } from 'src/constants/entity-constant';
 import { INVALID_ISSUE_STATUS } from 'src/constants/message-constant';
+import sequelize from 'sequelize';
 
 @Table
 export class InboxIssue extends Model<InboxIssue> {
+    @Column({ type: sequelize.UUID, defaultValue: sequelize.UUIDV4, allowNull: false, primaryKey: true })
+    id: string;
     /**
+     * 
     * !FK
     */
 
     @ForeignKey(() => Issue)
-    @Column({ allowNull: false })
-    issue_id: number;
+    @Column({ type: sequelize.UUID, allowNull: false })
+    issue_id: string;
 
     @ForeignKey(() => Inbox)
-    @Column({ allowNull: false })
-    inbox_id: number;
+    @Column({ type: sequelize.UUID, allowNull: false })
+    inbox_id: string;
 
     @ForeignKey(() => Issue)
-    @Column
-    id_issue_duplicate_to: number;
+    @Column({ type: sequelize.UUID, allowNull: true })
+    id_issue_duplicate_to: string;
 
     /**
     * ! RELATIONSHIP

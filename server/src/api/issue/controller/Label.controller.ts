@@ -20,16 +20,16 @@ export class LabelController {
     @UseGuards(AuthGuard)
     @Get('by-project-id/:id')
     async findAll(@Param('id') id: string) {
-        return handleResultSuccess(await this.workspaceService.findLabelByWorspaceIdAndProjectId(+id));
+        return handleResultSuccess(await this.workspaceService.findLabelByWorspaceIdAndProjectId(id));
     }
 
     @Patch(':id')
     update(@Param('id') id: string, @Body() updateWorkspaceDto: UpdateCommentReactionDto) {
-        return handleResultSuccess(this.workspaceService.updateById(+id, updateWorkspaceDto));
+        return handleResultSuccess(this.workspaceService.updateById(id, updateWorkspaceDto));
     }
 
     @Delete(':id')
     remove(@Param('id') id: string) {
-        return handleResultSuccess(this.workspaceService.removeById(+id));
+        return handleResultSuccess(this.workspaceService.removeById(id));
     }
 }

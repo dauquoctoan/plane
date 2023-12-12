@@ -44,7 +44,7 @@ const page = () => {
                     projectId={item.project_id}
                     stateId={stateId?.toString()}
                     beforeUpdateValue={(e) =>
-                        issueService.updateIssue(item.id, { state_id: +e })
+                        issueService.updateIssue(item.id, { state_id: e })
                     }
                 />
             ),
@@ -78,7 +78,7 @@ const page = () => {
                         fontSize="text-[12px]"
                         options={createMembeSelectOption(assignees)}
                         isChildren={false}
-                        defaultValue={assignees[0].id}
+                        defaultValue={assignees[0] && assignees[0].id}
                     />
                 );
             },

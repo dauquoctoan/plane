@@ -20,16 +20,16 @@ export class ExporterHistoryController {
 
     @Get(':id')
     findOne(@Param('id') id: string) {
-        return handleResultSuccess(this.exporterService.findOneById(+id));
+        return handleResultSuccess(this.exporterService.findOneById(id));
     }
 
     @Patch(':id')
     update(@Param('id') id: string, @Body() exporter: UpdateExporterHistoryDto) {
-        return handleResultSuccess(this.exporterService.updateById(+id, exporter));
+        return handleResultSuccess(this.exporterService.updateById(id, exporter));
     }
 
     @Delete(':id')
     remove(@Param('id') id: string) {
-        return handleResultSuccess(this.exporterService.removeById(+id));
+        return handleResultSuccess(this.exporterService.removeById(id));
     }
 }

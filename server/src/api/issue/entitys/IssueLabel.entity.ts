@@ -1,14 +1,16 @@
 import { BelongsTo, Column, ForeignKey, Model, Table } from 'sequelize-typescript';
 import { Issue } from './Issue.entity';
 import { Label } from './Label.entity';
+import sequelize from 'sequelize';
 
 @Table
 export class IssueLabel extends Model<IssueLabel> {
+    
     @ForeignKey(() => Issue)
-    @Column({ allowNull: false })
-    issue_id: number;
+    @Column({ type: sequelize.UUID, allowNull: true })
+    issue_id: string;
 
     @ForeignKey(() => Label)
-    @Column({ allowNull: false })
-    label: number;
+    @Column({ type: sequelize.UUID, allowNull: true })
+    label: string;
 }

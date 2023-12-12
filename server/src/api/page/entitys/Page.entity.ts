@@ -10,6 +10,9 @@ import { PageFavorite } from './PageFavorite.entity';
 
 @Table
 export class Page extends Model<Page> {
+    @Column({ type: sequelize.UUID, defaultValue: sequelize.UUIDV4, allowNull: false, primaryKey: true })
+    id: string;
+    
     @ForeignKey(() => User)
     @Column({ type: sequelize.UUID })
     owned_by: string;

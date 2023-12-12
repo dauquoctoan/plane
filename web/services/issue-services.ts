@@ -9,7 +9,7 @@ class IssueService extends BaseService {
         super(API_BASE_URL);
     }
 
-    async getState<T>(projectId: number) {
+    async getState<T>(projectId: string) {
         try {
             return await this.get<T>('state/project/' + projectId);
         } catch (error) {
@@ -41,7 +41,7 @@ class IssueService extends BaseService {
         }
     }
 
-    async updateIssue<T>(idIssue?:number, issue?:IIssue){
+    async updateIssue<T>(idIssue?:string, issue?:IIssue){
         try {
             return await this.put<T>(`issue/${idIssue}`,issue);
         } catch (error) {

@@ -2,16 +2,19 @@ import { Column, ForeignKey, Model, Table, Length, DataType, Is, BelongsTo, Uniq
 import { Workspace } from './Workspace.entity';
 import { ROLE } from 'src/constants/entity-constant';
 import { INVALID_ROLE } from 'src/constants/message-constant';
+import sequelize from 'sequelize';
 
 @Table
 export class WorkspaceMemberInvite extends Model<WorkspaceMemberInvite> {
+    @Column({ type: sequelize.UUID, defaultValue: sequelize.UUIDV4, allowNull: false, primaryKey: true })
+    id: string;
     /**
     * ! WorkspaceMemberInvite
     * @ForeignKey Workspace
     */
     @ForeignKey(() => Workspace)
-    @Column({ allowNull: false })
-    workspace_id: number;
+    @Column({ type: sequelize.UUID, allowNull: false })
+    workspace_id: string;
 
     /* ================================================== */
 

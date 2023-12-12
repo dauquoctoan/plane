@@ -9,6 +9,9 @@ import { ModuleMember } from './ModuleMember.entity';
 
 @Table
 export class Module extends Model<Module> {
+    @Column({ type: sequelize.UUID, defaultValue: sequelize.UUIDV4, allowNull: false, primaryKey: true })
+    id: string;
+
     @ForeignKey(() => User)
     @Column({ allowNull: false, type: sequelize.UUID })
     lead: string;
@@ -26,7 +29,7 @@ export class Module extends Model<Module> {
     module_members: ModuleMember[];
 
     @ForeignKey(() => User)
-    @Column({ type: sequelize.UUID })
+    @Column({ type: sequelize.UUID, allowNull: true })
     member: string;
 
     @BelongsTo(() => User)

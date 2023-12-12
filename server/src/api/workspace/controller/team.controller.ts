@@ -20,16 +20,16 @@ export class TeamController {
 
     @Get(":id")
     findOne(@Param('id') id: string) {
-        return handleResultSuccess(this.teamService.findOneById(+id));
+        return handleResultSuccess(this.teamService.findOneById(id));
     }
 
     @Patch(":id")
     update(@Param('id') id: string, @Body() team: UpdateTeamDto) {
-        return handleResultSuccess(this.teamService.updateById(+id, team));
+        return handleResultSuccess(this.teamService.updateById(id, team));
     }
 
     @Delete(":id")
     remove(@Param('id') id: string) {
-        return handleResultSuccess(this.teamService.removeById(+id));
+        return handleResultSuccess(this.teamService.removeById(id));
     }
 }

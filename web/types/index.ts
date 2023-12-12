@@ -24,7 +24,6 @@ export interface IUser extends IBaseData{
     created_location?: string;
     display_name?: string;
     email?: string;
-
     first_name?: string;
     has_billing_address?: string;
     id?: string;
@@ -45,7 +44,7 @@ export interface IUser extends IBaseData{
     last_logout_ip?: string;
     last_logout_time?: string;
     last_name?: string;
-    last_workspace_id?: number;
+    last_workspace_id?: string;
     mobileNumber?: string;
     my_issues_prop?: string;
     onboarding_step?: {
@@ -65,7 +64,7 @@ export interface IInfo extends IUser {
 }
 
 export interface IWorkspace extends IBaseData{
-    id?: number;
+    id?: string;
     owner?: string;
     user?: string;
     name?: string;
@@ -75,7 +74,7 @@ export interface IWorkspace extends IBaseData{
 }
 
 export interface IWorkspaceMemberInvite extends IBaseData{
-    workspace_id?: number;
+    workspace_id?: string;
     email?: string;
     accepted?: boolean;
     token?: string;
@@ -85,13 +84,13 @@ export interface IWorkspaceMemberInvite extends IBaseData{
 }
 
 export interface IProject extends IBaseData{
-    id?: number;
-    estimate_id?: number;
+    id?: string;
+    estimate_id?: string;
     created_by?: string;
     default_state?: number;
     default_assignee?: string;
     project_lead?: string;
-    workspace_id?: number;
+    workspace_id?: string;
     name?: string;
     description?: string;
     description_text?: string;
@@ -112,8 +111,8 @@ export interface IProject extends IBaseData{
 }
 
 export interface Istate extends IBaseData{
-    id: number;
-    project_id?: number;
+    id: string;
+    project_id?: string;
     project_detail?: IProject;
     created_by?: string;
     project_info?: IUser;
@@ -127,10 +126,10 @@ export interface Istate extends IBaseData{
 }
 
 export interface IIssue extends IBaseData{
-    project_id?: number;
-    workspace_id?: number;
+    project_id?: string;
+    workspace_id?: string;
     parent?: number;
-    state_id?: number;
+    state_id?: string;
     estimate_point?: number;
     name?: string;
     description?: string;
@@ -139,7 +138,7 @@ export interface IIssue extends IBaseData{
     priority?: string;
     start_date?: string;
     target_date?: string;
-    sequence_id?: number;
+    sequence_id?: string;
     sort_order?: number;
     completed_at?: string;
     archived_at?: string;
@@ -147,10 +146,10 @@ export interface IIssue extends IBaseData{
     assignees?:IUser[]
 }
 export interface ILabel extends IBaseData{
-    id: number;
-    project_id: number;
+    id: string;
+    project_id: string;
     created_at: string;
-    workspace_id: number;
+    workspace_id: string;
     parent: string;
     name: string;
     description: string;

@@ -19,16 +19,16 @@ export class PageFavoriteController {
 
     @Get(':id')
     findOne(@Param('id') id: string) {
-        return handleResultSuccess(this.pageFavoriteService.findOneById(+id));
+        return handleResultSuccess(this.pageFavoriteService.findOneById(id));
     }
 
     @Patch(':id')
     update(@Param('id') id: string, @Body() updateWorkspaceDto: UpdatePageFavoriteDto) {
-        return handleResultSuccess(this.pageFavoriteService.updateById(+id, updateWorkspaceDto));
+        return handleResultSuccess(this.pageFavoriteService.updateById(id, updateWorkspaceDto));
     }
 
     @Delete(':id')
     remove(@Param('id') id: string) {
-        return handleResultSuccess(this.pageFavoriteService.removeById(+id));
+        return handleResultSuccess(this.pageFavoriteService.removeById(id));
     }
 }

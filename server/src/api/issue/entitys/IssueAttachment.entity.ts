@@ -1,15 +1,18 @@
 import { BelongsTo, Column, DataType, ForeignKey, Model, Table } from 'sequelize-typescript';
 import { Issue } from './Issue.entity';
+import sequelize from 'sequelize';
 
 @Table
 export class IssueAttachment extends Model<IssueAttachment> {
+    @Column({ type: sequelize.UUID, defaultValue: sequelize.UUIDV4, allowNull: false, primaryKey: true })
+    id: string;
     /**
     * ! FK
     */
 
     @ForeignKey(() => Issue)
-    @Column({ allowNull: false })
-    issue_id: number;
+    @Column({ type: sequelize.UUID, allowNull: true })
+    issue_id: string;
 
     /**
     * ! RELATIONSHIP

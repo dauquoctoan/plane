@@ -5,13 +5,16 @@ import sequelize from 'sequelize';
 
 @Table
 export class IssueReaction extends Model<IssueReaction> {
+    @Column({ type: sequelize.UUID, defaultValue: sequelize.UUIDV4, allowNull: false, primaryKey: true })
+    id: string;
+
     @ForeignKey(() => User)
-    @Column({ allowNull: false, type: sequelize.UUID })
+    @Column({ type: sequelize.UUID, allowNull: false })
     actor: string;
 
     @ForeignKey(() => Issue)
-    @Column({ allowNull: false })
-    issue_id: number;
+    @Column({ type: sequelize.UUID, allowNull: false })
+    issue_id: string;
 
     @BelongsTo(() => User, {foreignKey:'actor'})
     User: User[];

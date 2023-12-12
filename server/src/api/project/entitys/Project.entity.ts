@@ -14,6 +14,9 @@ import { ProjectMember } from './ProjectMember.entity';
 
 @Table
 export class Project extends Model<Project> {
+    @Column({ type: sequelize.UUID, defaultValue: sequelize.UUIDV4, allowNull: false, primaryKey: true })
+    id: string;
+
     @HasOne(() => ProjectIdentifier, { foreignKey: 'projectId' })
     project: ProjectIdentifier;
 
@@ -40,8 +43,8 @@ export class Project extends Model<Project> {
     created_by_user: User;
 
     @ForeignKey(() => Estimate)
-    @Column({ allowNull: true })
-    estimate_id: number;
+    @Column({ type: sequelize.UUID, allowNull: true })
+    estimate_id: string;
 
     @BelongsTo(() => Estimate, { foreignKey: 'estimate_id' })
     estimate: Estimate;
@@ -62,8 +65,8 @@ export class Project extends Model<Project> {
 
 
     @ForeignKey(() => Workspace)
-    @Column({ allowNull: false })
-    workspace_id: number;
+    @Column({ type: sequelize.UUID, allowNull: false })
+    workspace_id: string;
 
     @BelongsTo(() => Workspace, { foreignKey: 'workspace_id' })
     workspaces: Workspace;

@@ -8,17 +8,20 @@ import { Workspace } from 'src/api/workspace/entitys/Workspace.entity';
 
 @Table
 export class ProjectMember extends Model<ProjectMember> {
+    @Column({ type: sequelize.UUID, defaultValue: sequelize.UUIDV4, allowNull: false, primaryKey: true })
+    id: string;
+
     @ForeignKey(() => User)
     @Column({ allowNull: false, type: sequelize.UUID })
     member: string;
 
     @ForeignKey(() => Project)
-    @Column
-    project_id: number;
+    @Column({ type: sequelize.UUID, allowNull: true })
+    project_id: string;
 
     @ForeignKey(() => Workspace)
-    @Column
-    workspace_id: number;
+    @Column({ type: sequelize.UUID, allowNull: true })
+    workspace_id: string;
 
     /* =================================== */
 

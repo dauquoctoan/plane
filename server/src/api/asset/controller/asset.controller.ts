@@ -20,16 +20,16 @@ export class FileAssetController {
 
     @Get(':id')
     findOne(@Param('id') id: string) {
-        return handleResultSuccess(this.fileAssetService.findOneById(+id));
+        return handleResultSuccess(this.fileAssetService.findOneById(id));
     }
 
     @Patch(':id')
     update(@Param('id') id: string, @Body() fileAsset: UpdateFileAssetDto) {
-        return handleResultSuccess(this.fileAssetService.updateById(+id, fileAsset));
+        return handleResultSuccess(this.fileAssetService.updateById(id, fileAsset));
     }
 
     @Delete(':id')
     remove(@Param('id') id: string) {
-        return handleResultSuccess(this.fileAssetService.removeById(+id));
+        return handleResultSuccess(this.fileAssetService.removeById(id));
     }
 }

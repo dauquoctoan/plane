@@ -21,16 +21,16 @@ export class ProjectIdentifierController {
 
     @Get(':id')
     findOneProjectIdentifier(@Param('id') id: string) {
-        return handleResultSuccess(this.projectIdentifierService.findOneById(+id));
+        return handleResultSuccess(this.projectIdentifierService.findOneById(id));
     }
 
     @Patch(':id')
     updateProjectIdentifier(@Param('id') id: string, @Body() project: UpdateProjectIdentifierDto) {
-        return handleResultSuccess(this.projectIdentifierService.updateById(+id, project));
+        return handleResultSuccess(this.projectIdentifierService.updateById(id, project));
     }
 
     @Delete(':id')
     removeProjectIdentifier(@Param("id") id?: string) {
-        return handleResultSuccess(this.projectIdentifierService.removeById(+id));
+        return handleResultSuccess(this.projectIdentifierService.removeById(id));
     }
 }

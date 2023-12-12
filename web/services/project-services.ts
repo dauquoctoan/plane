@@ -13,7 +13,7 @@ class ProjectService extends BaseService {
         return await this.post<T>('project', project);
     }
 
-    async getProjects<T>(workspaceId: number) {
+    async getProjects<T>(workspaceId: string) {
         try {
             return await this.get<T>('project/by-user/' + workspaceId);
         } catch (error) {

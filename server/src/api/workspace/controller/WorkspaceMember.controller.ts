@@ -22,16 +22,16 @@ export class WorkspaceMemberController {
 
     @Get(":id")
     findOneWorkspaceMember(@Param('id') id: string) {
-        return handleResultSuccess(this.workspaceMemberService.findOneById(+id));
+        return handleResultSuccess(this.workspaceMemberService.findOneById(id));
     }
 
     @Patch(":id")
     updateWorkspaceMember(@Param('id') id: string, @Body() updateWorkspaceMemberDto: UpdateWorkspaceMemberDto) {
-        return handleResultSuccess(this.workspaceMemberService.updateById(+id, updateWorkspaceMemberDto));
+        return handleResultSuccess(this.workspaceMemberService.updateById(id, updateWorkspaceMemberDto));
     }
 
     @Delete(":id")
     removeWorkspaceMember(@Param('id') id: string) {
-        return handleResultSuccess(this.workspaceMemberService.removeById(+id));
+        return handleResultSuccess(this.workspaceMemberService.removeById(id));
     }
 }

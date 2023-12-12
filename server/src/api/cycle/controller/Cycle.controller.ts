@@ -20,16 +20,16 @@ export class CycleController {
 
     @Get(':id')
     findOne(@Param('id') id: string) {
-        return handleResultSuccess(this.cycleService.findOneById(+id));
+        return handleResultSuccess(this.cycleService.findOneById(id));
     }
 
     @Patch(':id')
     update(@Param('id') id: string, @Body() cycle: UpdateEstimateDto) {
-        return handleResultSuccess(this.cycleService.updateById(+id, cycle));
+        return handleResultSuccess(this.cycleService.updateById(id, cycle));
     }
 
     @Delete(':id')
     remove(@Param('id') id: string) {
-        return handleResultSuccess(this.cycleService.removeById(+id));
+        return handleResultSuccess(this.cycleService.removeById(id));
     }
 }

@@ -8,16 +8,18 @@ import { INVALID_USER_TYPE } from 'src/constants/message-constant';
 
 @Table
 export class APIToken extends Model<APIToken> {
+    @Column({ type: sequelize.UUID, defaultValue: sequelize.UUIDV4, allowNull: false, primaryKey: true })
+    id: string;
     /**
     * !FK
     */
 
     @ForeignKey(() => Workspace)
-    @Column
-    workspace_id: number;
+    @Column({ type: sequelize.UUID, allowNull: true })
+    workspace_id: string;
 
     @ForeignKey(() => User)
-    @Column({ type: sequelize.UUID })
+    @Column({ type: sequelize.UUID, allowNull: true })
     user_id: string;
 
     /**

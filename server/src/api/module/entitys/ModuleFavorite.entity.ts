@@ -10,8 +10,8 @@ export class ModuleFavorite extends Model<ModuleFavorite> {
     user_id: string;
 
     @ForeignKey((() => Module))
-    @Column({ allowNull: false })
-    module_id: number;
+    @Column({ type: sequelize.UUID, allowNull: true })
+    module_id: string;
 
     @BelongsTo(() => User,{foreignKey:'user_id'})
     user: User;

@@ -1,15 +1,17 @@
+import sequelize from 'sequelize';
 import { BelongsTo, Column, DataType, ForeignKey, Length, Model, Table } from 'sequelize-typescript';
 import { Workspace } from 'src/api/workspace/entitys/Workspace.entity';
 
 @Table
 export class AnalyticView extends Model<AnalyticView> {
-    
+    @Column({ type: sequelize.UUID, defaultValue: sequelize.UUIDV4, allowNull: false, primaryKey: true })
+    id: string;
     /**
     * !FK
     */
     @ForeignKey(() => Workspace)
-    @Column({ allowNull: false })
-    workspace_id: number;
+    @Column({ type: sequelize.UUID, allowNull: false })
+    workspace_id: string;
 
     /**
     * ! RELATIONSHIP

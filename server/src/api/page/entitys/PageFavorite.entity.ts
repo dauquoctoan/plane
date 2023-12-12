@@ -13,8 +13,8 @@ export class PageFavorite extends Model<PageFavorite> {
     user: User;
 
     @ForeignKey(() => Page)
-    @Column
-    page_id: number;
+    @Column({ type: sequelize.UUID, allowNull: true })
+    page_id: string;
 
     @BelongsTo(() => Page)
     page: Page;

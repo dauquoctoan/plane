@@ -20,16 +20,16 @@ export class PageController {
 
     @Get(':id')
     findOne(@Param('id') id: string) {
-        return handleResultSuccess(this.pageService.findOneById(+id));
+        return handleResultSuccess(this.pageService.findOneById(id));
     }
 
     @Patch(':id')
     update(@Param('id') id: string, @Body() updateWorkspaceDto: UpdatePageDto) {
-        return handleResultSuccess(this.pageService.updateById(+id, updateWorkspaceDto));
+        return handleResultSuccess(this.pageService.updateById(id, updateWorkspaceDto));
     }
 
     @Delete(':id')
     remove(@Param('id') id: string) {
-        return handleResultSuccess(this.pageService.removeById(+id));
+        return handleResultSuccess(this.pageService.removeById(id));
     }
 }

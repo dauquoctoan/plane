@@ -7,14 +7,16 @@ import sequelize from 'sequelize';
 
 @Table
 export class WorkspaceMember extends Model<WorkspaceMember> {
+    @Column({ type: sequelize.UUID, defaultValue: sequelize.UUIDV4, allowNull: false, primaryKey: true })
+    id: string;
     /**
     * ! WorkspaceMember
     * @ForeignKey Workspace, User
     */
 
     @ForeignKey(() => Workspace)
-    @Column({ allowNull: false })
-    workspace_id: number;
+    @Column({ type: sequelize.UUID, allowNull: false })
+    workspace_id: string;
 
     @ForeignKey(() => User)
     @Column({ allowNull: false, type: sequelize.UUID })

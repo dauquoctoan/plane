@@ -20,16 +20,16 @@ export class ProjectMemberInviteController {
 
     @Get(':id')
     findOneprojectMemberInvite(@Param('id') id: string) {
-        return handleResultSuccess(this.projectMemberInviteService.findOneById(+id));
+        return handleResultSuccess(this.projectMemberInviteService.findOneById(id));
     }
 
     @Patch(':id')
     updateprojectMemberInvite(@Param('id') id: string, @Body() project: UpdateProjectMemberInviteDto) {
-        return handleResultSuccess(this.projectMemberInviteService.updateById(+id, project));
+        return handleResultSuccess(this.projectMemberInviteService.updateById(id, project));
     }
 
     @Delete(':id')
     removeprojectMemberInvite(@Param("id") id?: string) {
-        return handleResultSuccess(this.projectMemberInviteService.removeById(+id));
+        return handleResultSuccess(this.projectMemberInviteService.removeById(id));
     }
 }

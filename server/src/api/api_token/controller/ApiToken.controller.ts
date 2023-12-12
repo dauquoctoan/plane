@@ -20,16 +20,16 @@ export class ApiTokenController {
 
     @Get(':id')
     findOne(@Param('id') id: string) {
-        return handleResultSuccess(this.apiTokenService.findOneById(+id));
+        return handleResultSuccess(this.apiTokenService.findOneById(id));
     }
 
     @Patch(':id')
     update(@Param('id') id: string, @Body() apiToken: UpdateAPITokenDto) {
-        return handleResultSuccess(this.apiTokenService.updateById(+id, apiToken));
+        return handleResultSuccess(this.apiTokenService.updateById(id, apiToken));
     }
 
     @Delete(':id')
     remove(@Param('id') id: string) {
-        return handleResultSuccess(this.apiTokenService.removeById(+id));
+        return handleResultSuccess(this.apiTokenService.removeById(id));
     }
 }

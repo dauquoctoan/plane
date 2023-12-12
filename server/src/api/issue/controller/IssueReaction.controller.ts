@@ -20,16 +20,16 @@ export class IssueReactionController {
 
     @Get(':id')
     findOne(@Param('id') id: string) {
-        return handleResultSuccess(this.workspaceService.findOneById(+id));
+        return handleResultSuccess(this.workspaceService.findOneById(id));
     }
 
     @Patch(':id')
     update(@Param('id') id: string, @Body() updateWorkspaceDto: UpdateCommentReactionDto) {
-        return handleResultSuccess(this.workspaceService.updateById(+id, updateWorkspaceDto));
+        return handleResultSuccess(this.workspaceService.updateById(id, updateWorkspaceDto));
     }
 
     @Delete(':id')
     remove(@Param('id') id: string) {
-        return handleResultSuccess(this.workspaceService.removeById(+id));
+        return handleResultSuccess(this.workspaceService.removeById(id));
     }
 }

@@ -20,16 +20,16 @@ export class CycleFavoriteController {
 
     @Get(':id')
     findOne(@Param('id') id: string) {
-        return handleResultSuccess(this.cycleFavoriteService.findOneById(+id));
+        return handleResultSuccess(this.cycleFavoriteService.findOneById(id));
     }
 
     @Patch(':id')
     update(@Param('id') id: string, @Body() cycleFavorite: UpdateCycleFavoriteDto) {
-        return handleResultSuccess(this.cycleFavoriteService.updateById(+id, cycleFavorite));
+        return handleResultSuccess(this.cycleFavoriteService.updateById(id, cycleFavorite));
     }
 
     @Delete(':id')
     remove(@Param('id') id: string) {
-        return handleResultSuccess(this.cycleFavoriteService.removeById(+id));
+        return handleResultSuccess(this.cycleFavoriteService.removeById(id));
     }
 }

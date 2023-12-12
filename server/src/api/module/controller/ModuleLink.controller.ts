@@ -20,16 +20,16 @@ export class ModuleLinkController {
 
     @Get(':id')
     findOne(@Param('id') id: string) {
-        return handleResultSuccess(this.moduleLinkService.findOneById(+id));
+        return handleResultSuccess(this.moduleLinkService.findOneById(id));
     }
 
     @Patch(':id')
     update(@Param('id') id: string, @Body() module: UpdateModuleLinkDto) {
-        return handleResultSuccess(this.moduleLinkService.updateById(+id, module));
+        return handleResultSuccess(this.moduleLinkService.updateById(id, module));
     }
 
     @Delete(':id')
     remove(@Param('id') id: string) {
-        return handleResultSuccess(this.moduleLinkService.removeById(+id));
+        return handleResultSuccess(this.moduleLinkService.removeById(id));
     }
 }
