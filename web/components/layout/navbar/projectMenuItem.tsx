@@ -7,7 +7,7 @@ import { renderEmoji } from '@/helpers/emoji';
 
 interface IProjectMenuitem {
     text?: string;
-    idProject?: number;
+    idProject?: string;
     emoji?: string;
 }
 

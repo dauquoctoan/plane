@@ -1,11 +1,11 @@
-import { Controller, Post, Body, Get, Param, Patch, Delete,Query, Request as RequestNest, UseGuards, Put } from '@nestjs/common';
+import { Controller, Post, Body, Get, Param, Patch,Query, Request as RequestNest, UseGuards, Put } from '@nestjs/common';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { IssueService } from '../service/issue.service';
 import { CreateIssueDto, QueryIssueDto, UpdateIssueDto } from '../dto/Issue.dto';
 import { handleResultSuccess } from 'src/helper/handleresult';
 import { IAuthRequest } from 'src/types/auth.types';
-import { Issue } from '../entitys/Issue.entity';
 import { AuthGuard } from 'src/Guards/auth.guard';
+import { removeKeyEmpTyToNull } from 'src/helper/key';
 
 @Controller('issue')
 @ApiTags('Issue')
@@ -15,20 +15,26 @@ export class IssueController {
 
     @Post()
     @UseGuards(AuthGuard)
-    async create(@Body() createWorkspaceDto: Issue, @RequestNest() request: IAuthRequest  ) {
+    async create(@Body() createWorkspaceDto: CreateIssueDto, @RequestNest() request: IAuthRequest) {
         return handleResultSuccess(await this.issueService.createIssue(createWorkspaceDto, request.user.id));
     }
 
     @Get()
     @UseGuards(AuthGuard)
     async findAll(@Query() query: QueryIssueDto, @RequestNest() request: IAuthRequest) {
-        return handleResultSuccess(await this.issueService.findIssues({...query, userId: request.user.id}))
+        return handleResultSuccess(await this.issueService.fillterIssue({...query, userId: request.user.id}))
     }
 
+    @Post('/fillter')
+    @UseGuards(AuthGuard)
+    async fillterIssue(@Body() body: QueryIssueDto, @RequestNest() request: IAuthRequest) {
+        return handleResultSuccess(await this.issueService.fillterIssue({...body, userId: request.user.id}))
+    }
 
-    @Put(':id')
+    @Patch(':id')
     @UseGuards(AuthGuard)
     async update(@Body() issue: UpdateIssueDto, @Param('id') id:string) {
-        return handleResultSuccess(await this.issueService.updateById(id,issue))
+        const result = await this.issueService.updateById(id, removeKeyEmpTyToNull(issue));
+        return handleResultSuccess(result[0]);
     }
 }

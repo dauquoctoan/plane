@@ -1,14 +1,15 @@
 export class CreateProjectDto {
-    estimate: number;
-    default_state: number;
+    id: string;
+    created_by: string;
+    estimate_id: string;
     default_assignee: string;
     project_lead: string;
-    workspace: number;
+    workspace_id: string;
     name: string;
     description: string;
     description_text: string;
     description_html: string;
-    network: string;
+    network: number;
     identifier: string;
     emoji: string;
     icon_prop: string;

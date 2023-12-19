@@ -126,6 +126,7 @@ export interface Istate extends IBaseData{
 }
 
 export interface IIssue extends IBaseData{
+    id?:string;
     project_id?: string;
     workspace_id?: string;
     parent?: number;
@@ -143,7 +144,8 @@ export interface IIssue extends IBaseData{
     completed_at?: string;
     archived_at?: string;
     is_draft?: boolean;
-    assignees?:IUser[]
+    assignees?: IUser[] | string[];
+    labels?: ILabel[] | string[];
 }
 export interface ILabel extends IBaseData{
     id: string;
@@ -155,3 +157,26 @@ export interface ILabel extends IBaseData{
     description: string;
     color: string;
 }
+
+export interface IFillterIssue{
+    projects?: string[];
+    userId?: string;
+    states?: string[];
+    labels?: string[];
+    priorities?: string[];
+    createBys?: string[];
+    assignees?: string[];
+    subscribers?: string[];
+    startDate?: string;
+    dueDate?: string;
+}
+
+export interface IIssueViews{
+    id?:string;
+    name: string;
+    description?: string;
+    query?: IFillterIssue;
+    access?: number;
+    query_data?: string;
+}
+

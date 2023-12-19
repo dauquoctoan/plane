@@ -1,5 +1,5 @@
 'use client';
-import React, { useEffect, memo } from 'react';
+import React, { useEffect, memo, ReactElement } from 'react';
 import {
     UseFormRegister,
     FieldValues,
@@ -34,6 +34,7 @@ interface Props
     setValue?: UseFormSetValue<any>;
     nameForm?: string;
     onChangeCB?: (e: React.ChangeEvent<HTMLInputElement>) => void;
+    suffix?: () => ReactElement;
 }
 
 const Input: React.FC<Props> = ({
@@ -52,6 +53,7 @@ const Input: React.FC<Props> = ({
     keyForm,
     register,
     validator,
+    suffix,
     ...rest
 }) => {
     useEffect(() => {
@@ -63,7 +65,7 @@ const Input: React.FC<Props> = ({
         | undefined = error && error[keyForm || ''];
 
     return (
-        <div className={`flex flex-col ${wrClassName}`}>
+        <div className={`relative flex flex-col ${wrClassName}`}>
             {label && (
                 <label className="font-semibold" htmlFor={id}>
                     {label}
@@ -80,11 +82,11 @@ const Input: React.FC<Props> = ({
                         register && register(keyForm || '').onChange(e);
                         onChangeCB && onChangeCB(e);
                     }}
-                    className={`border rounded ${
+                    className={`select-none border rounded ${
                         error && error[keyForm || '']
                             ? 'border-color-error'
                             : ''
-                    }  outline-none p-1 ${
+                    } outline-none p-1 ${
                         sizeInput == 'sm' ? '' : sizeInput == 'md' ? '' : ''
                     } ${className}`}
                     {...(rest as any)}
@@ -100,7 +102,7 @@ const Input: React.FC<Props> = ({
                         register && register(keyForm || '').onChange(e);
                         onChangeCB && onChangeCB(e);
                     }}
-                    className={`border rounded ${
+                    className={`select-none border rounded ${
                         error && error[keyForm || '']
                             ? 'border-color-error'
                             : ''
@@ -113,6 +115,7 @@ const Input: React.FC<Props> = ({
             {err && keyForm && (
                 <Message>{createMessageForm(keyForm, err) || ''}</Message>
             )}
+            {suffix && suffix()}
         </div>
     );
 };

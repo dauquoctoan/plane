@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Param, Patch, Delete, Query } from '@nestjs/common';
+import { Controller, Get, Post, Body, Param, Patch, Delete } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 import { ProjectMemberService } from '../service/ProjectMember.service';
 import { CreateProjectMemberDto, UpdateProjectMemberDto } from '../dto/ProjectMember.dto';
@@ -10,27 +10,27 @@ import { handleResultSuccess } from 'src/helper/handleresult';
 export class ProjectMemberController {
     constructor(private readonly projectMemberService: ProjectMemberService) { }
     @Post()
-    create(@Body() project: CreateProjectMemberDto) {
-        return handleResultSuccess(this.projectMemberService.create(project));
+    async create(@Body() project: CreateProjectMemberDto) {
+        return handleResultSuccess(await this.projectMemberService.create(project));
     }
 
     @Get()
-    findAllprojectMember() {
-        return handleResultSuccess(this.projectMemberService.findAll());
+    async findAllprojectMember() {
+        return handleResultSuccess(await this.projectMemberService.findAll());
     }
 
     @Get(':id')
-    findOneprojectMember(@Param('id') id: string) {
-        return handleResultSuccess(this.projectMemberService.findOneById(id));
+    async findOneprojectMember(@Param('id') id: string) {
+        return handleResultSuccess(await this.projectMemberService.findMemberByProject(id));
     }
 
     @Patch(':id')
-    updateprojectMember(@Param('id') id: string, @Body() project: UpdateProjectMemberDto) {
-        return handleResultSuccess(this.projectMemberService.updateById(id, project));
+    async updateprojectMember(@Param('id') id: string, @Body() project: UpdateProjectMemberDto) {
+        return handleResultSuccess(await this.projectMemberService.updateById(id, project));
     }
 
     @Delete(':id')
-    removeprojectMember(@Param("id") id?: string) {
-        return handleResultSuccess(this.projectMemberService.removeById(id));
+    async removeprojectMember(@Param("id") id?: string) {
+        return handleResultSuccess(await this.projectMemberService.removeById(id));
     }
 }

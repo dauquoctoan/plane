@@ -4,4 +4,8 @@ export const LS_PROJECT_KEY = (project_id: TApiKey) => (project_id ? `API_PROJEC
 
 export const STATES_KEY = (project_id: TApiKey) => (project_id ? `API_STATES${project_id}` : null);
 
+export const MEMBER_KEY = (project_id: TApiKey) => (project_id ? `API_MEMBER_KEY${project_id}` : null);
+
+export const ISSUE_VIEWS_KEY = () => 'ISSUE_VIEWS_KEY';
+
 export const LABELS_BY_PROJECT_KEY = (project_id: TApiKey) => (project_id ? `API_LABELS_BY_PROJECT${project_id}` : null);

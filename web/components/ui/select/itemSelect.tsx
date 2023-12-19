@@ -16,6 +16,9 @@ interface IItemSelect {
     className?: string;
     fontSize: FontSize;
     isItem?: boolean;
+    moreValue?: string[];
+    handleClear?: () => void;
+    refClear?: React.RefObject<HTMLDivElement>;
 }
 
 export const ItemSelect: React.FC<IItemSelect> = ({
@@ -29,7 +32,10 @@ export const ItemSelect: React.FC<IItemSelect> = ({
     className,
     fontSize,
     loading,
+    moreValue,
     isItem = false,
+    handleClear,
+    refClear,
 }) => {
     return (
         <div
@@ -50,21 +56,27 @@ export const ItemSelect: React.FC<IItemSelect> = ({
             ) : (
                 <div className="flex-1 flex items-center gap-1 overflow-hidden">
                     {item?.icon && <div className="w-fit">{item.icon}</div>}
-                    <div className="flex-1 cursor-pointer text-ellipsis overflow-hidden">
+                    <div className="flex-1 cursor-pointer text-ellipsis overflow-hidden whitespace-nowrap">
                         {item.name}
                     </div>
                 </div>
             )}
             {isActive && isIconCheck && iconActive}
             {loading && <VscLoading className="animate-spin" />}
+            {moreValue && moreValue.length > 1 && (
+                <div>+{moreValue.length - 1}</div>
+            )}
             {isClear && (
-                <IoCloseCircleOutline
-                    onClick={(e: MouseEvent) => {
-                        e.stopPropagation();
-                        setValue && setValue('');
-                    }}
-                    className={`cursor-pointer ${fontSize ? fontSize : ''}`}
-                />
+                <div ref={refClear}>
+                    <IoCloseCircleOutline
+                        onClick={(e: MouseEvent) => {
+                            e.stopPropagation();
+                            setValue && setValue('');
+                            handleClear && handleClear();
+                        }}
+                        className={`cursor-pointer ${fontSize ? fontSize : ''}`}
+                    />
+                </div>
             )}
         </div>
     );

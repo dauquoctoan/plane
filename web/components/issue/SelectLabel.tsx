@@ -3,12 +3,13 @@ import { IFiledReactHookForm } from '@/components/ui/types';
 import React from 'react';
 import { IoMdPricetags } from 'react-icons/Io';
 import { HiPlusSmall } from 'react-icons/hi2';
-import { IOpenModal } from '../../issue/createIssue';
+import { IOpenModal } from './createIssue';
 import useSWR from 'swr';
 import { LABELS_BY_PROJECT_KEY } from '@/apiKey/project';
 import { IData, ILabel, Istate } from '@/types';
 import issueService from '@/services/issue-services';
 import { IOptionItem } from '@/components/ui/select/select';
+import { createIssueLabelSelectOption } from '@/helpers';
 
 interface ISelectLabel extends IFiledReactHookForm {
     projectId: string | number | undefined;
@@ -29,17 +30,7 @@ const SelectLabel: React.FC<ISelectLabel> = ({
     );
 
     const options: IOptionItem[] | undefined =
-        labels &&
-        labels.map((e) => ({
-            name: e.name || '',
-            key: e.id.toString(),
-            icon: (
-                <div
-                    className="w-2 h-2 rounded-full bg-color-special-primary"
-                    style={{ background: e.color }}
-                ></div>
-            ),
-        }));
+        createIssueLabelSelectOption(labels);
 
     return (
         <>
@@ -52,6 +43,7 @@ const SelectLabel: React.FC<ISelectLabel> = ({
                     fontSize="text-[12px]"
                     className="max-w-[120px]"
                     isSearch={true}
+                    isMutiple
                     isClear
                     moreItem={
                         <div

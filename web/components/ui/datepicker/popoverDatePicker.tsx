@@ -1,7 +1,8 @@
 import React, { useEffect, useRef } from 'react';
 import { FaChevronLeft, FaChevronRight } from 'react-icons/fa';
 import Line from '../line';
-import { IItemDate } from './datePicker';
+import { IItemDate, size } from './datePicker';
+import { IPositionResult } from '@/hooks';
 
 interface IProps {
     handleNextMonth: (a: number) => void;
@@ -10,8 +11,10 @@ interface IProps {
     year: number;
     curentValue?: IItemDate;
     handleClose: () => void;
-    size?: 'sm' | 'md' | 'lg' | 'xl';
+    size?: size;
     handleResetDate: () => void;
+    refPopover: React.RefObject<HTMLDivElement>;
+    style: IPositionResult;
 }
 
 const PopoverDatePiker: React.FC<IProps> = ({
@@ -20,11 +23,11 @@ const PopoverDatePiker: React.FC<IProps> = ({
     year,
     setCurentValue,
     curentValue,
-    handleClose,
     handleResetDate,
+    refPopover,
+    style,
     size = 'sm',
 }) => {
-    const refPop = useRef<HTMLDivElement>(null);
     const curentDate = new Date();
     const mos = [
         'January',
@@ -100,18 +103,6 @@ const PopoverDatePiker: React.FC<IProps> = ({
         ];
     }
 
-    useEffect(() => {
-        function handleClick(e: any) {
-            if (!refPop?.current?.contains(e.target)) {
-                handleClose();
-            }
-        }
-        document.addEventListener('click', handleClick, true);
-        return () => {
-            document.removeEventListener('click', handleClick, true);
-        };
-    }, [refPop]);
-
     const styles = {
         sm: {
             fontSize: 12,
@@ -147,8 +138,8 @@ const PopoverDatePiker: React.FC<IProps> = ({
 
     return (
         <div
-            style={{}}
-            ref={refPop}
+            style={style}
+            ref={refPopover}
             className="z-50 absolute top-[100%] left-0 mt-1 rounded border shadow-theme-primary bg-theme-primary animate-popUp origin-top-left"
         >
             <div
@@ -159,6 +150,7 @@ const PopoverDatePiker: React.FC<IProps> = ({
                     style={{
                         fontSize: curentStyle.fontSize,
                         fontWeight: curentStyle.fontWeith,
+                        cursor: 'pointer',
                     }}
                     onClick={() => {
                         handleNextMonth(-1);
@@ -178,6 +170,7 @@ const PopoverDatePiker: React.FC<IProps> = ({
                     style={{
                         fontSize: curentStyle.fontSize,
                         fontWeight: curentStyle.fontWeith,
+                        cursor: 'pointer',
                     }}
                     onClick={() => {
                         handleNextMonth(1);
@@ -192,7 +185,7 @@ const PopoverDatePiker: React.FC<IProps> = ({
                 {day.map((e, i) => (
                     <div
                         key={i}
-                        className={`select-none w-8 h-8 flex justify-center items-center ${
+                        className={`select-none w-8 h-8 flex justify-center items-center cursor-pointer ${
                             curentDate.getDay() == i &&
                             month == curentDate.getMonth() &&
                             year == curentDate.getFullYear()
@@ -214,7 +207,7 @@ const PopoverDatePiker: React.FC<IProps> = ({
                         onClick={() => {
                             setCurentValue(item);
                         }}
-                        className={`w-8 h-8 flex rounded justify-center items-center ${
+                        className={`w-8 h-8 flex rounded cursor-pointer justify-center items-center ${
                             curentValue &&
                             curentValue.date == item.date &&
                             curentValue.month == item.month &&

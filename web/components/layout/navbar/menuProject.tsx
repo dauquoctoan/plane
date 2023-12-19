@@ -17,11 +17,12 @@ const MenuProject = () => {
     const isCollap = useSelector(selectIsCollap);
     const info = useSelector(selectInfo);
     const [open, setOpen] = useState(false);
+
     const { data } = useSWR<IData<IProject[]>>(
         LS_PROJECT_KEY(info?.last_workspace_id),
         () => {
             return projectService.getProjects<IData<IProject[]>>(
-                info?.last_workspace_id || 0,
+                info?.last_workspace_id || '',
             );
         },
     );
@@ -36,7 +37,7 @@ const MenuProject = () => {
                 if (result) {
                     setOpen(false);
                     noti?.success('Create project success');
-                    return [...project, result];
+                    return [...project, { ...result, is_member: true }];
                 }
                 return [...project];
             },

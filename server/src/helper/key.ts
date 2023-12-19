@@ -6,3 +6,12 @@ export function removeKeyNull(obj: any) {
     });
     return obj
 }
+
+export function removeKeyEmpTyToNull(obj: any) {
+    Object.keys(obj).forEach(key => {
+        if (obj[key] === null || obj[key] === '') {
+            obj[key]=null;
+        }
+    });
+    return obj
+}

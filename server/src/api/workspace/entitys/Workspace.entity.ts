@@ -17,6 +17,7 @@ import { TeamMember } from './TeamMember.entity';
 import { Issue } from 'src/api/issue/entitys/Issue.entity';
 import { Label } from 'src/api/issue/entitys/Label.entity';
 import { ProjectMember } from 'src/api/project/entitys/ProjectMember.entity';
+import { IssueView } from 'src/api/view/entitys/IssueView.entity';
 
 @Table
 export class Workspace extends Model<Workspace> {
@@ -40,6 +41,9 @@ export class Workspace extends Model<Workspace> {
 
     @HasMany(() => Label, { foreignKey: 'workspace_id' })
     labels: Label[];
+
+    @HasMany(() => IssueView, { foreignKey: 'workpsace_id' })
+    issue_view: IssueView[];
 
     @HasMany(() => ProjectMember, { foreignKey: 'workspace_id' })
     project_member: ProjectMember[];

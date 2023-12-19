@@ -17,19 +17,24 @@ interface ISelectPopup extends IProps {
     refPopUp: React.RefObject<HTMLDivElement>;
     style: IPositionResult;
     updateValue: (e: string) => void;
+    moreValue: string[];
 }
 
-function checkActive(item: IOptionItem | string, curent: Item) {
-    if (typeof item === 'string') return item === curent;
+function checkActive(item: IOptionItem | string, curent: string | string[]) {
+    if (typeof item === 'string')
+        return typeof curent == 'string'
+            ? item === curent
+            : curent.includes(item);
     else if (typeof item === 'object') {
-        return item.key === curent;
+        return typeof curent == 'string'
+            ? item.key === curent
+            : curent.includes(item.key as string);
     }
     return false;
 }
 
 const SelectPopup: React.FC<ISelectPopup> = ({
     setOpen,
-    refBtn,
     setResult,
     isSearch,
     fontSize,
@@ -37,9 +42,10 @@ const SelectPopup: React.FC<ISelectPopup> = ({
     iconActive = <BsCheck2 />,
     curentValue,
     lsResult,
+    isMutiple,
+    moreValue,
     setCurentValue,
     moreItem,
-    placement = 'bottomLeft',
     options,
     refPopUp,
     style,
@@ -87,7 +93,12 @@ const SelectPopup: React.FC<ISelectPopup> = ({
                         iconActive={iconActive}
                         setOpen={setOpen}
                         isActive={
-                            curentValue ? checkActive(item, curentValue) : false
+                            curentValue
+                                ? checkActive(
+                                      item,
+                                      isMutiple ? moreValue : curentValue,
+                                  )
+                                : false
                         }
                         setValue={setCurentValue}
                         key={index}

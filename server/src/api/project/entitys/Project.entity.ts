@@ -81,7 +81,7 @@ export class Project extends Model<Project> {
     @Column({ type: DataType.JSON })
     description_text: string;
 
-    @Column({ type: DataType.JSON })
+    @Column({ type: DataType.TEXT, defaultValue: "<p></p>" })
     description_html: string;
 
     @Is('network', (value) => {

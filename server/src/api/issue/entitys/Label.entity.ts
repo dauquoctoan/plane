@@ -38,7 +38,7 @@ export class Label extends Model<Label> {
     page: Page[];
 
     @BelongsToMany(() => Issue, () => IssueLabel)
-    issue: Issue[];
+    issues: Issue[];
 
     @Column
     parent: string;

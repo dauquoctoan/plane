@@ -1,11 +1,11 @@
 import type { Config } from 'tailwindcss'
-import {keyframes, animation, colors} from './tailwindConfigs'
 
 const config: Config = {
   content: [
     './pages/**/*.{js,ts,jsx,tsx,mdx}',
     './components/**/*.{js,ts,jsx,tsx,mdx}',
     './layouts/**/*.{js,ts,jsx,tsx,mdx}',
+    './helpers/**/*.{js,ts,jsx,tsx,mdx}',
     './app/**/*.{js,ts,jsx,tsx,mdx}',
   ],
   theme: {

@@ -60,17 +60,17 @@ const links: CustomeLink[] = [
 ];
 
 interface IProjectTools {
-    idProject?: number;
+    idProject?: string;
 }
 
 const ProjectTools: React.FC<IProjectTools> = ({ idProject }) => {
     const info = useSelector(selectInfo);
     const isCollap = useSelector(selectIsCollap);
     const curentLink: CustomeLink[] = info
-        ? getLink(links, idProject || 0)
+        ? getLink(links, idProject || '')
         : [];
 
-    function getLink(links: CustomeLink[], id: number) {
+    function getLink(links: CustomeLink[], id: string) {
         return links.map((e) => ({
             ...e,
             nickname: (e.nickname as string) + id,

@@ -8,11 +8,15 @@ import { Workspace } from 'src/api/workspace/entitys/Workspace.entity';
 import { User } from 'src/api/user/entitys/User.entity';
 import { UserService } from 'src/api/user/service/User.service';
 import { Sequelize } from 'sequelize';
+import { CreateProjectDto } from '../dto/Project.dto';
+import { ProjectMemberService } from './ProjectMember.service';
+import { CreateProjectMemberDto } from '../dto/ProjectMember.dto';
 
 @Injectable()
 export class ProjectService extends BaseService<Project>{
     constructor(@InjectModel(Project) public repository: typeof Project,
-    readonly userService: UserService
+    readonly userService: UserService,
+    readonly projectMemberService: ProjectMemberService,
     ) {
         super(repository);
     }
@@ -21,12 +25,13 @@ export class ProjectService extends BaseService<Project>{
         try {
             const user = await this.userService.findOneById(userId)
             if(user){
-                return await this.repository.findAll({ where: { workspace_id: user.last_workspace_id }, attributes: {
+                return await this.repository.findAll({ where: { workspace_id: user.last_workspace_id }, 
+                  attributes: {
                     include: [
                       [
                         Sequelize.literal(
                           `(SELECT 1 FROM projectmembers WHERE
-                            projectmembers.id = Project.id AND
+                              projectmembers.project_id = Project.id AND
                               projectmembers.member = '${userId}' 
                             )
                           `
@@ -34,7 +39,10 @@ export class ProjectService extends BaseService<Project>{
                         'is_member',
                       ],
                     ],
-                  }, include: [{ model: User, as: 'created_by_user' }] });
+                  }, 
+                  include: [{ model: User, as: 'created_by_user' }],
+                  order:[['createdAt', 'DESC']]
+                });
             }
             handleResultError({ message: messageFindFail(this.repository.getTableName()), messageDetail: 'Invalid user' });
         } catch (error) {
@@ -42,4 +50,16 @@ export class ProjectService extends BaseService<Project>{
         }
     }
 
+    async createProject(projectData: CreateProjectDto, userId: string){
+      try {
+        const user = await this.userService.findOneById(userId);
+        const project = await this.repository.create({...projectData, project_lead: userId});
+        if(user && project){
+           await this.projectMemberService.create<CreateProjectMemberDto>({member:user.id, project_id:project.id, role: 20, workspace_id: project.workspace_id})
+        }
+        return project;
+      } catch (error) {
+        handleResultError({message: messageCreateFail(this.repository.getTableName()), statusCode: 500,messageDetail: error})
+      }
+    }
 }

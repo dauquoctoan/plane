@@ -3,19 +3,26 @@ import { IoCloseCircleOutline } from 'react-icons/io5';
 import { AiOutlineCalendar } from 'react-icons/ai';
 import PopoverDatePiker from './popoverDatePicker';
 import { ICurentFieldProps } from '../types/form';
+import usePopUp from '@/hooks/popUp';
+import { createPortal } from 'react-dom';
+import { useNoti } from '@/hooks';
 
 export interface IItemDate {
     date: number;
     month: number;
     year: number;
 }
-
+export type size = 'sm' | 'md' | 'lg' | 'xl';
 export interface Iprops {
     onChange?: (res?: string) => void;
     defaultDate?: string;
     children?: ReactElement | string;
     value?: any;
+    size?: size;
+    className?: string;
     formatDate?: formatDate;
+    isChildren?: boolean;
+    beforeUpdateValue?: (data?: string) => Promise<any>;
 }
 
 type formatDate = 'DD/MM/YYY' | 'YYY/DD/MM' | 'MM/DD/YYY';
@@ -24,8 +31,9 @@ type ICurentField = Iprops & ICurentFieldProps;
 
 export function formartDate(
     type: formatDate | undefined,
-    value: IItemDate,
-): string {
+    value: IItemDate | undefined,
+): string | undefined {
+    if (!value) return value;
     switch (type) {
         case 'DD/MM/YYY':
             return `${value.date}/${value.month + 1}/${value.year}`;
@@ -39,7 +47,6 @@ export function formartDate(
 }
 
 function convertStringToDateObj(value: string): IItemDate {
-    debugger;
     const curentDate = new Date(value);
     return {
         date: curentDate.getDate(),
@@ -54,14 +61,31 @@ const DatePicker: React.FC<ICurentField> = ({
     children,
     error,
     disableMessage,
+    isChildren = true,
     value,
+    className,
+    beforeUpdateValue,
     formatDate,
+    size,
 }) => {
-    const [open, setOpen] = useState(false);
     const [month, setMonth] = useState(new Date().getMonth());
     const [year, setYear] = useState(new Date().getFullYear());
     const [curentValue, setCurentValue] = useState<IItemDate | undefined>(
         (defaultDate && convertStringToDateObj(defaultDate)) || undefined,
+    );
+    const noti = useNoti();
+
+    const refBtn = useRef<HTMLDivElement>(null);
+    const refPopUp = useRef<HTMLDivElement>(null);
+    const refClear = useRef<HTMLDivElement>(null);
+
+    const { open, setOpen, style, handleClose } = usePopUp(
+        refBtn,
+        refPopUp,
+        'right',
+        undefined,
+        isChildren,
+        refClear,
     );
 
     function handleNextMonth(next: number) {
@@ -82,23 +106,14 @@ const DatePicker: React.FC<ICurentField> = ({
         setMonth(monthUpdate);
     }
 
-    function handleClosePopUp() {
-        if (open) {
-            setTimeout(() => {
-                setOpen(false);
-            }, 10);
-        }
-    }
-
     function handleResetDate() {
         setMonth(new Date().getMonth());
         setYear(new Date().getFullYear());
     }
 
     useEffect(() => {
-        if (open) handleClosePopUp();
-        onChange &&
-            onChange(curentValue && formartDate(formatDate, curentValue));
+        if (open) handleClose();
+        onChange && onChange(formartDate(formatDate, curentValue));
     }, [curentValue]);
 
     useEffect(() => {
@@ -108,49 +123,85 @@ const DatePicker: React.FC<ICurentField> = ({
     function getItem(curentValue: IItemDate) {
         return (
             <div className="flex items-center gap-1">
-                <span>{formartDate(formatDate, curentValue)}</span>{' '}
-                <IoCloseCircleOutline
-                    onClick={(e: any) => {
-                        setCurentValue(undefined);
-                        e.stopPropagation();
-                    }}
-                />
+                <span>{formartDate(formatDate, curentValue)}</span>
+                <div ref={refClear}>
+                    <IoCloseCircleOutline
+                        style={{ zindex: 100 }}
+                        onClick={function () {
+                            handleBeforeUpdate(undefined);
+                        }}
+                    />
+                </div>
             </div>
         );
     }
 
     useEffect(() => {
-        if (!value) {
+        if (value === '') {
             setCurentValue(undefined);
         }
     }, [value]);
+
+    async function handleBeforeUpdate(newValue: IItemDate | undefined) {
+        let result;
+        if (beforeUpdateValue) {
+            result = await beforeUpdateValue(formartDate(formatDate, newValue));
+            if (!result) {
+                noti?.error('An error occurred, please try again');
+                return;
+            }
+            noti?.success('Update issue success');
+        }
+        setCurentValue(newValue);
+    }
+
     return (
         <div>
             <div
                 className={`relative w-fit ${
                     error ? 'border border-color-error' : 'border'
-                } hover:bg-theme-secondary rounded select-none cursor-pointer px-2 text-sm font-medium`}
+                } hover:bg-theme-secondary rounded select-none cursor-pointer text-sm font-medium`}
             >
                 <div
-                    onClick={() => {
-                        setOpen(!open);
-                    }}
-                    className={`w-full text-[12px] font-normal flex items-center py-[3px] gap-1`}
+                    ref={refBtn}
+                    className={`w-full text-[12px] font-normal flex items-center py-[3px] gap-1 px-2 justify-between ${
+                        className ? className : ''
+                    }`}
                 >
                     <AiOutlineCalendar />
-                    {curentValue ? getItem(curentValue) : children}
+                    <span>{curentValue ? getItem(curentValue) : children}</span>
                 </div>
-                {open && (
-                    <PopoverDatePiker
-                        handleResetDate={handleResetDate}
-                        handleClose={handleClosePopUp}
-                        curentValue={curentValue}
-                        handleNextMonth={handleNextMonth}
-                        month={month}
-                        setCurentValue={setCurentValue}
-                        year={year}
-                    />
-                )}
+                {open &&
+                    (isChildren ? (
+                        <PopoverDatePiker
+                            style={style}
+                            refPopover={refPopUp}
+                            handleResetDate={handleResetDate}
+                            handleClose={handleClose}
+                            curentValue={curentValue}
+                            handleNextMonth={handleNextMonth}
+                            month={month}
+                            setCurentValue={handleBeforeUpdate}
+                            year={year}
+                            size={size}
+                        />
+                    ) : (
+                        createPortal(
+                            <PopoverDatePiker
+                                style={style}
+                                refPopover={refPopUp}
+                                handleResetDate={handleResetDate}
+                                handleClose={handleClose}
+                                curentValue={curentValue}
+                                handleNextMonth={handleNextMonth}
+                                month={month}
+                                setCurentValue={handleBeforeUpdate}
+                                year={year}
+                                size={size}
+                            />,
+                            document.body,
+                        )
+                    ))}
             </div>
             {!disableMessage && error && (
                 <div className="text-color-error text-sm">{error}</div>

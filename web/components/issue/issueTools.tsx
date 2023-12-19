@@ -1,29 +1,19 @@
 import React, { ReactElement } from 'react';
 import { BsFillPersonLinesFill } from 'react-icons/bs';
 import { IOptionItem } from '@/components/ui/select/select';
-import { IData, Istate } from '@/types';
-import Avatar from '@/components/ui/avatar';
-import { useSelector } from '@/store';
-import { selectInfo } from '@/store/slices/authSlice/selectors';
-import { IoBan, IoCloseCircleOutline } from 'react-icons/io5';
-import { IoIosCheckmarkCircleOutline, IoMdPricetags } from 'react-icons/Io';
-import { TbProgress } from 'react-icons/tb';
-import { FaRegCircle } from 'react-icons/fa';
-import { CiCircleMore } from 'react-icons/ci';
-import { RiErrorWarningLine } from 'react-icons/ri';
-import {
-    MdOutlineSignalCellularAlt,
-    MdOutlineSignalCellularAlt2Bar,
-    MdSignalCellularAlt1Bar,
-} from 'react-icons/md';
+import { IData, IUser, Istate } from '@/types';
 import { HiPlusSmall } from 'react-icons/hi2';
 import DatePickerField from '@/components/ui/datepicker/datePickerField';
 import { IOpenModal } from './createIssue';
 import SelectField from '@/components/ui/select/selectField';
 import { IFiledReactHookForm } from '@/components/ui/types/form';
-import SelectLabel from '../layout/navbar/SelectLabel';
-import { convertDataOptions } from '@/helpers';
+import SelectLabel from './SelectLabel';
+import { convertDataOptions, createMembeSelectOption } from '@/helpers';
 import { optionLevel } from '@/constants';
+import DefaultSelectMember from './defaultSelectMember';
+import useSWR from 'swr';
+import { MEMBER_KEY } from '@/apiKey';
+import projectService from '@/services/project-services';
 
 interface IIssueTools extends IFiledReactHookForm {
     setIsOpen: (a: IOpenModal) => void;
@@ -37,18 +27,16 @@ const IssueTools: React.FC<IIssueTools> = ({
     states,
     projectId,
 }) => {
-    const info = useSelector(selectInfo);
     const optionsState: IOptionItem[] | undefined =
-        states && convertDataOptions(states);
+        states && (convertDataOptions(states) as IOptionItem[]);
 
-    const optionsMember: IOptionItem[] = [
-        {
-            icon: <Avatar size="sm">{info?.email || ''}</Avatar>,
-            name: info?.email || '',
-            key: info?.id,
-        },
-        { icon: <Avatar size="sm">test</Avatar>, name: 'test', key: '123' },
-    ];
+    const { data: members } = useSWR(
+        () => MEMBER_KEY(projectId),
+        () =>
+            projectService.getMemberByProject<IData<IUser[]>>(projectId || ''),
+    );
+
+    const optionsMember: IOptionItem[] = createMembeSelectOption(members);
 
     return (
         <div className="mb-5 flex items-center justify-between gap-2">
@@ -112,6 +100,7 @@ const IssueTools: React.FC<IIssueTools> = ({
             <SelectField
                 name="members"
                 options={optionsMember}
+                isMutiple
                 disableMessage
                 isIconCheck
                 fontSize="text-[12px]"
@@ -120,10 +109,7 @@ const IssueTools: React.FC<IIssueTools> = ({
                 className="max-w-[120px]"
                 isClear
             >
-                <div className="px-2 py-[3px] cursor-pointer select-none border-theme-border-primary rounded flex items-center gap-1 text-[12px]">
-                    <BsFillPersonLinesFill />
-                    <span>Assignee</span>
-                </div>
+                <DefaultSelectMember />
             </SelectField>
 
             <DatePickerField

@@ -40,7 +40,7 @@ export interface IForm {
     name: string;
     priority: string;
     state: string;
-    labels: string;
+    labels: string[];
     members: string[];
     start_date: string;
     target_date: string;
@@ -60,6 +60,7 @@ const CreateIssue: React.FC<IProps> = ({
         value: false,
         index: 0,
     });
+
     const {
         register: registerParent,
         handleSubmit,
@@ -99,7 +100,8 @@ const CreateIssue: React.FC<IProps> = ({
             ...values,
             state: (states && states[0].id.toString()) || '',
             priority: 'urgent',
-            labels: '',
+            members: [],
+            labels: [],
             desc: '',
             name: '',
         }));
@@ -109,6 +111,7 @@ const CreateIssue: React.FC<IProps> = ({
         name: e.name || '',
         key: e.id?.toString(),
     }));
+
     const CurentModal = LsModals[isOpen.index];
 
     return (
@@ -126,14 +129,16 @@ const CreateIssue: React.FC<IProps> = ({
                                     project_id: data.project || projects[0].id,
                                     workspace_id: info?.last_workspace_id,
                                     is_draft: isDraft,
-                                    priority: data.priority,
+                                    priority: data.priority || 'urgent',
                                     state_id: data.state,
-                                    start_date: moment(
-                                        data.start_date,
-                                    ).format(),
-                                    target_date: moment(
-                                        data.target_date,
-                                    ).format(),
+                                    labels: data.labels,
+                                    assignees: data.members,
+                                    start_date: data.start_date
+                                        ? moment(data.start_date).format()
+                                        : undefined,
+                                    target_date: data.target_date
+                                        ? moment(data.target_date).format()
+                                        : undefined,
                                 });
                             if (issueResult) {
                                 noti?.success('Issue created');

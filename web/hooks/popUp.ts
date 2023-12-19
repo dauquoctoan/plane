@@ -3,11 +3,13 @@ import React, { useEffect, useRef, useState } from "react";
 export interface IPosition {
     left: number | string | undefined;
     top: number | string | undefined;
+    minWidth: number | string | undefined;
 }
 
 export interface IPositionResult extends IPosition{
     position: 'absolute';
     visibility: 'visible'|'hidden';
+    transformOrigin?: string;
 }
 
 export type TPlacement = 'left' | 'center' | 'right';
@@ -15,13 +17,14 @@ export type TPlacement = 'left' | 'center' | 'right';
 type TRef = React.RefObject<HTMLDivElement>
 
 
-const usePopUp = (refPopover:TRef, refPopup:TRef, placement:TPlacement='left',isHover:boolean=false, isChildRen:boolean=false,)=>{
+const usePopUp = (refPopover:TRef, refPopup:TRef, placement:TPlacement='left',isHover:boolean=false, isChildRen:boolean=false, refDisable?:TRef)=>{
     const [open, setOpen] = useState<Boolean>(false);
     const timeoutId = useRef<any>(0);
     const mouse = useRef({ isKeyDown: false, isDrag: false });
     const [position, setPosition] = useState<IPosition>({
         left: undefined,
-        top: undefined,
+        top: 0,
+        minWidth: 0
     });
 
     function getPosiTion(wre: HTMLDivElement, poe: HTMLDivElement): IPosition {
@@ -48,6 +51,7 @@ const usePopUp = (refPopover:TRef, refPopup:TRef, placement:TPlacement='left',is
         return {
             left: position[placement],
             top: isChildRen ? '100%' :overOverFlow ? wr.top - poe.offsetHeight: wr.top + wr.height,
+            minWidth: wre.offsetWidth
         };
     }
 
@@ -75,7 +79,7 @@ const usePopUp = (refPopover:TRef, refPopup:TRef, placement:TPlacement='left',is
     function handleClick(e: any) {
         if (
             !refPopup.current?.contains(e.target) &&
-           !mouse.current.isDrag
+           !mouse.current.isDrag && !e?.target?.clear && e.target.tagName != 'svg'
         ) {
             handleClosePopUp()
         }
@@ -122,8 +126,8 @@ const usePopUp = (refPopover:TRef, refPopup:TRef, placement:TPlacement='left',is
     }, [refPopover.current, refPopup.current, open]);
 
     useEffect(() => {
-        function handleClikOpenPopUp(){
-            setOpen(true);
+        function handleClikOpenPopUp(e:any){
+            if(!refDisable?.current?.contains(e.target) && !e?.target?.clear && e.target.tagName != 'svg') setOpen(true);
         }
 
         if (isHover) addEventMouse();
@@ -183,7 +187,7 @@ const usePopUp = (refPopover:TRef, refPopup:TRef, placement:TPlacement='left',is
         if (mouse.current.isKeyDown) mouse.current.isDrag = true;
     }
 
-    const style:IPositionResult= {...position, position: 'absolute', visibility: (position?.left == undefined || position?.top == undefined) ? 'hidden': 'visible'}
+    const style:IPositionResult= {...position, position: 'absolute', transformOrigin:`top ${placement}`, visibility: (position?.left == undefined || position?.top == undefined) ? 'hidden': 'visible'}
 
     return {
         style,

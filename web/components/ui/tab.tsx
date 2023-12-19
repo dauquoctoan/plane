@@ -13,14 +13,14 @@ const Tab: React.FC<IPropsTabs> = ({ lsLabel = [], onChange }) => {
     }, [tabIndex, onChange]);
 
     return (
-        <div className="flex text-sm items-center gap-2">
+        <div className="flex text-sm items-center gap-2 overflow-x-hidden">
             {lsLabel.map((text, index) => (
                 <div
                     key={index}
                     onClick={() => {
                         setTabIndex(index);
                     }}
-                    className={`cursor-pointer pb-1 select-none ${
+                    className={`cursor-pointer pb-1 w-fit select-none ${
                         tabIndex == index
                             ? 'text-color-special-primary border-b-2 border-color-special-primary border-w'
                             : ''

@@ -5,12 +5,11 @@ import sequelize from 'sequelize';
 
 @Table
 export class IssueLabel extends Model<IssueLabel> {
-    
     @ForeignKey(() => Issue)
     @Column({ type: sequelize.UUID, allowNull: true })
     issue_id: string;
 
     @ForeignKey(() => Label)
     @Column({ type: sequelize.UUID, allowNull: true })
-    label: string;
+    label_id: string;
 }

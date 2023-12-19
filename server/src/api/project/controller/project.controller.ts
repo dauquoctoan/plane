@@ -14,15 +14,17 @@ import { Sequelize } from 'sequelize';
 @ApiBearerAuth('access-token')
 export class ProjectController {
     constructor(private readonly projectService: ProjectService) { }
+    
+    @UseGuards(AuthGuard)
     @Post()
-    async create(@Body() project: CreateProjectDto) {
-        return handleResultSuccess(await this.projectService.create({ ...project, network: +project.network || '' }));
+    async create(@Body() project: CreateProjectDto, @RequestNestjs() request: IAuthRequest) {
+        return handleResultSuccess(await this.projectService.createProject(project, request.user.id));
     }
 
     @UseGuards(AuthGuard)
     @Get('test')
     async findAllProject(@RequestNestjs() request: IAuthRequest) {
-        return handleResultSuccess(await this.projectService.findAll({ where: { workspace_id: 1 }, attributes: {
+        return handleResultSuccess(await this.projectService.findAll({ where: { workspace_id: '40adc8af-0ea6-4501-b6b5-4187e4663430' }, attributes: {
             include: [
               [
                 Sequelize.literal(
@@ -35,7 +37,8 @@ export class ProjectController {
                 'is_member',
               ],
             ],
-          },include: [{ model: User, as: 'created_by_user' }] }));
+          },
+        include: [{ model: User, as: 'created_by_user' }] }));
     }
 
     @UseGuards(AuthGuard)
@@ -47,16 +50,16 @@ export class ProjectController {
     @UseGuards(AuthGuard)
     @Get('by-user/:id')
     async findWorkSpaceByUserId(@RequestNestjs() request: IAuthRequest) {
-        return handleResultSuccess(await this.projectService.getProjectByUserId(request.user.id));
+      return handleResultSuccess(await this.projectService.getProjectByUserId(request.user.id));
     }
 
     @Patch(':id')
     updateProject(@Param('id') id: string, @Body() project: UpdateProjectDto) {
-        return handleResultSuccess(this.projectService.updateById(id, project));
+        return handleResultSuccess(this.projectService.updateById(+id, project));
     }
 
     @Delete(':id')
     removeProject(@Param("id") id?: string) {
-        return handleResultSuccess(this.projectService.removeById(id));
+        return handleResultSuccess(this.projectService.removeById(+id));
     }
 }

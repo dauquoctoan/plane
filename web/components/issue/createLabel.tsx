@@ -8,7 +8,7 @@ import issueService from '@/services/issue-services';
 import { selectInfo } from '@/store/slices/authSlice/selectors';
 import { ILabel } from '@/types';
 import React, { useRef } from 'react';
-import { Controller, useForm } from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 import { useSelector } from 'react-redux';
 import { mutate } from 'swr';
 

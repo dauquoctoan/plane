@@ -16,22 +16,23 @@ export type FontSize =
 export interface IProps extends ICurentFieldProps {
     children?: ReactElement | string;
     options?: IOptionItem[] | string[];
-    defaultValue?: string;
+    defaultValue?: string | string[];
     iconActive?: ReactElement;
     isIconCheck?: boolean;
     placement?: 'bottomLeft' | 'bottomRight' | 'topLeft' | 'topRight';
-    onChange?: (value: string | number) => void;
+    onChange?: (value: string | string[]) => void;
     isSearch?: boolean;
     customeSelected?: (res: Item, loading?: boolean) => ReactElement | string;
     isClear?: boolean;
     className?: string;
+    isMutiple?: boolean;
     isChildren?: boolean;
     fontSize?: FontSize;
     moreItem?: ReactElement;
-    value?: string;
+    value?: string | string[];
     msgUpdateValueFail?: string;
     msgUpdateValueSuccess?: string;
-    beforeUpdateValue?: (e: string) => Promise<any>;
+    beforeUpdateValue?: (e: string | string[]) => Promise<any>;
 }
 
 export interface IOptionItem {
@@ -63,6 +64,7 @@ const Select: React.FC<ICurentField> = ({
     iconActive,
     fontSize = 'text-lg',
     isIconCheck,
+    isMutiple = false,
     placement,
     onChange,
     isChildren = true,
@@ -73,12 +75,23 @@ const Select: React.FC<ICurentField> = ({
     msgUpdateValueSuccess,
     msgUpdateValueFail,
 }) => {
-    const [curentValue, setCurentValue] = useState<string>(defaultValue || '');
+    const [curentValue, setCurentValue] = useState<string>(
+        defaultValue
+            ? typeof defaultValue === 'string'
+                ? defaultValue
+                : defaultValue[0]
+            : '',
+    );
     const [loading, setLoading] = useState(false);
     const [lsResult, setResult] = useState(options || []);
     const refBtn = useRef<HTMLDivElement>(null);
     const refPopUp = useRef<HTMLDivElement>(null);
+    const refClear = useRef<HTMLDivElement>(null);
     const noti = useNoti();
+
+    const [moreValue, setMoreValue] = useState<string[]>(
+        typeof defaultValue == 'object' ? defaultValue : [],
+    );
 
     const { open, setOpen, style, handleClose } = usePopUp(
         refBtn,
@@ -86,39 +99,109 @@ const Select: React.FC<ICurentField> = ({
         'left',
         undefined,
         isChildren,
+        refClear,
     );
+
+    async function confirm(value: string | string[]) {
+        if (beforeUpdateValue) {
+            setLoading(true);
+            const result = await beforeUpdateValue(value);
+            setLoading(false);
+
+            if (result) {
+                noti?.success(msgUpdateValueSuccess || 'Update success');
+            } else {
+                noti?.error(msgUpdateValueFail || 'Update error!');
+            }
+            return result;
+        }
+    }
 
     const handleBeforeUpdate = async (value: string) => {
         if (loading) return;
-        if (value !== curentValue) {
-            if (beforeUpdateValue) {
-                setLoading(true);
-                const result = await beforeUpdateValue(value);
-                setLoading(false);
-                if (result)
-                    noti?.success(msgUpdateValueSuccess || 'Update success');
-                else {
-                    noti?.error(msgUpdateValueFail || 'Update error!');
-                    return;
+        if (isMutiple) {
+            if (moreValue.includes(value)) {
+                let isSetData;
+                const newData: string[] = moreValue.filter((e) => {
+                    return e !== value;
+                });
+
+                if (beforeUpdateValue) {
+                    isSetData = await confirm(newData);
                 }
+
+                if (isSetData || !beforeUpdateValue) {
+                    setMoreValue(newData);
+                    newData.length > 0
+                        ? setCurentValue(newData[0])
+                        : setCurentValue('');
+                }
+            } else {
+                let isSetData;
+                const newData = [value, ...moreValue];
+
+                if (beforeUpdateValue) {
+                    isSetData = await confirm(newData);
+                }
+
+                if (isSetData || !beforeUpdateValue) {
+                    setMoreValue(newData);
+                    setCurentValue(value);
+                }
+            }
+        } else {
+            if (value !== curentValue && beforeUpdateValue) {
+                const result = await confirm(value);
+                if (!result) return;
             }
             setCurentValue(value);
         }
     };
 
+    async function handeClearField() {
+        if (beforeUpdateValue) {
+            setLoading(true);
+            let result = await beforeUpdateValue(isMutiple ? [] : '');
+            setLoading(false);
+            if (result) noti?.success('Update success');
+            else {
+                noti?.error('Update error!');
+                return;
+            }
+        }
+        setCurentValue('');
+        isMutiple && setMoreValue([]);
+    }
+
     useEffect(() => {
-        setTimeout(() => {
-            onChange && onChange(curentValue);
-        }, 200);
-        open && handleClose();
+        if (!isMutiple) {
+            setTimeout(() => {
+                onChange && onChange(curentValue);
+            }, 200);
+            open && handleClose();
+        }
     }, [curentValue]);
+
+    useEffect(() => {
+        if (isMutiple) {
+            setTimeout(() => {
+                onChange && onChange(moreValue);
+            }, 200);
+            open && handleClose();
+        }
+    }, [moreValue]);
 
     useEffect(() => {
         options && setResult(options);
     }, [options]);
 
     useEffect(() => {
-        defaultValue && setCurentValue(defaultValue);
+        defaultValue &&
+            setCurentValue(
+                typeof defaultValue == 'string'
+                    ? defaultValue
+                    : defaultValue[0],
+            );
     }, []);
 
     useEffect(() => {
@@ -128,12 +211,24 @@ const Select: React.FC<ICurentField> = ({
     }, [open]);
 
     useEffect(() => {
-        if (value !== undefined && value !== curentValue) {
-            setCurentValue(value);
+        if (isMutiple) {
+            if (typeof value == 'object' && value.length !== moreValue.length) {
+                setCurentValue(value[0] || '');
+                setMoreValue(value);
+            }
+        } else {
+            if (
+                value !== undefined &&
+                value !== curentValue &&
+                typeof value === 'string'
+            ) {
+                setCurentValue(value);
+            }
         }
     }, [value]);
 
     const curentItemSelected = getCurentItem(options || [], curentValue);
+
     const isOpen = open && (lsResult.length > 0 || isSearch);
 
     return (
@@ -157,7 +252,10 @@ const Select: React.FC<ICurentField> = ({
                             setValue={setCurentValue}
                             className={className}
                             isClear={isClear}
+                            refClear={refClear}
+                            moreValue={moreValue}
                             loading={loading}
+                            handleClear={handeClearField}
                             item={curentItemSelected}
                         />
                     )) ||
@@ -181,7 +279,9 @@ const Select: React.FC<ICurentField> = ({
                         setOpen={setOpen}
                         options={options}
                         setResult={setResult}
+                        moreValue={moreValue}
                         moreItem={moreItem}
+                        isMutiple={isMutiple}
                         iconActive={iconActive}
                         isClear={isClear}
                         isIconCheck={isIconCheck}
@@ -196,10 +296,12 @@ const Select: React.FC<ICurentField> = ({
                 ) : (
                     createPortal(
                         <SelectPopup
+                            moreValue={moreValue}
                             updateValue={handleBeforeUpdate}
                             fontSize={fontSize}
                             isSearch={isSearch}
                             lsResult={lsResult}
+                            isMutiple={isMutiple}
                             refBtn={refBtn}
                             refPopUp={refPopUp}
                             style={style}

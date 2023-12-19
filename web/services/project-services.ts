@@ -20,6 +20,14 @@ class ProjectService extends BaseService {
             console.log(error)
         }
     }
+
+    async getMemberByProject<T>(projectId: string){
+        try {
+            return await this.get<T>('project-member/' + projectId)
+        } catch (error) {
+            console.log(error)
+        }
+    }
 }
 
 const projectService = new ProjectService();

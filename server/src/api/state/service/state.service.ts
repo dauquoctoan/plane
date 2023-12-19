@@ -68,4 +68,14 @@ export class StateService extends BaseService<State> {
             order:[['created_by', 'ASC']]
         })
     }
+
+    async findDefaultState() {
+        return await this.findAll({
+            where: {
+                project_id: null,
+                created_by: null,
+            },
+            order:[['created_by', 'ASC']]
+        })
+    }
 }

@@ -1,4 +1,4 @@
-import { Controller, Get, Post } from '@nestjs/common';
+import { Body, Controller, Get, Post } from '@nestjs/common';
 import { AppService } from './app.service';
 import { ApiTags } from '@nestjs/swagger';
 
@@ -15,6 +15,11 @@ export class AppController {
   @Get('send-mail')
   async sendMail(){
     return await this.appService.sendMail();
+  }
+
+  @Post('test')
+  async test(@Body() body:any){
+    return await body;
   }
 }
   

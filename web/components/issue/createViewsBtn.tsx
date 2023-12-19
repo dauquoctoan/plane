@@ -15,6 +15,7 @@ const CreateViewsBtn = () => {
         >
             <LiaPlusSolid className="text-color-special-primary" />
             <Modal
+                mrTop={20}
                 isOpen={isOpenCreateIssue}
                 content={<CreateViewIssue />}
                 handleClose={() => {

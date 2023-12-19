@@ -1,5 +1,9 @@
 export class UpdateIssueLabelDto {
-    issue: number;
-    label: number;
+    issue_id: string;
+    labels: string[];
 }
-export class CreateIssueLabelDto { }
+export class CreateIssueLabelDto {
+    issue_id: string;
+    label_id: string;
+}
+

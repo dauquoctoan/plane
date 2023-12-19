@@ -24,6 +24,7 @@ import { ProjectPublicMember } from 'src/api/project/entitys/ProjectPublicMember
 import { ProjectFavorite } from 'src/api/project/entitys/projectFavorite.entity';
 import { SocialLoginConnection } from 'src/api/social_connection/entitys/SocialLoginConnection.entity';
 import { State } from 'src/api/state/entitys/State.entity';
+import { IssueView } from 'src/api/view/entitys/IssueView.entity';
 import { IssueViewFavorite } from 'src/api/view/entitys/IssueViewFavorite.entity';
 import { Team } from 'src/api/workspace/entitys/Team.entity';
 import { TeamMember } from 'src/api/workspace/entitys/TeamMember.entity';
@@ -54,6 +55,9 @@ export class User extends Model<User> {
 
     @HasMany(() => Label, { foreignKey: 'created_at' })
     label: Label[];
+
+    @HasMany(() => IssueView, { foreignKey: 'created_at' })
+    issue_view: IssueView[];
 
     @HasMany(() => State, 'created_by')
     state: State;
@@ -144,6 +148,9 @@ export class User extends Model<User> {
 
     @BelongsToMany(() => Team, () => TeamMember)
     Team: Team[];
+
+    @HasMany(() => Issue, {foreignKey:'create_by', as: 'creator'})
+    issue_create_by: Issue[];
 
     @BelongsToMany(() => Issue, () => IssueAssignee)
     issue: Issue[];

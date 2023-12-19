@@ -36,13 +36,19 @@ export class StateController {
     return handleResultSuccess(await this.stateService.findState(id, request.user.id));
   }
 
+  @Get('default')
+  @UseGuards(AuthGuard)
+  async findDefaultStateBy() {
+    return handleResultSuccess(await this.stateService.findDefaultState());
+  }
+
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateWorkspaceDto: UpdateStateDto) {
-    return handleResultSuccess(this.stateService.updateById(id, updateWorkspaceDto));
+  async update(@Param('id') id: string, @Body() updateWorkspaceDto: UpdateStateDto) {
+    return handleResultSuccess(await this.stateService.updateById(id, updateWorkspaceDto));
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string) {
-    return handleResultSuccess(this.stateService.removeById(id));
+  async remove(@Param('id') id: string) {
+    return handleResultSuccess(await this.stateService.removeById(id));
   }
 }

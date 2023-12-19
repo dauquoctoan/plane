@@ -46,6 +46,10 @@ export class Issue extends Model<Issue> {
     @Column({ type: sequelize.UUID, allowNull: false })
     project_id: string;
 
+    @ForeignKey(() => User)
+    @Column({ type: sequelize.UUID, allowNull: false })
+    create_by: string;
+
     @ForeignKey(() => Workspace)
     @Column({ type: sequelize.UUID, allowNull: false })
     workspace_id: string;
@@ -61,6 +65,9 @@ export class Issue extends Model<Issue> {
     /**
     * ! RELATIONSHIP
     */
+
+    @BelongsTo(() => User, { foreignKey: 'create_by' })
+    creator: User;
 
     @BelongsTo(() => Project, { foreignKey: 'project_id' })
     project: Project;
@@ -147,10 +154,10 @@ export class Issue extends Model<Issue> {
     @Column({ type: DataType.JSON, defaultValue: {} })
     description: string;
 
-    @Column({ defaultValue: "<p></p>" })
+    @Column({ type: 'text' })
     description_html: string;
 
-    @Column
+    @Column({ type: DataType.TEXT({length: 'medium'})})
     description_stripped: string;
 
     @Is('priority', (value) => {
@@ -159,10 +166,10 @@ export class Issue extends Model<Issue> {
     @Column
     priority: string;
 
-    @Column
+    @Column({allowNull:true})
     start_date: Date;
 
-    @Column
+    @Column({allowNull:true})
     target_date: Date;
 
     @Column({ defaultValue: 1 })
@@ -171,7 +178,7 @@ export class Issue extends Model<Issue> {
     @Column({ defaultValue: 65535 })
     sort_order: number;
 
-    @Column({ type: DataType.TIME })
+    @Column({ type: DataType.TIME})
     completed_at: Date;
 
     @Column({ type: DataType.DATE })

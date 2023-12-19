@@ -2,13 +2,15 @@ import { Attributes, FindOptions, Model, ModelCtor } from "sequelize";
 import { handleResultError } from "src/helper/handleresult";
 import { removeKeyNull } from "src/helper/key";
 import { messageCreateFail, messageDeleteFail, messageFindFail, messageUpdateFail } from "src/helper/message.create";
+import { CreateOptions } from 'sequelize/types';
+
 
 export abstract class BaseService<T extends Model>{
     constructor(
         public repository: ModelCtor<T>,
     ) { }
 
-    async create(entity: any): Promise<any> {
+    async create<C>(entity: C): Promise<T> {
         try {
             return await this.repository.create(removeKeyNull(entity));
         } catch (error) {
@@ -17,7 +19,7 @@ export abstract class BaseService<T extends Model>{
         }
     }
 
-    async creates(record: Omit<T, any>[]) {
+    async creates<C>(record: C[]) {
         try {
             return this.repository.bulkCreate(record as any);
         } catch (error) {

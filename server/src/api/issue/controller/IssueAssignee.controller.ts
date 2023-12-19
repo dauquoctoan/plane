@@ -9,29 +9,29 @@ import { handleResultSuccess } from 'src/helper/handleresult';
 @Controller('issue-assignee')
 @ApiTags('Issue Assignee')
 export class IssueAssigneeController {
-    constructor(private readonly workspaceService: IssueAssigneeService) { }
+    constructor(private readonly issueAssignee: IssueAssigneeService) { }
     @Post()
-    create(@Body() createWorkspaceDto: CreateIssueAssigneeDto) {
-        return handleResultSuccess(this.workspaceService.create(createWorkspaceDto));
+    async create(@Body() createWorkspaceDto: CreateIssueAssigneeDto) {
+        return handleResultSuccess(await this.issueAssignee.create(createWorkspaceDto));
     }
 
     @Get()
-    findAll() {
-        return handleResultSuccess(this.workspaceService.findAll());
+    async findAll() {
+        return handleResultSuccess(await this.issueAssignee.findAll());
     }
 
     @Get(':id')
     findOne(@Param('id') id: string) {
-        return handleResultSuccess(this.workspaceService.findOneById(id));
+        return handleResultSuccess(this.issueAssignee.findOneById(id));
     }
 
     @Patch(':id')
-    update(@Param('id') id: string, @Body() updateWorkspaceDto: UpdateIssueAssigneeDto) {
-        return handleResultSuccess(this.workspaceService.updateById(id, updateWorkspaceDto));
+    async update(@Param('id') id: string, @Body() updateWorkspaceDto: UpdateIssueAssigneeDto) {
+        return handleResultSuccess(await this.issueAssignee.changeIssueAsign(updateWorkspaceDto.assignees || [], id));
     }
 
     @Delete(':id')
     remove(@Param('id') id: string) {
-        return handleResultSuccess(this.workspaceService.removeById(id));
+        return handleResultSuccess(this.issueAssignee.removeById(id));
     }
 }

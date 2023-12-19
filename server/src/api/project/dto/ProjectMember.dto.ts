@@ -1,12 +1,17 @@
+import { PartialType } from "@nestjs/swagger";
+
 export class CreateProjectMemberDto {
+    id?: string;
     member: string;
-    comment: string;
-    role: string;
-    view_props: string;
-    default_props: string;
-    preferences: string;
-    sort_order: string;
+    project_id: string;
+    workspace_id: string;
+    role: number;
+    comment?: string;
+    view_props?: string;
+    default_props?: string;
+    preferences?: string;
+    sort_order?: string;
 }
-export class UpdateProjectMemberDto {
+export class UpdateProjectMemberDto extends  PartialType(CreateProjectMemberDto){
 
 }

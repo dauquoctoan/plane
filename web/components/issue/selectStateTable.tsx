@@ -1,5 +1,5 @@
 import React from 'react';
-import Select from '../ui/select/select';
+import Select, { IOptionItem } from '../ui/select/select';
 import { STATES_KEY } from '@/apiKey';
 import issueService from '@/services/issue-services';
 import useSWR from 'swr';
@@ -9,8 +9,8 @@ import { convertDataOptions } from '@/helpers';
 interface IProps {
     projectId?: string;
     stateId: string;
-    onChange?: (id: string | number) => void;
-    beforeUpdateValue: (e: string) => Promise<any>;
+    onChange?: (id: string | string[]) => void;
+    beforeUpdateValue: (e: string | string[]) => Promise<any>;
 }
 
 const SelectStateTable: React.FC<IProps> = ({
@@ -26,7 +26,7 @@ const SelectStateTable: React.FC<IProps> = ({
     return (
         <Select
             defaultValue={stateId}
-            options={states && convertDataOptions(states)}
+            options={states && (convertDataOptions(states) as IOptionItem[])}
             isIconCheck
             isChildren={false}
             onChange={onChange}

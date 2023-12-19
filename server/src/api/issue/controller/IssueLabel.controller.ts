@@ -26,8 +26,8 @@ export class IssueLabelController {
     }
 
     @Patch(':id')
-    update(@Param('id') id: string, @Body() updateWorkspaceDto: UpdateIssueLabelDto) {
-        return handleResultSuccess(this.workspaceService.updateById(id, updateWorkspaceDto));
+    async update(@Param('id') id: string, @Body() updateWorkspaceDto: UpdateIssueLabelDto) {
+        return handleResultSuccess(await this.workspaceService.changeIssueLabel(updateWorkspaceDto.labels || [], id));
     }
 
     @Delete(':id')

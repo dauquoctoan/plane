@@ -1,7 +1,6 @@
 import { SequelizeModuleAsyncOptions } from "@nestjs/sequelize";
 import { ConfigService } from '@nestjs/config';
-import { Dialect, Sequelize } from "sequelize";
-import { OnApplicationShutdown } from '@nestjs/common';
+import { Dialect } from "sequelize";
 
 export const CONFIG_DB: SequelizeModuleAsyncOptions = {
     useFactory:async(configService: ConfigService) => ({
@@ -13,13 +12,13 @@ export const CONFIG_DB: SequelizeModuleAsyncOptions = {
         database: configService.get<string>('DB_NAME') || 'plane',
         timezone: "+08:00",
         autoLoadModels: true,
-        synchronize: false,//true : production
+        synchronize: false,//false : production
         logging: console.log,
         cache: {
           max: 500,       // Số lượng model được lưu trữ trong bộ nhớ
           maxAge: 60000,  // Thời gian sống của cache (milliseconds)
         },
-        sync: { force: true }//true : create new model
+        sync: { force: true } //true : create new model
     }),
     inject: [ConfigService]
 }

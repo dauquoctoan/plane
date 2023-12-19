@@ -5,6 +5,8 @@ import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { AuthGuard } from 'src/Guards/auth.guard';
 import { handleResultSuccess } from 'src/helper/handleresult';
 import { IAuthRequest } from 'src/types/auth.types';
+import { WorkspaceMember } from 'src/api/workspace/entitys/WorkspaceMember.entity';
+import { ProjectMember } from 'src/api/project/entitys/ProjectMember.entity';
 
 
 @Controller('user')
@@ -38,7 +40,7 @@ export class UserController {
         return handleResultSuccess(this.userService.updateById(request.user.id, updateUserDto));
     }
 
-    //@UseGuards(AuthGuard)
+    @UseGuards(AuthGuard)
     @Delete(':id')
     remove(@Param('id') id: string) {
         return handleResultSuccess(this.userService.removeById(id));

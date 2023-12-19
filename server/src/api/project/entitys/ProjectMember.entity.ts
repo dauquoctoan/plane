@@ -1,4 +1,4 @@
-import sequelize from 'sequelize';
+import sequelize, { Optional } from 'sequelize';
 import { BelongsTo, Column, DataType, ForeignKey, Is, Model, Table } from 'sequelize-typescript';
 import { User } from 'src/api/user/entitys/User.entity';
 import { DEFAULT_PREFERENCES, DEFAULT_PROPS, ROLE } from 'src/constants/entity-constant';
@@ -6,8 +6,25 @@ import { INVALID_ROLE } from 'src/constants/message-constant';
 import { Project } from './Project.entity';
 import { Workspace } from 'src/api/workspace/entitys/Workspace.entity';
 
+
+interface ProjectMemberAttributes {
+    id: number;
+    name: string;
+    project_id:string;
+    workspace_id: string;
+    comment: string;    
+    role: string;
+    view_props: string;
+    default_props: string;
+    preferences: string;
+    sort_order: string;
+}
+  
+interface ProjectMemberCreationAttributes extends Optional<ProjectMemberAttributes, 'id'> {}
+  
+
 @Table
-export class ProjectMember extends Model<ProjectMember> {
+export class ProjectMember extends Model<ProjectMemberAttributes, ProjectMemberCreationAttributes> {
     @Column({ type: sequelize.UUID, defaultValue: sequelize.UUIDV4, allowNull: false, primaryKey: true })
     id: string;
 
@@ -43,7 +60,7 @@ export class ProjectMember extends Model<ProjectMember> {
         }
     })
     @Column({ defaultValue: 10 })
-    role: string;
+    role: number;
 
     @Column({ type: DataType.JSON, defaultValue: DEFAULT_PROPS })
     view_props: string;
