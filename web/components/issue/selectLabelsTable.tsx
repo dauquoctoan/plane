@@ -1,12 +1,8 @@
-import { LABELS_BY_PROJECT_KEY, MEMBER_KEY } from '@/apiKey';
-import projectService from '@/services/project-services';
+import { LABELS_BY_PROJECT_KEY } from '@/apiKey';
 import React from 'react';
 import useSWR from 'swr';
 import Select from '../ui/select/select';
-import {
-    createIssueLabelSelectOption,
-    createMembeSelectOption,
-} from '@/helpers';
+import { createIssueLabelSelectOption } from '@/helpers';
 import { IData, ILabel } from '@/types';
 import { IoMdPricetags } from 'react-icons/Io';
 import issueService from '@/services/issue-services';
@@ -24,10 +20,7 @@ const SelectLabelsTable: React.FC<IProps> = ({
 }) => {
     const { data: labels } = useSWR(
         () => LABELS_BY_PROJECT_KEY(projectId),
-        () =>
-            issueService.findLabelsByProject<IData<ILabel[]>>(
-                projectId as string,
-            ),
+        () => issueService.findLabelsByProject<IData<ILabel[]>>({ projectId }),
     );
 
     return (

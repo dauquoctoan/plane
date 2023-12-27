@@ -42,7 +42,7 @@ export const ItemSelect: React.FC<IItemSelect> = ({
             onClick={() => {
                 isItem &&
                     updateValue(
-                        typeof item === 'string' ? item : item.key || '',
+                        typeof item === 'string' ? item : item.value || '',
                     );
             }}
             className={`hover:bg-theme-secondary ${fontSize} mb-1 last:mb-0 gap-1 select-none ${
@@ -57,7 +57,7 @@ export const ItemSelect: React.FC<IItemSelect> = ({
                 <div className="flex-1 flex items-center gap-1 overflow-hidden">
                     {item?.icon && <div className="w-fit">{item.icon}</div>}
                     <div className="flex-1 cursor-pointer text-ellipsis overflow-hidden whitespace-nowrap">
-                        {item.name}
+                        {item.title}
                     </div>
                 </div>
             )}

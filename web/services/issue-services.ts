@@ -57,6 +57,14 @@ class IssueService extends BaseService {
         }
     }
 
+    async findIssueByProjectId<T>(projectId:string){
+        try {
+            return await this.get<T>('issue/'+projectId);
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
     async updateIssue<T>(idIssue?:string, issue?:IIssue){
         try {
             return await this.patch<T>(`issue/${idIssue}`,issue);
@@ -81,9 +89,9 @@ class IssueService extends BaseService {
         }
     }
 
-    async findLabelsByProject<T>(projectId: string) {
+    async findLabelsByProject<T>(query: {projectId?: string}) {
         try {
-            return await this.get<T>('label/by-project-id/' + projectId);
+            return await this.get<T>('label', query);
         } catch (error) {
             console.log(error)
         }
@@ -92,6 +100,14 @@ class IssueService extends BaseService {
     async createIssueView<T>(issueView: IIssueViews){
         try {
             return await this.post<T>('issue-view', issueView)
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+    async findIssueViewById<T>(id:string){
+        try {
+            return await this.get<T>('issue-view/'+id)
         } catch (error) {
             console.log(error)
         }

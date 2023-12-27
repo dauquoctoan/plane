@@ -1,18 +1,17 @@
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import Input from '../ui/input/Input';
 import Button from '../ui/button';
-import { IItemData } from '../ui/treeSelect/popOver';
 import issueService from '@/services/issue-services';
-import FillterQueryIssue from './fillterQueryIssue';
-import { IItemSelected } from '../ui/collapse/collapse';
-import { IoIosClose } from 'react-icons/Io';
-import { useNoti } from '@/hooks';
-import useSWR, { mutate } from 'swr';
-import { IData, Istate } from '@/types';
-import { optionLevel } from '@/constants';
-import { convertDataOptions } from '@/helpers';
+import FillterQueryIssue, {
+    IStateDate,
+    ItemSelected,
+} from './fillterQueryIssue';
+import { TCalBackChangeDate, useDataFilter, useNoti } from '@/hooks';
+import { mutate } from 'swr';
 import { ISSUE_VIEWS_KEY } from '@/apiKey';
+import moment from 'moment';
+import { IItemData, IItemSelected } from '../ui/collapse/collapse';
 
 interface ICreateForm {
     title: string;
@@ -20,35 +19,79 @@ interface ICreateForm {
     query: string[];
 }
 
-interface IItemQuerySelected {
-    item: IItemData;
-    setItemSelected: React.Dispatch<React.SetStateAction<IItemSelected>>;
-}
-
-interface IQueryForm {
+export interface IQueryForm {
     [e: string]: string[];
 }
 
-function _getValues(itemSelected: IItemSelected) {
-    return Object.keys(itemSelected);
-}
+function getdataBinddingForm(dataSelected: IItemData[]): IQueryForm {
+    return dataSelected.reduce((data: IQueryForm, item) => {
+        let newData = { ...data };
 
-function _filter(datas: IItemData[], key: string[]): IItemSelected {
-    return datas.reduce((data: IItemSelected, item) => {
-        let newData: IItemSelected = { ...data };
-
-        if (item.value && typeof key !== 'string' && key.includes(item.value)) {
-            newData[item.value] = item;
+        if (item.value && item.children && item.children?.length > 0) {
+            const key = item.value.split('::').pop();
+            newData[key || ''] = item.children?.map(
+                (e) => e.value?.split('::').pop() || '',
+            );
         }
-
-        if (item.children)
-            newData = { ...newData, ..._filter(item.children, key) };
 
         return newData;
     }, {});
 }
 
-function filterSelected(
+function handleCheckDataBeforeSubmit(
+    customDate: IStateDate,
+    dataSelected: IItemData[],
+) {
+    let query = {
+        ...getdataBinddingForm(dataSelected),
+    };
+
+    if (customDate.startDate?.from || customDate.startDate?.to) {
+        query.startCustomFrom = moment(
+            customDate.startDate?.from,
+        ).format() as any;
+
+        query.startCustomTo = moment(customDate.startDate?.to).format() as any;
+        delete query.startDate;
+    } else {
+        if (query.startDate)
+            query.startDate = moment()
+                .subtract(Number(query.startDate.pop()), 'days')
+                .format() as any;
+    }
+
+    if (customDate.dueDate?.from || customDate.dueDate?.to) {
+        query.dueCustomFrom = moment(customDate.dueDate?.from).format() as any;
+
+        query.dueCustomTo = moment(customDate.dueDate?.to).format() as any;
+        delete query.dueDate;
+    } else {
+        if (query.dueDate)
+            query.dueDate = moment()
+                .subtract(Number(query.dueDate.pop()), 'days')
+                .format() as any;
+    }
+
+    return query;
+}
+
+function handleRemoveChildItem(lsItemSelected: IItemSelected, value: string) {
+    const newData = { ...lsItemSelected };
+    if (newData[value]) delete newData[value];
+    return newData;
+}
+
+function handleRemoveParentItem(lsItemSelected: IItemSelected, value: string) {
+    const newData = { ...lsItemSelected };
+    Object.keys(lsItemSelected).forEach((e) => {
+        if (newData[e].parentKey === value) {
+            delete newData[e];
+        }
+    });
+    return newData;
+}
+
+export function filterSelected(
     datas: IItemData[],
     itemSelected: IItemSelected,
 ): IItemData[] {
@@ -72,8 +115,28 @@ function filterSelected(
     }, []);
 }
 
-const CreateViewIssue = () => {
+const CreateViewIssue = ({
+    setIsOpenCreateIssue,
+}: {
+    setIsOpenCreateIssue: (e: boolean) => void;
+}) => {
     const [loading, setLoading] = useState(false);
+    const noti = useNoti();
+    const [customeDate, setCustomeDate] = useState<IStateDate>({});
+    const [itemSelected, setItemSelected] = useState<IItemSelected>({});
+    const setDate: TCalBackChangeDate = (type, name, date) => {
+        setCustomeDate({
+            ...customeDate,
+            [name]: {
+                ...customeDate.dueDate,
+                [type]: date,
+            },
+        });
+    };
+    const { data } = useDataFilter(setDate);
+
+    const dataSelected = filterSelected(data, itemSelected);
+
     const {
         register,
         handleSubmit,
@@ -84,92 +147,21 @@ const CreateViewIssue = () => {
         watch,
     } = useForm<ICreateForm>({
         defaultValues: {
-            query: ['0-1'],
+            query: [],
             title: '',
             desc: '',
         },
     });
-
-    const {
-        data: state,
-        isLoading,
-        isValidating,
-    } = useSWR('DEFAULT_STATE', (a) =>
-        issueService.getDefaultState<IData<Istate[]>>(),
-    );
-
-    const noti = useNoti();
-
-    // projects?: string[];
-    // userId?: string;
-    // states?: string[];
-    // labels?: string[];
-    // priorities?: string[];
-    // createBys?: string[];
-    // assignees?: string[];
-    // subscribers?: string[];
-    // startDate?: string;
-    // dueDate?: string;
-
-    const convertData = (keys: string[], data?: any[]) => {
-        return (
-            data?.map((e) => {
-                return {
-                    title: e[keys[0]],
-                    value: e[keys[1]],
-                    icon: e.icon,
-                };
-            }) || []
-        );
-    };
-
-    const data: IItemData[] = [
-        {
-            title: 'State',
-            value: 'states',
-            children: convertDataOptions(state, 1) as IItemData[],
-        },
-        {
-            title: 'Priority',
-            value: 'priorities',
-            children: convertData(['name', 'key'], optionLevel),
-        },
-    ];
-
-    const [itemSelected, setItemSelected] = useState<IItemSelected>(
-        _filter(data, []),
-    );
-
-    function handleSelect(item: IItemData) {
-        if (item.value) {
-            const newItem = { ...itemSelected };
-            if (newItem[item.value]) {
-                delete newItem[item.value];
-            } else {
-                newItem[item.value] = item;
-            }
-            setItemSelected(newItem);
-        }
-    }
-
-    const dataSelected = filterSelected(data, itemSelected);
-
-    function getdataBinddingForm(dataSelected: IItemData[]): IQueryForm {
-        return dataSelected.reduce((data: IQueryForm, item) => {
-            let newData = { ...data };
-
-            if (item.value && item.children && item.children?.length > 0) {
-                newData[item.value] = item.children?.map((e) => e.value || '');
-            }
-            return newData;
-        }, {});
-    }
 
     return (
         <form
             className="w-[1000px]"
             onSubmit={handleSubmit(async (data) => {
                 if (loading) return;
+                const query = handleCheckDataBeforeSubmit(
+                    customeDate,
+                    dataSelected,
+                );
                 mutate(
                     ISSUE_VIEWS_KEY,
                     async (issueView: any) => {
@@ -177,17 +169,17 @@ const CreateViewIssue = () => {
                         const result = await issueService.createIssueView({
                             name: data.title,
                             description: data.desc,
-                            query: { ...getdataBinddingForm(dataSelected) },
+                            query: query,
                         });
-
                         setLoading(false);
-
                         if (result) {
                             noti?.success('Create views issue success');
-                            return [...issueView, result];
+                            setIsOpenCreateIssue(false);
+                            return [result, ...issueView];
                         } else {
                             noti?.error('Create views issue error');
                         }
+                        return [...issueView];
                     },
                     { revalidate: false },
                 );
@@ -199,7 +191,7 @@ const CreateViewIssue = () => {
                 </h2>
             </div>
             <div className="flex justify-between gap-2">
-                <div className="flex-1">
+                <div className="flex-1 flex flex-col">
                     <Input
                         placeholder="Title"
                         nameForm="Title"
@@ -221,82 +213,46 @@ const CreateViewIssue = () => {
                         placeholder="Description"
                         setValue={setValue}
                     />
-                    <div className="w-full min-h-[50px] border rounded p-2 flex flex-auto gap-2 flex-wrap">
-                        {!dataSelected.length && <span>Filter</span>}
-                        {dataSelected.map((item) => (
-                            <ItemSelected
-                                item={item}
-                                setItemSelected={setItemSelected}
-                            />
-                        ))}
+
+                    <div className="w-full min-h-max border rounded p-2 flex flex-1 gap-2 flex-wrap overflow-y-auto">
+                        <ItemSelected
+                            placeholder="Filter"
+                            dataSelected={dataSelected}
+                            handleRemoveParent={(value: string) => {
+                                setItemSelected(
+                                    handleRemoveParentItem(itemSelected, value),
+                                );
+                            }}
+                            handleRemoveChild={(value: string) => {
+                                setItemSelected(
+                                    handleRemoveChildItem(itemSelected, value),
+                                );
+                            }}
+                        />
                     </div>
                 </div>
-                <div className="flex-1">
+                <div className="w-[400px]">
                     <FillterQueryIssue
-                        data={data}
-                        handleSelect={handleSelect}
+                        setItemSelected={setItemSelected}
                         itemSelected={itemSelected}
+                        data={data}
                     />
                 </div>
             </div>
             <div className="flex items-center justify-end gap-2 pt-2">
-                <Button typeBTN="text" type="button" text="Cancel" />
+                <Button
+                    typeBTN="text"
+                    type="button"
+                    text="Cancel"
+                    onClick={() => {
+                        setTimeout(() => {
+                            setIsOpenCreateIssue(false);
+                        });
+                    }}
+                />
                 <Button typeBTN="primary" type="submit" text="Create View" />
             </div>
         </form>
-    );
-};
-
-const ItemSelected: React.FC<IItemQuerySelected> = ({
-    item,
-    setItemSelected,
-}) => {
-    function handleRemoveChild(value: string) {
-        setItemSelected((data) => {
-            const newData = { ...data };
-            if (newData[value]) delete newData[value];
-            return newData;
-        });
-    }
-
-    function handleRemoveParent(value: string) {
-        setItemSelected((data) => {
-            const newData = { ...data };
-            Object.keys(data).forEach((e) => {
-                if (newData[e].parentKey === value) {
-                    delete newData[e];
-                }
-            });
-            return newData;
-        });
-    }
-
-    return (
-        <div className="flex border rounded-full items-center gap-2 w-fit px-2 select-none py-1">
-            <div className="text-sm flex items-center gap-2 font-medium">
-                {item.title}:
-            </div>
-            <div className="flex gap-1 flex-auto items-center rounded-full">
-                {item.children?.map((e) => (
-                    <div className="text-[13px] bg-theme-secondary rounded-full px-1 flex flex-auto items-center gap-1">
-                        {e.icon}
-                        {(e.render && e.render()) || (
-                            <span className="whitespace-nowrap">{e.title}</span>
-                        )}
-                        <IoIosClose
-                            onClick={() => {
-                                e.value && handleRemoveChild(e.value);
-                            }}
-                        />
-                    </div>
-                ))}
-            </div>
-            <IoIosClose
-                onClick={() => {
-                    item.value && handleRemoveParent(item.value);
-                }}
-            />
-        </div>
     );
 };
 

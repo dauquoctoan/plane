@@ -11,7 +11,8 @@ const inter = Inter({ subsets: ['vietnamese'] });
 export const metadata: any = {
     title: 'Plane',
     description: 'Plane',
-    stylesheet: 'https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0',
+    stylesheet:
+        'https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0',
 };
 
 export default function RootLayout({
@@ -23,7 +24,10 @@ export default function RootLayout({
         <Providers>
             <html lang="en">
                 <body className={`${inter.className} theme-light`}>
-                    <ProgressLoader color='var(--color-special-primary)' showSpinner={false}/>
+                    <ProgressLoader
+                        color="var(--color-special-primary)"
+                        showSpinner={false}
+                    />
                     <SWRProvider>{children}</SWRProvider>
                 </body>
             </html>

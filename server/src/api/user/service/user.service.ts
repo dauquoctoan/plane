@@ -43,4 +43,23 @@ export class UserService extends BaseService<User> {
             handleResultError({message: messageFindFail(this.repository.getTableName()),messageDetail:error})
         }
     }
+
+    async getUserFromWorkspace(workspaceId: string){
+        try {
+            return this.repository.findAll({
+                include:[
+                    {
+                        model: ProjectMember,
+                        as: 'project_members',
+                        where:{
+                            workspace_id: workspaceId
+                        },
+                        attributes: []
+                    }
+                ]
+            })
+        } catch (error) {
+            handleResultError({message: messageFindFail(this.repository.getTableName()),messageDetail:error})
+        }
+    }
 }

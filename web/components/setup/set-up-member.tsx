@@ -12,9 +12,9 @@ import {
 } from 'react-hook-form';
 import Button from '@/components/ui/button';
 import { HiOutlinePlusSm } from 'react-icons/hi';
-import { IoCloseSharp } from 'react-icons/io5'; 
+import { IoCloseSharp } from 'react-icons/io5';
 import { VALIDATE_EMAIL } from '@/constants/regex';
-import { MEMBER_ROLE } from '@/constants';
+import { MEMBER_ROLE } from '@/constants/issue';
 import { v4 as uuidv4 } from 'uuid';
 import workspaceService from '@/services/workspace-services';
 import { IWorkspaceMemberInvite } from '@/types';

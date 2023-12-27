@@ -27,8 +27,8 @@ function checkActive(item: IOptionItem | string, curent: string | string[]) {
             : curent.includes(item);
     else if (typeof item === 'object') {
         return typeof curent == 'string'
-            ? item.key === curent
-            : curent.includes(item.key as string);
+            ? item.value === curent
+            : curent.includes(item.value as string);
     }
     return false;
 }

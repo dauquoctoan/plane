@@ -7,5 +7,7 @@ export * from './issue'
 export * from './debounce'
 export * from './dom'
 export * from './select'
+export * from './arr'
+
 
 

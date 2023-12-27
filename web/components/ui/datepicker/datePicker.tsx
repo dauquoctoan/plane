@@ -79,14 +79,13 @@ const DatePicker: React.FC<ICurentField> = ({
     const refPopUp = useRef<HTMLDivElement>(null);
     const refClear = useRef<HTMLDivElement>(null);
 
-    const { open, setOpen, style, handleClose } = usePopUp(
-        refBtn,
-        refPopUp,
-        'right',
-        undefined,
-        isChildren,
-        refClear,
-    );
+    const { open, setOpen, style, handleClose } = usePopUp({
+        refPopover: refBtn,
+        refPopup: refPopUp,
+        placement: 'bottomRight',
+        isChildRen: isChildren,
+        refDisable: refClear,
+    });
 
     function handleNextMonth(next: number) {
         const monthUpdate = month + next;

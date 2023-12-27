@@ -8,6 +8,7 @@ import React, {
 } from 'react';
 import get from 'lodash.get';
 import { ListeningResize, cn } from '@/helpers';
+import Empty from '../empty';
 
 export type position = 'left' | 'right';
 
@@ -24,22 +25,33 @@ export interface ITotal {
     left: number;
     right: number;
     totalWidth: number;
+    lsKeyDisable?: string[];
 }
 
 export interface IProps {
     data?: any[];
     configs?: ITableConfigs[];
     fixedHeader?: boolean;
+    lsKeyDisable?: string[];
 }
 
 export type TTotal = ITotal | null;
 
-const Table: React.FC<IProps> = ({ data, configs, fixedHeader }) => {
+const Table: React.FC<IProps> = ({
+    data,
+    configs: defConfgs,
+    fixedHeader,
+    lsKeyDisable,
+}) => {
     const DEFAULT_WIDTH = 125;
     const refTable = useRef<HTMLDivElement>(null);
     const [isScroll, setIsScroll] = useState(false);
-    const refTotal = useRef<TTotal>(null);
     const [width, setWidth] = useState(0);
+    const [configs, setConfigs] = useState(defConfgs);
+
+    useEffect(() => {
+        setConfigs(defConfgs?.filter((e) => !lsKeyDisable?.includes(e.title)));
+    }, [lsKeyDisable?.length]);
 
     useEffect(() => {
         if (refTable.current) {
@@ -49,49 +61,44 @@ const Table: React.FC<IProps> = ({ data, configs, fixedHeader }) => {
         }
     }, []);
 
-    function getHeader(
+    function getItemTable(
         configs: ITableConfigs[],
         isHeader: boolean = false,
         item = {},
     ): ReactElement[] {
         const lsHeader: ReactElement[] = [];
-        if (!refTotal.current) {
-            let left = 0;
-            let redu: { right: number; total: number } = configs.reduce(
-                (curent, item) => {
-                    if (item.fixed === 'right')
-                        return {
-                            right: curent.right + (item.width || DEFAULT_WIDTH),
-                            total: curent.total + (item.width || DEFAULT_WIDTH),
-                        };
-                    else
-                        return {
-                            ...curent,
-                            total: curent.total + (item.width || DEFAULT_WIDTH),
-                        };
-                },
-                { right: 0, total: 0 },
-            );
-            refTotal.current = {
-                left,
-                right: redu.right,
-                totalWidth: redu.total,
-            };
-        }
 
-        let left = refTotal.current.left;
-        let right = refTotal.current.right;
-        const space = width - refTotal.current.totalWidth;
+        let redu: { right: number; total: number } = configs.reduce(
+            (curent, item) => {
+                if (item.fixed === 'right')
+                    return {
+                        right: curent.right + (item.width || DEFAULT_WIDTH),
+                        total: curent.total + (item.width || DEFAULT_WIDTH),
+                    };
+                else
+                    return {
+                        ...curent,
+                        total: curent.total + (item.width || DEFAULT_WIDTH),
+                    };
+            },
+            { right: 0, total: 0 },
+        );
+
+        let left = 0;
+        let right = redu.right;
+        const space = width - redu.total;
+
         configs.forEach((e, i) => {
             if (e.fixed === 'right') right = right - (e.width || DEFAULT_WIDTH);
             lsHeader.push(
                 <div
+                    key={i}
                     style={{
                         left: e.fixed === 'left' ? left : undefined,
                         right: e.fixed === 'right' ? right : undefined,
                         width:
                             i === configs.length - 1 && space > 0
-                                ? e.width || DEFAULT_WIDTH + space
+                                ? (e.width || DEFAULT_WIDTH) + space
                                 : e.width,
                         zIndex: e.fixed && (isHeader ? 49 : 48),
                     }}
@@ -122,6 +129,7 @@ const Table: React.FC<IProps> = ({ data, configs, fixedHeader }) => {
                     )}
                 </div>,
             );
+
             if (e.fixed === 'left') left = left + (e.width || DEFAULT_WIDTH);
         });
         return lsHeader;
@@ -132,9 +140,6 @@ const Table: React.FC<IProps> = ({ data, configs, fixedHeader }) => {
             onScroll={(e: any) => {
                 if (e.target.scrollLeft > 0) setIsScroll(true);
                 else setIsScroll(false);
-            }}
-            onResize={() => {
-                console.log('sdfsdf', refTable.current?.style.width);
             }}
             ref={refTable}
             className="w-full overflow-auto hover-scroll border border-collapse border-x-0 h-full border-theme-border-secondary"
@@ -147,13 +152,19 @@ const Table: React.FC<IProps> = ({ data, configs, fixedHeader }) => {
                             fixedHeader ? 'sticky top-0' : ''
                         }`}
                     >
-                        {getHeader(configs, true)}
+                        {getItemTable(configs, true)}
                     </div>
-                    {data?.map((e, index) => (
-                        <div key={index} className="flex w-fit">
-                            {getHeader(configs, false, e)}
+                    {data && data?.length > 0 ? (
+                        data?.map((e, index) => (
+                            <div key={index} className="flex w-fit">
+                                {getItemTable(configs, false, e)}
+                            </div>
+                        ))
+                    ) : (
+                        <div className="w-full h-[500px]">
+                            <Empty />
                         </div>
-                    ))}
+                    )}
                 </>
             ) : (
                 <div></div>

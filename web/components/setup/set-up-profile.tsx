@@ -1,4 +1,4 @@
-'use client'
+'use client';
 import React, { memo, useEffect, useState } from 'react';
 import Input from '../ui/input/Input';
 import AutoComplete from '../ui/auto-complete';
@@ -7,7 +7,7 @@ import { useForm } from 'react-hook-form';
 import authService from '@/services/auth-services';
 import { useSelector } from '@/store';
 import { selectInfo } from '@/store/slices/authSlice/selectors';
-import { TIME_ZONE_CHOICE } from '@/constants';
+import { TIME_ZONE_CHOICE } from '@/constants/issue';
 import { IPropsComponent } from './type';
 
 const Profile: React.FC<IPropsComponent> = ({ nextStep }) => {

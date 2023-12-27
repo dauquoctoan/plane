@@ -1,6 +1,8 @@
 import React, { ReactElement, useState } from 'react';
 import { IoIosCheckbox, IoIosCheckboxOutline } from 'react-icons/Io';
 import { FaAngleDown } from 'react-icons/fa';
+import { LiaWindowMinimizeSolid } from 'react-icons/lia';
+import Empty from '../empty';
 
 export interface IItemData {
     value?: string;
@@ -47,15 +49,22 @@ const ItemCollapse: React.FC<IItemCollapse> = ({
                     : ''
             }`}
         >
-            <div className="flex justify-between">
+            <div
+                className={`flex ${
+                    item.children && item.children?.length > 0
+                        ? 'sticky top-[-10px] bg-theme-primary z-[200]'
+                        : ''
+                }  justify-between`}
+            >
                 <div
                     onClick={() => {
-                        !item.children &&
+                        !item.disable &&
+                            !item.children &&
                             handleSelect({ ...item, parentKey: parentKey });
                     }}
                     className="select-none flex items-center gap-2"
                 >
-                    {!item.children && (
+                    {!item.children && !item.disable && (
                         <Checked
                             isChecked={
                                 item.value && itemSelected[item.value]
@@ -82,17 +91,25 @@ const ItemCollapse: React.FC<IItemCollapse> = ({
                     </div>
                 )}
             </div>
-            {open && item.children && (
-                <div className="ml-3 text-sm">
-                    {item.children.map((e) => (
-                        <ItemCollapse
-                            parentKey={item.value}
-                            itemSelected={itemSelected}
-                            handleSelect={handleSelect}
-                            item={e}
-                        />
-                    ))}
-                </div>
+            {open && (
+                <>
+                    {item.children && item.children.length > 0 && (
+                        <div className="ml-3 text-sm">
+                            {item.children.map((e, i) => (
+                                <ItemCollapse
+                                    key={i}
+                                    parentKey={item.value}
+                                    itemSelected={itemSelected}
+                                    handleSelect={handleSelect}
+                                    item={e}
+                                />
+                            ))}
+                        </div>
+                    )}
+                    {item.children && item.children.length === 0 && (
+                        <Empty width={40} height={40} />
+                    )}
+                </>
             )}
         </div>
     );
@@ -104,15 +121,18 @@ const Collapse: React.FC<ICollapse> = ({
     itemSelected,
 }) => {
     return (
-        <div className="w-full h-[auto]">
-            {data.map((item) => (
-                <ItemCollapse
-                    itemSelected={itemSelected}
-                    handleSelect={handleSelect}
-                    item={item}
-                    parentKey={item.value}
-                />
-            ))}
+        <div>
+            <div className="w-full">
+                {data.map((item, i) => (
+                    <ItemCollapse
+                        key={i}
+                        itemSelected={itemSelected}
+                        handleSelect={handleSelect}
+                        item={item}
+                        parentKey={item.value}
+                    />
+                ))}
+            </div>
         </div>
     );
 };

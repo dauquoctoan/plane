@@ -1,38 +1,41 @@
 'use client';
 import issueService from '@/services/issue-services';
 import { IData, IIssue, IUser, Istate, ILabel, IFillterIssue } from '@/types';
-import { usePathname } from 'next/navigation';
 import React from 'react';
 import useSWR from 'swr';
 import { ITableConfigs } from '../ui/table';
 import Table from '../ui/table/table';
-import SelectStateTable from './selectStateTable';
 import Select from '../ui/select/select';
-import { optionLevel } from '@/constants';
+import { optionLevel } from '@/constants/issue';
 import SelectMemberTable from './selectMemberTable';
 import SelectLabelsTable from './selectLabelsTable';
 import DatepickerTable from './datepickerTable';
 import moment from 'moment';
+import FilterTableIssue from './filterTableIssue';
+import { useSelector } from '@/store';
+import {
+    selectListIssue,
+    selectlsDisableTable,
+} from '@/store/slices/issueView/selectors';
+import ListTableIssue from './listTableIssue';
+import SelectState from '../module/selectState';
 
-const TableIssue: React.FC<IFillterIssue> = ({
-    assignees,
-    projects,
-    createBys,
-}) => {
-    const pathName = usePathname();
+export interface IPropsTable extends IFillterIssue {
+    keyApi: string;
+}
+
+const TableIssue: React.FC<IPropsTable> = ({ keyApi, ...res }) => {
+    const isList = useSelector(selectListIssue);
     const DATE_FORMAT = 'MMMM Do, h:mm:ss a';
+    const lsDisable = useSelector(selectlsDisableTable);
 
     const {
         data: issue,
         isLoading,
         isValidating,
-    } = useSWR(pathName.split('/').pop(), (a) =>
-        issueService.findIssues<IData<IIssue[]>>({
-            assignees,
-            projects,
-            createBys,
-        }),
-    );
+    } = useSWR(keyApi, (e) => {
+        return issueService.findIssues<IData<IIssue[]>>({ ...res });
+    });
 
     const configs: ITableConfigs[] = [
         {
@@ -51,7 +54,7 @@ const TableIssue: React.FC<IFillterIssue> = ({
             title: 'State',
             dataIndex: 'state_id',
             render: (stateId, item: Istate) => (
-                <SelectStateTable
+                <SelectState
                     projectId={item.project_id}
                     stateId={stateId?.toString()}
                     beforeUpdateValue={(e) =>
@@ -190,7 +193,22 @@ const TableIssue: React.FC<IFillterIssue> = ({
 
     return (
         <div>
-            <Table configs={configs} data={issue} fixedHeader />
+            {isList ? (
+                <ListTableIssue />
+            ) : (
+                <div>
+                    {Object.keys(res || {}).length > 0 && (
+                        <div className="px-3 py-2 border-t">
+                            <FilterTableIssue query={{ ...res }} />
+                        </div>
+                    )}
+                    <Table
+                        lsKeyDisable={lsDisable}
+                        configs={configs}
+                        data={issue}
+                    />
+                </div>
+            )}
         </div>
     );
 };

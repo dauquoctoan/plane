@@ -37,7 +37,6 @@ export class QueryIssueDto{
 
     @IsOptional()
     @IsNotEmpty()
-    @IsEmail()
     states?: string[];
 
     @IsOptional()

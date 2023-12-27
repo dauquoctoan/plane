@@ -2,6 +2,12 @@ interface IBaseData{
     createdAt?:string;
     updatedAt?:string;
 }
+
+export type IParams={
+    workspaceSlug : string;
+    issueViewId : string;
+    projectid: string;
+}
 export interface IResult<T> {
     code: 0 | 1
     data: T
@@ -169,6 +175,10 @@ export interface IFillterIssue{
     subscribers?: string[];
     startDate?: string;
     dueDate?: string;
+    startCustomFrom?: string;
+    startCustomTo?: string;
+    dueCustomFrom?: string;
+    dueCustomTo?: string;
 }
 
 export interface IIssueViews{

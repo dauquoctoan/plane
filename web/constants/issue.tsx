@@ -1,4 +1,6 @@
 import { IOptionItem } from '@/components/ui/select/select';
+import { LinkProps } from 'next/link';
+import { eventEmitter } from 'nextjs-progressloader';
 import { IoBan } from 'react-icons/io5';
 import {
     MdOutlineSignalCellularAlt,
@@ -6,6 +8,11 @@ import {
     MdSignalCellularAlt1Bar,
 } from 'react-icons/md';
 import { RiErrorWarningLine } from 'react-icons/ri';
+
+export interface ILink {
+    title: string;
+    key: string;
+}
 
 export const TIME_ZONE_CHOICE = [
     'Africa/Abidjan, GMT',
@@ -618,13 +625,56 @@ export const ORGANIZATION_SIZE = [
 export const MEMBER_ROLE = ['Guest', 'Viewer', 'Member', 'Admin'];
 
 export const optionLevel: IOptionItem[] = [
-    { icon: <RiErrorWarningLine />, name: 'Urgent', key: 'urgent' },
-    { icon: <MdOutlineSignalCellularAlt />, name: 'High', key: 'high' },
+    { icon: <RiErrorWarningLine />, title: 'Urgent', value: 'urgent' },
+    { icon: <MdOutlineSignalCellularAlt />, title: 'High', value: 'high' },
     {
         icon: <MdOutlineSignalCellularAlt2Bar />,
-        name: 'Medium',
-        key: 'medium',
+        title: 'Medium',
+        value: 'medium',
     },
-    { icon: <MdSignalCellularAlt1Bar />, name: 'Low', key: 'low' },
-    { icon: <IoBan />, name: 'None', key: 'none' },
+    { icon: <MdSignalCellularAlt1Bar />, title: 'Low', value: 'low' },
+    { icon: <IoBan />, title: 'None', value: 'none' },
 ];
+
+export const lsDefaultTabsIssue = [
+    <div
+        key={'lsMenu1'}
+        className="text-base font-medium px-3 whitespace-nowrap w-fit"
+    >
+        All issue
+    </div>,
+    <div
+        key={'lsMenu2'}
+        className="text-base font-medium px-3 whitespace-nowrap w-fit"
+    >
+        Assigned
+    </div>,
+    <div
+        key={'lsMenu3'}
+        className="text-base font-medium px-3 whitespace-nowrap w-fit"
+    >
+        Created
+    </div>,
+    <div
+        key={'lsMenu4'}
+        className="text-base font-medium px-3 whitespace-nowrap w-fit"
+    >
+        Subscribed
+    </div>,
+];
+
+export const lsTabsIssues: ILink[] = [
+    { title: 'All issue', key: 'all-issues' },
+    { title: 'Assigned', key: 'assigned' },
+    { title: 'Created', key: 'created' },
+    { title: 'Subscribed', key: 'subscribed' },
+];
+
+export function getDeFaultTabs(workspacSlug?: string): LinkProps[] {
+    return workspacSlug
+        ? lsTabsIssues.map((e) => ({
+              title: e.title,
+              href: `/${workspacSlug}/workspace-views/${e.key}`,
+          }))
+        : [];
+}

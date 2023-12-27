@@ -1,4 +1,4 @@
-import React, { createContext } from 'react';
+import React, { ReactElement, createContext } from 'react';
 import Navbar from './layout-components/navbar/navbar';
 import Header from './layout-components/header/header';
 import AuthProvider from './authprovider';
@@ -15,8 +15,7 @@ const AuthLayout: React.FC<IProps> = ({ children }) => {
                 <div className="relative w-full h-screen flex">
                     <Navbar />
                     <div className="relative flex-1 w-full h-screen overflow-auto">
-                        <Header />
-                        <div className="main">{children}</div>
+                        {children}
                     </div>
                 </div>
             </NotificationProvider>

@@ -22,7 +22,7 @@ const Project = () => {
 
     return (
         <div className="grid grid-cols-4 gap-2 box-border p-4 lg:grid-cols-2 md:grid-cols-1">
-            {data && data.map((e, i) => <ProjectITem dataItem={e} />)}
+            {data && data.map((e, i) => <ProjectITem key={i} dataItem={e} />)}
         </div>
     );
 };

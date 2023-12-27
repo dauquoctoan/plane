@@ -1,4 +1,4 @@
-'use client'
+'use client';
 import AutoComplete from '@/components/ui/auto-complete';
 import Button from '@/components/ui/button';
 import Input from '@/components/ui/input/Input';
@@ -6,7 +6,7 @@ import APP_CONFIG from '@/configs';
 import React from 'react';
 import { useForm } from 'react-hook-form';
 import { insertIntoTheBlank } from '@/helpers/string';
-import { ORGANIZATION_SIZE } from '@/constants';
+import { ORGANIZATION_SIZE } from '@/constants/issue';
 import workspaceService from '@/services/workspace-services';
 import { useDispatch, useSelector } from '@/store';
 import { selectInfo } from '@/store/slices/authSlice/selectors';
@@ -35,8 +35,10 @@ const Workspace: React.FC<IPropsComponent> = ({ nextStep, prevStep }) => {
                     const result =
                         await workspaceService.createWorkSpace<IWorkspace>({
                             name: formData.name,
-                            slug: formData.url.replace(APP_CONFIG.DOMAIN_URL +
-                                '/',''),
+                            slug: formData.url.replace(
+                                APP_CONFIG.DOMAIN_URL + '/',
+                                '',
+                            ),
                             organization_size: formData.size,
                             owner: info?.id,
                         });
@@ -48,20 +50,18 @@ const Workspace: React.FC<IPropsComponent> = ({ nextStep, prevStep }) => {
                             }),
                         );
 
-                        if(!info.is_onboarded){
-                            const resultUser = await authService.upDateUser<number>(
-                                {
+                        if (!info.is_onboarded) {
+                            const resultUser =
+                                await authService.upDateUser<number>({
                                     onboarding_step: {
                                         workspace_join: 1,
                                         profile_complete: 1,
                                         workspace_create: 1,
                                         workspace_invite: 0,
                                     },
-                                },
-                            );
-                            if (resultUser) if(nextStep) nextStep();
-                        }
-                        else{
+                                });
+                            if (resultUser) if (nextStep) nextStep();
+                        } else {
                             router.push(result.slug || '');
                         }
                     }
@@ -118,8 +118,14 @@ const Workspace: React.FC<IPropsComponent> = ({ nextStep, prevStep }) => {
                 setValue={setValue}
             />
             <div className="flex gap-2 mt-5">
-                {prevStep && <Button type="button" onClick={prevStep} text="Back" />}
-                <Button typeBTN="primary" type="submit" text={`${nextStep ? 'Continue' : 'Create Workspace'}`} />
+                {prevStep && (
+                    <Button type="button" onClick={prevStep} text="Back" />
+                )}
+                <Button
+                    typeBTN="primary"
+                    type="submit"
+                    text={`${nextStep ? 'Continue' : 'Create Workspace'}`}
+                />
             </div>
         </form>
     );

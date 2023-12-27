@@ -95,3 +95,13 @@ body {
 .table-shadow-right::after {
     box-shadow: var(--table-shadow-right-primary);
 }
+
+/* dnd */
+
+.sortable-chosen {
+    box-shadow: var(--table-shadow-right-primary);
+}
+
+.draggableItem:not(:last-child) {
+    margin-bottom: 8px;
+}

@@ -1,6 +1,5 @@
 import { LABELS_BY_PROJECT_KEY } from '@/apiKey/project';
 import Button from '@/components/ui/button';
-import Colorpicker from '@/components/ui/colorpicker/colorpicker';
 import ColorPickerField from '@/components/ui/colorpicker/colorpickerField';
 import Input from '@/components/ui/input/Input';
 import { useNoti } from '@/hooks';

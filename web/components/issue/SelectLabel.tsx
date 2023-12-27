@@ -12,7 +12,7 @@ import { IOptionItem } from '@/components/ui/select/select';
 import { createIssueLabelSelectOption } from '@/helpers';
 
 interface ISelectLabel extends IFiledReactHookForm {
-    projectId: string | number | undefined;
+    projectId: string | undefined;
     setIsOpen: (a: IOpenModal) => void;
 }
 
@@ -24,9 +24,9 @@ const SelectLabel: React.FC<ISelectLabel> = ({
     const { data: labels } = useSWR(
         () => LABELS_BY_PROJECT_KEY(projectId),
         () =>
-            issueService.findLabelsByProject<IData<ILabel[]>>(
-                projectId as string,
-            ),
+            issueService.findLabelsByProject<IData<ILabel[]>>({
+                projectId: projectId,
+            }),
     );
 
     const options: IOptionItem[] | undefined =

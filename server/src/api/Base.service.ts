@@ -21,7 +21,7 @@ export abstract class BaseService<T extends Model>{
 
     async creates<C>(record: C[]) {
         try {
-            return this.repository.bulkCreate(record as any);
+            return await this.repository.bulkCreate(record as any);
         } catch (error) {
             handleResultError({ message: messageCreateFail(this.repository.getTableName()), messageDetail: error });
         }
@@ -29,7 +29,7 @@ export abstract class BaseService<T extends Model>{
 
     async findAll(options?: FindOptions<Attributes<T>>): Promise<T[]> {
         try {
-            return this.repository.findAll(options);
+            return await this.repository.findAll(options);
         } catch (error) {
             handleResultError({ message: messageFindFail(this.repository.getTableName()), messageDetail: error });
         }
@@ -37,7 +37,7 @@ export abstract class BaseService<T extends Model>{
 
     async findOneById(id: number | string): Promise<T> {
         try {
-            return this.repository.findByPk(id);
+            return await this.repository.findByPk(id);
         } catch (error) {
             handleResultError({ message: messageFindFail(this.repository.getTableName()), messageDetail: error });
         }
@@ -45,7 +45,7 @@ export abstract class BaseService<T extends Model>{
 
     async findOne(query: FindOptions<any>): Promise<T> {
         try {
-            return this.repository.findOne(query);
+            return await this.repository.findOne(query);
         } catch (error) {
             handleResultError({ message: messageFindFail(this.repository.getTableName()), messageDetail: error });
         }
@@ -53,7 +53,7 @@ export abstract class BaseService<T extends Model>{
 
     async updateById(id: number | string, itemUpdate: any): Promise<[affectedCount: number]> {
         try {
-            return this.repository.update(itemUpdate, {
+            return await this.repository.update(itemUpdate, {
                 where: { id: id as any },
             })
         } catch (error) {
@@ -63,7 +63,7 @@ export abstract class BaseService<T extends Model>{
 
     async removeById(id: number | string): Promise<number> {
         try {
-            return this.repository.destroy({ where: { id: id as any } });
+            return await this.repository.destroy({ where: { id: id as any } });
         } catch (error) {
             handleResultError({ message: messageDeleteFail(`[${this.repository.getTableName()}]`), messageDetail: error });
         }

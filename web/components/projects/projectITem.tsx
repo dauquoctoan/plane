@@ -53,7 +53,7 @@ const ProjectITem: React.FC<IPropsProjectItem> = ({ dataItem }) => {
                         <BiSolidEditAlt className="hover:scale-110" />
                         <Popover
                             contentClassName="border shadow-theme-primary"
-                            placement="right"
+                            placement="bottomLeft"
                             content={
                                 <div>
                                     <div className="flex hover:bg-theme-secondary items-center gap-2 cursor-pointer rounded p-1 select-none">

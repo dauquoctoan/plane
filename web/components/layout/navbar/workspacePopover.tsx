@@ -22,7 +22,7 @@ const WorkspacePopover = () => {
         workspaceService.getAllWorkSpaces as any,
     );
 
-    const handleChangeWorkspace = async (id: number) => {
+    const handleChangeWorkspace = async (id: string) => {
         setLoading(true);
         await authService.upDateUser({ last_workspace_id: id });
         dispatch(authSlice.actions.clearInfo());

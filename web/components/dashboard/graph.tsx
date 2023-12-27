@@ -4,7 +4,9 @@ const Graph = () => {
     function createItem() {
         const lsItem = [];
         for (let i = 0; i < 25 * 7; i++) {
-            lsItem.push(<div className="w-4 h-4 rounded bg-gray-100"></div>);
+            lsItem.push(
+                <div key={i} className="w-4 h-4 rounded bg-gray-100"></div>,
+            );
         }
         return lsItem;
     }

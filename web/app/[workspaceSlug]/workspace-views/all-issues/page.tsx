@@ -1,12 +1,8 @@
-import TableIssue from '@/components/issue/tableIssue';
+import AllIssueWorkspaceView from '@/components/workspace-view/allIssue';
 import React from 'react';
 
 const page = () => {
-    return (
-        <div>
-            <TableIssue />
-        </div>
-    );
+    return <AllIssueWorkspaceView />;
 };
 
 export default page;

@@ -8,7 +8,6 @@ import { IssueLabel } from './IssueLabel.entity';
 import { PRIORITY } from 'src/constants/entity-constant';
 import { INVALID_PRIORITY } from 'src/constants/message-constant';
 import { InboxIssue } from 'src/api/inbox/entitys/InboxIssue.entity';
-import { Inbox } from 'src/api/inbox/entitys/Inbox.entiy';
 import { IssueActivity } from './IssueActivity.entity';
 import { IssueAttachment } from './IssueAttachment.entity';
 import { IssueBlocker } from './IssueBlocker.entity';

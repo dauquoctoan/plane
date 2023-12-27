@@ -15,3 +15,7 @@ export function removeKeyEmpTyToNull(obj: any) {
     });
     return obj
 }
+
+export function getQuery(key:string, id: string[]){
+    return key && id ? {[key]:id}:{}
+}

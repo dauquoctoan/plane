@@ -7,7 +7,7 @@ import Line from '@/components/ui/line';
 import Swtich from '@/components/ui/swtich';
 import IssueTools from './issueTools';
 import { IData, IIssue, IProject, Istate } from '@/types';
-import Select, { IOptionItem } from '@/components/ui/select/select';
+import { IOptionItem } from '@/components/ui/select/select';
 import Modal from '@/components/ui/modal';
 import CreateState from '../layout/navbar/createState';
 import CreateLabel from './createLabel';
@@ -19,8 +19,8 @@ import { STATES_KEY } from '@/apiKey/project';
 import { useSelector } from '@/store';
 import { selectInfo } from '@/store/slices/authSlice/selectors';
 import moment from 'moment';
-import { INotiConext, NotiContext } from '@/components/ui/notification';
-import { useParams, usePathname, useRouter } from 'next/navigation';
+import { NotiContext } from '@/components/ui/notification';
+import { usePathname } from 'next/navigation';
 
 interface IProps {
     isDraft: boolean;
@@ -75,15 +75,13 @@ const CreateIssue: React.FC<IProps> = ({
     } = useForm<IForm>();
 
     const { data: states } = useSWR(
-        () => STATES_KEY(watch('project')),
+        () => STATES_KEY(watch('project') || projects[0].id),
         () => issueService.getState<IData<Istate[]>>(watch('project')),
     );
 
     function closeModal() {
         if (!isMore) handleCloseModel();
-        else {
-            reset();
-        }
+        else reset();
     }
 
     useEffect(() => {
@@ -108,8 +106,8 @@ const CreateIssue: React.FC<IProps> = ({
     }
 
     const projectOptions: IOptionItem[] | undefined = projects?.map((e) => ({
-        name: e.name || '',
-        key: e.id?.toString(),
+        title: e.name || '',
+        value: e.id?.toString(),
     }));
 
     const CurentModal = LsModals[isOpen.index];
@@ -166,12 +164,12 @@ const CreateIssue: React.FC<IProps> = ({
                         name="project"
                         options={projectOptions}
                         isIconCheck
-                        defaultValue={projectOptions[0].key}
+                        defaultValue={projectOptions[0].value}
                         fontSize="text-sm"
                         customeSelected={(res) => (
                             <div className="flex items-center px-2">
                                 <GiNotebook className="mr-1" />
-                                {typeof res === 'object' && res?.name}
+                                {typeof res === 'object' && res?.title}
                             </div>
                         )}
                     />
@@ -199,7 +197,7 @@ const CreateIssue: React.FC<IProps> = ({
                             states={states}
                             control={control}
                             setIsOpen={setIsOpen}
-                            projectId={watch('project')}
+                            projectId={watch('project') || projects[0].id}
                         />
                     }
                     <Line />

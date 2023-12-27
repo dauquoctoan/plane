@@ -1,9 +1,9 @@
 import React, { useEffect, useRef, useState } from "react";
 
 export interface IPosition {
-    left: number | string | undefined;
-    top: number | string | undefined;
-    minWidth: number | string | undefined;
+    left: number  | undefined;
+    top: number | string  | undefined;
+    minWidth: number | undefined;
 }
 
 export interface IPositionResult extends IPosition{
@@ -12,15 +12,30 @@ export interface IPositionResult extends IPosition{
     transformOrigin?: string;
 }
 
-export type TPlacement = 'left' | 'center' | 'right';
+export type TPlacement = 'bottomCenter' | 'bottomLeft' | 'bottomRight' | 'topCenter'| 'topLeft'| 'topRight' | 'rightCenter'| 'rightTop'| 'rightBottom' | "leftCenter" | "leftTop"| "leftBottom";
+
+//|'top'| 'bottom'| 'centerLeft'|'centerRight'
 
 type TRef = React.RefObject<HTMLDivElement>
 
+interface IUsePopUp{
+    refPopover:TRef; 
+    refPopup:TRef; 
+    placement?:TPlacement;
+    isHover?:boolean; 
+    isChildRen?:boolean; 
+    refDisable?:TRef;
+    disableMoveChild?:boolean;
+    fitWidth?: boolean;
+    space?: number;
+}
+ 
 
-const usePopUp = (refPopover:TRef, refPopup:TRef, placement:TPlacement='left',isHover:boolean=false, isChildRen:boolean=false, refDisable?:TRef)=>{
+const usePopUp = ({refPopover, isChildRen=false, isHover=false, placement='bottomLeft', refPopup, refDisable, disableMoveChild=false, fitWidth=true, space}:IUsePopUp)=>{
     const [open, setOpen] = useState<Boolean>(false);
     const timeoutId = useRef<any>(0);
     const mouse = useRef({ isKeyDown: false, isDrag: false });
+
     const [position, setPosition] = useState<IPosition>({
         left: undefined,
         top: 0,
@@ -29,29 +44,101 @@ const usePopUp = (refPopover:TRef, refPopup:TRef, placement:TPlacement='left',is
 
     function getPosiTion(wre: HTMLDivElement, poe: HTMLDivElement): IPosition {
         const wr: DOMRect | undefined = wre?.getBoundingClientRect();
+        const po: DOMRect | undefined = poe?.getBoundingClientRect();
+
         const spaceWrCenter = wre.offsetWidth / 2;
         const spacePopCenter = poe.offsetWidth / 2;
 
-        const margin = wre.offsetWidth - poe.offsetWidth;
-        const marginC = spaceWrCenter - spacePopCenter;
+        const spaceWrCenterHeight = wre.offsetHeight / 2;
+        const spacePopCenterHeight = poe.offsetHeight / 2;
+        
+        const MARGIN = space || 10;
 
         var screenWidth = window.innerWidth || document.documentElement.clientWidth;
         var screenHeight = window.innerHeight || document.documentElement.clientHeight;
 
+        let left = undefined;
+        let top = undefined;
+
+        const margin = wre.offsetWidth - po.width;
+        const marginCH = spaceWrCenterHeight - spacePopCenterHeight;
+        const marginC = spaceWrCenter - spacePopCenter;
+
+        const ytop = wr.top - poe.offsetHeight;
+        const ybottom = wr.top + wre.offsetHeight;
+        const yleft = wr.left;
+        const yright = wr.left + wre.offsetWidth - poe.offsetWidth;
         
+        const xright = wr.left + wre.offsetWidth;
+        const xleft = wr.left - poe.offsetWidth;
+        const xtop = wr.top;
+        const xbottom = wr.top + wre.offsetHeight - poe.offsetHeight;
 
-        const position = {
-            center: isChildRen ? marginC : wr.left + marginC,
-            left: isChildRen ? 0 : wr.left,
-            right: isChildRen ? margin : wr.left + margin,
-        };
+        const isYOverFlowT = wr.top - poe.offsetHeight < 0 ? true : false;
+        const isYOverFlowBT = (screenHeight - (wr.top + wr.height + poe.offsetHeight)) < 0 ? true : false;
+        const isYOverFlowR = (screenWidth - (wr.left + poe.offsetWidth)) < 0 ? true : false;
+        const isYOverFlowL = (wr.left - poe.offsetWidth) < 0 ? true : false;
 
-        const overOverFlow = (screenHeight - (wr.top + wr.height + poe.offsetHeight)) < 0 ? true : false;
+        const isXOverFlowL = (wr.left - poe.offsetWidth) < 0 ? true : false;
+        const isXOverFlowR = (screenWidth - (wr.left + wre.offsetWidth + poe.offsetWidth)) < 0 ? true : false;
+        const isXOverFlowBT = (screenHeight - (wr.top + poe.offsetHeight)) < 0 ? true : false;
+        const isXOverFlowT = (wr.top - poe.offsetHeight) < 0 ? true : false;
+
+        switch(placement){
+            case "bottomLeft":
+                left = isChildRen ? 0 : isYOverFlowR ? yright: yleft;
+                top = isChildRen ? '100%' : isYOverFlowBT ? ytop : ybottom;
+                break;
+            case 'bottomRight':
+                left = isChildRen ? margin : isYOverFlowL ? yleft: yright;
+                top = isChildRen ? '100%' : isYOverFlowBT ? ytop : ybottom;
+                break;
+            case "bottomCenter":
+                left = isChildRen ? marginC : wr.left + marginC;
+                top = isChildRen ? '100%' : isYOverFlowBT ? ytop - MARGIN : ybottom + MARGIN;
+                break;
+            case 'topCenter':
+                left = isChildRen ? marginC : wr.left + marginC;
+                top = isChildRen ? '100%' : isYOverFlowT ? ybottom + MARGIN :  ytop - MARGIN;
+                break;
+            case 'topRight':
+                left = isChildRen ? margin : isYOverFlowL ? yleft: yright;
+                top = isChildRen ? '100%' : isYOverFlowT ? ybottom :  ytop;
+                break;
+            case 'topLeft':
+                left = isChildRen ? margin : isYOverFlowR ? yright: yleft;
+                top = isChildRen ? '100%' : isYOverFlowT ? ybottom : ytop;
+                break;
+            case 'leftTop':
+                left = isChildRen ? margin : isXOverFlowL ? xright : xleft;
+                top = isChildRen ? '100%' : isXOverFlowBT ? xbottom : xtop;
+                break;
+            case 'leftCenter':
+                left = isChildRen ? margin : isXOverFlowL ? xright : xleft;
+                top = isChildRen ? '100%' : wre.offsetTop + marginCH;
+                break;
+            case 'leftBottom':
+                left = isChildRen ? margin : isXOverFlowL ? xright : xleft;
+                top = isChildRen ? '100%' : isXOverFlowT ? xtop : xbottom;
+                break;
+            case 'rightTop':
+                left = isChildRen ? margin :isXOverFlowR ? xleft : xright;
+                top = isChildRen ? '100%' : isXOverFlowBT ? xbottom : xtop;
+                break;
+            case 'rightCenter':
+                left = isChildRen ? margin : isXOverFlowR ? xleft : xright;
+                top = isChildRen ? '100%' : wre.offsetTop + marginCH;
+                break;
+            case 'rightBottom':
+                left = isChildRen ? margin : isXOverFlowR ? xleft - MARGIN : xright + MARGIN;
+                top = isChildRen ? '100%' : isXOverFlowT ? xtop : xbottom;
+                break
+        }
 
         return {
-            left: position[placement],
-            top: isChildRen ? '100%' :overOverFlow ? wr.top - poe.offsetHeight: wr.top + wr.height,
-            minWidth: wre.offsetWidth
+            left: left,
+            top: top,
+            minWidth: fitWidth ? wre.offsetWidth : undefined
         };
     }
 
@@ -61,19 +148,23 @@ const usePopUp = (refPopover:TRef, refPopup:TRef, placement:TPlacement='left',is
     }
 
     function handleMouseleave() {
-        timeoutId.current = setTimeout(() => {
-            refPopup.current?.removeEventListener(
-                'mouseover',
-                handleMouseover,
-                true,
-            );
-            refPopup.current?.removeEventListener(
-                'mouseleave',
-                handleMouseleave,
-                true,
-            );
+        if(disableMoveChild){
             handleClosePopUp();
-        }, 500);
+        }else{
+            timeoutId.current = setTimeout(() => {
+                refPopup.current?.removeEventListener(
+                    'mouseover',
+                    handleMouseover,
+                    true,
+                );
+                refPopup.current?.removeEventListener(
+                    'mouseleave',
+                    handleMouseleave,
+                    true,
+                );
+                handleClosePopUp();
+            }, 500);
+        }
     }
 
     function handleClick(e: any) {
@@ -140,9 +231,12 @@ const usePopUp = (refPopover:TRef, refPopup:TRef, placement:TPlacement='left',is
     }, []);
 
     function handleClosePopUp(){
+       if(isHover){
+            setOpen(false)
+       }else{
         // @ts-ignore: Unreachable code error
         if(refPopup.current) refPopup.current.style.animation = 'closePopUp .3s ease-out';
-        
+                
         // @ts-ignore: Unreachable code error
         if(refPopup.current) refPopup.current.style.opacity = '0';
 
@@ -150,8 +244,9 @@ const usePopUp = (refPopover:TRef, refPopup:TRef, placement:TPlacement='left',is
         if(refPopup.current) refPopup.current.style.scale ='.8';
 
         setTimeout(()=>{
-           open && setOpen(false);
+            open && setOpen(false);
         },300)
+       }
     }
 
     useEffect(()=>{

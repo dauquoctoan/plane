@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, Patch, Post, Query , Request as RequestNest, UseGuards} from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Patch, Post, Query , Request as RequestNest, UseGuards} from '@nestjs/common';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { IssueViewService } from '../service/IssueView.service';
 import { CreateIssueViewDto, UpdateIssueViewDto } from '../dto/IssueView.entity.dto';
@@ -13,19 +13,21 @@ import { AuthGuard } from 'src/Guards/auth.guard';
 export class IssueViewController {
     constructor(private readonly issueView: IssueViewService) { }
     /* TeamMember */
-    @UseGuards(AuthGuard)
     @Post()
+    @UseGuards(AuthGuard)
     async create(@Body() issueView: CreateIssueViewDto, @RequestNest() request: IAuthRequest) {
         return handleResultSuccess(await this.issueView.createIssueViews({...issueView, created_at: request.user.id}));
     }
 
     @Get()
-    async findAll() {
-        return handleResultSuccess(await this.issueView.findAll());
+    @UseGuards(AuthGuard)
+    async findAll(@RequestNest() request: IAuthRequest) {
+        return handleResultSuccess(await this.issueView.findAllIssueView(request.user.id));
     }
 
     @Get(':id')
-    async findOne(@Query('id') id: string) {
+    @UseGuards(AuthGuard)
+    async findOne(@Param('id') id: string) {
         return handleResultSuccess(await this.issueView.findOneById(id));
     }
 

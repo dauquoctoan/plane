@@ -21,9 +21,9 @@ class ProjectService extends BaseService {
         }
     }
 
-    async getMemberByProject<T>(projectId: string){
+    async getMemberByProject<T>(query: {projectId:string}){
         try {
-            return await this.get<T>('project-member/' + projectId)
+            return await this.get<T>('project-member', query)
         } catch (error) {
             console.log(error)
         }

@@ -43,7 +43,6 @@ export class IssueAssigneeService extends BaseService<IssueAssignee> {
                 if(newItem.length > 0){
                     await this.creates<CreateIssueAssigneeDto>(newItem.map(e=>({issue_id: issueId, assignee:e})));
                 }
-
                 return 1;
             }
         } catch (error) {

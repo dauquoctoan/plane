@@ -1,6 +1,5 @@
 'use client';
 import Button from '@/components/ui/button';
-import { Spinner } from '@/components/ui/loading/Spinner';
 import authService from '@/services/auth-services';
 import workspaceService from '@/services/workspace-services';
 import { IData, IInfo, IWorkspace } from '@/types';
@@ -51,7 +50,7 @@ const Page = () => {
                 ) : (
                     <div className="flex flex-col items-center">
                         <div className="text-lg font-medium mb-6">
-                            Didn't find any invitations
+                            Didn`t find any invitations
                         </div>
                         {!loadingInfo ? (
                             !info ? (

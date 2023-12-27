@@ -76,7 +76,7 @@ const MenuTools = () => {
         <>
             {isCollap ? (
                 <div
-                    className={`flex p-3 cursor-pointer flex-col gap-2 box-border`}
+                    className={`flex py-3 cursor-pointer flex-col gap-2 box-border`}
                 >
                     <Popover
                         onClick={() => {
@@ -109,7 +109,7 @@ const MenuTools = () => {
                     </div>
                 </div>
             ) : (
-                <div className={`flex p-3 cursor-pointer gap-2 box-border`}>
+                <div className={`flex py-3 cursor-pointer gap-2 box-border`}>
                     <div
                         className={`flex flex-1 items-center group min-h-[40px] border rounded-lg justify-between relative box-border`}
                     >

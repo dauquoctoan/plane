@@ -59,10 +59,11 @@ const IssueTable: React.FC<IProps> = ({ data, configs }) => {
         let left = refTotal.current.left;
         let right = refTotal.current.right;
 
-        configs.forEach((e) => {
+        configs.forEach((e, i) => {
             if (e.fixed === 'right') right = right - (e.width || 125);
             lsHeader.push(
                 <div
+                    key={i}
                     style={{
                         boxShadow:
                             (isScroll || undefined) &&

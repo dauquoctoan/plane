@@ -1,12 +1,15 @@
-import { Controller, Get, Post, Body, Param, Patch, Delete } from '@nestjs/common';
-import { ApiTags } from '@nestjs/swagger';
+import { Controller, Get, Post, Body, Param, Patch, Delete, Request as RequestNest, UseGuards, Query } from '@nestjs/common';
+import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { ProjectMemberService } from '../service/ProjectMember.service';
 import { CreateProjectMemberDto, UpdateProjectMemberDto } from '../dto/ProjectMember.dto';
 import { handleResultSuccess } from 'src/helper/handleresult';
+import { IAuthRequest } from 'src/types/auth.types';
+import { AuthGuard } from 'src/Guards/auth.guard';
 
 
 @Controller('project-member')
 @ApiTags('Project Member')
+@ApiBearerAuth('access-token')
 export class ProjectMemberController {
     constructor(private readonly projectMemberService: ProjectMemberService) { }
     @Post()
@@ -14,14 +17,15 @@ export class ProjectMemberController {
         return handleResultSuccess(await this.projectMemberService.create(project));
     }
 
-    @Get()
-    async findAllprojectMember() {
-        return handleResultSuccess(await this.projectMemberService.findAll());
-    }
+    // @Get()
+    // async findAllprojectMember() {
+    //     return handleResultSuccess(await this.projectMemberService.findAll());
+    // }
 
-    @Get(':id')
-    async findOneprojectMember(@Param('id') id: string) {
-        return handleResultSuccess(await this.projectMemberService.findMemberByProject(id));
+    @Get()
+    @UseGuards(AuthGuard)
+    async findOneprojects(@RequestNest() request: IAuthRequest, @Query() query: {projectId:string} ) {
+        return handleResultSuccess(await this.projectMemberService.findMembers(query, request.user.id));
     }
 
     @Patch(':id')

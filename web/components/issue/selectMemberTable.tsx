@@ -5,7 +5,7 @@ import { createMembeSelectOption } from '@/helpers';
 import useSWR from 'swr';
 import projectService from '@/services/project-services';
 import { IData, IUser } from '@/types';
-import { MEMBER_KEY, STATES_KEY } from '@/apiKey';
+import { MEMBER_KEY_BY_PROJECT } from '@/apiKey';
 
 interface IProps {
     projectId?: string;
@@ -19,9 +19,11 @@ const SelectMemberTable: React.FC<IProps> = ({
     beforeUpdateValue,
 }) => {
     const { data: members } = useSWR(
-        () => MEMBER_KEY(projectId),
+        () => MEMBER_KEY_BY_PROJECT(projectId),
         () =>
-            projectService.getMemberByProject<IData<IUser[]>>(projectId || ''),
+            projectService.getMemberByProject<IData<IUser[]>>({
+                projectId: projectId || '',
+            }),
     );
 
     return (
@@ -29,7 +31,7 @@ const SelectMemberTable: React.FC<IProps> = ({
             {members && (
                 <Select
                     fontSize="text-[12px]"
-                    options={createMembeSelectOption([...members])}
+                    options={createMembeSelectOption(members)}
                     isChildren={false}
                     isIconCheck
                     isSearch

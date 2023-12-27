@@ -38,7 +38,7 @@ export class IssueView extends Model<IssueView> {
     @HasMany(() => IssueViewFavorite)
     issue_view_favorites: IssueViewFavorite[];
 
-    @Column
+    @Column({allowNull: true})
     description: string;
 
     @Column({ type: DataType.JSON })

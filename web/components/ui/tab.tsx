@@ -2,31 +2,45 @@
 import React, { memo, useEffect, useState } from 'react';
 
 interface IPropsTabs {
-    lsLabel: any[];
-    onChange: (n: number) => void;
+    lsLabel: ITabItem[];
+    active?: string;
+    onChange: (n: string) => void;
 }
 
-const Tab: React.FC<IPropsTabs> = ({ lsLabel = [], onChange }) => {
-    const [tabIndex, setTabIndex] = useState(0);
+export interface ITabItem {
+    title: string;
+    key: string;
+}
+
+const Tab: React.FC<IPropsTabs> = ({ lsLabel, onChange, active }) => {
+    const [tab, setTab] = useState<string>();
+
+    function handleChangeTabIndex(index: string) {
+        setTab(index);
+        onChange(index);
+    }
+
     useEffect(() => {
-        onChange(tabIndex);
-    }, [tabIndex, onChange]);
+        if (active && active !== tab) {
+            setTab(active);
+        }
+    }, [active]);
 
     return (
-        <div className="flex text-sm items-center gap-2 overflow-x-hidden">
-            {lsLabel.map((text, index) => (
+        <div className="flex text-sm items-center gap-2 overflow-x-auto hover-scroll">
+            {lsLabel.map((item, index) => (
                 <div
                     key={index}
                     onClick={() => {
-                        setTabIndex(index);
+                        handleChangeTabIndex(item.key);
                     }}
                     className={`cursor-pointer pb-1 w-fit select-none ${
-                        tabIndex == index
+                        tab == item.key
                             ? 'text-color-special-primary border-b-2 border-color-special-primary border-w'
                             : ''
                     }`}
                 >
-                    {text}
+                    {item.title}
                 </div>
             ))}
         </div>

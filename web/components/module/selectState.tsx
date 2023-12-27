@@ -11,18 +11,21 @@ interface IProps {
     stateId: string;
     onChange?: (id: string | string[]) => void;
     beforeUpdateValue: (e: string | string[]) => Promise<any>;
+    keyUpdate?: string;
 }
 
-const SelectStateTable: React.FC<IProps> = ({
+const SelectState: React.FC<IProps> = ({
     projectId,
     stateId,
     onChange,
+    keyUpdate,
     beforeUpdateValue,
 }) => {
     const { data: states } = useSWR(
         () => STATES_KEY(projectId),
         () => issueService.getState<IData<Istate[]>>(projectId || ''),
     );
+
     return (
         <Select
             defaultValue={stateId}
@@ -32,9 +35,10 @@ const SelectStateTable: React.FC<IProps> = ({
             onChange={onChange}
             fontSize="text-[12px]"
             isSearch={true}
+            keyUpdate={keyUpdate}
             beforeUpdateValue={beforeUpdateValue}
         ></Select>
     );
 };
 
-export default SelectStateTable;
+export default SelectState;

@@ -6,6 +6,7 @@ import CreateViewIssue from './createViewIssue';
 
 const CreateViewsBtn = () => {
     const [isOpenCreateIssue, setIsOpenCreateIssue] = useState(false);
+
     return (
         <div
             onClick={() => {
@@ -17,7 +18,11 @@ const CreateViewsBtn = () => {
             <Modal
                 mrTop={20}
                 isOpen={isOpenCreateIssue}
-                content={<CreateViewIssue />}
+                content={
+                    <CreateViewIssue
+                        setIsOpenCreateIssue={setIsOpenCreateIssue}
+                    />
+                }
                 handleClose={() => {
                     setIsOpenCreateIssue(false);
                 }}

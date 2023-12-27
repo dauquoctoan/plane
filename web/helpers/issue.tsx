@@ -28,21 +28,12 @@ export function getIcons(group: string = '', color = 'red'): ReactElement {
     }
 }
 
-export function convertDataOptions(
-    data: Istate[] | undefined,
-    type?: undefined | 1,
-) {
-    return data?.map((e) =>
-        !type
-            ? {
-                  name: e.name || '',
-                  key: e?.id.toString(),
-                  icon: getIcons(e.group, e.color),
-              }
-            : {
-                  title: e?.name || '',
-                  value: e?.id.toString(),
-                  icon: getIcons(e.group, e.color),
-              },
+export function convertDataOptions(data: Istate[] | undefined) {
+    return (
+        data?.map((e) => ({
+            title: e.name || '',
+            value: e?.id.toString(),
+            icon: getIcons(e.group, e.color),
+        })) || []
     );
 }

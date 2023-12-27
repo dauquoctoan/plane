@@ -47,8 +47,8 @@ const AddProject: React.FC<IProps> = ({ setOpen, handleCreateProject }) => {
     });
 
     const networkOption: IOptionItem[] = [
-        { icon: <BiLockAlt />, name: 'Private', key: '0' },
-        { icon: <GiEarthAmerica />, name: 'Public', key: '1' },
+        { icon: <BiLockAlt />, title: 'Private', value: '0' },
+        { icon: <GiEarthAmerica />, title: 'Public', value: '1' },
     ];
 
     return (
@@ -158,9 +158,9 @@ const AddProject: React.FC<IProps> = ({ setOpen, handleCreateProject }) => {
                     placement="topLeft"
                     isIconCheck
                     onChange={(value: any) => {
-                        setValue('network', value.key);
+                        setValue('network', value.value);
                     }}
-                    defaultValue={networkOption[0].key}
+                    defaultValue={networkOption[0].value}
                     options={networkOption}
                     fontSize="text-[12px]"
                 />
@@ -171,13 +171,13 @@ const AddProject: React.FC<IProps> = ({ setOpen, handleCreateProject }) => {
                     placement="topLeft"
                     isSearch
                     onChange={(value: any) => {
-                        setValue('project_lead', value.key || null);
+                        setValue('project_lead', value.value || null);
                     }}
                     options={[
                         {
                             icon: <Avatar size="sm">m</Avatar>,
-                            name: 'toandq',
-                            key: info?.id,
+                            title: 'toandq',
+                            value: info?.id,
                         },
                     ]}
                 >

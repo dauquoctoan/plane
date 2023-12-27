@@ -22,14 +22,18 @@ const ScopeAndDemand = () => {
                 <div className="flex-1 p-2 border rounded">
                     <div className="font-bold">Most issues created</div>
                     <div className="flex items-center">
-                        <Avatar children="D" size="sm" type="circle" />
+                        <Avatar size="sm" type="circle">
+                            D
+                        </Avatar>
                         <div className="ml-2">dauquococ</div>
                     </div>
                 </div>
                 <div className="flex-1 p-2 border rounded">
                     <div className="font-bold">Most issues closed</div>
                     <div className="flex items-center">
-                        <Avatar children="D" size="sm" type="circle" />
+                        <Avatar size="sm" type="circle">
+                            D
+                        </Avatar>
                         <div className="ml-2">dauquococ</div>
                     </div>
                 </div>

@@ -5,6 +5,8 @@ import usePopUp from '@/hooks/popUp';
 import { createPortal } from 'react-dom';
 import { useNoti } from '@/hooks';
 import ItemSelect from './itemSelect';
+import Tooltip from '../tooltip';
+import { mutate } from 'swr';
 
 export type FontSize =
     | 'text-sm'
@@ -25,6 +27,7 @@ export interface IProps extends ICurentFieldProps {
     customeSelected?: (res: Item, loading?: boolean) => ReactElement | string;
     isClear?: boolean;
     className?: string;
+    disableTooltip?: boolean;
     isMutiple?: boolean;
     isChildren?: boolean;
     fontSize?: FontSize;
@@ -33,12 +36,13 @@ export interface IProps extends ICurentFieldProps {
     msgUpdateValueFail?: string;
     msgUpdateValueSuccess?: string;
     beforeUpdateValue?: (e: string | string[]) => Promise<any>;
+    keyUpdate?: string;
 }
 
 export interface IOptionItem {
     icon?: ReactElement;
-    name: string;
-    key?: string;
+    title: string;
+    value?: string;
 }
 
 export type Item = IOptionItem | string;
@@ -48,7 +52,7 @@ export type ICurentField = IProps & ICurentFieldProps;
 function getCurentItem(lsResult: Item[], value: string): Item | undefined {
     return lsResult.find((item) => {
         if (typeof item == 'string') return item === value;
-        else return item.key === value;
+        else return item.value === value;
     });
 }
 
@@ -71,9 +75,12 @@ const Select: React.FC<ICurentField> = ({
     isSearch = false,
     isClear,
     customeSelected,
+    keyUpdate,
     beforeUpdateValue,
     msgUpdateValueSuccess,
     msgUpdateValueFail,
+
+    disableTooltip = false,
 }) => {
     const [curentValue, setCurentValue] = useState<string>(
         defaultValue
@@ -93,27 +100,43 @@ const Select: React.FC<ICurentField> = ({
         typeof defaultValue == 'object' ? defaultValue : [],
     );
 
-    const { open, setOpen, style, handleClose } = usePopUp(
-        refBtn,
-        refPopUp,
-        'left',
-        undefined,
-        isChildren,
-        refClear,
-    );
+    const { open, setOpen, style, handleClose } = usePopUp({
+        refPopover: refBtn,
+        refPopup: refPopUp,
+        refDisable: refClear,
+    });
 
     async function confirm(value: string | string[]) {
         if (beforeUpdateValue) {
-            setLoading(true);
-            const result = await beforeUpdateValue(value);
-            setLoading(false);
-
-            if (result) {
-                noti?.success(msgUpdateValueSuccess || 'Update success');
+            if (keyUpdate) {
+                mutate(
+                    keyUpdate,
+                    async (state: any) => {
+                        const result = await beforeUpdateValue(value);
+                        if (result) {
+                            noti?.success(
+                                msgUpdateValueSuccess || 'Update success',
+                            );
+                            return [result, ...state];
+                        } else {
+                            noti?.error(msgUpdateValueFail || 'Update error!');
+                            return [...state];
+                        }
+                    },
+                    { revalidate: false },
+                );
             } else {
-                noti?.error(msgUpdateValueFail || 'Update error!');
+                setLoading(true);
+                const result = await beforeUpdateValue(value);
+                setLoading(false);
+
+                if (result) {
+                    noti?.success(msgUpdateValueSuccess || 'Update success');
+                } else {
+                    noti?.error(msgUpdateValueFail || 'Update error!');
+                }
+                return result;
             }
-            return result;
         }
     }
 
@@ -156,6 +179,8 @@ const Select: React.FC<ICurentField> = ({
             }
             setCurentValue(value);
         }
+
+        handleOnChange();
     };
 
     async function handeClearField() {
@@ -173,23 +198,19 @@ const Select: React.FC<ICurentField> = ({
         isMutiple && setMoreValue([]);
     }
 
-    useEffect(() => {
+    function handleOnChange() {
         if (!isMutiple) {
             setTimeout(() => {
                 onChange && onChange(curentValue);
             }, 200);
-            open && handleClose();
         }
-    }, [curentValue]);
-
-    useEffect(() => {
         if (isMutiple) {
             setTimeout(() => {
                 onChange && onChange(moreValue);
             }, 200);
-            open && handleClose();
         }
-    }, [moreValue]);
+        open && handleClose();
+    }
 
     useEffect(() => {
         options && setResult(options);
@@ -231,69 +252,70 @@ const Select: React.FC<ICurentField> = ({
 
     const isOpen = open && (lsResult.length > 0 || isSearch);
 
+    const itemSelected = () => {
+        return lsResult.filter((e) => {
+            if (typeof e === 'string') {
+                return moreValue.includes(e);
+            } else {
+                return moreValue.includes(e.value || '');
+            }
+        });
+    };
+
     return (
-        <div className="relative">
-            <div
-                onClick={() => {
-                    setOpen(true);
-                }}
-                ref={refBtn}
-                className={`${
-                    error ? 'border border-color-error' : 'border'
-                } rounded hover:bg-theme-secondary cursor-pointer`}
-            >
-                {(curentItemSelected &&
-                    customeSelected &&
-                    customeSelected(curentItemSelected, loading)) ||
-                    (curentItemSelected && (
-                        <ItemSelect
-                            updateValue={handleBeforeUpdate}
-                            fontSize={fontSize}
-                            setValue={setCurentValue}
-                            className={className}
-                            isClear={isClear}
-                            refClear={refClear}
-                            moreValue={moreValue}
-                            loading={loading}
-                            handleClear={handeClearField}
-                            item={curentItemSelected}
-                        />
-                    )) ||
-                    children || (
-                        <div className="w-[70px] h-[24px] rounded bg-theme-primary cursor-default"></div>
-                    )}
-            </div>
-            {!disableMessage && error && (
-                <div className="text-color-error text-sm">{error}</div>
-            )}
-            {isOpen &&
-                (isChildren ? (
-                    <SelectPopup
-                        fontSize={fontSize}
-                        isSearch={isSearch}
-                        lsResult={lsResult}
-                        refBtn={refBtn}
-                        updateValue={handleBeforeUpdate}
-                        refPopUp={refPopUp}
-                        style={style}
-                        setOpen={setOpen}
-                        options={options}
-                        setResult={setResult}
-                        moreValue={moreValue}
-                        moreItem={moreItem}
-                        isMutiple={isMutiple}
-                        iconActive={iconActive}
-                        isClear={isClear}
-                        isIconCheck={isIconCheck}
-                        placement={placement}
-                        className={className}
-                        curentValue={curentValue}
-                        defaultValue={defaultValue}
-                        customeSelected={customeSelected}
-                        disableMessage={disableMessage}
-                        setCurentValue={setCurentValue}
-                    />
-                ) : (
+        <Tooltip
+            placement="topCenter"
+            title={
+                <div className="text-sm flex p-1 group/pr">
+                    {itemSelected().map((e, i) => {
+                        return (
+                            <div className="ml-1 group/item group-first/pr:ml-0">
+                                {typeof e == 'string' ? e : e.title}
+                                <span className="group-last/item:hidden">
+                                    ,
+                                </span>
+                            </div>
+                        );
+                    })}
+                </div>
+            }
+            disable={disableTooltip || moreValue.length > 1 ? false : true}
+        >
+            <div className="relative">
+                <div
+                    onClick={() => {
+                        setOpen(true);
+                    }}
+                    ref={refBtn}
+                    className={`${
+                        error ? 'border border-color-error' : 'border'
+                    } rounded hover:bg-theme-secondary cursor-pointer`}
+                >
+                    {(curentItemSelected &&
+                        customeSelected &&
+                        customeSelected(curentItemSelected, loading)) ||
+                        (curentItemSelected && (
+                            <ItemSelect
+                                updateValue={handleBeforeUpdate}
+                                fontSize={fontSize}
+                                setValue={setCurentValue}
+                                className={className}
+                                isClear={isClear}
+                                refClear={refClear}
+                                moreValue={moreValue}
+                                loading={loading}
+                                handleClear={handeClearField}
+                                item={curentItemSelected}
+                            />
+                        )) ||
+                        children || (
+                            <div className="w-[70px] h-[24px] rounded bg-theme-primary cursor-default"></div>
+                        )}
+                </div>
+                {!disableMessage && error && (
+                    <div className="text-color-error text-sm">{error}</div>
+                )}
+                {isOpen &&
                     createPortal(
                         <SelectPopup
                             moreValue={moreValue}
@@ -321,9 +343,9 @@ const Select: React.FC<ICurentField> = ({
                             setCurentValue={setCurentValue}
                         />,
                         document.body,
-                    )
-                ))}
-        </div>
+                    )}
+            </div>
+        </Tooltip>
     );
 };
 

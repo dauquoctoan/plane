@@ -9,10 +9,10 @@ import SelectField from '@/components/ui/select/selectField';
 import { IFiledReactHookForm } from '@/components/ui/types/form';
 import SelectLabel from './SelectLabel';
 import { convertDataOptions, createMembeSelectOption } from '@/helpers';
-import { optionLevel } from '@/constants';
+import { optionLevel } from '@/constants/issue';
 import DefaultSelectMember from './defaultSelectMember';
 import useSWR from 'swr';
-import { MEMBER_KEY } from '@/apiKey';
+import { MEMBER_KEY_BY_PROJECT } from '@/apiKey';
 import projectService from '@/services/project-services';
 
 interface IIssueTools extends IFiledReactHookForm {
@@ -28,24 +28,25 @@ const IssueTools: React.FC<IIssueTools> = ({
     projectId,
 }) => {
     const optionsState: IOptionItem[] | undefined =
-        states && (convertDataOptions(states) as IOptionItem[]);
+        states && convertDataOptions(states);
 
     const { data: members } = useSWR(
-        () => MEMBER_KEY(projectId),
+        () => MEMBER_KEY_BY_PROJECT(projectId),
         () =>
-            projectService.getMemberByProject<IData<IUser[]>>(projectId || ''),
+            projectService.getMemberByProject<IData<IUser[]>>({
+                projectId: projectId || '',
+            }),
     );
 
     const optionsMember: IOptionItem[] = createMembeSelectOption(members);
-
     return (
         <div className="mb-5 flex items-center justify-between gap-2">
-            {optionsState ? (
+            {optionsState && optionsState?.length > 0 ? (
                 <SelectField
                     name="state"
                     control={control}
                     options={optionsState}
-                    defaultValue={optionsState[0].key}
+                    defaultValue={optionsState[0].value}
                     isIconCheck
                     rules={{ required: true }}
                     fontSize="text-[12px]"
@@ -65,7 +66,7 @@ const IssueTools: React.FC<IIssueTools> = ({
                         return (
                             <div className="px-2 py-[3px] select-none flex items-center text-[12px]">
                                 {e?.icon}
-                                <span className="ml-1">{e.name}</span>
+                                <span className="ml-1">{e.title}</span>
                             </div>
                         );
                     }}
@@ -78,14 +79,14 @@ const IssueTools: React.FC<IIssueTools> = ({
                 name="priority"
                 control={control}
                 options={optionLevel}
-                defaultValue={optionLevel[0].key}
+                defaultValue={optionLevel[0].value}
                 isIconCheck
                 fontSize="text-[12px]"
                 customeSelected={(e: any) => {
                     return (
                         <div className="px-2 py-[3px] select-none flex items-center text-[12px]">
                             {e?.icon}
-                            <span className="ml-1">{e.name}</span>
+                            <span className="ml-1">{e.title}</span>
                         </div>
                     );
                 }}

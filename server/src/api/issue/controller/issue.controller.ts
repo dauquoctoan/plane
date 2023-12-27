@@ -19,10 +19,10 @@ export class IssueController {
         return handleResultSuccess(await this.issueService.createIssue(createWorkspaceDto, request.user.id));
     }
 
-    @Get()
+    @Get(':id')
     @UseGuards(AuthGuard)
-    async findAll(@Query() query: QueryIssueDto, @RequestNest() request: IAuthRequest) {
-        return handleResultSuccess(await this.issueService.fillterIssue({...query, userId: request.user.id}))
+    async findAll(@Param('id') projectid: string, @RequestNest() request: IAuthRequest) {
+        return handleResultSuccess(await this.issueService.getIssueByProjectId(projectid, request.user.id))
     }
 
     @Post('/fillter')

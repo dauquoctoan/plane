@@ -55,7 +55,7 @@ const CreateState: React.FC<IPropsCreateState> = ({
                                 await issueService.createState<Istate>({
                                     name: data.name,
                                     color: data.color,
-                                    project_id: +projectId,
+                                    project_id: projectId,
                                     description: data.description,
                                     group: data.group?.toLowerCase(),
                                 });

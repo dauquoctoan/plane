@@ -35,7 +35,7 @@ interface IProps
 const Popover: React.FC<IProps> = ({
     children,
     content,
-    placement = 'left',
+    placement = 'bottomLeft',
     contentClassName = '',
     className = '',
     pxContent = 2,
@@ -49,11 +49,7 @@ const Popover: React.FC<IProps> = ({
     const refPopup = useRef<HTMLDivElement>(null);
 
     const { style, open, handleWhenMouseDown, handleWhenMouseLeave } = usePopUp(
-        refPopover,
-        refPopup,
-        placement,
-        isHover,
-        isChildRen,
+        { refPopover, refPopup, placement, isHover, isChildRen },
     );
 
     function renderPop() {
