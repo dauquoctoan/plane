@@ -3,18 +3,24 @@ import { IoIosMore } from 'react-icons/Io';
 import { IBoardIssues } from './board';
 import SelectState from '@/components/module/selectState';
 import { useParams } from 'next/navigation';
-import { IParams } from '@/types';
+import { ILabel, IParams } from '@/types';
 import issueService from '@/services/issue-services';
+import SelectLabelsTable from '@/components/module/selectLabels';
+import SelectMemberTable from '@/components/module/selectMemberTable';
 export interface IProps {
     data: IBoardIssues;
     setBlocks: React.Dispatch<React.SetStateAction<IBoardIssues[]>>;
+    indexs: number[];
+    parentId?: string;
+    blocks: IBoardIssues[];
 }
-const IssueDragItem: FC<IProps> = ({ data, setBlocks }) => {
+
+const IssueDragItem: FC<IProps> = ({ data, setBlocks, indexs, parentId, blocks }) => {
     const prevState = useRef<string>('');
     const param = useParams<IParams>();
     return (
-        <div className="block relative bg-theme-primary p-5 mb-3 border rounded">
-            <div className="min-w-[300px] bg-theme-primary flex flex-col">
+        <div className="block relative bg-theme-primary p-2 mb-3 border rounded">
+            <div className="min-w-[250px] bg-theme-primary flex flex-col">
                 <div className="flex justify-between">
                     <div className="w-28 overflow-hidden whitespace-nowrap text-ellipsis">
                         {data.id}
@@ -29,40 +35,18 @@ const IssueDragItem: FC<IProps> = ({ data, setBlocks }) => {
                 <div className="flex gap-2 bg-theme-primary">
                     {data.data?.state_id && data.id && (
                         <SelectState
+                            value={parentId}
                             projectId={param.projectid}
+                            showMoreText={false}
                             stateId={data.data?.state_id}
                             onChange={(id) => {
-                                // setBlocks((state) => {
-                                //     let tempItem = {};
-                                //     if (prevState.current) {
-                                //         const newData = [...state];
-                                //         newData.forEach((e) => {
-                                //             if (e.id === prevState.current) {
-                                //                 let index =
-                                //                     e.children?.findIndex(
-                                //                         function (element) {
-                                //                             if (
-                                //                                 element.id ===
-                                //                                 id
-                                //                             ) {
-                                //                                 tempItem =
-                                //                                     element;
-                                //                                 return true;
-                                //                             }
-                                //                             return false;
-                                //                         },
-                                //                     );
-                                //                 if (index && index !== -1) {
-                                //                     e.children?.splice(
-                                //                         index,
-                                //                         1,
-                                //                     );
-                                //                 }
-                                //             }
-                                //         });
-                                //     }
-                                //     return state;
-                                // });
+                                const newData = [...blocks]
+                                const item = newData[indexs[0]].children?.splice(indexs[1], 1)
+                                const index = newData.findIndex((e) => { return e.id === id })
+                                if (index && item) {
+                                    newData[index].children = [...newData[index].children || [], ...item]
+                                }
+                                setBlocks(newData)
                             }}
                             beforeUpdateValue={(id) => {
                                 prevState.current = id as string;
@@ -75,10 +59,29 @@ const IssueDragItem: FC<IProps> = ({ data, setBlocks }) => {
                             }}
                         />
                     )}
-                    <div>tag item</div>
-                    <div>tag item</div>
-                    <div>tag item</div>
-                    <div>tag item</div>
+                    <SelectLabelsTable
+                        projectId={param.projectid}
+                        showMoreText={false}
+                        labels={data?.data?.labels?.map((e: any) => e.id) as string[] || []}
+                        beforeUpdateValue={(change) => {
+                            return issueService.updateIssueLabel(
+                                change as string[],
+                                data.id || '',
+                            );
+                        }}
+                    />
+                    <SelectMemberTable
+                        assigness={data?.data?.assignees?.map((e: any) => e.id) as string[]}
+                        projectId={param.projectid}
+                        showMoreText={false}
+                        size='sm'
+                        beforeUpdateValue={(change: any) => {
+                            return issueService.updateIssueAssign(
+                                data.id || '',
+                                change,
+                            );
+                        }}
+                    />
                 </div>
             </div>
         </div>

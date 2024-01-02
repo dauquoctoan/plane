@@ -9,7 +9,7 @@ import {
 } from '@/helpers';
 import issueService from '@/services/issue-services';
 import projectService from '@/services/project-services';
-import { IData, ILabel, IUser, Istate } from '@/types';
+import { IData, ILabel, IProjectMember, IUser, Istate } from '@/types';
 import useSWR from 'swr';
 
 export type TCalBackChangeDate = (
@@ -88,7 +88,7 @@ export const useDataFilter = (cb?: TCalBackChangeDate) => {
     const { data: members } = useSWR(
         () => MEMBER_KEY_BY_WORKSPACE,
         () =>
-            projectService.getMemberByProject<IData<IUser[]>>({
+            projectService.getMemberByProject<IProjectMember[]>({
                 projectId: '',
             }),
     );

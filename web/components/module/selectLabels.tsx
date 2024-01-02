@@ -11,11 +11,13 @@ interface IProps {
     projectId?: string;
     beforeUpdateValue: (e: string | string[]) => Promise<any>;
     labels: string[];
+    showMoreText?: boolean;
 }
 
 const SelectLabelsTable: React.FC<IProps> = ({
     projectId,
     beforeUpdateValue,
+    showMoreText = true,
     labels: defaultValue,
 }) => {
     const { data: labels } = useSWR(
@@ -35,12 +37,13 @@ const SelectLabelsTable: React.FC<IProps> = ({
                     defaultValue={defaultValue}
                     isMutiple
                     isClear
+                    showMoreText={showMoreText}
                     isChildren={false}
                     beforeUpdateValue={beforeUpdateValue}
                 >
                     <div className="px-2 cursor-pointer select-none py-[3px] border-theme-border-primary rounded flex items-center gap-1 text-[12px]">
                         <IoMdPricetags />
-                        <span>label</span>
+                        <span>{showMoreText && 'label'}</span>
                     </div>
                 </Select>
             )}

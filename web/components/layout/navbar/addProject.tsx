@@ -74,7 +74,7 @@ const AddProject: React.FC<IProps> = ({ setOpen, handleCreateProject }) => {
                 <div className="absolute bottom-0 translate-y-[40%] left-2 bg-red">
                     <Popover
                         isChildRen
-                        placement="left"
+                        placement="bottomCenter"
                         pxContent={0}
                         pyContent={0}
                         content={
@@ -93,7 +93,7 @@ const AddProject: React.FC<IProps> = ({ setOpen, handleCreateProject }) => {
                 </div>
                 <div className="absolute right-0 bottom-0 rounded border border-theme-border-primary bg-theme-secondary cursor-pointer select-none mb-2 mr-2">
                     <Popover
-                        placement="right"
+                        placement="bottomRight"
                         pxContent={0}
                         pyContent={0}
                         content={

@@ -1,11 +1,11 @@
-interface IBaseData{
-    createdAt?:string;
-    updatedAt?:string;
+interface IBaseData {
+    createdAt?: string;
+    updatedAt?: string;
 }
 
-export type IParams={
-    workspaceSlug : string;
-    issueViewId : string;
+export type IParams = {
+    workspaceSlug: string;
+    issueViewId: string;
     projectid: string;
 }
 export interface IResult<T> {
@@ -21,7 +21,7 @@ export interface LinkProps {
 
 export type IData<T> = T | undefined;
 
-export interface IUser extends IBaseData{
+export interface IUser extends IBaseData {
     USER_TIMEZONE_CHOICES?: string;
     avatar?: string;
     billing_address?: string;
@@ -69,7 +69,7 @@ export interface IInfo extends IUser {
     workspace?: IWorkspace | null;
 }
 
-export interface IWorkspace extends IBaseData{
+export interface IWorkspace extends IBaseData {
     id?: string;
     owner?: string;
     user?: string;
@@ -79,7 +79,7 @@ export interface IWorkspace extends IBaseData{
     organization_size?: string;
 }
 
-export interface IWorkspaceMemberInvite extends IBaseData{
+export interface IWorkspaceMemberInvite extends IBaseData {
     workspace_id?: string;
     email?: string;
     accepted?: boolean;
@@ -89,7 +89,7 @@ export interface IWorkspaceMemberInvite extends IBaseData{
     role?: number;
 }
 
-export interface IProject extends IBaseData{
+export interface IProject extends IBaseData {
     id?: string;
     estimate_id?: string;
     created_by?: string;
@@ -116,7 +116,7 @@ export interface IProject extends IBaseData{
     is_member?: boolean;
 }
 
-export interface Istate extends IBaseData{
+export interface Istate extends IBaseData {
     id: string;
     project_id?: string;
     project_detail?: IProject;
@@ -131,8 +131,8 @@ export interface Istate extends IBaseData{
     default?: boolean;
 }
 
-export interface IIssue extends IBaseData{
-    id?:string;
+export interface IIssue extends IBaseData {
+    id?: string;
     project_id?: string;
     workspace_id?: string;
     parent?: number;
@@ -153,7 +153,7 @@ export interface IIssue extends IBaseData{
     assignees?: IUser[] | string[];
     labels?: ILabel[] | string[];
 }
-export interface ILabel extends IBaseData{
+export interface ILabel extends IBaseData {
     id: string;
     project_id: string;
     created_at: string;
@@ -164,7 +164,7 @@ export interface ILabel extends IBaseData{
     color: string;
 }
 
-export interface IFillterIssue{
+export interface IFillterIssue {
     projects?: string[];
     userId?: string;
     states?: string[];
@@ -181,12 +181,26 @@ export interface IFillterIssue{
     dueCustomTo?: string;
 }
 
-export interface IIssueViews{
-    id?:string;
+export interface IIssueViews {
+    id?: string;
     name: string;
     description?: string;
     query?: IFillterIssue;
     access?: number;
     query_data?: string;
+}
+
+export interface IProjectMember {
+    id: string;
+    member: string;
+    user: IUser;
+    project_id: string;
+    workspace_id: string;
+    comment: string;
+    role: number;
+    view_props: string;
+    default_props: string;
+    preferences: string;
+    sort_order: string;
 }
 

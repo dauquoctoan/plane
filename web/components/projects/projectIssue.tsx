@@ -2,11 +2,12 @@
 import React from 'react';
 import Board, { IBoardIssues } from './dnd/board';
 import { useParams } from 'next/navigation';
-import { IData, IIssue, IParams, Istate } from '@/types';
+import { IData, IIssue, IParams, IProjectMember, Istate } from '@/types';
 import useSWR from 'swr';
 import { ISSUES_BY_PROJECT_ID, STATES_KEY } from '@/apiKey';
 import issueService from '@/services/issue-services';
 import { getIcons } from '@/helpers';
+import projectService from '@/services/project-services';
 
 const ProjectIssue = () => {
     const params = useParams<IParams>();
@@ -14,7 +15,7 @@ const ProjectIssue = () => {
     const { data: issues } = useSWR<IData<IIssue[]>>(
         ISSUES_BY_PROJECT_ID(params.projectid),
         () => {
-            return issueService.findIssueByProjectId<IData<IIssue[]>>(
+            return issueService.findIssueByProjectId<IIssue[]>(
                 params.projectid,
             );
         },

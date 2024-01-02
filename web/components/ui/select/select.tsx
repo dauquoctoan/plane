@@ -37,6 +37,7 @@ export interface IProps extends ICurentFieldProps {
     msgUpdateValueSuccess?: string;
     beforeUpdateValue?: (e: string | string[]) => Promise<any>;
     keyUpdate?: string;
+    showMoreText?: boolean;
 }
 
 export interface IOptionItem {
@@ -71,11 +72,11 @@ const Select: React.FC<ICurentField> = ({
     isMutiple = false,
     placement,
     onChange,
-    isChildren = true,
     isSearch = false,
     isClear,
     customeSelected,
     keyUpdate,
+    showMoreText = true,
     beforeUpdateValue,
     msgUpdateValueSuccess,
     msgUpdateValueFail,
@@ -155,6 +156,7 @@ const Select: React.FC<ICurentField> = ({
 
                 if (isSetData || !beforeUpdateValue) {
                     setMoreValue(newData);
+                    handleOnChange(newData);
                     newData.length > 0
                         ? setCurentValue(newData[0])
                         : setCurentValue('');
@@ -170,17 +172,17 @@ const Select: React.FC<ICurentField> = ({
                 if (isSetData || !beforeUpdateValue) {
                     setMoreValue(newData);
                     setCurentValue(value);
+                    handleOnChange(newData);
                 }
             }
         } else {
             if (value !== curentValue && beforeUpdateValue) {
                 const result = await confirm(value);
+                handleOnChange(value);
                 if (!result) return;
             }
             setCurentValue(value);
         }
-
-        handleOnChange();
     };
 
     async function handeClearField() {
@@ -198,18 +200,9 @@ const Select: React.FC<ICurentField> = ({
         isMutiple && setMoreValue([]);
     }
 
-    function handleOnChange() {
-        if (!isMutiple) {
-            setTimeout(() => {
-                onChange && onChange(curentValue);
-            }, 200);
-        }
-        if (isMutiple) {
-            setTimeout(() => {
-                onChange && onChange(moreValue);
-            }, 200);
-        }
-        open && handleClose();
+    function handleOnChange(value: any) {
+        onChange && onChange(value);
+        !isMutiple && open && handleClose();
     }
 
     useEffect(() => {
@@ -263,33 +256,33 @@ const Select: React.FC<ICurentField> = ({
     };
 
     return (
-        <Tooltip
-            placement="topCenter"
-            title={
-                <div className="text-sm flex p-1 group/pr">
-                    {itemSelected().map((e, i) => {
-                        return (
-                            <div className="ml-1 group/item group-first/pr:ml-0">
-                                {typeof e == 'string' ? e : e.title}
-                                <span className="group-last/item:hidden">
-                                    ,
-                                </span>
-                            </div>
-                        );
-                    })}
-                </div>
-            }
-            disable={disableTooltip || moreValue.length > 1 ? false : true}
-        >
-            <div className="relative">
+
+        <div className="relative">
+            <Tooltip
+                placement="topCenter"
+                title={
+                    <div className="text-sm flex p-1 group/pr">
+                        {itemSelected().map((e, i) => {
+                            return (
+                                <div key={i} className="ml-1 group/item group-first/pr:ml-0">
+                                    {typeof e == 'string' ? e : e.title}
+                                    <span className="group-last/item:hidden">
+                                        ,
+                                    </span>
+                                </div>
+                            );
+                        })}
+                    </div>
+                }
+                disable={disableTooltip || moreValue.length > 1 ? false : true}
+            >
                 <div
                     onClick={() => {
                         setOpen(true);
                     }}
                     ref={refBtn}
-                    className={`${
-                        error ? 'border border-color-error' : 'border'
-                    } rounded hover:bg-theme-secondary cursor-pointer`}
+                    className={`${error ? 'border border-color-error' : 'border'
+                        } rounded hover:bg-theme-secondary cursor-pointer`}
                 >
                     {(curentItemSelected &&
                         customeSelected &&
@@ -304,6 +297,7 @@ const Select: React.FC<ICurentField> = ({
                                 refClear={refClear}
                                 moreValue={moreValue}
                                 loading={loading}
+                                showMoreText={showMoreText}
                                 handleClear={handeClearField}
                                 item={curentItemSelected}
                             />
@@ -312,40 +306,39 @@ const Select: React.FC<ICurentField> = ({
                             <div className="w-[70px] h-[24px] rounded bg-theme-primary cursor-default"></div>
                         )}
                 </div>
-                {!disableMessage && error && (
-                    <div className="text-color-error text-sm">{error}</div>
+            </Tooltip>
+            {!disableMessage && error && (
+                <div className="text-color-error text-sm">{error}</div>
+            )}
+            {isOpen &&
+                createPortal(
+                    <SelectPopup
+                        moreValue={moreValue}
+                        updateValue={handleBeforeUpdate}
+                        fontSize={fontSize}
+                        isSearch={isSearch}
+                        lsResult={lsResult}
+                        isMutiple={isMutiple}
+                        refBtn={refBtn}
+                        refPopUp={refPopUp}
+                        style={style}
+                        options={options}
+                        setResult={setResult}
+                        moreItem={moreItem}
+                        iconActive={iconActive}
+                        isClear={isClear}
+                        isIconCheck={isIconCheck}
+                        placement={placement}
+                        className={className}
+                        curentValue={curentValue}
+                        defaultValue={defaultValue}
+                        customeSelected={customeSelected}
+                        disableMessage={disableMessage}
+                        setCurentValue={setCurentValue}
+                    />,
+                    document.body,
                 )}
-                {isOpen &&
-                    createPortal(
-                        <SelectPopup
-                            moreValue={moreValue}
-                            updateValue={handleBeforeUpdate}
-                            fontSize={fontSize}
-                            isSearch={isSearch}
-                            lsResult={lsResult}
-                            isMutiple={isMutiple}
-                            refBtn={refBtn}
-                            refPopUp={refPopUp}
-                            style={style}
-                            setOpen={setOpen}
-                            options={options}
-                            setResult={setResult}
-                            moreItem={moreItem}
-                            iconActive={iconActive}
-                            isClear={isClear}
-                            isIconCheck={isIconCheck}
-                            placement={placement}
-                            className={className}
-                            curentValue={curentValue}
-                            defaultValue={defaultValue}
-                            customeSelected={customeSelected}
-                            disableMessage={disableMessage}
-                            setCurentValue={setCurentValue}
-                        />,
-                        document.body,
-                    )}
-            </div>
-        </Tooltip>
+        </div>
     );
 };
 

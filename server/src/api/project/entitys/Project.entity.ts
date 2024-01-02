@@ -1,4 +1,4 @@
-import { AllowNull, BelongsTo, Column, DataType, ForeignKey, HasMany, HasOne, Is, Length, Model, Table } from 'sequelize-typescript';
+import { BelongsTo, Column, DataType, ForeignKey, HasMany, HasOne, Is, Length, Model, Table } from 'sequelize-typescript';
 import { Notification } from 'src/api/notification/entitys/Notification.entity';
 import { Estimate } from 'src/api/estimate/entitys/Estimate.entity';
 import { State } from 'src/api/state/entitys/State.entity';

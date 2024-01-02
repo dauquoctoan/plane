@@ -12,6 +12,8 @@ interface IProps {
     onChange?: (id: string | string[]) => void;
     beforeUpdateValue: (e: string | string[]) => Promise<any>;
     keyUpdate?: string;
+    value?: string;
+    showMoreText?: boolean;
 }
 
 const SelectState: React.FC<IProps> = ({
@@ -19,13 +21,14 @@ const SelectState: React.FC<IProps> = ({
     stateId,
     onChange,
     keyUpdate,
+    showMoreText,
+    value,
     beforeUpdateValue,
 }) => {
     const { data: states } = useSWR(
         () => STATES_KEY(projectId),
         () => issueService.getState<IData<Istate[]>>(projectId || ''),
     );
-
     return (
         <Select
             defaultValue={stateId}
@@ -34,6 +37,8 @@ const SelectState: React.FC<IProps> = ({
             isChildren={false}
             onChange={onChange}
             fontSize="text-[12px]"
+            value={value}
+            showMoreText={showMoreText}
             isSearch={true}
             keyUpdate={keyUpdate}
             beforeUpdateValue={beforeUpdateValue}

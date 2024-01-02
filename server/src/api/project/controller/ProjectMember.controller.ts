@@ -24,8 +24,14 @@ export class ProjectMemberController {
 
     @Get()
     @UseGuards(AuthGuard)
-    async findOneprojects(@RequestNest() request: IAuthRequest, @Query() query: {projectId:string} ) {
+    async findOneprojects(@RequestNest() request: IAuthRequest, @Query() query: { projectId: string }) {
         return handleResultSuccess(await this.projectMemberService.findMembers(query, request.user.id));
+    }
+
+    @Get('me')
+    @UseGuards(AuthGuard)
+    async me(@RequestNest() request: IAuthRequest, @Query() query: { projectId: string }) {
+        return handleResultSuccess(await this.projectMemberService.me(query, request.user.id));
     }
 
     @Patch(':id')

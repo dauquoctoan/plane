@@ -76,7 +76,7 @@ const CreateIssue: React.FC<IProps> = ({
 
     const { data: states } = useSWR(
         () => STATES_KEY(watch('project') || projects[0].id),
-        () => issueService.getState<IData<Istate[]>>(watch('project')),
+        () => issueService.getState<Istate[]>(watch('project')),
     );
 
     function closeModal() {
@@ -232,7 +232,7 @@ const CreateIssue: React.FC<IProps> = ({
                     </div>
                 </div>
             </form>
-            {states && watch('project') && (
+            {states && (projects[0].id) && (
                 <Modal
                     isOpen={isOpen.value}
                     handleClose={() => {
@@ -243,7 +243,7 @@ const CreateIssue: React.FC<IProps> = ({
                             handleClose={() => {
                                 setIsOpen({ ...isOpen, value: false });
                             }}
-                            projectId={watch('project')}
+                            projectId={watch('project') || projects[0].id}
                             states={states}
                         />
                     }

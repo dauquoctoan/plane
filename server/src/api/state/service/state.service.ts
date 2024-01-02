@@ -3,7 +3,6 @@ import { InjectModel } from '@nestjs/sequelize';
 import { State } from '../entitys/State.entity';
 import { Repository } from 'sequelize-typescript';
 import { BaseService } from 'src/api/Base.service';
-import { CreateStateDto } from '../dto/State.dto';
 import { Op } from 'sequelize';
 
 
@@ -22,31 +21,36 @@ export class StateService extends BaseService<State> {
                 "name": "Backlog",
                 "color": "#A3A3A3",
                 "group": "backlog",
+                'sequence': 1000,
                 "default": true
             },
             {
-                "name": "Cancelled",
-                "color": "#EF4444",
-                "group": "cancelled",
-                "default": false,
-            },
-            {
-                "name": "Done",
-                "color": "#16A34A",
-                "group": "completed",
+                "name": "Todo",
+                "color": "#3A3A3A",
+                "group": "unstarted",
+                'sequence': 2000,
                 "default": false
             },
             {
                 "name": "In Progress",
                 "color": "#F59E0B",
                 "group": "started",
+                'sequence': 3000,
                 "default": false
             },
             {
-                "name": "Todo",
-                "color": "#3A3A3A",
-                "group": "unstarted",
+                "name": "Done",
+                "color": "#16A34A",
+                "group": "completed",
+                'sequence': 4000,
                 "default": false
+            },
+            {
+                "name": "Cancelled",
+                "color": "#EF4444",
+                "group": "cancelled",
+                'sequence': 5000,
+                "default": false,
             },
         ])
     }
@@ -65,7 +69,7 @@ export class StateService extends BaseService<State> {
                     ],
                 },
             },
-            order:[['created_by', 'ASC']]
+            order: [['created_by', 'DESC'], ['sequence', 'ASC']]
         })
     }
 
@@ -75,7 +79,7 @@ export class StateService extends BaseService<State> {
                 project_id: null,
                 created_by: null,
             },
-            order:[['created_by', 'ASC']]
+            order: [['created_by', 'ASC'], ['sequence', 'ASC']]
         })
     }
 }

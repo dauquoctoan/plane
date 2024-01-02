@@ -51,21 +51,25 @@ const CreateLabel: React.FC<IPropsCreateLabel> = ({
 
                         if (result) {
                             noti?.success('Label is Created');
+
                             setTimeout(() => {
                                 handleClose();
                             }, 200);
+
                             return [result, ...state];
                         } else {
                             setTimeout(() => {
                                 handleClose();
                             }, 200);
+
                             noti?.error(
                                 'An error occurred, please try again later',
                             );
+
                             return [...state];
                         }
                     },
-                    { revalidate: false },
+                    { revalidate: true },
                 );
             })}
             className="w-[500px]"
@@ -84,7 +88,7 @@ const CreateLabel: React.FC<IPropsCreateLabel> = ({
                     keyForm="name"
                     error={errors}
                     register={register}
-                    validator={{ required: true }}
+                    validator={{ required: 'Label is required' }}
                     setValue={setValue}
                 />
             </div>

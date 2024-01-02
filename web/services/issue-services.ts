@@ -25,9 +25,9 @@ class IssueService extends BaseService {
         }
     }
 
-    async updateIssueAssign<T>(idIssue:string, assignees: string[]){
+    async updateIssueAssign<T>(idIssue: string, assignees: string[]) {
         try {
-            return await this.patch<T>('issue-assignee/' + idIssue, {assignees:assignees})
+            return await this.patch<T>('issue-assignee/' + idIssue, { assignees: assignees })
         } catch (error) {
             console.log(error)
         }
@@ -47,9 +47,9 @@ class IssueService extends BaseService {
         } catch (error) {
             console.log(error)
         }
-    } 
+    }
 
-    async findIssues<T>(query?: IFillterIssue){
+    async findIssues<T>(query?: IFillterIssue) {
         try {
             return await this.post<T>(`issue/fillter`, query);
         } catch (error) {
@@ -57,17 +57,17 @@ class IssueService extends BaseService {
         }
     }
 
-    async findIssueByProjectId<T>(projectId:string){
+    async findIssueByProjectId<T>(projectId: string) {
         try {
-            return await this.get<T>('issue/'+projectId);
+            return await this.get<T>('issue/' + projectId);
         } catch (error) {
             console.log(error)
         }
     }
 
-    async updateIssue<T>(idIssue?:string, issue?:IIssue){
+    async updateIssue<T>(idIssue?: string, issue?: IIssue) {
         try {
-            return await this.patch<T>(`issue/${idIssue}`,issue);
+            return await this.patch<T>(`issue/${idIssue}`, issue);
         } catch (error) {
             console.log(error)
         }
@@ -81,15 +81,15 @@ class IssueService extends BaseService {
         }
     }
 
-    async updateIssueLabel<T>(labels:string[], issueId:string ) {
+    async updateIssueLabel<T>(labels: string[], issueId: string) {
         try {
-            return await this.patch<T>('isssue-label/' + issueId, {labels});
+            return await this.patch<T>('isssue-label/' + issueId, { labels });
         } catch (error) {
             console.log(error)
         }
     }
 
-    async findLabelsByProject<T>(query: {projectId?: string}) {
+    async findLabelsByProject<T>(query: { projectId?: string }) {
         try {
             return await this.get<T>('label', query);
         } catch (error) {
@@ -97,7 +97,7 @@ class IssueService extends BaseService {
         }
     }
 
-    async createIssueView<T>(issueView: IIssueViews){
+    async createIssueView<T>(issueView: IIssueViews) {
         try {
             return await this.post<T>('issue-view', issueView)
         } catch (error) {
@@ -105,15 +105,15 @@ class IssueService extends BaseService {
         }
     }
 
-    async findIssueViewById<T>(id:string){
+    async findIssueViewById<T>(id: string) {
         try {
-            return await this.get<T>('issue-view/'+id)
+            return await this.get<T>('issue-view/' + id)
         } catch (error) {
             console.log(error)
         }
     }
 
-    async getIssueView<T>(){
+    async getIssueView<T>() {
         try {
             return await this.get<T>('issue-view')
         } catch (error) {
@@ -121,11 +121,11 @@ class IssueService extends BaseService {
         }
     }
 
-    async test(a:any){
+    async test(a: any) {
         try {
             return await this.post('test', a)
         } catch (error) {
-            console.log( error)
+            console.log(error)
         }
     }
 }

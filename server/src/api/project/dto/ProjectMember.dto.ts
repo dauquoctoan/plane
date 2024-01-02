@@ -12,6 +12,6 @@ export class CreateProjectMemberDto {
     preferences?: string;
     sort_order?: string;
 }
-export class UpdateProjectMemberDto extends  PartialType(CreateProjectMemberDto){
+export class UpdateProjectMemberDto extends PartialType(CreateProjectMemberDto) {
 
 }

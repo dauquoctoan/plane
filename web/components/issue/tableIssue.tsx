@@ -1,14 +1,14 @@
 'use client';
 import issueService from '@/services/issue-services';
 import { IData, IIssue, IUser, Istate, ILabel, IFillterIssue } from '@/types';
-import React from 'react';
+import React, { useEffect } from 'react';
 import useSWR from 'swr';
 import { ITableConfigs } from '../ui/table';
 import Table from '../ui/table/table';
 import Select from '../ui/select/select';
 import { optionLevel } from '@/constants/issue';
-import SelectMemberTable from './selectMemberTable';
-import SelectLabelsTable from './selectLabelsTable';
+import SelectMemberTable from '../module/selectMemberTable';
+import SelectLabels from '../module/selectLabels';
 import DatepickerTable from './datepickerTable';
 import moment from 'moment';
 import FilterTableIssue from './filterTableIssue';
@@ -108,7 +108,7 @@ const TableIssue: React.FC<IPropsTable> = ({ keyApi, ...res }) => {
             dataIndex: 'labels',
             render(labels: ILabel[], data: IIssue) {
                 return (
-                    <SelectLabelsTable
+                    <SelectLabels
                         projectId={data.project_id}
                         labels={labels?.map((e) => e.id) || []}
                         beforeUpdateValue={(change) => {

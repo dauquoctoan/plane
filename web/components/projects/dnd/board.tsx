@@ -18,11 +18,13 @@ export const sortableOptions = {
 
 export interface IPropsBlockWrapper {
     block: IBoardIssues;
-    blockIndex: number;
+    blockIndex: number[];
     setBlocks: React.Dispatch<React.SetStateAction<IBoardIssues[]>>;
     refRemove?: React.RefObject<HTMLDivElement>;
     setShowTrash?: React.Dispatch<React.SetStateAction<boolean>>;
     handleUpdateWhenChange?: (index: number, id: string) => void;
+    parentId?: string;
+    blocks: IBoardIssues[];
 }
 
 export interface IBoardIssues {
@@ -43,10 +45,14 @@ export default function Board({ data }: { data: IBoardIssues[] }) {
         children: [],
     };
 
-    const [blocks, setBlocks] = useState<IBoardIssues[]>([itemDelete, ...data]);
+    const [blocks, setBlocks] = useState<IBoardIssues[]>([itemDelete]);
     const refRemove = useRef<HTMLDivElement>(null);
     const [showTrash, setShowTrash] = useState(false);
     const noti = useNoti();
+
+    useEffect(() => {
+        setBlocks([itemDelete, ...data]);
+    }, [data])
 
     async function handleUpdateWhenChange(index: number, idState: string) {
         const indexID = blocks.findIndex((e) => e.id === idState);
@@ -85,9 +91,10 @@ export default function Board({ data }: { data: IBoardIssues[] }) {
             >
                 {blocks.map((block, blockIndex) => (
                     <BlockWrapper
+                        blocks={blocks}
                         key={block.id}
                         block={block}
-                        blockIndex={blockIndex}
+                        blockIndex={[blockIndex]}
                         setBlocks={setBlocks}
                         refRemove={refRemove}
                         handleUpdateWhenChange={handleUpdateWhenChange}
@@ -103,6 +110,7 @@ function Container({
     block,
     blockIndex,
     setBlocks,
+    blocks,
     refRemove,
     setShowTrash,
     handleUpdateWhenChange,
@@ -140,7 +148,7 @@ function Container({
                 setList={(currentList) => {
                     setBlocks((sourceList) => {
                         const tempList = [...sourceList];
-                        tempList[blockIndex].children = currentList
+                        tempList[blockIndex[0]].children = currentList
                         return tempList;
                     });
                 }}
@@ -152,14 +160,16 @@ function Container({
                         return (
                             <BlockWrapper
                                 key={childBlock?.id}
+                                parentId={block.id}
+                                blocks={blocks}
                                 block={childBlock}
-                                blockIndex={blockIndex}
+                                blockIndex={[...blockIndex, index]}
                                 setBlocks={setBlocks}
                             />
                         );
                     })}
-            </ReactSortable>
-            <MoreItem />
+            </ReactSortable >
+            <MoreItem block={block} />
         </>
     );
 }
@@ -169,6 +179,8 @@ function BlockWrapper({
     blockIndex,
     setBlocks,
     refRemove,
+    blocks,
+    parentId,
     setShowTrash,
     handleUpdateWhenChange,
 }: IPropsBlockWrapper) {
@@ -179,6 +191,7 @@ function BlockWrapper({
                 <Container
                     block={block}
                     setBlocks={setBlocks}
+                    blocks={blocks}
                     handleUpdateWhenChange={handleUpdateWhenChange}
                     blockIndex={blockIndex}
                     refRemove={refRemove}
@@ -187,6 +200,6 @@ function BlockWrapper({
             </div>
         );
     } else {
-        return <IssueDragItem setBlocks={setBlocks} data={block} />;
+        return <IssueDragItem blocks={blocks} parentId={parentId} setBlocks={setBlocks} data={block} indexs={blockIndex} />;
     }
 }

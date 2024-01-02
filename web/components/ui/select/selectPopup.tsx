@@ -6,7 +6,6 @@ import { IPositionResult } from '@/hooks';
 import ItemSelect from './itemSelect';
 
 interface ISelectPopup extends IProps {
-    setOpen: (e: boolean) => void;
     refBtn: React.RefObject<HTMLDivElement>;
     isSearch: boolean;
     fontSize: FontSize;
@@ -34,7 +33,6 @@ function checkActive(item: IOptionItem | string, curent: string | string[]) {
 }
 
 const SelectPopup: React.FC<ISelectPopup> = ({
-    setOpen,
     setResult,
     isSearch,
     fontSize,
@@ -77,9 +75,7 @@ const SelectPopup: React.FC<ISelectPopup> = ({
                         onChange={(e) => {
                             handleSearch(e.target.value);
                         }}
-                        className={
-                            'outline-none border rounded px-2 py-1 ' + fontSize
-                        }
+                        className={'outline-none border rounded px-2 py-1 ' + fontSize}
                     />
                 </div>
             )}
@@ -91,13 +87,12 @@ const SelectPopup: React.FC<ISelectPopup> = ({
                         fontSize={fontSize}
                         isIconCheck={isIconCheck}
                         iconActive={iconActive}
-                        setOpen={setOpen}
                         isActive={
                             curentValue
                                 ? checkActive(
-                                      item,
-                                      isMutiple ? moreValue : curentValue,
-                                  )
+                                    item,
+                                    isMutiple ? moreValue : curentValue,
+                                )
                                 : false
                         }
                         setValue={setCurentValue}

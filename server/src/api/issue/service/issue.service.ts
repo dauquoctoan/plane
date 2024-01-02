@@ -25,50 +25,66 @@ export class IssueService extends BaseService<Issue>{
         super(issueRepository)
     }
 
-    async createIssue(issueItem: CreateIssueDto, idUser: string){
+    async createIssue(issueItem: CreateIssueDto, idUser: string) {
         try {
-           let users=[], labels=[];
-           if(issueItem.assignees && issueItem.assignees.length>0){
-                users = await this.userService.findAll({ where:{
-                    id: {
-                        [Op.in]: issueItem.assignees || ['']
+            let users = [], labels = [];
+            if (issueItem.assignees && issueItem.assignees.length > 0) {
+                users = await this.userService.findAll({
+                    where: {
+                        id: {
+                            [Op.in]: issueItem.assignees || ['']
+                        }
                     }
-                }});
+                });
             }
 
-           if(issueItem.labels && issueItem.labels.length > 0){
-                labels = await this.labelService.findAll({where:{
-                    id: {
-                        [Op.in]: issueItem.labels || ['']
+            if (issueItem.labels && issueItem.labels.length > 0) {
+                labels = await this.labelService.findAll({
+                    where: {
+                        id: {
+                            [Op.in]: issueItem.labels || ['']
+                        }
                     }
-                }})
+                })
             }
-           
-           const issue = await this.issueRepository.create({create_by: idUser,...issueItem} as any)
 
-           await issue.$add('assignees', users);
-           await issue.$add('labels', labels);
+            const issue = await this.issueRepository.create({ create_by: idUser, ...issueItem } as any)
 
-           return {...issue.dataValues, assignees: users, labels: labels}
+            await issue.$add('assignees', users);
+            await issue.$add('labels', labels);
+
+            return { ...issue.dataValues, assignees: users, labels: labels }
         } catch (error) {
             handleResultError({ message: messageCreateFail(this.repository.getTableName()), messageDetail: error });
         }
     }
 
-    async getIssueByProjectId(projectId:string, userId:string){
+    async getIssueByProjectId(projectId: string, userId: string) {
         try {
             const user = await this.userService.getUser(userId);
-            if(user.last_workspace_id){
+            if (user.last_workspace_id) {
                 return await this.repository.findAll(
                     {
                         where: {
                             workspace_id: user.last_workspace_id,
                             project_id: projectId
                         },
-                        include:[
+                        include: [
                             {
                                 model: Project,
-                                as:'project'
+                                as: 'project'
+                            },
+                            {
+                                model: User,
+                                as: 'creator',
+                            },
+                            {
+                                model: User,
+                                as: 'assignees',
+                            },
+                            {
+                                model: Label,
+                                as: 'labels',
                             }
                         ]
                     }
@@ -81,23 +97,22 @@ export class IssueService extends BaseService<Issue>{
         }
     }
 
-    async fillterIssue(dataDto:QueryIssueDto){
+    async fillterIssue(dataDto: QueryIssueDto) {
         try {
             const user = await this.userService.getUser(dataDto.userId);
-            if(user.last_workspace_id)
-                {
-                    return await this.repository.findAll({
-                        where: {
-                            workspace_id: user.last_workspace_id,
-                            ...this.getQueryPriority(dataDto.priorities),
-                            ...this.getQueryState(dataDto.states),
-                        },
-                        include: [
-                            this.getQueryAssignee(dataDto.assignees),
-                            this.getQueryCreator(dataDto.createBys),
-                            this.getQueryLabel(dataDto.labels),
-                            this.getQueryProject(dataDto.projects),
-                        ]
+            if (user.last_workspace_id) {
+                return await this.repository.findAll({
+                    where: {
+                        workspace_id: user.last_workspace_id,
+                        ...this.getQueryPriority(dataDto.priorities),
+                        ...this.getQueryState(dataDto.states),
+                    },
+                    include: [
+                        this.getQueryAssignee(dataDto.assignees),
+                        this.getQueryCreator(dataDto.createBys),
+                        this.getQueryLabel(dataDto.labels),
+                        this.getQueryProject(dataDto.projects),
+                    ]
                 })
             }
             handleResultError({ message: messageFindFail(this.repository.getTableName()), messageDetail: 'last_workspace_id not found!' });
@@ -106,53 +121,53 @@ export class IssueService extends BaseService<Issue>{
         }
     }
 
-    getQueryCreator(creators: string[]){
-        return (creators && creators.length > 0) ? 
-        {
-            model: User,
-            as: 'creator',
-            where:{
-                id: creators
+    getQueryCreator(creators: string[]) {
+        return (creators && creators.length > 0) ?
+            {
+                model: User,
+                as: 'creator',
+                where: {
+                    id: creators
+                }
             }
-        } 
-            : 
-        {
-            model: User,
-            as: 'creator'
-        }
+            :
+            {
+                model: User,
+                as: 'creator'
+            }
     }
 
-    getQueryAssignee(assignees:string[]){
+    getQueryAssignee(assignees: string[]) {
         return (assignees && assignees.length > 0) ?
-        {
-            model: User,
-            as: 'assignees',
-            where:{
-                id: [assignees]
+            {
+                model: User,
+                as: 'assignees',
+                where: {
+                    id: [assignees]
+                }
+            } : {
+                model: User,
+                as: 'assignees',
             }
-        }:{
-            model: User,
-            as: 'assignees',
-        }
     }
 
-    getQueryLabel(labels:string[]){
+    getQueryLabel(labels: string[]) {
         return (labels && labels.length > 0) ?
-        {
-            model: Label,
-            as: 'labels',
-            where:{
-                id: [labels]
+            {
+                model: Label,
+                as: 'labels',
+                where: {
+                    id: [labels]
+                }
+            } : {
+                model: Label,
+                as: 'labels'
             }
-        }:{
-            model: Label,
-            as: 'labels'
-        }
     }
 
-    getQueryState(states:string[]){
-        return states ? { state_id: states }:{}
-        
+    getQueryState(states: string[]) {
+        return states ? { state_id: states } : {}
+
         // return (states && states.length > 0)? {
         //     model:State, 
         //     as: 'state',
@@ -165,20 +180,20 @@ export class IssueService extends BaseService<Issue>{
         // }
     }
 
-    getQueryProject(projects:string[]){
+    getQueryProject(projects: string[]) {
         return (projects && projects.length > 0) ? {
-            model: Project, 
+            model: Project,
             as: 'project',
-            where:{
+            where: {
                 id: projects
             }
-        }:{
-            model: Project, 
+        } : {
+            model: Project,
             as: 'project'
         }
     }
 
-    getQueryPriority(priorities:string[]){
-        return priorities ? { priority:priorities }:{}
+    getQueryPriority(priorities: string[]) {
+        return priorities ? { priority: priorities } : {}
     }
 }

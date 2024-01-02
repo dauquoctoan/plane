@@ -82,13 +82,11 @@ const Input: React.FC<Props> = ({
                         register && register(keyForm || '').onChange(e);
                         onChangeCB && onChangeCB(e);
                     }}
-                    className={`select-none border rounded ${
-                        error && error[keyForm || '']
-                            ? 'border-color-error'
-                            : ''
-                    } outline-none p-1 ${
-                        sizeInput == 'sm' ? '' : sizeInput == 'md' ? '' : ''
-                    } ${className}`}
+                    className={`select-none border rounded ${error && error[keyForm || '']
+                        ? 'border-color-error'
+                        : ''
+                        } outline-none p-1 ${sizeInput == 'sm' ? '' : sizeInput == 'md' ? '' : ''
+                        } ${className}`}
                     {...(rest as any)}
                 />
             ) : (
@@ -102,13 +100,11 @@ const Input: React.FC<Props> = ({
                         register && register(keyForm || '').onChange(e);
                         onChangeCB && onChangeCB(e);
                     }}
-                    className={`select-none border rounded ${
-                        error && error[keyForm || '']
-                            ? 'border-color-error'
-                            : ''
-                    }  outline-none p-1 ${
-                        sizeInput == 'sm' ? '' : sizeInput == 'md' ? '' : ''
-                    } ${className}`}
+                    className={`select-none border rounded ${error && error[keyForm || '']
+                        ? 'border-color-error'
+                        : ''
+                        }  outline-none p-1 ${sizeInput == 'sm' ? '' : sizeInput == 'md' ? '' : ''
+                        } ${className}`}
                     {...(rest as any)}
                 />
             )}

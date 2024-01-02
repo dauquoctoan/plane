@@ -1,7 +1,7 @@
 import React, { ReactElement } from 'react';
 import { BsFillPersonLinesFill } from 'react-icons/bs';
 import { IOptionItem } from '@/components/ui/select/select';
-import { IData, IUser, Istate } from '@/types';
+import { IData, IProjectMember, IUser, Istate } from '@/types';
 import { HiPlusSmall } from 'react-icons/hi2';
 import DatePickerField from '@/components/ui/datepicker/datePickerField';
 import { IOpenModal } from './createIssue';
@@ -10,7 +10,7 @@ import { IFiledReactHookForm } from '@/components/ui/types/form';
 import SelectLabel from './SelectLabel';
 import { convertDataOptions, createMembeSelectOption } from '@/helpers';
 import { optionLevel } from '@/constants/issue';
-import DefaultSelectMember from './defaultSelectMember';
+import DefaultSelectMember from '../module/defaultSelectMember';
 import useSWR from 'swr';
 import { MEMBER_KEY_BY_PROJECT } from '@/apiKey';
 import projectService from '@/services/project-services';
@@ -33,7 +33,7 @@ const IssueTools: React.FC<IIssueTools> = ({
     const { data: members } = useSWR(
         () => MEMBER_KEY_BY_PROJECT(projectId),
         () =>
-            projectService.getMemberByProject<IData<IUser[]>>({
+            projectService.getMemberByProject<IProjectMember[]>({
                 projectId: projectId || '',
             }),
     );
