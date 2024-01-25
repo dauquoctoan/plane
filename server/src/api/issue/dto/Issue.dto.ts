@@ -2,6 +2,7 @@ import { PartialType } from "@nestjs/swagger";
 import { IsEmpty, IsNotEmpty, IsOptional,IsEmail, IsDefined } from "class-validator";
 
 export class CreateIssueDto {
+    cycle_id: string;
     parent: number;
     state: number;
     assignees: string[];
@@ -30,6 +31,10 @@ export class QueryIssueDto{
     @IsOptional()
     @IsNotEmpty()
     projects?: string[];
+
+    @IsOptional()
+    @IsNotEmpty()
+    cycle_id?: string[];
 
     @IsOptional()
     @IsNotEmpty()

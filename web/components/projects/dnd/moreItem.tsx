@@ -6,7 +6,7 @@ import { LuPlus } from 'react-icons/lu';
 import { IBoardIssues } from './board';
 import issueService from '@/services/issue-services';
 import { useNoti } from '@/hooks';
-import { useParams } from 'next/navigation';
+import { useParams, usePathname } from 'next/navigation';
 import { IParams } from '@/types';
 import { useSelector } from '@/store';
 import { selectInfo } from '@/store/slices/authSlice/selectors';
@@ -14,24 +14,28 @@ import { mutate } from 'swr';
 import { ISSUES_BY_PROJECT_ID } from '@/apiKey';
 
 interface IProps {
-    block: IBoardIssues
+    block: IBoardIssues;
 }
-
 
 const MoreItem: FC<IProps> = ({ block }) => {
     const refPopover = useRef<HTMLDivElement>(null);
     const refPopup = useRef<HTMLDivElement>(null);
-    const { style, open, handleClose } = usePopUp({ refPopover, refPopup, placement: 'bottomLeft' });
+    const { style, open, handleClose } = usePopUp({
+        refPopover,
+        refPopup,
+        placement: 'bottomLeft',
+    });
     const [title, setTitle] = useState('');
     const noti = useNoti();
-    const params = useParams<IParams>()
-    const info = useSelector(selectInfo)
+    const params = useParams<IParams>();
+    const pathName = usePathname();
+    const info = useSelector(selectInfo);
 
     useEffect(() => {
         if (!title) {
             setTitle('');
         }
-    }, [open])
+    }, [open]);
 
     return (
         <div
@@ -51,17 +55,21 @@ const MoreItem: FC<IProps> = ({ block }) => {
                         onKeyDown={async (e) => {
                             if (e.keyCode == 13) {
                                 if (title) {
-                                    mutate(ISSUES_BY_PROJECT_ID(params.projectid),
+                                    mutate(
+                                        pathName,
                                         async (issue: any) => {
                                             const issueResult =
                                                 await issueService.createIssue({
                                                     name: title,
                                                     state_id: block.id,
-                                                    project_id: params.projectid,
-                                                    workspace_id: info?.last_workspace_id,
+                                                    project_id:
+                                                        params.projectid,
+                                                    cycle_id: params.cycleid,
+                                                    workspace_id:
+                                                        info?.last_workspace_id,
                                                     is_draft: false,
                                                     priority: 'urgent',
-                                                })
+                                                });
                                             if (issueResult) {
                                                 noti?.success('Issue created');
                                                 handleClose();
@@ -77,8 +85,6 @@ const MoreItem: FC<IProps> = ({ block }) => {
                                         },
                                         { revalidate: false },
                                     );
-
-
                                 }
                             }
                         }}
@@ -87,16 +93,17 @@ const MoreItem: FC<IProps> = ({ block }) => {
                             autoFocus
                             placeholder="Issue title"
                             value={title}
-                            onChange={(e) => { setTitle(e.target.value) }}
+                            onChange={(e) => {
+                                setTitle(e.target.value);
+                            }}
                         />
                         <span className="text-[11px]">
                             press enter when done.
                         </span>
                     </div>,
                     document.body,
-                )
-            }
-        </div >
+                )}
+        </div>
     );
 };
 export default MoreItem;

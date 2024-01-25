@@ -1,4 +1,4 @@
-import { Module } from '@nestjs/common';
+import { Module, forwardRef } from '@nestjs/common';
 import { SequelizeModule } from '@nestjs/sequelize';
 import { Issue } from './entitys/Issue.entity';
 import { CommentReaction } from './entitys/CommentReaction.entity';
@@ -46,11 +46,13 @@ import { IssueRelation } from './entitys/IssueRelation.entity';
 import { IssueSequence } from './entitys/IssueSequence.entity';
 import { User } from '../user/entitys/User.entity';
 import { UserService } from '../user/service/User.service';
+import { CycleIssueService } from '../cycle/service/CycleIssue.service';
+import { CycleModule } from '../cycle/cycle.module';
+import { CycleIssue } from '../cycle/entitys/CycleIssue.entity';
 
 @Module({
   imports: [SequelizeModule.forFeature([
     Issue,
-    User,
     IssueRelation,
     IssueSequence,
     CommentReaction,
@@ -65,11 +67,13 @@ import { UserService } from '../user/service/User.service';
     IssueReaction,
     IssueSubscriber,
     IssueVote,
-    Label
-  ])],
-  exports: [IssueService],
+    Label,
+    User,
+    CycleIssue
+  ]),
+  forwardRef(() => CycleModule)
+],
   providers: [
-    UserService,
     CommentReactionService,
     IssueService,
     // IssueRelation,
@@ -85,7 +89,9 @@ import { UserService } from '../user/service/User.service';
     IssueReactionService,
     IssueSubscriberService,
     IssueVoteService,
-    LabelService
+    LabelService,
+    UserService,
+    CycleIssueService
   ],
   controllers: [
     CommentReactionController,
@@ -102,6 +108,7 @@ import { UserService } from '../user/service/User.service';
     IssueSubscriberController,
     IssueVoteController,
     LabelController
-  ]
+  ],
+  exports: [IssueService, IssueLabelService, LabelService],
 })
 export class IssueModule { }

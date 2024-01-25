@@ -11,6 +11,8 @@ import sequelize from 'sequelize';
 import { Issue } from 'src/api/issue/entitys/Issue.entity';
 import { Label } from 'src/api/issue/entitys/Label.entity';
 import { ProjectMember } from './ProjectMember.entity';
+import { Cycle } from 'src/api/cycle/entitys/Cycle.entity';
+import { Module } from 'src/api/module/entitys/Module.entity';
 
 @Table
 export class Project extends Model<Project> {
@@ -22,6 +24,12 @@ export class Project extends Model<Project> {
 
     @HasMany(() => Label, { foreignKey: 'project_id' })
     label: Label[];
+
+    @HasMany(() => Module, { foreignKey: 'project_id' })
+    module: Module[];
+
+    @HasMany(() => Cycle, { foreignKey: 'project_id' })
+    cycle: Cycle[];
 
     @HasMany(() => State, { foreignKey: 'project_id' })
     state: State[];

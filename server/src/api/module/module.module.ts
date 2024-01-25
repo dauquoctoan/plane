@@ -15,10 +15,12 @@ import { ModuleController } from './controller/module.controller';
 import { ModuleIssueController } from './controller/ModuleIssue.controller';
 import { ModuleFavoriteController } from './controller/ModuleFavorite.controller';
 import { ModuleMemberController } from './controller/ModuleMember.controller';
+import { User } from '../user/entitys/User.entity';
+import { UserService } from '../user/service/User.service';
 
 @Module({
-  imports: [SequelizeModule.forFeature([ModuleEntity, ModuleFavorite, ModuleIssue, ModuleLink, ModuleMember])],
-  providers: [ModuleService, ModuleLinkService, ModuleIssueService, ModuleFavoriteService, ModuleMemberService],
+  imports: [SequelizeModule.forFeature([ModuleEntity, ModuleFavorite, ModuleIssue, ModuleLink, ModuleMember,User])],
+  providers: [ModuleService, ModuleLinkService, ModuleIssueService, ModuleFavoriteService, ModuleMemberService, UserService],
   controllers: [ModuleController, ModuleLinkController, ModuleIssueController, ModuleFavoriteController, ModuleMemberController]
 })
 

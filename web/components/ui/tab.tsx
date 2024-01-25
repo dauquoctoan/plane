@@ -34,7 +34,7 @@ const Tab: React.FC<IPropsTabs> = ({ lsLabel, onChange, active }) => {
                     onClick={() => {
                         handleChangeTabIndex(item.key);
                     }}
-                    className={`cursor-pointer pb-1 w-fit select-none ${
+                    className={`cursor-pointer w-fit select-none py-2 ${
                         tab == item.key
                             ? 'text-color-special-primary border-b-2 border-color-special-primary border-w'
                             : ''

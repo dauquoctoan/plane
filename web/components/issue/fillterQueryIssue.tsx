@@ -141,7 +141,7 @@ export const ItemSelected = ({
             {dataSelected.map((item, i) => (
                 <div
                     key={i}
-                    className="flex border items-center rounded-full gap-2 w-fit px-2 select-none py-1 h-fit"
+                    className="flex border items-center rounded-full gap-2 w-fit px-2 select-none py-1 mt-2 mb-2 h-fit"
                 >
                     <div className="text-sm flex items-center gap-2 font-medium whitespace-nowrap w-fit">
                         {item.title}:

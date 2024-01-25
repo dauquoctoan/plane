@@ -62,6 +62,9 @@ export class User extends Model<User> {
     @HasMany(() => State, 'created_by')
     state: State;
 
+    @HasMany(() => Module, 'member')
+    members_module: Module[];
+
     @HasMany(() => IssueSubscriber,{foreignKey:'subscriber'})
     issue_subscribers: IssueSubscriber[];
 
@@ -81,7 +84,7 @@ export class User extends Model<User> {
     project_public_member: ProjectPublicMember[];
 
     @HasMany(() => Module, { foreignKey: 'lead' })
-    leads_modules: Module[];
+    lead_modules: Module[];
 
     @HasMany(() => Module, { foreignKey: 'member' })
     members_modules: Module[];

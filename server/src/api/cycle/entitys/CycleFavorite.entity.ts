@@ -26,7 +26,6 @@ export class CycleFavorite extends Model<CycleFavorite> {
     @BelongsTo(() => User,{foreignKey:'user_id'})
     user: User;
 
-
-    @BelongsTo(() => Cycle,{foreignKey:'cycle_id'})
+    @BelongsTo(() => Cycle, {foreignKey:'cycle_id'})
     cycle: Cycle;
 }

@@ -1,3 +1,4 @@
+'use client';
 import { ContainerLink, LinkProps, changeRoute } from 'nextjs-progressloader';
 import { selectInfo } from '@/store/slices/authSlice/selectors';
 import { issueViewSlice, useSelector } from '@/store';
@@ -51,7 +52,7 @@ const TabsIssue = () => {
     return (
         <>
             <ContainerLink links={customeLink} />
-            {lsTabs.length > 0 && (
+            {
                 <Tab
                     active={pathName.split('/').pop()}
                     lsLabel={[...lsTabsIssues, ...(lsTabs || [])]}
@@ -62,7 +63,7 @@ const TabsIssue = () => {
                         dispatch(issueViewSlice.actions.setIsListIssue(false));
                     }}
                 />
-            )}
+            }
         </>
     );
 };

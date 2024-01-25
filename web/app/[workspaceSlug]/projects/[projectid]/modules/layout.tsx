@@ -1,11 +1,6 @@
 import { Spinner } from '@/components/ui/loading/Spinner';
+import ModuleHeader from '@/layouts/header/projects/module';
 import Header from '@/layouts/layout-components/header/header';
-import dynamic from 'next/dynamic';
-import { PiSuitcaseSimpleBold } from 'react-icons/pi';
-
-const AuthLayout = dynamic(() => import('@/layouts/authLayout'), {
-    loading: () => <Spinner text="Loading your workspace..." />,
-});
 
 export default function WorkspaceLayout({
     children,
@@ -14,14 +9,7 @@ export default function WorkspaceLayout({
 }) {
     return (
         <>
-            <Header
-                header={
-                    <div className="flex gap-2 items-center">
-                        <PiSuitcaseSimpleBold />
-                        <span>Projects</span>
-                    </div>
-                }
-            />
+            <Header header={<ModuleHeader />} />
             <div className="main">{children}</div>
         </>
     );

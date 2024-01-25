@@ -1,46 +1,20 @@
-'use client'
-import Header from '@/layouts/layout-components/header/header'
-import projectService from '@/services/project-services';
-import { IData, IParams, IProjectMember } from '@/types';
-import { useParams } from 'next/navigation';
-import React, { FC } from 'react'
-import useSWR from 'swr';
-import IssueHeader from './issue';
-
-
-export interface IPropsHeaderContent {
-    me: IData<IProjectMember[]>;
-    vlxx: string;
-}
+'use client';
+import Header from '@/layouts/layout-components/header/header';
+import React, { FC, ReactElement, ReactNode } from 'react';
 
 const ProjectLayout = ({
     children,
-    header: HeaderContent
+    header: HeaderContent,
 }: {
     children: React.ReactNode;
-    header: FC<IPropsHeaderContent>;
+    header: string | JSX.Element | JSX.Element[];
 }) => {
-    const param = useParams<IParams>()
-
-    const { data: me } = useSWR<IData<IProjectMember[]>>(
-        'projectMember',
-        () => {
-            return projectService.getMemberByProjectMe<IProjectMember[]>(
-                { projectId: param.projectid }
-            );
-        },
-    );
-
-    console.log('mesdf', me)
-
     return (
         <>
-            <Header
-                header={<IssueHeader me={me} vlxx='ssfjlsd' />}
-            />
+            <Header header={HeaderContent} />
             <div className="main">{children}</div>
         </>
-    )
-}
+    );
+};
 
-export default ProjectLayout
+export default ProjectLayout;

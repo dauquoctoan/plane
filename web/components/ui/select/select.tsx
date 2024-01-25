@@ -182,6 +182,7 @@ const Select: React.FC<ICurentField> = ({
                 if (!result) return;
             }
             setCurentValue(value);
+            handleOnChange(value);
         }
     };
 
@@ -256,7 +257,6 @@ const Select: React.FC<ICurentField> = ({
     };
 
     return (
-
         <div className="relative">
             <Tooltip
                 placement="topCenter"
@@ -264,7 +264,10 @@ const Select: React.FC<ICurentField> = ({
                     <div className="text-sm flex p-1 group/pr">
                         {itemSelected().map((e, i) => {
                             return (
-                                <div key={i} className="ml-1 group/item group-first/pr:ml-0">
+                                <div
+                                    key={i}
+                                    className="ml-1 group/item group-first/pr:ml-0"
+                                >
                                     {typeof e == 'string' ? e : e.title}
                                     <span className="group-last/item:hidden">
                                         ,
@@ -281,8 +284,9 @@ const Select: React.FC<ICurentField> = ({
                         setOpen(true);
                     }}
                     ref={refBtn}
-                    className={`${error ? 'border border-color-error' : 'border'
-                        } rounded hover:bg-theme-secondary cursor-pointer`}
+                    className={`${
+                        error ? 'border border-color-error' : 'border'
+                    } rounded hover:bg-theme-secondary cursor-pointer`}
                 >
                     {(curentItemSelected &&
                         customeSelected &&

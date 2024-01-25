@@ -56,6 +56,15 @@ import { User } from '../user/entitys/User.entity';
     ProjectMemberController,
     ProjectMemberInviteController,
     ProjectPublicMemberController
+  ],
+  exports:[ 
+    ProjectService,
+    ProjectDeployBoardService,
+    ProjectFavoriteService,
+    ProjectIdentifierService,
+    ProjectMemberService,
+    ProjectMemberInviteService,
+    ProjectPublicMemberService
   ]
 })
 

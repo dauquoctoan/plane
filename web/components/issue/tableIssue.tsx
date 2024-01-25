@@ -19,21 +19,21 @@ import {
 } from '@/store/slices/issueView/selectors';
 import ListTableIssue from './listTableIssue';
 import SelectState from '../module/selectState';
+import { usePathname } from 'next/navigation';
 
 export interface IPropsTable extends IFillterIssue {
-    keyApi: string;
+    // keyApi: string;
 }
 
-const TableIssue: React.FC<IPropsTable> = ({ keyApi, ...res }) => {
-    const isList = useSelector(selectListIssue);
+const TableIssue: React.FC<IPropsTable> = ({ ...res }) => {
     const DATE_FORMAT = 'MMMM Do, h:mm:ss a';
     const lsDisable = useSelector(selectlsDisableTable);
-
+    const pathName = usePathname();
     const {
         data: issue,
         isLoading,
         isValidating,
-    } = useSWR(keyApi, (e) => {
+    } = useSWR(pathName, (e) => {
         return issueService.findIssues<IData<IIssue[]>>({ ...res });
     });
 
@@ -193,22 +193,18 @@ const TableIssue: React.FC<IPropsTable> = ({ keyApi, ...res }) => {
 
     return (
         <div>
-            {isList ? (
-                <ListTableIssue />
-            ) : (
-                <div>
-                    {Object.keys(res || {}).length > 0 && (
-                        <div className="px-3 py-2 border-t">
-                            <FilterTableIssue query={{ ...res }} />
-                        </div>
-                    )}
-                    <Table
-                        lsKeyDisable={lsDisable}
-                        configs={configs}
-                        data={issue}
-                    />
-                </div>
-            )}
+            <div>
+                {Object.keys(res || {}).length > 0 && (
+                    <div className="px-3 border-t flex items-center gap-2">
+                        <FilterTableIssue query={{ ...res }} />
+                    </div>
+                )}
+                <Table
+                    lsKeyDisable={lsDisable}
+                    configs={configs}
+                    data={issue}
+                />
+            </div>
         </div>
     );
 };

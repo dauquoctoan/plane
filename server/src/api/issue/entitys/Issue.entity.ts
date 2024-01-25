@@ -89,6 +89,9 @@ export class Issue extends Model<Issue> {
     @HasMany(() => InboxIssue, { foreignKey: 'issue_id' })
     inbox_issues: InboxIssue[];
 
+    @HasMany(() => CycleIssue, { foreignKey: 'issue_id' })
+    cycleIssue: CycleIssue[];
+
     @HasMany(() => IssueBlocker, { foreignKey: 'blocked_bys' })
     blocked_bys: IssueBlocker[];
 

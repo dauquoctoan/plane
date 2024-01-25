@@ -4,7 +4,7 @@ import { BsCheck2 } from 'react-icons/bs';
 import { HiOutlinePlusSmall } from 'react-icons/hi2';
 import { authSlice, useSelector } from '@/store';
 import { selectInfo } from '@/store/slices/authSlice/selectors';
-import { changeRoute } from 'nextjs-progressloader';
+import { ContainerLink, LinkProps, changeRoute } from 'nextjs-progressloader';
 import workspaceService from '@/services/workspace-services';
 import { IData, IProject } from '@/types';
 import authService from '@/services/auth-services';
@@ -27,8 +27,15 @@ const WorkspacePopover = () => {
         await authService.upDateUser({ last_workspace_id: id });
         dispatch(authSlice.actions.clearInfo());
         setLoading(false);
-        router.push('/');
+        changeRoute('/');
     };
+
+    const links: LinkProps[] = [
+        {
+            href: '/',
+            nickname: 'home',
+        },
+    ];
 
     return (
         <div className="w-[300px] text-sm">
@@ -38,6 +45,7 @@ const WorkspacePopover = () => {
             </div>
             <div className="border-b border-theme-border-secondary"></div>
             <div className="py-2 px-3 select-none">
+                <ContainerLink links={links} />
                 {workspaces && workspaces.length > 0 ? (
                     workspaces.map((item, index) => {
                         return (

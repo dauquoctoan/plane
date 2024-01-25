@@ -18,6 +18,8 @@ import { Issue } from 'src/api/issue/entitys/Issue.entity';
 import { Label } from 'src/api/issue/entitys/Label.entity';
 import { ProjectMember } from 'src/api/project/entitys/ProjectMember.entity';
 import { IssueView } from 'src/api/view/entitys/IssueView.entity';
+import { Cycle } from 'src/api/cycle/entitys/Cycle.entity';
+import { Module } from 'src/api/module/entitys/Module.entity';
 
 @Table
 export class Workspace extends Model<Workspace> {
@@ -34,7 +36,6 @@ export class Workspace extends Model<Workspace> {
     @Column({ type: sequelize.UUID, allowNull: false })
     owner: string;
     
-
     /* ================================================== */
     @BelongsTo(() => User, {foreignKey:'owner'})
     user: User;
@@ -47,6 +48,12 @@ export class Workspace extends Model<Workspace> {
 
     @HasMany(() => ProjectMember, { foreignKey: 'workspace_id' })
     project_member: ProjectMember[];
+
+    @HasMany(() => Module, { foreignKey: 'workspace_id' })
+    module: Module[];
+
+    @HasMany(() => Cycle, { foreignKey: 'workspace_id' })
+    cycle: Cycle[];
 
     @HasMany(() => User, {foreignKey:'last_workspace_id'})
     last_workspace_detail: User[];

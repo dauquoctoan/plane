@@ -1,16 +1,21 @@
-import { Body, Controller, Delete, Get, Param, Patch, Post } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Patch, Post, Request as RequestNest, UseGuards } from '@nestjs/common';
 import { CycleService } from '../service/cycle.service';
 import { CreateEstimateDto, UpdateEstimateDto } from 'src/api/estimate/dto/Estimate.dto';
-import { ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { handleResultSuccess } from 'src/helper/handleresult';
+import { IAuthRequest } from 'src/types/auth.types';
+import { CreateCycleDto } from '../dto/Cycle.dto';
+import { AuthGuard } from 'src/Guards/auth.guard';
 
 @Controller('cycle')
 @ApiTags('Cycle')
+@ApiBearerAuth('access-token')
 export class CycleController {
     constructor(private readonly cycleService: CycleService) { }
-    @Post()
-    create(@Body() cycle: CreateEstimateDto) {
-        return handleResultSuccess(this.cycleService.create(cycle));
+    @UseGuards(AuthGuard)
+    @Post(':id')
+    async create(@Body() cycle: CreateCycleDto, @Param('id') id: string, @RequestNest() request: IAuthRequest) {
+        return handleResultSuccess(await this.cycleService.createCycle(id, request.user.id, cycle));
     }
 
     @Get()
@@ -18,9 +23,10 @@ export class CycleController {
         return handleResultSuccess(this.cycleService.findAll());
     }
 
+    @UseGuards(AuthGuard)
     @Get(':id')
-    findOne(@Param('id') id: string) {
-        return handleResultSuccess(this.cycleService.findOneById(id));
+    async findOne(@Param('id') projectId: string, @RequestNest() request: IAuthRequest) {
+        return handleResultSuccess(await this.cycleService.findCycleByProject(projectId, request.user.id));
     }
 
     @Patch(':id')

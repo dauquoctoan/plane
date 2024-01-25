@@ -64,6 +64,10 @@ const links: ContainerLinkProps['links'] = [
         href: '/workspace-views/all-issues',
         nickname: 'workspace-views-all-issues',
     },
+    {
+        href: '/workspace-views',
+        nickname: 'workspace-views',
+    },
 ];
 
 const MenuItem: React.FC<IMenu> = ({

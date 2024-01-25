@@ -1,3 +1,4 @@
+'use client';
 import { ISSUE_VIEWS_KEY } from '@/apiKey';
 import issueService from '@/services/issue-services';
 import { IData, IIssueViews } from '@/types';
@@ -7,7 +8,7 @@ import { RxOpenInNewWindow } from 'react-icons/rx';
 import { lsTabsIssues } from '@/constants';
 import { selectInfo } from '@/store/slices/authSlice/selectors';
 import { issueViewSlice, useDispatch, useSelector } from '@/store';
-import { changeRoute } from 'nextjs-progressloader';
+import { ContainerLink, LinkProps, changeRoute } from 'nextjs-progressloader';
 
 function createLink(slug: string = '', id: string = '') {
     return `/${slug}/workspace-views/${id}`;
@@ -20,8 +21,31 @@ const ListTableIssue = () => {
         () => issueService.getIssueView<IData<IIssueViews[]>>(),
     );
 
+    const lsLinks =
+        issueViews?.map((e) => ({
+            href: `/${info?.workspace?.slug}/workspace-views/${e.id}`,
+            nickname: `workspace-views-${e.id}`,
+        })) || [];
+
+    const customeLink: LinkProps[] = [
+        {
+            href: `/${info?.workspace?.slug}/workspace-views/assigned`,
+            nickname: 'workspace-views-assigned',
+        },
+        {
+            href: `/${info?.workspace?.slug}/workspace-views/created`,
+            nickname: 'workspace-views-created',
+        },
+        {
+            href: `/${info?.workspace?.slug}/workspace-views/subscribed`,
+            nickname: 'workspace-views-subscribed',
+        },
+        ...lsLinks.reverse(),
+    ];
+
     return (
         <div>
+            <ContainerLink links={customeLink} />
             {lsTabsIssues.map((e, i) => {
                 return (
                     <ItemTab
@@ -31,6 +55,7 @@ const ListTableIssue = () => {
                     />
                 );
             })}
+
             {info?.workspace?.slug &&
                 issueViews &&
                 issueViews.map((e, i) => {

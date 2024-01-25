@@ -1,3 +1,4 @@
+'use client';
 import usePopUp, { TPlacement } from '@/hooks/popUp';
 import React, { ReactElement, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';

@@ -1,10 +1,2 @@
-const arr = [1];
-const objss = { name: { dog: "chos", cat: "meo" }, age: 230 };
-
-const xxx = arr.reduce((ob, item) => {
-  return ob["name"];
-}, objss);
-
-xxx.dog = "gogogo";
-
-console.log(objss);
+let result = BigInt(0.1) + BigInt(3);
+console.log(result); // Kết quả: 0.30000000000000004n

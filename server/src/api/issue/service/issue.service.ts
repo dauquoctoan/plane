@@ -8,10 +8,11 @@ import { User } from 'src/api/user/entitys/User.entity';
 import { CreateIssueDto, QueryIssueDto } from '../dto/Issue.dto';
 import { UserService } from 'src/api/user/service/User.service';
 import { Op } from 'sequelize';
-import { IssueLabelService } from './IssueLabel.service';
 import { LabelService } from './Label.service';
 import { Label } from '../entitys/Label.entity';
 import { Project } from 'src/api/project/entitys/Project.entity';
+import { CycleIssueService } from 'src/api/cycle/service/CycleIssue.service';
+import { CycleIssue } from 'src/api/cycle/entitys/CycleIssue.entity';
 
 @Injectable()
 export class IssueService extends BaseService<Issue>{
@@ -19,8 +20,8 @@ export class IssueService extends BaseService<Issue>{
         @InjectModel(Issue)
         private issueRepository: typeof Issue,
         private readonly userService: UserService,
-        private readonly issueLabel: IssueLabelService,
         private readonly labelService: LabelService,
+        readonly cycleIssueService: CycleIssueService,
     ) {
         super(issueRepository)
     }
@@ -47,8 +48,13 @@ export class IssueService extends BaseService<Issue>{
                     }
                 })
             }
+            
 
             const issue = await this.issueRepository.create({ create_by: idUser, ...issueItem } as any)
+            
+            if(issueItem.cycle_id){
+                await this.cycleIssueService.createCycleIssue({cycle_id: issueItem.cycle_id, issue_id:issue.id})
+            }
 
             await issue.$add('assignees', users);
             await issue.$add('labels', labels);
@@ -101,7 +107,7 @@ export class IssueService extends BaseService<Issue>{
         try {
             const user = await this.userService.getUser(dataDto.userId);
             if (user.last_workspace_id) {
-                return await this.repository.findAll({
+                const a = {
                     where: {
                         workspace_id: user.last_workspace_id,
                         ...this.getQueryPriority(dataDto.priorities),
@@ -112,8 +118,10 @@ export class IssueService extends BaseService<Issue>{
                         this.getQueryCreator(dataDto.createBys),
                         this.getQueryLabel(dataDto.labels),
                         this.getQueryProject(dataDto.projects),
+                        this.getQueryCycle(dataDto.cycle_id)
                     ]
-                })
+                }
+                return await this.repository.findAll(a)
             }
             handleResultError({ message: messageFindFail(this.repository.getTableName()), messageDetail: 'last_workspace_id not found!' });
         } catch (error) {
@@ -190,6 +198,19 @@ export class IssueService extends BaseService<Issue>{
         } : {
             model: Project,
             as: 'project'
+        }
+    }
+
+    getQueryCycle(cycleId: string[]) {
+        return cycleId ? {
+            model: CycleIssue,
+            as: 'cycleIssue',
+            where: {
+                cycle_id: cycleId
+            }
+        } : {
+            model: CycleIssue,
+            as: 'cycleIssue',
         }
     }
 

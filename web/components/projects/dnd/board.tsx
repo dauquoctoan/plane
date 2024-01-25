@@ -52,7 +52,7 @@ export default function Board({ data }: { data: IBoardIssues[] }) {
 
     useEffect(() => {
         setBlocks([itemDelete, ...data]);
-    }, [data])
+    }, [data]);
 
     async function handleUpdateWhenChange(index: number, idState: string) {
         const indexID = blocks.findIndex((e) => e.id === idState);
@@ -148,7 +148,7 @@ function Container({
                 setList={(currentList) => {
                     setBlocks((sourceList) => {
                         const tempList = [...sourceList];
-                        tempList[blockIndex[0]].children = currentList
+                        tempList[blockIndex[0]].children = currentList;
                         return tempList;
                     });
                 }}
@@ -168,7 +168,7 @@ function Container({
                             />
                         );
                     })}
-            </ReactSortable >
+            </ReactSortable>
             <MoreItem block={block} />
         </>
     );
@@ -200,6 +200,14 @@ function BlockWrapper({
             </div>
         );
     } else {
-        return <IssueDragItem blocks={blocks} parentId={parentId} setBlocks={setBlocks} data={block} indexs={blockIndex} />;
+        return (
+            <IssueDragItem
+                blocks={blocks}
+                parentId={parentId}
+                setBlocks={setBlocks}
+                data={block}
+                indexs={blockIndex}
+            />
+        );
     }
 }

@@ -1,9 +1,12 @@
-import React from 'react'
+import ModulesTable from '@/components/projects/module/modules';
+import React from 'react';
 
 const Modules = () => {
-  return (
-    <div>Modules</div>
-  )
-}
+    return (
+        <div>
+            <ModulesTable />
+        </div>
+    );
+};
 
-export default Modules
+export default Modules;

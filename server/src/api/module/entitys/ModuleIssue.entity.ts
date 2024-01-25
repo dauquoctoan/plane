@@ -9,13 +9,13 @@ export class ModuleIssue extends Model<ModuleIssue> {
     @Column({ type: sequelize.UUID, allowNull: false })
     module_id: string;
 
-    @BelongsTo(() => Module)
+    @BelongsTo(() => Module, {foreignKey: 'module_id'})
     module: Module;
 
     @ForeignKey((() => Issue))
     @Column({ type: sequelize.UUID, allowNull: true })
     issue_id: string;
 
-    @BelongsTo(() => Issue)
+    @BelongsTo(() => Issue, {foreignKey: 'issue_id'})
     issue: Issue;
 }

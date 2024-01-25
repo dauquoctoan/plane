@@ -15,7 +15,13 @@ export interface IProps {
     blocks: IBoardIssues[];
 }
 
-const IssueDragItem: FC<IProps> = ({ data, setBlocks, indexs, parentId, blocks }) => {
+const IssueDragItem: FC<IProps> = ({
+    data,
+    setBlocks,
+    indexs,
+    parentId,
+    blocks,
+}) => {
     const prevState = useRef<string>('');
     const param = useParams<IParams>();
     return (
@@ -29,7 +35,7 @@ const IssueDragItem: FC<IProps> = ({ data, setBlocks, indexs, parentId, blocks }
                         <IoIosMore />
                     </div>
                 </div>
-                <div className="font-bold text-sm bg-theme-primary">
+                <div className="font-bold text-sm bg-theme-primary mb-2">
                     {data.title}
                 </div>
                 <div className="flex gap-2 bg-theme-primary">
@@ -40,13 +46,20 @@ const IssueDragItem: FC<IProps> = ({ data, setBlocks, indexs, parentId, blocks }
                             showMoreText={false}
                             stateId={data.data?.state_id}
                             onChange={(id) => {
-                                const newData = [...blocks]
-                                const item = newData[indexs[0]].children?.splice(indexs[1], 1)
-                                const index = newData.findIndex((e) => { return e.id === id })
+                                const newData = [...blocks];
+                                const item = newData[
+                                    indexs[0]
+                                ].children?.splice(indexs[1], 1);
+                                const index = newData.findIndex((e) => {
+                                    return e.id === id;
+                                });
                                 if (index && item) {
-                                    newData[index].children = [...newData[index].children || [], ...item]
+                                    newData[index].children = [
+                                        ...(newData[index].children || []),
+                                        ...item,
+                                    ];
                                 }
-                                setBlocks(newData)
+                                setBlocks(newData);
                             }}
                             beforeUpdateValue={(id) => {
                                 prevState.current = id as string;
@@ -62,7 +75,11 @@ const IssueDragItem: FC<IProps> = ({ data, setBlocks, indexs, parentId, blocks }
                     <SelectLabelsTable
                         projectId={param.projectid}
                         showMoreText={false}
-                        labels={data?.data?.labels?.map((e: any) => e.id) as string[] || []}
+                        labels={
+                            (data?.data?.labels?.map(
+                                (e: any) => e.id,
+                            ) as string[]) || []
+                        }
                         beforeUpdateValue={(change) => {
                             return issueService.updateIssueLabel(
                                 change as string[],
@@ -71,10 +88,14 @@ const IssueDragItem: FC<IProps> = ({ data, setBlocks, indexs, parentId, blocks }
                         }}
                     />
                     <SelectMemberTable
-                        assigness={data?.data?.assignees?.map((e: any) => e.id) as string[]}
+                        assigness={
+                            data?.data?.assignees?.map(
+                                (e: any) => e.id,
+                            ) as string[]
+                        }
                         projectId={param.projectid}
                         showMoreText={false}
-                        size='sm'
+                        size="sm"
                         beforeUpdateValue={(change: any) => {
                             return issueService.updateIssueAssign(
                                 data.id || '',

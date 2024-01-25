@@ -39,7 +39,7 @@ export class WorkspaceService extends BaseService<Workspace>{
         workspace_id: resWorkspace.id,
       })
       await this.userService.updateById(id, { last_workspace_id: resWorkspace.id });
-      return handleResultSuccess(workspace);
+      return workspace;
     }
     } catch (error) {
       handleResultError({ message: messageCreateFail('workspace'), data: null, statusCode: 500, messageDetail: error })

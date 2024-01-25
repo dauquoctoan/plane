@@ -1,25 +1,29 @@
 'use client';
-import React from 'react';
+import React, { FC } from 'react';
 import Board, { IBoardIssues } from './dnd/board';
-import { useParams } from 'next/navigation';
+import { useParams, usePathname } from 'next/navigation';
 import { IData, IIssue, IParams, IProjectMember, Istate } from '@/types';
 import useSWR from 'swr';
 import { ISSUES_BY_PROJECT_ID, STATES_KEY } from '@/apiKey';
 import issueService from '@/services/issue-services';
 import { getIcons } from '@/helpers';
-import projectService from '@/services/project-services';
 
-const ProjectIssue = () => {
+export interface IProps {
+    query?: {
+        cycle_id: string;
+    };
+}
+
+const TableIssueDND: FC<IProps> = ({ query = {} }) => {
     const params = useParams<IParams>();
+    const pathName = usePathname();
 
-    const { data: issues } = useSWR<IData<IIssue[]>>(
-        ISSUES_BY_PROJECT_ID(params.projectid),
-        () => {
-            return issueService.findIssueByProjectId<IIssue[]>(
-                params.projectid,
-            );
-        },
-    );
+    const { data: issues } = useSWR<IData<IIssue[]>>(pathName, () => {
+        return issueService.findIssues<IIssue[]>({
+            projects: [params.projectid],
+            ...query,
+        });
+    });
 
     const { data: states } = useSWR(
         () => STATES_KEY(params.projectid),
@@ -63,4 +67,4 @@ const ProjectIssue = () => {
     );
 };
 
-export default ProjectIssue;
+export default TableIssueDND;

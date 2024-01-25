@@ -3,6 +3,8 @@ import { User } from 'src/api/user/entitys/User.entity';
 import { CycleIssue } from './CycleIssue.entity';
 import { CycleFavorite } from './CycleFavorite.entity';
 import sequelize from 'sequelize';
+import { Project } from 'src/api/project/entitys/Project.entity';
+import { Workspace } from 'src/api/workspace/entitys/Workspace.entity';
 
 @Table
 export class Cycle extends Model<Cycle> {
@@ -10,18 +12,39 @@ export class Cycle extends Model<Cycle> {
     id: string;
 
     @ForeignKey(() => User)
-    @Column({ type: sequelize.UUID, allowNull: true })
+    @Column({ type: sequelize.UUID})
     owned_by: string;
+
+    @ForeignKey(() => User)
+    @Column({ type: sequelize.UUID })
+    created_by: string;
+
+    @ForeignKey(() => Project)
+    @Column({ type: sequelize.UUID })
+    project_id: string;
+
+    @ForeignKey(() => Workspace)
+    @Column({ type: sequelize.UUID })
+    workspace_id: string;
 
     /* ================================================== */
 
-    @BelongsTo(() => User, {foreignKey:'owned_by'})
+    @BelongsTo(() => User, {foreignKey: 'owned_by'})
     user: User;
 
-    @HasMany(() => CycleIssue)
+    @BelongsTo(() => Project, {foreignKey: 'project_id'})
+    project: Project;
+
+    @BelongsTo(() => Workspace, {foreignKey: 'workspace_id'})
+    workspace: Workspace;
+
+    @BelongsTo(() => User, {foreignKey: 'created_by'})
+    user_created: User;
+
+    @HasMany(() => CycleIssue, {foreignKey: 'cycle_id'})
     cycle_issues: CycleIssue[];
 
-    @HasMany(() => CycleFavorite)
+    @HasMany(() => CycleFavorite, {foreignKey: 'cycle_id'})
     cycle_favorites: CycleFavorite[];
 
     @Length({ max: 255 })

@@ -19,7 +19,7 @@ const MenuProject = () => {
     const [open, setOpen] = useState(false);
 
     const { data } = useSWR<IData<IProject[]>>(
-        LS_PROJECT_KEY(info?.last_workspace_id),
+        'LS_PROJECT_KEY(info?.last_workspace_id)',
         () => {
             return projectService.getProjects<IData<IProject[]>>(
                 info?.last_workspace_id || '',
@@ -29,7 +29,7 @@ const MenuProject = () => {
 
     async function handleCreateProject(data: IProject) {
         mutate(
-            LS_PROJECT_KEY(info?.last_workspace_id),
+            'LS_PROJECT_KEY(info?.last_workspace_id)',
             async (project: any) => {
                 const result = await projectService.createProject<IProject>(
                     data,

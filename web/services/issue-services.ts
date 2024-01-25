@@ -1,6 +1,7 @@
 import { IFillterIssue, IIssue, IIssueViews, ILabel, Istate } from '@/types';
 import { BaseService } from './base-service';
 import APP_CONFIG from '@/configs';
+import { IMoreForm } from '@/components/issue/createIssue';
 
 const { API_BASE_URL } = APP_CONFIG;
 
@@ -41,7 +42,7 @@ class IssueService extends BaseService {
         }
     }
 
-    async createIssue<T>(issue: IIssue) {
+    async createIssue<T>(issue: IIssue & IMoreForm) {
         try {
             return await this.post<T>('issue', issue);
         } catch (error) {

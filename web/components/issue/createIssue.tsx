@@ -24,10 +24,12 @@ import { usePathname } from 'next/navigation';
 
 interface IProps {
     isDraft: boolean;
-    setDisableOverlay: (a: boolean) => void;
+    setDisableOverlay?: (a: boolean) => void;
     handleCloseModel: () => void;
     projects: IProject[];
+    cycleId?: string;
 }
+
 const LsModals = [CreateState, CreateLabel];
 
 export interface IOpenModal {
@@ -47,10 +49,15 @@ export interface IForm {
     project: string;
 }
 
+export interface IMoreForm {
+    cycle_id?: string | undefined;
+}
+
 const CreateIssue: React.FC<IProps> = ({
     isDraft,
     handleCloseModel,
     projects,
+    cycleId,
 }) => {
     const pathName = usePathname();
     const noti = useContext(NotiContext);
@@ -118,7 +125,7 @@ const CreateIssue: React.FC<IProps> = ({
                 id="create-issue-form"
                 onSubmit={handleSubmit(async (data) => {
                     mutate(
-                        pathName.split('/').pop(),
+                        pathName,
                         async (issue: any) => {
                             const issueResult =
                                 await issueService.createIssue<IIssue>({
@@ -127,6 +134,7 @@ const CreateIssue: React.FC<IProps> = ({
                                     project_id: data.project || projects[0].id,
                                     workspace_id: info?.last_workspace_id,
                                     is_draft: isDraft,
+                                    cycle_id: cycleId,
                                     priority: data.priority || 'urgent',
                                     state_id: data.state,
                                     labels: data.labels,
@@ -232,7 +240,7 @@ const CreateIssue: React.FC<IProps> = ({
                     </div>
                 </div>
             </form>
-            {states && (projects[0].id) && (
+            {states && projects[0].id && (
                 <Modal
                     isOpen={isOpen.value}
                     handleClose={() => {

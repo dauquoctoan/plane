@@ -1,5 +1,5 @@
 import { Body, Controller, Delete, Get, Param, Patch, Post } from '@nestjs/common';
-import { CycleFavoriteService } from '../service/CycleFavorite.entity';
+import { CycleFavoriteService } from '../service/CycleFavorite.service';
 import { CreateCycleFavoriteDto, UpdateCycleFavoriteDto } from '../dto/CycleFavorite.dto';
 import { ApiTags } from '@nestjs/swagger';
 import { handleResultSuccess } from 'src/helper/handleresult';

@@ -6,6 +6,8 @@ import { INVALID_MODULE_STATUS, INVALID_STATUS } from 'src/constants/message-con
 import { ModuleIssue } from './ModuleIssue.entity';
 import { ModuleLink } from './ModuleLink.entity';
 import { ModuleMember } from './ModuleMember.entity';
+import { Project } from 'src/api/project/entitys/Project.entity';
+import { Workspace } from 'src/api/workspace/entitys/Workspace.entity';
 
 @Table
 export class Module extends Model<Module> {
@@ -13,11 +15,25 @@ export class Module extends Model<Module> {
     id: string;
 
     @ForeignKey(() => User)
-    @Column({ allowNull: false, type: sequelize.UUID })
+    @Column({ allowNull: true, type: sequelize.UUID })
     lead: string;
 
-    @BelongsTo(() => User)
+    @BelongsTo(() => User, {foreignKey: 'lead'})
     user_lead: User;
+
+    @ForeignKey(() => Project)
+    @Column({ type: sequelize.UUID, allowNull: false })
+    project_id: string;
+
+    @BelongsTo(() => Project, {foreignKey: 'project_id'})
+    project: Project;
+
+    @ForeignKey(() => Workspace)
+    @Column({ type: sequelize.UUID, allowNull:false})
+    workspace_id: string;
+
+    @BelongsTo(() => Workspace, {foreignKey: 'workspace_id'})
+    workspace: Workspace;
 
     @HasMany(() => ModuleIssue)
     module_issues: ModuleIssue[];
@@ -32,25 +48,25 @@ export class Module extends Model<Module> {
     @Column({ type: sequelize.UUID, allowNull: true })
     member: string;
 
-    @BelongsTo(() => User)
+    @BelongsTo(() => User,{foreignKey: 'member'})
     user_member: User;
 
     @Column({ allowNull: false })
     name: string;
 
-    @Column
+    @Column({allowNull:true})
     description: string;
 
-    @Column({ type: DataType.JSON })
+    @Column({ type: DataType.JSON, allowNull: true})
     description_text: string;
 
-    @Column({ type: DataType.JSON })
+    @Column({ type: DataType.JSON, allowNull: true })
     description_html: string;
 
-    @Column
+    @Column({allowNull: true})
     start_date: Date;
 
-    @Column
+    @Column({allowNull:true})
     target_date: Date;
 
     @Is('status', (value) => {
@@ -62,6 +78,6 @@ export class Module extends Model<Module> {
     @Column({ type: DataType.JSON, defaultValue: {} })
     view_props: string;
 
-    @Column({ type: DataType.FLOAT })
+    @Column({ type: DataType.FLOAT, allowNull:true })
     sort_order: number;
 }

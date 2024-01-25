@@ -1,7 +1,14 @@
+import { LS_PROJECT_KEY } from "@/apiKey";
 import APP_CONFIG from "@/configs";
 import { BaseService } from "@/services/base-service";
-import { IData } from "@/types";
+import projectService from "@/services/project-services";
+import { useSelector } from "@/store";
+import { selectInfo } from "@/store/slices/authSlice/selectors";
+import { IData, IParams, IProject } from "@/types";
+import { info } from "console";
+import { useParams } from "next/navigation";
 import { useEffect, useState } from "react"
+import useSWR from "swr";
 
 type apifetch = <T>(a: string | undefined) => Promise<T | undefined>;
 
@@ -24,4 +31,20 @@ export const useFetch = <T>(apifetch: apifetch, url?: string) => {
     return {
         data: data,
     }
+}
+
+
+export const useCurentProject = ()=>{
+    const info = useSelector(selectInfo)
+    const params = useParams<IParams>()
+    const { data: projects } = useSWR<IData<IProject[]>>(
+        LS_PROJECT_KEY(info?.last_workspace_id),
+        () => {
+            return projectService.getProjects<IData<IProject[]>>(
+                info?.last_workspace_id || '',
+            );
+        },
+    );
+
+    return projects?.find((e) => (e.id = params.projectid))
 }

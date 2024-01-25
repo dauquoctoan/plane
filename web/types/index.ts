@@ -7,6 +7,7 @@ export type IParams = {
     workspaceSlug: string;
     issueViewId: string;
     projectid: string;
+    cycleid:string;
 }
 export interface IResult<T> {
     code: 0 | 1
@@ -165,6 +166,7 @@ export interface ILabel extends IBaseData {
 }
 
 export interface IFillterIssue {
+    cycle_id?: string;
     projects?: string[];
     userId?: string;
     states?: string[];
@@ -203,4 +205,50 @@ export interface IProjectMember {
     preferences: string;
     sort_order: string;
 }
+
+export interface ICycle {
+    id: string;
+    owned_by: string;
+    created_by: string;
+    project_id: string;
+    workspace_id: string;
+    project: IProject[];
+    workspace: IWorkspace[];
+    user_created: IUser;
+    total: number;
+    done: number;
+    // cycle_issues: ICycleIssue[];
+    // cycle_favorites: ICycleFavorite[];
+    name: string;
+    description: string;
+    start_date: Date;
+    end_date: Date;
+    view_props: string;
+    sort_order: number;
+}
+
+export interface IModule {
+    id: string;
+    total:number;
+    done: number;
+    lead: string;
+    user_lead: IUser;
+    project_id: string;
+    project: IProject;
+    workspace_id: string;
+    workspace: IWorkspace;
+    member: string;
+    user_member: IUser;
+    name: string;
+    description: string;
+    description_text: string;
+    description_html: string;
+    start_date: Date;
+    target_date: Date;
+    status: string;
+    view_props: string;
+    sort_order: number;
+}
+
+
 

@@ -1,5 +1,5 @@
 import { Body, Controller, Delete, Get, Param, Patch, Post } from '@nestjs/common';
-import { CycleIssueService } from '../service/CycleIssue.entity';
+import { CycleIssueService } from '../service/CycleIssue.service';
 import { CreateCycleIssueDto, UpdateCycleIssueDto } from '../dto/CycleIssue.dto';
 import { ApiTags } from '@nestjs/swagger';
 import { handleResultSuccess } from 'src/helper/handleresult';

@@ -1,26 +1,31 @@
-import { Controller, Post, Body, Get, Param, Patch, Delete } from '@nestjs/common';
-import { ApiTags } from '@nestjs/swagger';
+import { Controller, Post, Body, Get, Param, Patch, Delete, UseGuards, Request as RequestNest } from '@nestjs/common';
+import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { CreateModuleDto, UpdateModuleDto } from '../dto/Module.dto';
 import { ModuleService } from '../service/Module.service';
 import { handleResultSuccess } from 'src/helper/handleresult';
+import { AuthGuard } from 'src/Guards/auth.guard';
+import { IAuthRequest } from 'src/types/auth.types';
 
-@Controller('Mmodule')
+@Controller('module')
 @ApiTags('Module')
+@ApiBearerAuth('access-token')
 export class ModuleController {
     constructor(private readonly moduleService: ModuleService) { }
-    @Post()
-    create(@Body() module: CreateModuleDto) {
-        return handleResultSuccess(this.moduleService.create(module));
+    @Post(':id')
+    @UseGuards(AuthGuard)
+    async create(@Body() module: CreateModuleDto, @Param('id') projectId: string,  @RequestNest() request: IAuthRequest) {
+        return handleResultSuccess(await this.moduleService.createModule(projectId, request.user.id, module));
     }
 
     @Get()
     findAll() {
         return handleResultSuccess(this.moduleService.findAll());
     }
-
+    
+    @UseGuards(AuthGuard)
     @Get(':id')
-    findOne(@Param('id') id: string) {
-        return handleResultSuccess(this.moduleService.findOneById(id));
+    async findOne(@Param('id') id: string, @RequestNest() request: IAuthRequest) {
+        return handleResultSuccess(await this.moduleService.findModulesProject(id, request.user.id));
     }
 
     @Patch(':id')
