@@ -13,6 +13,8 @@ import { Label } from '../entitys/Label.entity';
 import { Project } from 'src/api/project/entitys/Project.entity';
 import { CycleIssueService } from 'src/api/cycle/service/CycleIssue.service';
 import { CycleIssue } from 'src/api/cycle/entitys/CycleIssue.entity';
+import { ModuleIssueService } from 'src/api/module/service/ModuleIssue.service';
+import { ModuleIssue } from 'src/api/module/entitys/ModuleIssue.entity';
 
 @Injectable()
 export class IssueService extends BaseService<Issue>{
@@ -22,6 +24,8 @@ export class IssueService extends BaseService<Issue>{
         private readonly userService: UserService,
         private readonly labelService: LabelService,
         readonly cycleIssueService: CycleIssueService,
+        readonly moduleIssueService: ModuleIssueService,
+
     ) {
         super(issueRepository)
     }
@@ -48,12 +52,16 @@ export class IssueService extends BaseService<Issue>{
                     }
                 })
             }
-            
+
 
             const issue = await this.issueRepository.create({ create_by: idUser, ...issueItem } as any)
-            
-            if(issueItem.cycle_id){
-                await this.cycleIssueService.createCycleIssue({cycle_id: issueItem.cycle_id, issue_id:issue.id})
+
+            if (issueItem.cycle_id) {
+                await this.cycleIssueService.createCycleIssue({ cycle_id: issueItem.cycle_id, issue_id: issue.id })
+            }
+
+            if (issueItem.module_id) {
+                await this.moduleIssueService.createModuleIssue({ module_id: issueItem.module_id, issue_id: issue.id })
             }
 
             await issue.$add('assignees', users);
@@ -118,7 +126,8 @@ export class IssueService extends BaseService<Issue>{
                         this.getQueryCreator(dataDto.createBys),
                         this.getQueryLabel(dataDto.labels),
                         this.getQueryProject(dataDto.projects),
-                        this.getQueryCycle(dataDto.cycle_id)
+                        this.getQueryCycle(dataDto.cycle_id),
+                        this.getQueryModule(dataDto.module_id)
                     ]
                 }
                 return await this.repository.findAll(a)
@@ -211,6 +220,19 @@ export class IssueService extends BaseService<Issue>{
         } : {
             model: CycleIssue,
             as: 'cycleIssue',
+        }
+    }
+
+    getQueryModule(moduleId: string[]) {
+        return moduleId ? {
+            model: ModuleIssue,
+            as: 'module_issues',
+            where: {
+                module_id: moduleId
+            }
+        } : {
+            model: ModuleIssue,
+            as: 'module_issues',
         }
     }
 

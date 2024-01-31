@@ -28,6 +28,7 @@ interface IProps {
     handleCloseModel: () => void;
     projects: IProject[];
     cycleId?: string;
+    moduleId?: string;
 }
 
 const LsModals = [CreateState, CreateLabel];
@@ -51,6 +52,7 @@ export interface IForm {
 
 export interface IMoreForm {
     cycle_id?: string | undefined;
+    module_id?: string | undefined;
 }
 
 const CreateIssue: React.FC<IProps> = ({
@@ -58,6 +60,7 @@ const CreateIssue: React.FC<IProps> = ({
     handleCloseModel,
     projects,
     cycleId,
+    moduleId
 }) => {
     const pathName = usePathname();
     const noti = useContext(NotiContext);
@@ -135,6 +138,7 @@ const CreateIssue: React.FC<IProps> = ({
                                     workspace_id: info?.last_workspace_id,
                                     is_draft: isDraft,
                                     cycle_id: cycleId,
+                                    module_id: moduleId,
                                     priority: data.priority || 'urgent',
                                     state_id: data.state,
                                     labels: data.labels,

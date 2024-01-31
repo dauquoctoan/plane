@@ -5,8 +5,8 @@ export interface IProps {
     percent: number;
 }
 
-const CycleProgess: FC<IProps> = ({ percent }) => {
-    const ofset = 116 - 116 * (percent / 100);
+const CycleProgess: FC<IProps> = ({ percent = 0 }) => {
+    const ofset = 116 - 116 * ((percent) / 100);
     return (
         <div className="relative">
             <svg
@@ -31,9 +31,8 @@ const CycleProgess: FC<IProps> = ({ percent }) => {
                     r="18.5"
                     cx="28.5"
                     cy="28.5"
-                    stroke={`${
-                        ofset == 116 ? '' : 'var(--color-special-primary)'
-                    }`}
+                    stroke={`${ofset == 116 ? '' : 'var(--color-special-primary)'
+                        }`}
                     stroke-width="6"
                     stroke-linecap="round"
                     stroke-dashoffset={ofset}

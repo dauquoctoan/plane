@@ -7,7 +7,8 @@ export type IParams = {
     workspaceSlug: string;
     issueViewId: string;
     projectid: string;
-    cycleid:string;
+    cycleid: string;
+    moduleid: string;
 }
 export interface IResult<T> {
     code: 0 | 1
@@ -229,7 +230,7 @@ export interface ICycle {
 
 export interface IModule {
     id: string;
-    total:number;
+    total: number;
     done: number;
     lead: string;
     user_lead: IUser;

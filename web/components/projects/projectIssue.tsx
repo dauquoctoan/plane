@@ -10,7 +10,8 @@ import { getIcons } from '@/helpers';
 
 export interface IProps {
     query?: {
-        cycle_id: string;
+        cycle_id?: string;
+        module_id?: string;
     };
 }
 

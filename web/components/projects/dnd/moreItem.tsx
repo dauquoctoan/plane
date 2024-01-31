@@ -65,6 +65,7 @@ const MoreItem: FC<IProps> = ({ block }) => {
                                                     project_id:
                                                         params.projectid,
                                                     cycle_id: params.cycleid,
+                                                    module_id: params.moduleid,
                                                     workspace_id:
                                                         info?.last_workspace_id,
                                                     is_draft: false,

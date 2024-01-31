@@ -47,7 +47,7 @@ const ModulesTable = () => {
                         <ContainerLink
                             links={
                                 modules?.map((e, i) => ({
-                                    href: `/${info?.workspace?.slug}/projects/${params.projectid}/cycles/${e.id}`,
+                                    href: `/${info?.workspace?.slug}/projects/${params.projectid}/modules/${e.id}`,
                                     nickname: `sdfsdfsdfsdf` + i,
                                 })) || []
                             }
@@ -73,7 +73,7 @@ const ModulesItem = ({ data }: { data: IModule }) => {
             className="border-b border-theme-border-secondary px-3 flex items-center text-sm cursor-pointer hover:bg-theme-secondary group select-none"
             onClick={() => {
                 changeRoute(
-                    `/${info?.workspace?.slug}/projects/${params.projectid}/cycles/${data.id}`,
+                    `/${info?.workspace?.slug}/projects/${params.projectid}/modules/${data.id}`,
                 );
             }}
         >

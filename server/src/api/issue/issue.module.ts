@@ -49,6 +49,8 @@ import { UserService } from '../user/service/User.service';
 import { CycleIssueService } from '../cycle/service/CycleIssue.service';
 import { CycleModule } from '../cycle/cycle.module';
 import { CycleIssue } from '../cycle/entitys/CycleIssue.entity';
+import { ModuleIssue } from '../module/entitys/ModuleIssue.entity';
+import { ModuleIssueService } from '../module/service/ModuleIssue.service';
 
 @Module({
   imports: [SequelizeModule.forFeature([
@@ -69,10 +71,11 @@ import { CycleIssue } from '../cycle/entitys/CycleIssue.entity';
     IssueVote,
     Label,
     User,
-    CycleIssue
+    CycleIssue,
+    ModuleIssue
   ]),
   forwardRef(() => CycleModule)
-],
+  ],
   providers: [
     CommentReactionService,
     IssueService,
@@ -91,7 +94,8 @@ import { CycleIssue } from '../cycle/entitys/CycleIssue.entity';
     IssueVoteService,
     LabelService,
     UserService,
-    CycleIssueService
+    CycleIssueService,
+    ModuleIssueService
   ],
   controllers: [
     CommentReactionController,

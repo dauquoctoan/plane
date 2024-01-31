@@ -1,7 +1,7 @@
 
 export class CreateModuleIssueDto {
-    module: number;
-    issue: number;
+    module_id: string;
+    issue_id: string;
 }
 
 export class UpdateModuleIssueDto {

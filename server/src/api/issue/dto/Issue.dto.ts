@@ -1,8 +1,9 @@
 import { PartialType } from "@nestjs/swagger";
-import { IsEmpty, IsNotEmpty, IsOptional,IsEmail, IsDefined } from "class-validator";
+import { IsEmpty, IsNotEmpty, IsOptional, IsEmail, IsDefined } from "class-validator";
 
 export class CreateIssueDto {
     cycle_id: string;
+    module_id: string;
     parent: number;
     state: number;
     assignees: string[];
@@ -24,10 +25,10 @@ export class CreateIssueDto {
     objects: boolean;
     issue_objects: string;
 }
-export class UpdateIssueDto extends PartialType(CreateIssueDto){
+export class UpdateIssueDto extends PartialType(CreateIssueDto) {
 }
 
-export class QueryIssueDto{
+export class QueryIssueDto {
     @IsOptional()
     @IsNotEmpty()
     projects?: string[];
@@ -35,6 +36,10 @@ export class QueryIssueDto{
     @IsOptional()
     @IsNotEmpty()
     cycle_id?: string[];
+
+    @IsOptional()
+    @IsNotEmpty()
+    module_id?: string[];
 
     @IsOptional()
     @IsNotEmpty()
