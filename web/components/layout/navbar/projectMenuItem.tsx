@@ -4,6 +4,8 @@ import { BiChevronDown } from 'react-icons/bi';
 import ProjectTools from './projectTools';
 import Avatar from '../../ui/avatar';
 import { renderEmoji } from '@/helpers/emoji';
+import { useParams } from 'next/navigation';
+import { IParams } from '@/types';
 
 interface IProjectMenuitem {
     text?: string;
@@ -17,7 +19,9 @@ const ProjectMenuItem: React.FC<IProjectMenuitem> = ({
     emoji,
 }) => {
     const isCollap = useSelector(selectIsCollap);
-    const [isExpan, setIsExpan] = useState(false);
+    const params = useParams<IParams>()
+    const [isExpan, setIsExpan] = useState(params.projectid == idProject ? true : false);
+
     return (
         <div className={`${isCollap ? 'flex flex-col items-center' : ''}`}>
             {!isCollap && (
@@ -39,9 +43,8 @@ const ProjectMenuItem: React.FC<IProjectMenuitem> = ({
                             onClick={() => {
                                 setIsExpan(!isExpan);
                             }}
-                            className={`text-xl cursor-pointer ${
-                                isExpan && 'rotate-180'
-                            } transition-all`}
+                            className={`text-xl cursor-pointer ${isExpan && 'rotate-180'
+                                } transition-all`}
                         />
                     </div>
                 </div>

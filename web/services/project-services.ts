@@ -69,6 +69,38 @@ class ProjectService extends BaseService {
             console.log(error)
         }
     }
+
+    async findOneProject<T>(projectId: string) {
+        try {
+            return await this.get<T>('project/by-id/' + projectId)
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+    async updateProject<T>(projectId: string, data: IProject) {
+        try {
+            return await this.patch<T>('project/' + projectId, data)
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+    async deleteProject<T>(projectId: string) {
+        try {
+            return await this.delete('project/' + projectId)
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+    async joinProject<T>(data: { projectId: string }) {
+        try {
+            return await this.post<T>('project-member/join-project', data)
+        } catch (error) {
+            console.log(error)
+        }
+    }
 }
 
 const projectService = new ProjectService();

@@ -28,6 +28,12 @@ export class ProjectMemberController {
         return handleResultSuccess(await this.projectMemberService.findMembers(query, request.user.id));
     }
 
+    @Post('join-project')
+    @UseGuards(AuthGuard)
+    async joinProject(@RequestNest() request: IAuthRequest, @Body('projectId') projectId: string, @Body('role') role: number) {
+        return handleResultSuccess(await this.projectMemberService.joinProject(request.user.id, projectId, role));
+    }
+
     @Get('me')
     @UseGuards(AuthGuard)
     async me(@RequestNest() request: IAuthRequest, @Query() query: { projectId: string }) {

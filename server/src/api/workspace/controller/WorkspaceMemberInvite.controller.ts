@@ -1,13 +1,16 @@
-import { Controller, Get, Post, Body, Patch, Delete, Param } from '@nestjs/common';
-import { ApiTags } from "@nestjs/swagger";
+import { Controller, Get, Post, Body, Patch, Delete, Param, Request as RequestNestjs, UseGuards } from '@nestjs/common';
+import { ApiBearerAuth, ApiTags } from "@nestjs/swagger";
 import { WorkspaceMemberInviteService } from '../service/WorkspaceMemberInvite.service';
 import { CreateWorkspaceMemberInviteDto, CreatesWorkspaceMemberInviteDto, UpdateWorkspaceMemberInviteDto } from '../dto/WorkspaceMemberInvite.dto';
 import { JwtService } from '@nestjs/jwt';
 import { handleResultSuccess } from 'src/helper/handleresult';
+import { IAuthRequest } from 'src/types/auth.types';
+import { AuthGuard } from 'src/Guards/auth.guard';
 
 
 @Controller('workspace-member-invite')
 @ApiTags('Workspace Member Invite')
+@ApiBearerAuth('access-token')
 export class WorkspaceMemberInviteController {
     constructor(private readonly workspaceMemberInviteService: WorkspaceMemberInviteService, private jwtService: JwtService) { }
     @Post()
@@ -32,9 +35,22 @@ export class WorkspaceMemberInviteController {
         return handleResultSuccess(await this.workspaceMemberInviteService.createsWorkspaceMemberInviteService(lsMember));
     }
 
-    @Get()
-    async findAllWorkspaceMemberInvite() {
-        return handleResultSuccess(await this.workspaceMemberInviteService.findAll());
+
+    @Post("join-workspace-member")
+    @UseGuards(AuthGuard)
+    async joinWorkspaceInWeb(@Body('data') lsWorkspaceMember: string[], @RequestNestjs() request: IAuthRequest) {
+        return handleResultSuccess(await this.workspaceMemberInviteService.joinWrokspaceInWeb(lsWorkspaceMember, request.user.id));
+    }
+
+    @Get("invitations")
+    @UseGuards(AuthGuard)
+    async findAllWorkspaceMemberInvite(@RequestNestjs() request: IAuthRequest) {
+        return handleResultSuccess(await this.workspaceMemberInviteService.getMemberInviteByEmailAndWorkspace(request.user.id));
+    }
+
+    @Get(":id")
+    findWorkspaceMembersInvite(@Param('id') id: string) {
+        return handleResultSuccess(this.workspaceMemberInviteService.findOneById(id));
     }
 
     @Get(":id")

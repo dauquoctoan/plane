@@ -1,3 +1,4 @@
+import MenuSetting from '@/components/projects/setting/projectMenu';
 import { Spinner } from '@/components/ui/loading/Spinner';
 import Header from '@/layouts/layout-components/header/header';
 import dynamic from 'next/dynamic';
@@ -22,7 +23,17 @@ export default function WorkspaceLayout({
                     </div>
                 }
             />
-            <div className="main">{children}</div>
+            <div className="main p-4">
+                <div className='text-color-text-sidebar font-bold text-[11px] mb-2'>SETTING</div>
+                <div className='flex gap-4'>
+                    <div className='w-[300px]'>
+                        <MenuSetting />
+                    </div>
+                    <div className='flex-1'>
+                        {children}
+                    </div>
+                </div>
+            </div>
         </>
     );
 }

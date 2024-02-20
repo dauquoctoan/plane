@@ -33,6 +33,7 @@ interface Iprops {
     errors: FieldErrors<FieldValues>;
     setValue: UseFormSetValue<FieldValues>;
     unregister: UseFormUnregister<FieldValues>;
+    isLabel: boolean;
 }
 
 function createKey(index: string) {
@@ -73,13 +74,14 @@ const InvitePeopleItem: React.FC<Iprops> = ({
     unregister,
     index,
     removeIndex,
+    isLabel
 }) => {
     return (
         <div className="flex gap-3 items-center group mb-4">
             <Input
                 placeholder="Enter your Email?"
                 error={errors}
-                label={index == 0 ? 'Co-workers Email' : ''}
+                label={(index == 0 && isLabel) ? 'Co-workers Email' : ''}
                 wrClassName="flex-1"
                 keyForm={createKey(keyForm).email}
                 register={register}
@@ -99,7 +101,7 @@ const InvitePeopleItem: React.FC<Iprops> = ({
             <AutoComplete
                 placeholder="Whats your role?"
                 error={errors}
-                label={index == 0 ? 'Role' : ''}
+                label={(index == 0 && isLabel) ? 'Role' : ''}
                 wrClassName="flex-1"
                 keyForm={createKey(keyForm).role}
                 nameForm="Member"
@@ -115,18 +117,17 @@ const InvitePeopleItem: React.FC<Iprops> = ({
                     unregister(createKey(keyForm).role);
                     removeIndex(keyForm);
                 }}
-                className={`hover:cursor-pointer ${
-                    index == 0 ? 'mt-5' : ''
-                } invisible group-hover:visible`}
+                className={`hover:cursor-pointer ${(index == 0 && isLabel) ? 'mt-5' : ''
+                    } invisible group-hover:visible`}
             />
         </div>
     );
 };
 
-const Member: React.FC<IPropsComponent> = () => {
+const Member: React.FC<IPropsComponent> = ({ textSubmit = 'Submit', defaultCountMemners = 2, isLabels = true, isSetup = true, onSubmitted }) => {
     const dispatch = useDispatch();
     const info = useSelector(selectInfo);
-    const [lsKeys, setlsKeys] = useState<string[]>(createLsUUID(2));
+    const [lsKeys, setlsKeys] = useState<string[]>(createLsUUID(defaultCountMemners));
     const router = useRouter();
     const [loading, setLoading] = useState(false);
     function removeIndex(key: string) {
@@ -169,7 +170,7 @@ const Member: React.FC<IPropsComponent> = () => {
                         await workspaceService.createsWorkspaceMemberInvite(
                             lsMember,
                         );
-                    if (result) {
+                    if (result && isSetup) {
                         const resultInfo = await authService.upDateUser({
                             is_onboarded: true,
                             onboarding_step: {
@@ -184,6 +185,11 @@ const Member: React.FC<IPropsComponent> = () => {
                             router.push(info?.workspace?.slug || '');
                         }
                     }
+
+                    if (!isSetup) {
+                        onSubmitted && onSubmitted(result)
+                    }
+
                     setLoading(false);
                 }
             })}
@@ -194,6 +200,7 @@ const Member: React.FC<IPropsComponent> = () => {
                         unregister={unregister}
                         setValue={setValue}
                         errors={errors}
+                        isLabel={isLabels}
                         key={e}
                         removeIndex={removeIndex}
                         keyForm={e}
@@ -214,7 +221,7 @@ const Member: React.FC<IPropsComponent> = () => {
             <Button
                 loading={loading}
                 type="submit"
-                text="submit"
+                text={textSubmit}
                 typeBTN="primary"
             />
         </form>

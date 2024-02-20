@@ -9,6 +9,7 @@ import { GrDocumentText } from 'react-icons/gr';
 import { selectIsCollap, useSelector } from '@/store';
 import { changeRoute, ContainerLink } from 'nextjs-progressloader';
 import { selectInfo } from '@/store/slices/authSlice/selectors';
+import { usePathname } from 'next/navigation';
 
 export interface LinkProps {
     href: string;
@@ -70,6 +71,8 @@ const ProjectTools: React.FC<IProjectTools> = ({ idProject }) => {
         ? getLink(links, idProject || '')
         : [];
 
+    const pathName = usePathname()
+
     function getLink(links: CustomeLink[], id: string) {
         return links.map((e) => ({
             ...e,
@@ -80,9 +83,8 @@ const ProjectTools: React.FC<IProjectTools> = ({ idProject }) => {
 
     return (
         <div
-            className={`${
-                !isCollap ? 'pl-4' : ''
-            } text-sm mb-2 animate-fadeMenu overflow-y-hidden`}
+            className={`${!isCollap ? 'pl-4' : ''
+                } text-sm mb-2 animate-fadeMenu overflow-y-hidden`}
         >
             <ContainerLink links={curentLink} />
             {curentLink.map((e, i) => (
@@ -91,9 +93,8 @@ const ProjectTools: React.FC<IProjectTools> = ({ idProject }) => {
                         changeRoute(e.href);
                     }}
                     key={i}
-                    className={`flex ${
-                        isCollap ? 'justify-center' : ''
-                    } items-center gap-2 cursor-pointer px-3 py-1 hover:bg-color-special-secondary rounded`}
+                    className={`flex ${pathName.includes(e.href) ? 'text-color-special-primary bg-color-special-secondary' : ''} ${isCollap ? 'justify-center' : ''
+                        } items-center gap-2 cursor-pointer px-3 py-1 hover:bg-color-special-secondary rounded`}
                 >
                     {e.icon}
                     {!isCollap && <div className="">{e.name}</div>}

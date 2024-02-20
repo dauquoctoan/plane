@@ -22,25 +22,47 @@ export class Project extends Model<Project> {
     @HasOne(() => ProjectIdentifier, { foreignKey: 'projectId' })
     project: ProjectIdentifier;
 
-    @HasMany(() => Label, { foreignKey: 'project_id' })
+    @HasMany(() => Label, {
+        onUpdate: "CASCADE",
+        onDelete: "CASCADE", foreignKey: 'project_id'
+    })
     label: Label[];
 
-    @HasMany(() => Module, { foreignKey: 'project_id' })
+    @HasMany(() => Module, {
+        onUpdate: "CASCADE",
+        onDelete: "CASCADE",
+        foreignKey: 'project_id'
+    })
     module: Module[];
 
-    @HasMany(() => Cycle, { foreignKey: 'project_id' })
+    @HasMany(() => Cycle, {
+        onUpdate: "CASCADE",
+        onDelete: "CASCADE", foreignKey: 'project_id'
+    })
     cycle: Cycle[];
 
-    @HasMany(() => State, { foreignKey: 'project_id' })
+    @HasMany(() => State, {
+        onUpdate: "CASCADE",
+        onDelete: "CASCADE", foreignKey: 'project_id'
+    })
     state: State[];
 
-    @HasMany(() => Issue, { foreignKey: 'project_id' })
+    @HasMany(() => Issue, {
+        onUpdate: "CASCADE",
+        onDelete: "CASCADE", foreignKey: 'project_id'
+    })
     issue: Issue[];
 
-    @HasMany(() => ProjectMember, { foreignKey: 'project_id' })
+    @HasMany(() => ProjectMember, {
+        onUpdate: "CASCADE",
+        onDelete: "CASCADE", foreignKey: 'project_id'
+    })
     project_member: ProjectMember[];
 
-    @HasMany(() => Notification)
+    @HasMany(() => Notification, {
+        onUpdate: "CASCADE",
+        onDelete: "CASCADE"
+    })
     notifications: Notification[];
 
     @ForeignKey(() => User)

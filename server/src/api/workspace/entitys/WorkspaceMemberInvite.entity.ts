@@ -13,17 +13,17 @@ export class WorkspaceMemberInvite extends Model<WorkspaceMemberInvite> {
     * @ForeignKey Workspace
     */
     @ForeignKey(() => Workspace)
-    @Column({ type: sequelize.UUID, allowNull: false })
+    @Column({ type: sequelize.UUID, allowNull: false, unique: 'workspace-email' })
     workspace_id: string;
 
     /* ================================================== */
 
-    @BelongsTo(() => Workspace, {foreignKey:'workspace_id'})
+    @BelongsTo(() => Workspace, { foreignKey: 'workspace_id' })
     workspace: Workspace;
 
 
     @Length({ max: 255 })
-    @Column({ allowNull: false })
+    @Column({ allowNull: false, unique: 'workspace-email' })
     email: string;
 
     @Column({ defaultValue: false })

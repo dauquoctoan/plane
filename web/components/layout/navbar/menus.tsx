@@ -10,10 +10,9 @@ import {
     changeRoute,
 } from 'nextjs-progressloader';
 import { selectInfo } from '@/store/slices/authSlice/selectors';
+import { usePathname } from 'next/navigation';
 
 export interface IMenu extends IBaseMenu {
-    isActive: boolean;
-    setIndex: (i: number) => void;
     index: number;
     path: string;
 }
@@ -73,22 +72,19 @@ const links: ContainerLinkProps['links'] = [
 const MenuItem: React.FC<IMenu> = ({
     icon,
     text,
-    isActive,
-    setIndex,
     index,
     path,
 }) => {
+    const pathName = usePathname();
     return (
         <div
             onClick={() => {
-                setIndex(index);
                 changeRoute(path);
             }}
-            className={`mb-1 flex items-center gap-2 px-4 py-2 cursor-pointer hover:bg-theme-secondary rounded ${
-                isActive
-                    ? 'text-color-special-primary bg-color-special-secondary'
-                    : ''
-            }`}
+            className={`mb-1 flex items-center gap-2 px-4 py-2 cursor-pointer hover:bg-theme-secondary rounded ${path == (pathName)
+                ? 'text-color-special-primary bg-color-special-secondary'
+                : ''
+                }`}
         >
             {icon}
             {text && <label className="cursor-pointer">{text}</label>}
@@ -102,7 +98,6 @@ function getPathName(menus: any[], key: string, path: string) {
 
 const Menus = () => {
     const isCollap = useSelector(selectIsCollap);
-    const [indexMenu, setIndexMenu] = useState(0);
     const info = useSelector(selectInfo);
 
     return (
@@ -119,8 +114,6 @@ const Menus = () => {
                     <MenuItem
                         path={item.path}
                         index={index}
-                        setIndex={setIndexMenu}
-                        isActive={indexMenu == index}
                         key={index}
                         icon={item.icon}
                         text={isCollap ? undefined : item.text}

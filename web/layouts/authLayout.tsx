@@ -1,6 +1,5 @@
 import React, { ReactElement, createContext } from 'react';
 import Navbar from './layout-components/navbar/navbar';
-import Header from './layout-components/header/header';
 import AuthProvider from './authprovider';
 import NotificationProvider from '@/components/ui/notification';
 

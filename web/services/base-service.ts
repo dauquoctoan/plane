@@ -5,6 +5,7 @@ import Cookie from "js-cookie";
 import qs from "qs";
 import queryString from "query-string";
 import { IQuery } from "./base-services";
+
 export class BaseService {
     protected headers: any = {};
     constructor(readonly baseURL: string) { }
@@ -44,7 +45,7 @@ export class BaseService {
         else return undefined;
     }
 
-    get<T>(url: string, query={}, config = {}): Promise<IData<T>> {
+    get<T>(url: string, query = {}, config = {}): Promise<IData<T>> {
         return axios<IResult<T>>({
             method: "get",
             url: this.parseUrl(this.baseURL + url, query),
@@ -84,11 +85,11 @@ export class BaseService {
     }
 
     delete(url: string, config = {}) {
-        // return axios({
-        //     method: "delete",
-        //     url: this.baseURL + url,
-        //     headers: this.getAccessToken() ? this.getHeaders() : {},
-        //     ...config,
-        // });
+        return axios({
+            method: "delete",
+            url: this.baseURL + url,
+            headers: this.getAccessToken() ? this.getHeaders() : {},
+            ...config,
+        }).then((res) => res.data).then(this.handleResult);
     }
 }

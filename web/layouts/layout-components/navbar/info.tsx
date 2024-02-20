@@ -18,8 +18,20 @@ const Info = () => {
                 <ContainerLink
                     links={[
                         {
-                            href: '/create-workspace',
+                            href: `/create-workspace`,
                             nickname: 'create-workspace',
+                        },
+                        {
+                            href: `/invitations`,
+                            nickname: 'invitations',
+                        },
+                        {
+                            href: `/${info?.workspace?.slug}/settings`,
+                            nickname: 'settings',
+                        },
+                        {
+                            href: `/${info?.workspace?.slug}/profile/${info?.workspace?.id}`,
+                            nickname: 'profile',
                         },
                     ]}
                 />

@@ -69,7 +69,7 @@ const AddProject: React.FC<IProps> = ({ setOpen, handleCreateProject }) => {
                     src={watch('cover_image')}
                     alt={`Default project cover image`}
                     objectFit="cover"
-                    className=" w-full h-full"
+                    className="w-full h-full"
                 />
                 <div className="absolute bottom-0 translate-y-[40%] left-2 bg-red">
                     <Popover
@@ -158,7 +158,7 @@ const AddProject: React.FC<IProps> = ({ setOpen, handleCreateProject }) => {
                     placement="topLeft"
                     isIconCheck
                     onChange={(value: any) => {
-                        setValue('network', value.value);
+                        setValue('network', value);
                     }}
                     defaultValue={networkOption[0].value}
                     options={networkOption}

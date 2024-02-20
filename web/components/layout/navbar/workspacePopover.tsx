@@ -6,21 +6,27 @@ import { authSlice, useSelector } from '@/store';
 import { selectInfo } from '@/store/slices/authSlice/selectors';
 import { ContainerLink, LinkProps, changeRoute } from 'nextjs-progressloader';
 import workspaceService from '@/services/workspace-services';
-import { IData, IProject } from '@/types';
+import { IData, IProject, IWorkspace } from '@/types';
 import authService from '@/services/auth-services';
 import { VscLoading } from 'react-icons/vsc';
 import { useRouter } from 'next/navigation';
 import { useDispatch } from 'react-redux';
 import { useFetch } from '@/hooks/fetch';
+import useSWR from 'swr';
 
 const WorkspacePopover = () => {
     const info = useSelector(selectInfo);
     const router = useRouter();
     const dispatch = useDispatch();
     const [loading, setLoading] = useState(false);
-    const { data: workspaces } = useFetch<IData<IProject[]>>(
-        workspaceService.getAllWorkSpaces as any,
-    );
+
+    // const { data: workspaces } = useFetch<IData<IWorkspace[]>>(
+    //     workspaceService.getAllWorkSpaces as any,
+    // );
+
+    const { data: workspaces } = useSWR('workspaces', () => {
+        return workspaceService.getWorkspaceByUser<IWorkspace[]>();
+    })
 
     const handleChangeWorkspace = async (id: string) => {
         setLoading(true);
@@ -85,13 +91,17 @@ const WorkspacePopover = () => {
             <div className="border-b border-theme-border-secondary"></div>
 
             <div className="py-2 px-3">
-                <div className="py-1 px-2 hover:bg-theme-secondary font-medium select-none rounded cursor-pointer">
+                <div onClick={() => { changeRoute(`/${info?.workspace?.slug}/settings`) }} className="py-1 px-2 hover:bg-theme-secondary font-medium select-none rounded cursor-pointer">
                     Workspace Settings
                 </div>
-                <div className="py-1 px-2 hover:bg-theme-secondary font-medium select-none rounded cursor-pointer">
+                <div className="py-1 px-2 hover:bg-theme-secondary font-medium select-none rounded cursor-pointer"
+                    onClick={() => { changeRoute(`/invitations`) }}
+                >
                     Workspace Invites
                 </div>
-                <div className="py-1 px-2 hover:bg-theme-secondary font-medium select-none rounded cursor-pointer">
+                <div
+                    onClick={() => { changeRoute(`/${info?.workspace?.slug}/profile/${info?.workspace?.id}`) }}
+                    className="py-1 px-2 hover:bg-theme-secondary font-medium select-none rounded cursor-pointer">
                     My Profile
                 </div>
             </div>
@@ -103,7 +113,7 @@ const WorkspacePopover = () => {
                     Sign out
                 </div>
             </div>
-        </div>
+        </div >
     );
 };
 

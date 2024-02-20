@@ -44,11 +44,11 @@ export class WorkspaceController {
   //     },
   //   ]}));
   // }
-  
 
-  @Get(":id")
-  async findOneWorkSpace(@Param('id') id: string) {
-    return handleResultSuccess(await this.workspaceService.findOneById(id));
+  @UseGuards(AuthGuard)
+  @Get("workspaces-by-user")
+  async findOneWorkSpace(@RequestNest() request: IAuthRequest) {
+    return handleResultSuccess(await this.workspaceService.findWorkspaceByUser(request.user.id));
   }
 
   @Patch(":id")

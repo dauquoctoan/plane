@@ -12,12 +12,21 @@ import { BiSolidEditAlt } from 'react-icons/bi';
 import Popover from '../ui/popover';
 import { IoStarOutline } from 'react-icons/io5';
 import { CiLink } from 'react-icons/ci';
+import projectService from '@/services/project-services';
+import { useNoti } from '@/hooks';
+import { mutate } from 'swr';
+import { LS_PROJECT_KEY } from '@/apiKey';
+import { useSelector } from 'react-redux';
+import { selectInfo } from '@/store/slices/authSlice/selectors';
 
 interface IPropsProjectItem {
     dataItem: IProject;
 }
 
 const ProjectITem: React.FC<IPropsProjectItem> = ({ dataItem }) => {
+    const noti = useNoti()
+    const info = useSelector(selectInfo);
+
     return (
         <div className="rounded cursor-pointer bg-theme-secondary border shadow-theme-secondary">
             <div className="h-32 relative">
@@ -28,7 +37,22 @@ const ProjectITem: React.FC<IPropsProjectItem> = ({ dataItem }) => {
                     objectFit="cover"
                     className="w-full h-full rounded-tl rounded-tr"
                 />
-                <div className="absolute left-0 bottom-0 mb-4 ml-4 bg-green-500 px-2 py-[2px] select-none text-theme-primary text-sm rounded z-20">
+                <div className="absolute left-0 bottom-0 mb-4 ml-4 bg-green-500 px-2 py-[2px] select-none text-theme-primary text-sm rounded z-20"
+                    onClick={async () => {
+                        if (!dataItem.is_member) {
+                            mutate(LS_PROJECT_KEY(info?.last_workspace_id), async (data: any) => {
+                                const res = await projectService.joinProject({ projectId: dataItem.id || '' })
+                                if (res) {
+                                    noti?.success('join project success')
+                                    return data.filter((e: any) => e.id != dataItem.id)
+                                } else {
+                                    noti?.error('join project error')
+                                    return data;
+                                }
+                            })
+                        }
+                    }}
+                >
                     {dataItem.is_member ? 'Join' : 'Select to join'}
                 </div>
             </div>
@@ -82,7 +106,7 @@ const ProjectITem: React.FC<IPropsProjectItem> = ({ dataItem }) => {
                     </div>
                 </div>
             </div>
-        </div>
+        </div >
     );
 };
 

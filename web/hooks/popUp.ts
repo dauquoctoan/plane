@@ -1,37 +1,37 @@
 import React, { useEffect, useRef, useState } from "react";
 
 export interface IPosition {
-    left: number  | undefined;
-    top: number | string  | undefined;
+    left: number | undefined;
+    top: number | string | undefined;
     minWidth: number | undefined;
 }
 
-export interface IPositionResult extends IPosition{
+export interface IPositionResult extends IPosition {
     position: 'absolute';
-    visibility: 'visible'|'hidden';
+    visibility: 'visible' | 'hidden';
     transformOrigin?: string;
 }
 
-export type TPlacement = 'bottomCenter' | 'bottomLeft' | 'bottomRight' | 'topCenter'| 'topLeft'| 'topRight' | 'rightCenter'| 'rightTop'| 'rightBottom' | "leftCenter" | "leftTop"| "leftBottom";
+export type TPlacement = 'bottomCenter' | 'bottomLeft' | 'bottomRight' | 'topCenter' | 'topLeft' | 'topRight' | 'rightCenter' | 'rightTop' | 'rightBottom' | "leftCenter" | "leftTop" | "leftBottom";
 
 //|'top'| 'bottom'| 'centerLeft'|'centerRight'
 
 type TRef = React.RefObject<HTMLDivElement>
 
-interface IUsePopUp{
-    refPopover:TRef; 
-    refPopup:TRef; 
-    placement?:TPlacement;
-    isHover?:boolean; 
-    isChildRen?:boolean; 
-    refDisable?:TRef;
-    disableMoveChild?:boolean;
+interface IUsePopUp {
+    refPopover: TRef;
+    refPopup: TRef;
+    placement?: TPlacement;
+    isHover?: boolean;
+    isChildRen?: boolean;
+    refDisable?: TRef;
+    disableMoveChild?: boolean;
     fitWidth?: boolean;
     space?: number;
 }
- 
 
-const usePopUp = ({refPopover, isChildRen=false, isHover=false, placement='bottomLeft', refPopup, refDisable, disableMoveChild=false, fitWidth=true, space}:IUsePopUp)=>{
+
+const usePopUp = ({ refPopover, isChildRen = false, isHover = false, placement = 'bottomLeft', refPopup, refDisable, disableMoveChild = false, fitWidth = true, space }: IUsePopUp) => {
     const [open, setOpen] = useState<Boolean>(false);
     const timeoutId = useRef<any>(0);
     const mouse = useRef({ isKeyDown: false, isDrag: false });
@@ -51,7 +51,7 @@ const usePopUp = ({refPopover, isChildRen=false, isHover=false, placement='botto
 
         const spaceWrCenterHeight = wre.offsetHeight / 2;
         const spacePopCenterHeight = poe.offsetHeight / 2;
-        
+
         const MARGIN = space || 10;
 
         var screenWidth = window.innerWidth || document.documentElement.clientWidth;
@@ -60,7 +60,7 @@ const usePopUp = ({refPopover, isChildRen=false, isHover=false, placement='botto
         let left = undefined;
         let top = undefined;
 
-        const margin = wre.offsetWidth - po.width;
+        const margin = wre.offsetWidth - poe.offsetWidth;
         const marginCH = spaceWrCenterHeight - spacePopCenterHeight;
         const marginC = spaceWrCenter - spacePopCenter;
 
@@ -68,7 +68,7 @@ const usePopUp = ({refPopover, isChildRen=false, isHover=false, placement='botto
         const ybottom = wr.top + wre.offsetHeight;
         const yleft = wr.left;
         const yright = wr.left + wre.offsetWidth - poe.offsetWidth;
-        
+
         const xright = wr.left + wre.offsetWidth;
         const xleft = wr.left - poe.offsetWidth;
         const xtop = wr.top;
@@ -84,13 +84,13 @@ const usePopUp = ({refPopover, isChildRen=false, isHover=false, placement='botto
         const isXOverFlowBT = (screenHeight - (wr.top + poe.offsetHeight)) < 0 ? true : false;
         const isXOverFlowT = (wr.top - poe.offsetHeight) < 0 ? true : false;
 
-        switch(placement){
+        switch (placement) {
             case "bottomLeft":
-                left = isChildRen ? 0 : isYOverFlowR ? yright: yleft;
+                left = isChildRen ? 0 : isYOverFlowR ? yright : yleft;
                 top = isChildRen ? '100%' : isYOverFlowBT ? ytop : ybottom;
                 break;
             case 'bottomRight':
-                left = isChildRen ? margin : isYOverFlowL ? yleft: yright;
+                left = isChildRen ? margin : isYOverFlowL ? yleft : yright;
                 top = isChildRen ? '100%' : isYOverFlowBT ? ytop : ybottom;
                 break;
             case "bottomCenter":
@@ -99,14 +99,14 @@ const usePopUp = ({refPopover, isChildRen=false, isHover=false, placement='botto
                 break;
             case 'topCenter':
                 left = isChildRen ? marginC : wr.left + marginC;
-                top = isChildRen ? '100%' : isYOverFlowT ? ybottom + MARGIN :  ytop - MARGIN;
+                top = isChildRen ? '100%' : isYOverFlowT ? ybottom + MARGIN : ytop - MARGIN;
                 break;
             case 'topRight':
-                left = isChildRen ? margin : isYOverFlowL ? yleft: yright;
-                top = isChildRen ? '100%' : isYOverFlowT ? ybottom :  ytop;
+                left = isChildRen ? margin : isYOverFlowL ? yleft : yright;
+                top = isChildRen ? '100%' : isYOverFlowT ? ybottom : ytop;
                 break;
             case 'topLeft':
-                left = isChildRen ? margin : isYOverFlowR ? yright: yleft;
+                left = isChildRen ? margin : isYOverFlowR ? yright : yleft;
                 top = isChildRen ? '100%' : isYOverFlowT ? ybottom : ytop;
                 break;
             case 'leftTop':
@@ -122,7 +122,7 @@ const usePopUp = ({refPopover, isChildRen=false, isHover=false, placement='botto
                 top = isChildRen ? '100%' : isXOverFlowT ? xtop : xbottom;
                 break;
             case 'rightTop':
-                left = isChildRen ? margin :isXOverFlowR ? xleft : xright;
+                left = isChildRen ? margin : isXOverFlowR ? xleft : xright;
                 top = isChildRen ? '100%' : isXOverFlowBT ? xbottom : xtop;
                 break;
             case 'rightCenter':
@@ -148,9 +148,9 @@ const usePopUp = ({refPopover, isChildRen=false, isHover=false, placement='botto
     }
 
     function handleMouseleave() {
-        if(disableMoveChild){
+        if (disableMoveChild) {
             handleClosePopUp();
-        }else{
+        } else {
             timeoutId.current = setTimeout(() => {
                 refPopup.current?.removeEventListener(
                     'mouseover',
@@ -170,22 +170,22 @@ const usePopUp = ({refPopover, isChildRen=false, isHover=false, placement='botto
     function handleClick(e: any) {
         if (
             !refPopup.current?.contains(e.target) &&
-           !mouse.current.isDrag && !e?.target?.clear && e.target.tagName != 'svg'
+            !mouse.current.isDrag && !e?.target?.clear && e.target.tagName != 'svg'
         ) {
             handleClosePopUp()
         }
         mouse.current = { isDrag: false, isKeyDown: false };
     }
 
-    function addEventClick(){
+    function addEventClick() {
         window.addEventListener('click', handleClick, true);
     }
 
-    function  removeEventClick(){
+    function removeEventClick() {
         window.removeEventListener('click', handleClick, true);
     }
 
-    function addEventMouse(){
+    function addEventMouse() {
         refPopover?.current?.addEventListener(
             'mouseover',
             handleMouseover,
@@ -198,7 +198,7 @@ const usePopUp = ({refPopover, isChildRen=false, isHover=false, placement='botto
         );
     }
 
-    function removeEventMouse(){
+    function removeEventMouse() {
         refPopover?.current?.addEventListener(
             'mouseover',
             handleMouseover,
@@ -217,8 +217,8 @@ const usePopUp = ({refPopover, isChildRen=false, isHover=false, placement='botto
     }, [refPopover.current, refPopup.current, open]);
 
     useEffect(() => {
-        function handleClikOpenPopUp(e:any){
-            if(!refDisable?.current?.contains(e.target) && !e?.target?.clear && e.target.tagName != 'svg') setOpen(true);
+        function handleClikOpenPopUp(e: any) {
+            if (!refDisable?.current?.contains(e.target) && !e?.target?.clear && e.target.tagName != 'svg') setOpen(true);
         }
 
         if (isHover) addEventMouse();
@@ -230,32 +230,32 @@ const usePopUp = ({refPopover, isChildRen=false, isHover=false, placement='botto
         };
     }, []);
 
-    function handleClosePopUp(){
-       if(isHover){
+    function handleClosePopUp() {
+        if (isHover) {
             setOpen(false)
-       }else{
-        // @ts-ignore: Unreachable code error
-        if(refPopup.current) refPopup.current.style.animation = 'closePopUp .3s ease-out';
-                
-        // @ts-ignore: Unreachable code error
-        if(refPopup.current) refPopup.current.style.opacity = '0';
+        } else {
+            // @ts-ignore: Unreachable code error
+            if (refPopup.current) refPopup.current.style.animation = 'closePopUp .3s ease-out';
 
-        // @ts-ignore: Unreachable code error
-        if(refPopup.current) refPopup.current.style.scale ='.8';
+            // @ts-ignore: Unreachable code error
+            if (refPopup.current) refPopup.current.style.opacity = '0';
 
-        setTimeout(()=>{
-            open && setOpen(false);
-        },300)
-       }
+            // @ts-ignore: Unreachable code error
+            if (refPopup.current) refPopup.current.style.scale = '.8';
+
+            setTimeout(() => {
+                open && setOpen(false);
+            }, 300)
+        }
     }
 
-    useEffect(()=>{
-        if(open) addEventClick();
+    useEffect(() => {
+        if (open) addEventClick();
         else removeEventClick();
-        return ()=>{
+        return () => {
             removeEventClick();
         }
-    },[open])
+    }, [open])
 
     useEffect(() => {
         if (isHover) {
@@ -274,15 +274,15 @@ const usePopUp = ({refPopover, isChildRen=false, isHover=false, placement='botto
         }
     }, [refPopup.current]);
 
-    function handleWhenMouseDown(){
+    function handleWhenMouseDown() {
         mouse.current.isKeyDown = true;
     }
 
-    function handleWhenMouseLeave(){
+    function handleWhenMouseLeave() {
         if (mouse.current.isKeyDown) mouse.current.isDrag = true;
     }
 
-    const style:IPositionResult= {...position, position: 'absolute', transformOrigin:`top ${placement}`, visibility: (position?.left == undefined || position?.top == undefined) ? 'hidden': 'visible'}
+    const style: IPositionResult = { ...position, position: 'absolute', transformOrigin: `top ${placement}`, visibility: (position?.left == undefined || position?.top == undefined) ? 'hidden' : 'visible' }
 
     return {
         style,

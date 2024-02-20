@@ -1,8 +1,9 @@
+import General from '@/components/projects/setting/general'
 import React from 'react'
 
 const Setings = () => {
   return (
-    <div>Setings</div>
+    <General />
   )
 }
 

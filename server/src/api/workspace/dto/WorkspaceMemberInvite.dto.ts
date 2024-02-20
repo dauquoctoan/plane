@@ -1,6 +1,6 @@
 
 export class CreateWorkspaceMemberInviteDto {
-    workspace_id: number;
+    workspace_id: string;
     email: string;
     accepted: boolean;
     token: string;

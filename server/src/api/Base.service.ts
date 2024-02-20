@@ -1,8 +1,7 @@
-import { Attributes, FindOptions, Model, ModelCtor } from "sequelize";
+import { Attributes, FindOptions, Model, ModelCtor, UpdateOptions, WhereOptions } from "sequelize";
 import { handleResultError } from "src/helper/handleresult";
 import { removeKeyNull } from "src/helper/key";
 import { messageCreateFail, messageDeleteFail, messageFindFail, messageUpdateFail } from "src/helper/message.create";
-import { CreateOptions } from 'sequelize/types';
 
 
 export abstract class BaseService<T extends Model>{
@@ -48,6 +47,14 @@ export abstract class BaseService<T extends Model>{
             return await this.repository.findOne(query);
         } catch (error) {
             handleResultError({ message: messageFindFail(this.repository.getTableName()), messageDetail: error });
+        }
+    }
+
+    async update(itemUpdate: any, query: WhereOptions<Attributes<T>>): Promise<[affectedCount: number]> {
+        try {
+            return await this.repository.update(itemUpdate, { where: query });
+        } catch (error) {
+            handleResultError({ message: messageUpdateFail(this.repository.getTableName()), messageDetail: error });
         }
     }
 

@@ -7,24 +7,10 @@ import { Project } from './Project.entity';
 import { Workspace } from 'src/api/workspace/entitys/Workspace.entity';
 
 
-interface ProjectMemberAttributes {
-    id: number;
-    name: string;
-    project_id:string;
-    workspace_id: string;
-    comment: string;    
-    role: string;
-    view_props: string;
-    default_props: string;
-    preferences: string;
-    sort_order: string;
-}
-  
-interface ProjectMemberCreationAttributes extends Optional<ProjectMemberAttributes, 'id'> {}
-  
+
 
 @Table
-export class ProjectMember extends Model<ProjectMemberAttributes, ProjectMemberCreationAttributes> {
+export class ProjectMember extends Model<ProjectMember> {
     @Column({ type: sequelize.UUID, defaultValue: sequelize.UUIDV4, allowNull: false, primaryKey: true })
     id: string;
 
@@ -42,13 +28,13 @@ export class ProjectMember extends Model<ProjectMemberAttributes, ProjectMemberC
 
     /* =================================== */
 
-    @BelongsTo(() => Workspace,{foreignKey:'workspace_id'})
+    @BelongsTo(() => Workspace, { foreignKey: 'workspace_id' })
     workspace: Workspace;
 
-    @BelongsTo(() => Project,{foreignKey:'project_id'})
+    @BelongsTo(() => Project, { foreignKey: 'project_id' })
     project: Project;
 
-    @BelongsTo(() => User,{foreignKey:'member'})
+    @BelongsTo(() => User, { foreignKey: 'member' })
     user: User;
 
     @Column

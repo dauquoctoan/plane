@@ -82,12 +82,14 @@ export interface IWorkspace extends IBaseData {
 }
 
 export interface IWorkspaceMemberInvite extends IBaseData {
+    id?: string;
     workspace_id?: string;
     email?: string;
     accepted?: boolean;
     token?: string;
     message?: string;
     responded_at?: Date;
+    workspace?: IWorkspace;
     role?: number;
 }
 
@@ -103,7 +105,7 @@ export interface IProject extends IBaseData {
     description?: string;
     description_text?: string;
     description_html?: string;
-    network?: string;
+    network?: number;
     identifier?: string;
     emoji?: string;
     icon_prop?: string;
@@ -249,6 +251,18 @@ export interface IModule {
     status: string;
     view_props: string;
     sort_order: number;
+}
+
+export interface IWorkspaceMember {
+    id: string;
+    workspace_id: string;
+    member: string;
+    workspace: IWorkspace;
+    user: IUser;
+    role: 5 | 10 | 15 | 20 | 25;
+    company_role: string;
+    view_props: string;
+    default_props: string;
 }
 
 

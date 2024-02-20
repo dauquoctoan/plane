@@ -624,6 +624,14 @@ export const ORGANIZATION_SIZE = [
 
 export const MEMBER_ROLE = ['Guest', 'Viewer', 'Member', 'Admin'];
 
+export const MEMBER_ROLE_KEY = {
+    5: 'Guest',
+    10: 'Viewer',
+    15: 'Member',
+    20: 'Admin',
+    25: 'Admin',
+}
+
 export const optionLevel: IOptionItem[] = [
     { icon: <RiErrorWarningLine />, title: 'Urgent', value: 'urgent' },
     { icon: <MdOutlineSignalCellularAlt />, title: 'High', value: 'high' },
@@ -673,8 +681,8 @@ export const lsTabsIssues: ILink[] = [
 export function getDeFaultTabs(workspacSlug?: string): LinkProps[] {
     return workspacSlug
         ? lsTabsIssues.map((e) => ({
-              title: e.title,
-              href: `/${workspacSlug}/workspace-views/${e.key}`,
-          }))
+            title: e.title,
+            href: `/${workspacSlug}/workspace-views/${e.key}`,
+        }))
         : [];
 }

@@ -22,7 +22,7 @@ export class ProjectService extends BaseService<Project>{
 
   async getProjectByUserId(userId: string) {
     try {
-      const user = await this.userService.findOneById(userId)
+      const user = await this.userService.findOneById(userId);
       if (user) {
         return await this.repository.findAll({
           where: { workspace_id: user.last_workspace_id },
@@ -40,6 +40,22 @@ export class ProjectService extends BaseService<Project>{
               ],
             ],
           },
+          include: [{ model: User, as: 'created_by_user' }],
+          order: [['createdAt', 'DESC']]
+        });
+      }
+      handleResultError({ message: messageFindFail(this.repository.getTableName()), messageDetail: 'Invalid user' });
+    } catch (error) {
+      handleResultError({ message: messageFindFail(this.repository.getTableName()), messageDetail: error });
+    }
+  }
+
+  async getProjectByProjectId(userId: string, projectId: string) {
+    try {
+      const user = await this.userService.findOneById(userId);
+      if (user) {
+        return await this.repository.findAll({
+          where: { workspace_id: user.last_workspace_id, id: projectId },
           include: [{ model: User, as: 'created_by_user' }],
           order: [['createdAt', 'DESC']]
         });

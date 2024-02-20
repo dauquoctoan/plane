@@ -37,7 +37,7 @@ export class Issue extends Model<Issue> {
     /* ================================================================= */
     @Column({ type: sequelize.UUID, defaultValue: sequelize.UUIDV4, allowNull: false, primaryKey: true })
     id: string;
-    
+
     /**
     * ! FK : Issue, State
     */
@@ -68,7 +68,11 @@ export class Issue extends Model<Issue> {
     @BelongsTo(() => User, { foreignKey: 'create_by' })
     creator: User;
 
-    @BelongsTo(() => Project, { foreignKey: 'project_id' })
+    @BelongsTo(() => Project, {
+        foreignKey: 'project_id',
+        onUpdate: "CASCADE",
+        onDelete: "CASCADE",
+    })
     project: Project;
 
     @BelongsTo(() => Workspace, { foreignKey: 'workspace_id' })
@@ -77,7 +81,7 @@ export class Issue extends Model<Issue> {
     @BelongsTo(() => Issue)
     issue: Issue;
 
-    @BelongsTo(() => State, {foreignKey:'state_id'})
+    @BelongsTo(() => State, { foreignKey: 'state_id' })
     state: State;
 
     @BelongsToMany(() => User, () => IssueAssignee)
@@ -159,7 +163,7 @@ export class Issue extends Model<Issue> {
     @Column({ type: 'text' })
     description_html: string;
 
-    @Column({ type: DataType.TEXT({length: 'medium'})})
+    @Column({ type: DataType.TEXT({ length: 'medium' }) })
     description_stripped: string;
 
     @Is('priority', (value) => {
@@ -168,10 +172,10 @@ export class Issue extends Model<Issue> {
     @Column
     priority: string;
 
-    @Column({allowNull:true})
+    @Column({ allowNull: true })
     start_date: Date;
 
-    @Column({allowNull:true})
+    @Column({ allowNull: true })
     target_date: Date;
 
     @Column({ defaultValue: 1 })
@@ -180,7 +184,7 @@ export class Issue extends Model<Issue> {
     @Column({ defaultValue: 65535 })
     sort_order: number;
 
-    @Column({ type: DataType.TIME})
+    @Column({ type: DataType.TIME })
     completed_at: Date;
 
     @Column({ type: DataType.DATE })

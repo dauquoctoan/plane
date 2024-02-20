@@ -13,53 +13,55 @@ import { Sequelize } from 'sequelize';
 @ApiTags('Project')
 @ApiBearerAuth('access-token')
 export class ProjectController {
-    constructor(private readonly projectService: ProjectService) { }
-    
-    @UseGuards(AuthGuard)
-    @Post()
-    async create(@Body() project: CreateProjectDto, @RequestNestjs() request: IAuthRequest) {
-        return handleResultSuccess(await this.projectService.createProject(project, request.user.id));
-    }
+  constructor(private readonly projectService: ProjectService) { }
 
-    @UseGuards(AuthGuard)
-    @Get('test')
-    async findAllProject(@RequestNestjs() request: IAuthRequest) {
-        return handleResultSuccess(await this.projectService.findAll({ where: { workspace_id: '40adc8af-0ea6-4501-b6b5-4187e4663430' }, attributes: {
-            include: [
-              [
-                Sequelize.literal(
-                  `(SELECT 1 FROM projectmembers WHERE
+  @UseGuards(AuthGuard)
+  @Post()
+  async create(@Body() project: CreateProjectDto, @RequestNestjs() request: IAuthRequest) {
+    return handleResultSuccess(await this.projectService.createProject(project, request.user.id));
+  }
+
+  @UseGuards(AuthGuard)
+  @Get('test')
+  async findAllProject(@RequestNestjs() request: IAuthRequest) {
+    return handleResultSuccess(await this.projectService.findAll({
+      where: { workspace_id: '40adc8af-0ea6-4501-b6b5-4187e4663430' }, attributes: {
+        include: [
+          [
+            Sequelize.literal(
+              `(SELECT 1 FROM projectmembers WHERE
                     projectmembers.id = Project.id AND
                       projectmembers.member = '${request.user.id}' 
                     )
                   `
-                ),
-                'is_member',
-              ],
-            ],
-          },
-        include: [{ model: User, as: 'created_by_user' }] }));
-    }
+            ),
+            'is_member',
+          ],
+        ],
+      },
+      include: [{ model: User, as: 'created_by_user' }]
+    }));
+  }
 
-    @UseGuards(AuthGuard)
-    @Get('by-id:id')
-    async findOneProject(@Param('id') id: string) {
-        return handleResultSuccess(await this.projectService.findOneById(id));
-    }
+  // @UseGuards(AuthGuard)
+  @Get('by-id/:id')
+  async findOneProject(@Param('id') id: string, @RequestNestjs() request: IAuthRequest) {
+    return handleResultSuccess(await this.projectService.findOneById(id));
+  }
 
-    @UseGuards(AuthGuard)
-    @Get('by-user/:id')
-    async findWorkSpaceByUserId(@RequestNestjs() request: IAuthRequest) {
-      return handleResultSuccess(await this.projectService.getProjectByUserId(request.user.id));
-    }
+  @UseGuards(AuthGuard)
+  @Get('by-user/:id')
+  async findWorkSpaceByUserId(@RequestNestjs() request: IAuthRequest) {
+    return handleResultSuccess(await this.projectService.getProjectByUserId(request.user.id));
+  }
 
-    @Patch(':id')
-    updateProject(@Param('id') id: string, @Body() project: UpdateProjectDto) {
-        return handleResultSuccess(this.projectService.updateById(+id, project));
-    }
+  @Patch(':id')
+  async updateProject(@Param('id') id: string, @Body() project: UpdateProjectDto) {
+    return handleResultSuccess(await this.projectService.updateById(id, project));
+  }
 
-    @Delete(':id')
-    removeProject(@Param("id") id?: string) {
-        return handleResultSuccess(this.projectService.removeById(+id));
-    }
+  @Delete(':id')
+  async removeProject(@Param("id") id?: string) {
+    return handleResultSuccess(await this.projectService.removeById(id));
+  }
 }

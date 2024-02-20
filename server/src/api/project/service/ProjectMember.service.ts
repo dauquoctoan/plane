@@ -85,4 +85,16 @@ export class ProjectMemberService extends BaseService<ProjectMember>{
             handleResultError({ message: messageFindFail(this.repository.getTableName()), messageDetail: error })
         }
     }
+
+    async joinProject(userId: string, projectId: string, role: number) {
+        try {
+            const info = await this.userService.getUser(userId)
+            if (info) {
+                return this.create({ member: info.id, project_id: projectId, role: role || 5, workspace_id: info.last_workspace_id })
+            }
+            handleResultError({ message: messageFindFail(this.repository.getTableName()), messageDetail: 'error' })
+        } catch (error) {
+            handleResultError({ message: messageFindFail(this.repository.getTableName()), messageDetail: error })
+        }
+    }
 }

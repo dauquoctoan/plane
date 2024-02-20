@@ -24,10 +24,10 @@ export class WorkspaceMember extends Model<WorkspaceMember> {
 
     /* ================================================== */
 
-    @BelongsTo(() => Workspace, {foreignKey:'workspace_id'})
+    @BelongsTo(() => Workspace, { foreignKey: 'workspace_id' })
     workspace: Workspace;
 
-    @BelongsTo(() => User,{foreignKey:'member'})
+    @BelongsTo(() => User, { foreignKey: 'member' })
     user: User;
 
     @Is('role', (value) => {
@@ -46,4 +46,7 @@ export class WorkspaceMember extends Model<WorkspaceMember> {
 
     @Column({ type: DataType.JSON, defaultValue: DEFAULT_PROPS })
     default_props: string;
+
+    @Column({ type: DataType.BOOLEAN, defaultValue: true })
+    is_active: boolean;
 }

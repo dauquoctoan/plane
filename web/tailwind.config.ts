@@ -81,16 +81,16 @@ const config: Config = {
             opacity: '1',
             maxHeight: '100px',
             marginTop: '8px',
-            paddingTop:'4px',
-            paddingBottom:'4px',
+            paddingTop: '4px',
+            paddingBottom: '4px',
             transform: 'translateY(0)',
           },
           '100%': {
             opacity: '0',
             maxHeight: '0px',
             marginTop: '0px',
-            paddingTop:'0px',
-            paddingBottom:'0px',
+            paddingTop: '0px',
+            paddingBottom: '0px',
             transform: 'translateY(-50%)',
           },
         },
@@ -144,7 +144,7 @@ const config: Config = {
             'max-height': '500px'
           }
         }
-    },
+      },
       animation: {
         openNoti: 'openNoti .4s ease-out',
         closeNoti: 'closeNoti .4s ease-out',
@@ -159,6 +159,7 @@ const config: Config = {
       },
       colors: {
         "theme-primary": 'var(--color-theme-primary)',
+        "color-text-sidebar": '#A3A3A3',
         "theme-secondary": "var(--color-theme-secondary)",
         "theme-text-primary": 'var(--color-theme-text-primary)',
         "theme-border-primary": 'var(--color-theme-border-primary)',
@@ -171,8 +172,8 @@ const config: Config = {
         'color-info': "var(--color-info)",
         'color-success': "var(--color-success)",
         'color-modal-overlay': 'var(--color-modal-overlay)',
-        'table-shadow-left-primary':'var(--color-light-table-shadow-left-primary)',
-        'table-shadow-right-primary':'var(--color-light-table-shadow-right-primary)'
+        'table-shadow-left-primary': 'var(--color-light-table-shadow-left-primary)',
+        'table-shadow-right-primary': 'var(--color-light-table-shadow-right-primary)'
       }
     },
   },
