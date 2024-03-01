@@ -28,9 +28,12 @@ const MoreToolls = () => {
 
     return (
         <div className="flex flex-col gap-1 text-[13px] min-w-[150px]">
-            {lsMenuItem.map((e) => {
+            {lsMenuItem.map((e, i) => {
                 return (
-                    <div className="flex gap-2 items-center cursor-pointer rounded hover:bg-theme-secondary px-1 select-none">
+                    <div
+                        key={i}
+                        className="flex gap-2 items-center cursor-pointer rounded hover:bg-theme-secondary px-1 select-none"
+                    >
                         {e.icon}
                         <div>{e.text}</div>
                     </div>

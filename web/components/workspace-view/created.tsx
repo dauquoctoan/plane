@@ -6,7 +6,7 @@ import TableIssue from '../issue/tableIssue';
 
 const CreatedWrkspaceView = () => {
     const info = useSelector(selectInfo);
-    return <TableIssue keyApi="created" createBys={[info?.id || '']} />;
+    return <TableIssue createBys={[info?.id || '']} />;
 };
 
 export default CreatedWrkspaceView;

@@ -28,4 +28,6 @@ const ItemDeleteIssue = React.forwardRef((props: IPorps, ref: any) => (
     </div>
 ));
 
+ItemDeleteIssue.displayName = 'ItemDeleteIssue';
+
 export default ItemDeleteIssue;

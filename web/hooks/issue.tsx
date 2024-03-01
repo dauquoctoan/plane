@@ -102,27 +102,36 @@ export const useDataFilter = (cb?: TCalBackChangeDate) => {
         {
             title: 'Priority',
             value: 'priorities',
-            children: optionLevel,
+            children: optionLevel as IItemData[],
         },
         {
             title: 'Create By',
             value: 'createBys',
-            children: createMembeSelectOption(members, 'createBys'),
+            children: createMembeSelectOption(
+                members,
+                'createBys',
+            ) as IItemData[],
         },
         {
             title: 'Assignee',
             value: 'assignees',
-            children: createMembeSelectOption(members, 'assignees'),
+            children: createMembeSelectOption(
+                members,
+                'assignees',
+            ) as IItemData[],
         },
         {
             title: 'Subscriber',
             value: 'subscribers',
-            children: createMembeSelectOption(members, 'subscribers'),
+            children: createMembeSelectOption(
+                members,
+                'subscribers',
+            ) as IItemData[],
         },
         {
             title: 'Label',
             value: 'labels',
-            children: createIssueLabelSelectOption(labels),
+            children: createIssueLabelSelectOption(labels) as IItemData[],
         },
         {
             title: 'Start Date',

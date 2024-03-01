@@ -160,7 +160,7 @@ const AddProject: React.FC<IProps> = ({ setOpen, handleCreateProject }) => {
                     onChange={(value: any) => {
                         setValue('network', value);
                     }}
-                    defaultValue={networkOption[0].value}
+                    defaultValue={networkOption[0].value || ''}
                     options={networkOption}
                     fontSize="text-[12px]"
                 />

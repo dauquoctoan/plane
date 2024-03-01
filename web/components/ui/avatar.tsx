@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { ReactElement } from 'react';
 interface IProps {
-    children: string;
+    children?: string;
     size?: 'sm' | 'md' | 'lg' | 'xl';
     type?: 'circle' | 'square';
 }
@@ -21,10 +21,12 @@ const Avatar: React.FC<IProps> = ({
 
     return (
         <div
-            className={`flex items-center justify-center ${type == 'square' ? 'rounded' : 'rounded-full'
-                } bg-slate-800 select-none text-center text-theme-secondary ${currentStyle}`}
+            className={`flex items-center justify-center ${
+                type == 'square' ? 'rounded' : 'rounded-full'
+            } bg-slate-800 select-none text-center text-theme-secondary ${currentStyle}`}
         >
-            {children[0]?.toUpperCase() || ''}
+            {(children && children.length > 0 && children[0]?.toUpperCase()) ||
+                ''}
         </div>
     );
 };

@@ -18,18 +18,9 @@ const Tooltip: React.FC<IProps> = ({
     disable = false,
     space = 5,
 }) => {
-    if (disable) return <>{children}</>;
     const refPopover = useRef<HTMLDivElement>(null);
     const refPopup = useRef<HTMLDivElement>(null);
-
-    const {
-        open,
-        setOpen,
-        style,
-        handleClose,
-        handleWhenMouseDown,
-        handleWhenMouseLeave,
-    } = usePopUp({
+    const { open, style } = usePopUp({
         refPopover,
         refPopup,
         placement,
@@ -39,6 +30,8 @@ const Tooltip: React.FC<IProps> = ({
         fitWidth: false,
         isChildRen: false,
     });
+
+    if (disable) return <>{children}</>;
 
     return (
         <div className="w-auto">

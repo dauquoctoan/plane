@@ -18,13 +18,7 @@ const GlobalIssueWorkspaceView = () => {
             ),
     );
 
-    return (
-        <div>
-            {issueView && (
-                <TableIssue keyApi={params.issueViewId} {...issueView?.query} />
-            )}
-        </div>
-    );
+    return <div>{issueView && <TableIssue {...issueView?.query} />}</div>;
 };
 
 export default GlobalIssueWorkspaceView;

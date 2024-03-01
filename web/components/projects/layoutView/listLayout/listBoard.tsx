@@ -45,9 +45,9 @@ const ListBoard: FC<IListBoard> = ({ states, issues }) => {
 
     return (
         <div className="w-full">
-            {Object.keys(dataConvert).map((key) => {
+            {Object.keys(dataConvert).map((key, index) => {
                 return (
-                    <div className="">
+                    <div className="" key={index}>
                         <div className="px-3 py-3 border-b bg-theme-secondary flex gap-2 items-center">
                             <div>{dataConvert[key].name}</div>
                             <div className="text-sm font-semibold">
@@ -55,7 +55,7 @@ const ListBoard: FC<IListBoard> = ({ states, issues }) => {
                             </div>
                         </div>
                         <div>
-                            {dataConvert[key].chilren.map((item) => {
+                            {dataConvert[key].chilren.map((item, index) => {
                                 return (
                                     <div
                                         key={item.id}
@@ -275,7 +275,7 @@ const MoreIssue = ({
                         />
                     </div>
                     <div className="py-2 text-[11px]">
-                        Press "Enter" to add issue
+                        Press Enter to add issue
                     </div>
                 </div>
             ) : (

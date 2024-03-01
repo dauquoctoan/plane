@@ -50,8 +50,8 @@ const CyclesTable = () => {
                         })) || []
                     }
                 />
-                {cycles?.map((e) => (
-                    <CycleItem data={e} />
+                {cycles?.map((e, i) => (
+                    <CycleItem key={i} data={e} />
                 ))}
             </div>
         </div>

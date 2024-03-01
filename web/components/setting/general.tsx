@@ -1,7 +1,7 @@
-'use client'
+'use client';
 import { useSelector } from '@/store';
 import { selectInfo } from '@/store/slices/authSlice/selectors';
-import React, { useState } from 'react'
+import React, { useState } from 'react';
 import Avatar from '../ui/avatar';
 import Button from '../ui/button';
 import Input from '../ui/input/Input';
@@ -13,7 +13,7 @@ import { FaAngleDown } from 'react-icons/fa';
 
 const General = () => {
     const info = useSelector(selectInfo);
-    const [isSelectDelete, setIsSelectDelete] = useState(false)
+    const [isSelectDelete, setIsSelectDelete] = useState(false);
     const {
         register,
         handleSubmit,
@@ -26,24 +26,46 @@ const General = () => {
 
     return (
         <div>
-            <div className='flex items-center gap-3 border-b pb-4'>
-                <Avatar children={info?.workspace?.name || ''} size='xl' />
-                <div className=''>
-                    <div className='text-lg font-bold'>{info?.workspace?.name || ''}</div>
-                    <a href={'' + process.env.NEXT_PUBLIC_HOST + process.env.NEXT_PUBLIC_PORT + '/' + info?.workspace?.name}>{'' + process.env.NEXT_PUBLIC_HOST?.replace('http://', '') + process.env.NEXT_PUBLIC_PORT + '/' + info?.workspace?.name}</a>
-                    <div className='text-color-special-primary text-[10px] cursor-pointer'>Upload logo</div>
+            <div className="flex items-center gap-3 border-b pb-4">
+                <Avatar size="xl">{info?.workspace?.name}</Avatar>
+                <div className="">
+                    <div className="text-lg font-bold">
+                        {info?.workspace?.name || ''}
+                    </div>
+                    <a
+                        href={
+                            '' +
+                            process.env.NEXT_PUBLIC_HOST +
+                            process.env.NEXT_PUBLIC_PORT +
+                            '/' +
+                            info?.workspace?.name
+                        }
+                    >
+                        {'' +
+                            process.env.NEXT_PUBLIC_HOST?.replace(
+                                'http://',
+                                '',
+                            ) +
+                            process.env.NEXT_PUBLIC_PORT +
+                            '/' +
+                            info?.workspace?.name}
+                    </a>
+                    <div className="text-color-special-primary text-[10px] cursor-pointer">
+                        Upload logo
+                    </div>
                 </div>
             </div>
-            <div className='w-full'>
-                <form className='w-full'
+            <div className="w-full">
+                <form
+                    className="w-full"
                     onSubmit={handleSubmit(async (data) => {
-                        console.log(data)
+                        console.log(data);
                     })}
                 >
-                    <div className='flex w-full justify-between gap-4 py-10'>
+                    <div className="flex w-full justify-between gap-4 py-10">
                         <Input
-                            label='Workspace name'
-                            wrClassName='flex-1'
+                            label="Workspace name"
+                            wrClassName="flex-1"
                             placeholder="Title"
                             keyForm="name"
                             error={errors}
@@ -54,12 +76,12 @@ const General = () => {
                         />
 
                         <AutoComplete
-                            label='Company size'
+                            label="Company size"
                             wrClassName="flex-1"
                             placeholder="Select organization size"
                             nameForm="Workspace size"
                             keyForm="size"
-                            defaultValue='20'
+                            defaultValue="20"
                             error={errors}
                             register={register}
                             data={ORGANIZATION_SIZE}
@@ -73,7 +95,11 @@ const General = () => {
                             placeholder="Enter your workspace URL"
                             nameForm="Workspace URL"
                             keyForm="url"
-                            defaultValue={APP_CONFIG.DOMAIN_URL + '/' + info?.workspace?.slug}
+                            defaultValue={
+                                APP_CONFIG.DOMAIN_URL +
+                                '/' +
+                                info?.workspace?.slug
+                            }
                             error={errors}
                             register={register}
                             validator={{
@@ -87,20 +113,49 @@ const General = () => {
                             setValue={setValue}
                         />
                     </div>
-                    <Button text='Update Workspace' type='submit' typeBTN='primary' />
-                    <div className='py-4'>
-                        <div className='cursor-pointer flex items-center w-full justify-between transition-all select-none' onClick={() => { setIsSelectDelete(!isSelectDelete) }}>Delete Workspace <span><FaAngleDown className={`ml-5 ${isSelectDelete ? 'rotate-180' : ''}`} /></span></div>
+                    <Button
+                        text="Update Workspace"
+                        type="submit"
+                        typeBTN="primary"
+                    />
+                    <div className="py-4">
+                        <div
+                            className="cursor-pointer flex items-center w-full justify-between transition-all select-none"
+                            onClick={() => {
+                                setIsSelectDelete(!isSelectDelete);
+                            }}
+                        >
+                            Delete Workspace{' '}
+                            <span>
+                                <FaAngleDown
+                                    className={`ml-5 ${
+                                        isSelectDelete ? 'rotate-180' : ''
+                                    }`}
+                                />
+                            </span>
+                        </div>
                         {isSelectDelete && (
                             <div>
-                                <div className='text-[12px]'>The danger zone of the workspace delete page is a critical area that requires careful consideration and attention. When deleting a workspace, all of the data and resources within that workspace will be permanently removed and cannot be recovered.</div>
-                                <Button type='button' text='Delete my workspace' wrClassName='text-color-error mt-5' />
+                                <div className="text-[12px]">
+                                    The danger zone of the workspace delete page
+                                    is a critical area that requires careful
+                                    consideration and attention. When deleting a
+                                    workspace, all of the data and resources
+                                    within that workspace will be permanently
+                                    removed and cannot be recovered.
+                                </div>
+                                <Button
+                                    type="button"
+                                    text="Delete my workspace"
+                                    wrClassName="text-color-error mt-5"
+                                />
                             </div>
                         )}
                     </div>
                 </form>
             </div>
         </div>
-    )
-}
+    );
+};
 
-export default General
+export default General;

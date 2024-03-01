@@ -19,7 +19,17 @@ const Notification = () => {
             <Line />
             <div className="flex-1 overflow-x-hidden overflow-y-auto px-2 py-1 flex flex-col">
                 <Tab
-                    lsLabel={['Created by me', 'My Issues', 'Subscribed']}
+                    lsLabel={[
+                        { title: 'Created by me', key: 'creted' },
+                        {
+                            title: 'My Issues',
+                            key: 'issue',
+                        },
+                        {
+                            title: 'Subscribed',
+                            key: 'sdf',
+                        },
+                    ]}
                     onChange={(e) => {
                         console.log(e);
                     }}

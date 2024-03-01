@@ -38,6 +38,7 @@ const Menu = () => {
             {menus.map((e, i) => {
                 return (
                     <div
+                        key={i}
                         onClick={() => {
                             if (i == 0) {
                                 changeRoute(

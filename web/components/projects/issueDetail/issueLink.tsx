@@ -62,9 +62,12 @@ const IssueLink = ({ issueId }: { issueId: string }) => {
             </div>
             <Line />
             <div className="flex flex-col gap-2 pt-2">
-                {issueLink?.map((e) => {
+                {issueLink?.map((e, i) => {
                     return (
-                        <div className="px-2 py-1 bg-theme-secondary rounded">
+                        <div
+                            key={i}
+                            className="px-2 py-1 bg-theme-secondary rounded"
+                        >
                             <div className="flex items-center justify-between">
                                 <IoMdLink
                                     className="cursor-pointer rotate-45 text-sm"

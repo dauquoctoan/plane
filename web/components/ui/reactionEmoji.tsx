@@ -20,9 +20,10 @@ const ReactionEmoji = ({ onChange }: { onChange: (e: string) => void }) => {
                 className="w-fit"
                 content={
                     <div className="flex gap-2 items-center">
-                        {lsEmoji.map((e) => {
+                        {lsEmoji.map((e, i) => {
                             return (
                                 <div
+                                    key={i}
                                     className="cursor-pointer hover:bg-theme-secondary p-1 rounded"
                                     onClick={() => {
                                         onChange(e);

@@ -164,7 +164,13 @@ const TreeSelect: React.FC<IProps> = ({
         mouse,
         setOpen,
         style,
-    } = usePopUp(refPopover, refPopup, placeMent, isHover, isChldrent);
+    } = usePopUp({
+        refPopover,
+        refPopup,
+        placement: 'bottomCenter',
+        isHover,
+        isChildRen: isChldrent,
+    });
 
     useEffect(() => {
         if (

@@ -96,13 +96,14 @@ const Member = () => {
                 <div className="pb-2">Members</div>
                 <Line />
                 <div>
-                    {members?.map((e) => {
+                    {members?.map((e, i) => {
                         return (
-                            <div className="hover:bg-theme-secondary cursor-pointer border-b flex justify-between px-4">
+                            <div
+                                key={i}
+                                className="hover:bg-theme-secondary cursor-pointer border-b flex justify-between px-4"
+                            >
                                 <div className="flex gap-3 px-2 py-3 items-center">
-                                    <Avatar
-                                        children={e.user.first_name || ''}
-                                    />
+                                    <Avatar>{e.user.first_name || ''}</Avatar>
                                     <div className="">
                                         <div className="font-semibold">
                                             {e.user.first_name +

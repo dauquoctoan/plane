@@ -311,9 +311,10 @@ const IssueDetail: FC<IIssueDetail> = ({ issue }) => {
                             />
                             <div className="flex gap-2">
                                 {convert &&
-                                    Object.keys(convert)?.map((e) => {
+                                    Object.keys(convert)?.map((e, i) => {
                                         return (
                                             <div
+                                                key={i}
                                                 onClick={() => {
                                                     handleReaction(e);
                                                 }}
@@ -332,9 +333,12 @@ const IssueDetail: FC<IIssueDetail> = ({ issue }) => {
                     <div>Properties</div>
                     <Line />
                     <div className="w-full flex flex-col gap-2">
-                        {properties.map((item) => {
+                        {properties.map((item, index) => {
                             return (
-                                <div className="flex justify-between">
+                                <div
+                                    key={index}
+                                    className="flex justify-between"
+                                >
                                     <div className="flex items-center gap-2 w-[200px]">
                                         {item.icons}
                                         <div>{item.name}</div>

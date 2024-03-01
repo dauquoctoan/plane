@@ -26,6 +26,7 @@ const LayoutSwitch: FC<ILayoutSwitch> = ({
             {menuItems.map((e, i) => {
                 return (
                     <div
+                        key={i}
                         onClick={() => {
                             setCurentKey(e.key);
                             onChange(e.key);

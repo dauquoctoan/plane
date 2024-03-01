@@ -52,8 +52,8 @@ const ModulesTable = () => {
                                 })) || []
                             }
                         />
-                        {modules?.map((e) => (
-                            <ModulesItem data={e} />
+                        {modules?.map((e, i) => (
+                            <ModulesItem key={i} data={e} />
                         ))}
                     </div>
                 </>
