@@ -15,6 +15,7 @@ import { CycleIssueService } from 'src/api/cycle/service/CycleIssue.service';
 import { CycleIssue } from 'src/api/cycle/entitys/CycleIssue.entity';
 import { ModuleIssueService } from 'src/api/module/service/ModuleIssue.service';
 import { ModuleIssue } from 'src/api/module/entitys/ModuleIssue.entity';
+import { State } from 'src/api/state/entitys/State.entity';
 
 @Injectable()
 export class IssueService extends BaseService<Issue>{
@@ -53,8 +54,15 @@ export class IssueService extends BaseService<Issue>{
                 })
             }
 
+            const maxIssue = await this.repository.findOne({
+                where:{
+                    project_id: issueItem.project_id
+                },
+                order: [['sequence_id', 'DESC']], 
+                limit: 1
+            })
 
-            const issue = await this.issueRepository.create({ create_by: idUser, ...issueItem } as any)
+            const issue = await this.repository.create({ create_by: idUser , sequence_id: (maxIssue?.sequence_id || 0) + 1, ...issueItem}as any)
 
             if (issueItem.cycle_id) {
                 await this.cycleIssueService.createCycleIssue({ cycle_id: issueItem.cycle_id, issue_id: issue.id })
@@ -122,6 +130,10 @@ export class IssueService extends BaseService<Issue>{
                         ...this.getQueryState(dataDto.states),
                     },
                     include: [
+                        {
+                            model: State,
+                            as: 'state'
+                        },
                         this.getQueryAssignee(dataDto.assignees),
                         this.getQueryCreator(dataDto.createBys),
                         this.getQueryLabel(dataDto.labels),

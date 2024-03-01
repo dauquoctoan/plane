@@ -43,7 +43,7 @@ export class ProjectController {
     }));
   }
 
-  // @UseGuards(AuthGuard)
+                
   @Get('by-id/:id')
   async findOneProject(@Param('id') id: string, @RequestNestjs() request: IAuthRequest) {
     return handleResultSuccess(await this.projectService.findOneById(id));

@@ -98,8 +98,8 @@ const PopoverDatePiker: React.FC<IProps> = ({
 
         return [
             ...getPrevDate(lastPrevDay.getDay()),
-            ...getNextDate(firstNextDay.getDay()),
             ...getObCurentDate(firstDay.getDate(), lastDay.getDate()),
+            ...getNextDate(firstNextDay.getDay()),
         ];
     }
 
@@ -144,7 +144,7 @@ const PopoverDatePiker: React.FC<IProps> = ({
         >
             <div
                 style={{ padding: curentStyle.padding }}
-                className="w-full flex items-center p-2 justify-between text-base"
+                className="flex items-center p-2 justify-between text-base"
             >
                 <FaChevronLeft
                     style={{
@@ -180,7 +180,7 @@ const PopoverDatePiker: React.FC<IProps> = ({
             <Line />
             <div
                 style={{ padding: curentStyle.padding }}
-                className="w-max grid grid-cols-7 p-2 gap-2 text-sm"
+                className="w-full grid grid-cols-7 p-2 gap-2 text-sm"
             >
                 {day.map((e, i) => (
                     <div
@@ -207,11 +207,16 @@ const PopoverDatePiker: React.FC<IProps> = ({
                         onClick={() => {
                             setCurentValue(item);
                         }}
-                        className={`w-8 h-8 flex rounded cursor-pointer justify-center items-center ${
+                        className={`${
+                            new Date().getMonth() != item.month
+                                ? 'text-color-text-sidebar'
+                                : ''
+                        } w-8 h-8 flex rounded cursor-pointer justify-center items-center ${
                             curentValue &&
                             curentValue.date == item.date &&
                             curentValue.month == item.month &&
-                            curentValue?.year == item.year
+                            curentValue?.year == item.year &&
+                            new Date().getMonth() == item.month
                                 ? 'bg-color-special-primary text-theme-primary'
                                 : 'hover:bg-theme-secondary'
                         }`}
@@ -239,6 +244,7 @@ const PopoverDatePiker: React.FC<IProps> = ({
                         fontSize: curentStyle.tittleFontSize,
                         fontWeight: curentStyle.tittleFontWeith,
                     }}
+                    className="cursor-pointer"
                 >
                     Today
                 </div>

@@ -17,11 +17,14 @@ import { ModuleFavoriteController } from './controller/ModuleFavorite.controller
 import { ModuleMemberController } from './controller/ModuleMember.controller';
 import { User } from '../user/entitys/User.entity';
 import { UserService } from '../user/service/User.service';
+import { ModuleUserProperties } from './entitys/ModuleUserProperties.entity';
+import { ModuleUserPropertiesService } from './service/ModuleUserProperties.service';
+import { ModuleUserPropertiesController } from './controller/ModuleUserProperties.controller';
 
 @Module({
-  imports: [SequelizeModule.forFeature([ModuleEntity, ModuleFavorite, ModuleIssue, ModuleLink, ModuleMember,User])],
-  providers: [ModuleService, ModuleLinkService, ModuleIssueService, ModuleFavoriteService, ModuleMemberService, UserService],
-  controllers: [ModuleController, ModuleLinkController, ModuleIssueController, ModuleFavoriteController, ModuleMemberController]
+  imports: [SequelizeModule.forFeature([ModuleEntity, ModuleFavorite, ModuleIssue, ModuleLink, ModuleMember,User, ModuleUserProperties])],
+  providers: [ModuleService, ModuleLinkService, ModuleIssueService, ModuleFavoriteService, ModuleMemberService, UserService, ModuleUserPropertiesService],
+  controllers: [ModuleController, ModuleLinkController, ModuleIssueController, ModuleFavoriteController, ModuleMemberController, ModuleUserPropertiesController]
 })
 
 export class ModuleModule { }

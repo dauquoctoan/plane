@@ -75,7 +75,10 @@ const SelectPopup: React.FC<ISelectPopup> = ({
                         onChange={(e) => {
                             handleSearch(e.target.value);
                         }}
-                        className={'outline-none border rounded px-2 py-1 ' + fontSize}
+                        className={
+                            'outline-none w-full border rounded px-2 py-1 ' +
+                            fontSize
+                        }
                     />
                 </div>
             )}
@@ -90,9 +93,9 @@ const SelectPopup: React.FC<ISelectPopup> = ({
                         isActive={
                             curentValue
                                 ? checkActive(
-                                    item,
-                                    isMutiple ? moreValue : curentValue,
-                                )
+                                      item,
+                                      isMutiple ? moreValue : curentValue,
+                                  )
                                 : false
                         }
                         setValue={setCurentValue}

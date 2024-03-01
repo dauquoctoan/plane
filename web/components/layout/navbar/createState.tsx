@@ -6,6 +6,7 @@ import ColorPickerField from '@/components/ui/colorpicker/colorpickerField';
 import DatePickerField from '@/components/ui/datepicker/datePickerField';
 import Input from '@/components/ui/input/Input';
 import { IOptionItem } from '@/components/ui/select/select';
+import { LS_KEY_STATE } from '@/constants';
 import issueService from '@/services/issue-services';
 import { IData, Istate } from '@/types';
 import React from 'react';
@@ -31,13 +32,7 @@ const CreateState: React.FC<IPropsCreateState> = ({
         control,
         unregister,
     } = useForm<Istate>();
-    const LS_KEY_STATE: { [key: string]: string } = {
-        backlog: 'Backlog',
-        cancelled: 'Cancelled',
-        completed: 'Done',
-        started: 'In Progress',
-        unstarted: 'Todo',
-    };
+
     return (
         <form
             id="create-state-form"

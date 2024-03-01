@@ -1,4 +1,3 @@
-import IssueTable from '@/components/issue/issueTable';
 import ProjectIssue from '@/components/projects/projectIssue';
 import React from 'react';
 

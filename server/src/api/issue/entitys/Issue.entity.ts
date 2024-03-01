@@ -25,7 +25,6 @@ import sequelize from 'sequelize';
 
 @Table
 export class Issue extends Model<Issue> {
-
     /**
    * @ForeignKey: Issue, State
    * @hasMany: InboxIssue, IssueBlocker, PageBlock, ModuleIssue ,IssueAttachment, IssueSubscriber, IssueLink, IssueSequence, IssueRelation, IssueActivity, InboxIssue, IssueComment
@@ -33,7 +32,6 @@ export class Issue extends Model<Issue> {
    * @BelongsTo: State, Issue
    * @BelongsToMany: User[IssueAssignee], Label[IssueLabel]
    */
-
     /* ================================================================= */
     @Column({ type: sequelize.UUID, defaultValue: sequelize.UUIDV4, allowNull: false, primaryKey: true })
     id: string;
@@ -90,55 +88,111 @@ export class Issue extends Model<Issue> {
     @BelongsToMany(() => Label, () => IssueLabel)
     labels: Label[];
 
-    @HasMany(() => InboxIssue, { foreignKey: 'issue_id' })
+    @HasMany(() => InboxIssue, { foreignKey: 'issue_id',
+        onUpdate: "CASCADE",
+        onDelete: "CASCADE",  
+    })
     inbox_issues: InboxIssue[];
 
-    @HasMany(() => CycleIssue, { foreignKey: 'issue_id' })
+    @HasMany(() => CycleIssue, { 
+        foreignKey: 'issue_id', 
+        onUpdate: "CASCADE",
+        onDelete: "CASCADE",
+    })
     cycleIssue: CycleIssue[];
 
-    @HasMany(() => IssueBlocker, { foreignKey: 'blocked_bys' })
+    @HasMany(() => IssueBlocker, { 
+        foreignKey: 'blocked_bys',
+        onUpdate: "CASCADE",
+        onDelete: "CASCADE"
+    })
     blocked_bys: IssueBlocker[];
 
-    @HasMany(() => IssueBlocker, { foreignKey: 'blocks' })
+    @HasMany(() => IssueBlocker, { 
+        foreignKey: 'blocks',
+        onUpdate: "CASCADE",
+        onDelete: "CASCADE"
+    })
     blocks: IssueBlocker[];
 
-    @HasMany(() => PageBlock)
+    @HasMany(() => PageBlock,{ 
+        onUpdate: "CASCADE",
+        onDelete: "CASCADE"
+    })
     page_block: PageBlock[];
 
-    @HasMany(() => ModuleIssue)
+    @HasMany(() => ModuleIssue,{ 
+        onUpdate: "CASCADE",
+        onDelete: "CASCADE"
+    })
     module_issues: ModuleIssue[];
 
-    @HasMany(() => IssueAttachment)
+    @HasMany(() => IssueAttachment,{ 
+        onUpdate: "CASCADE",
+        onDelete: "CASCADE"
+    })
     issue_attachments: IssueAttachment[];
 
-    @HasMany(() => IssueSubscriber)
+    @HasMany(() => IssueSubscriber,{ 
+        onUpdate: "CASCADE",
+        onDelete: "CASCADE"
+    })
     issue_subscribers: IssueSubscriber[];
 
-    @HasMany(() => IssueLink)
+    @HasMany(() => IssueLink,{ 
+        onUpdate: "CASCADE",
+        onDelete: "CASCADE"
+    })
     issue_links: IssueLink[];
 
-    @HasMany(() => IssueSequence)
+    @HasMany(() => IssueSequence,{ 
+        onUpdate: "CASCADE",
+        onDelete: "CASCADE"
+    })
     issue_sequences: IssueSequence[];
 
-    @HasMany(() => IssueReaction)
+    @HasMany(() => IssueReaction,{ 
+        onUpdate: "CASCADE",
+        onDelete: "CASCADE"
+    })
     issue_reactions: IssueReaction[];
 
-    @HasMany(() => IssueRelation, { foreignKey: 'issue_id' })
+    @HasMany(() => IssueRelation, { 
+        foreignKey: 'issue_id',
+        onUpdate: "CASCADE",
+        onDelete: "CASCADE"})
     issue_relation_ids: IssueRelation[];
 
-    @HasMany(() => IssueRelation, { foreignKey: 'related_issue_id' })
+    @HasMany(() => IssueRelation, { 
+        foreignKey: 'related_issue_id',
+        onUpdate: "CASCADE",
+        onDelete: "CASCADE"
+    })
     related_issue_ids: IssueRelation[];
 
-    @HasMany(() => IssueComment)
+    @HasMany(() => IssueComment,{ 
+        onUpdate: "CASCADE",
+        onDelete: "CASCADE"
+    })
     issue_comments: IssueComment[];
 
-    @HasMany(() => InboxIssue, { foreignKey: 'id_issue_duplicate_to' })
+    @HasMany(() => InboxIssue, { 
+        foreignKey: 'id_issue_duplicate_to',  
+        onUpdate: "CASCADE",
+        onDelete: "CASCADE"
+    })
     inbox_issues_duplicate_to: InboxIssue[];
 
-    @HasMany(() => Issue)
+    @HasMany(() => Issue,{ 
+        onUpdate: "CASCADE",
+        onDelete: "CASCADE"
+    })
     issues: Issue[];
 
-    @HasMany(() => IssueActivity)
+    @HasMany(() => IssueActivity,{ 
+        onUpdate: "CASCADE",
+        onDelete: "CASCADE"
+    })
     issue_activitys: IssueActivity[];
 
     @HasOne(() => CycleIssue, { foreignKey: 'issueId' })

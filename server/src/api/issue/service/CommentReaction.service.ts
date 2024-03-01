@@ -11,4 +11,12 @@ export class CommentReactionService extends BaseService<CommentReaction> {
     ) {
         super(commentReaction)
     }
+
+    async createAction(){
+        try {
+            
+        } catch (error) {
+            
+        }
+    }
 }

@@ -8,6 +8,7 @@ import { ModuleLink } from './ModuleLink.entity';
 import { ModuleMember } from './ModuleMember.entity';
 import { Project } from 'src/api/project/entitys/Project.entity';
 import { Workspace } from 'src/api/workspace/entitys/Workspace.entity';
+import { ModuleUserProperties } from './ModuleUserProperties.entity';
 
 @Table
 export class Module extends Model<Module> {
@@ -43,6 +44,9 @@ export class Module extends Model<Module> {
 
     @HasMany(() => ModuleMember)
     module_members: ModuleMember[];
+
+    @HasMany(() => ModuleUserProperties,{foreignKey:'module_id'})
+    module_user_properties: ModuleUserProperties[];
 
     @ForeignKey(() => User)
     @Column({ type: sequelize.UUID, allowNull: true })

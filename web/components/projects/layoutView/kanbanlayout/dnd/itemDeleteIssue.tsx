@@ -1,6 +1,6 @@
 import React from 'react';
 import { ReactSortable } from 'react-sortablejs';
-import { sortableOptions } from './board';
+import { sortableOptions } from './KanbanBoard';
 
 export interface IPorps {
     showTrash: boolean;

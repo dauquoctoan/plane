@@ -3,7 +3,7 @@ import { IoCloseCircleOutline } from 'react-icons/io5';
 import { AiOutlineCalendar } from 'react-icons/ai';
 import PopoverDatePiker from './popoverDatePicker';
 import { ICurentFieldProps } from '../types/form';
-import usePopUp from '@/hooks/popUp';
+import usePopUp, { TPlacement } from '@/hooks/popUp';
 import { createPortal } from 'react-dom';
 import { useNoti } from '@/hooks';
 
@@ -19,7 +19,10 @@ export interface Iprops {
     children?: ReactElement | string;
     value?: any;
     size?: size;
+    border?: boolean;
+    style?: React.CSSProperties;
     className?: string;
+    placement?: TPlacement;
     formatDate?: formatDate;
     isChildren?: boolean;
     beforeUpdateValue?: (data?: string) => Promise<any>;
@@ -60,11 +63,14 @@ const DatePicker: React.FC<ICurentField> = ({
     defaultDate,
     children,
     error,
+    border = true,
+    style: cssStyle,
     disableMessage,
     isChildren = true,
     value,
     className,
     beforeUpdateValue,
+    placement = 'bottomRight',
     formatDate,
     size,
 }) => {
@@ -82,7 +88,7 @@ const DatePicker: React.FC<ICurentField> = ({
     const { open, setOpen, style, handleClose } = usePopUp({
         refPopover: refBtn,
         refPopup: refPopUp,
-        placement: 'bottomRight',
+        placement: placement,
         isChildRen: isChildren,
         refDisable: refClear,
     });
@@ -155,10 +161,10 @@ const DatePicker: React.FC<ICurentField> = ({
     }
 
     return (
-        <div>
+        <div style={cssStyle}>
             <div
-                className={`relative w-fit ${
-                    error ? 'border border-color-error' : 'border'
+                className={`relative w-full ${
+                    error ? 'border border-color-error' : border ? 'border' : ''
                 } hover:bg-theme-secondary rounded select-none cursor-pointer text-sm font-medium`}
             >
                 <div

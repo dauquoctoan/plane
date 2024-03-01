@@ -14,8 +14,6 @@ export interface IPositionResult extends IPosition {
 
 export type TPlacement = 'bottomCenter' | 'bottomLeft' | 'bottomRight' | 'topCenter' | 'topLeft' | 'topRight' | 'rightCenter' | 'rightTop' | 'rightBottom' | "leftCenter" | "leftTop" | "leftBottom";
 
-//|'top'| 'bottom'| 'centerLeft'|'centerRight'
-
 type TRef = React.RefObject<HTMLDivElement>
 
 interface IUsePopUp {
@@ -60,12 +58,14 @@ const usePopUp = ({ refPopover, isChildRen = false, isHover = false, placement =
         let left = undefined;
         let top = undefined;
 
+        const mrOverlay = 10
+
         const margin = wre.offsetWidth - poe.offsetWidth;
         const marginCH = spaceWrCenterHeight - spacePopCenterHeight;
         const marginC = spaceWrCenter - spacePopCenter;
 
         const ytop = wr.top - poe.offsetHeight;
-        const ybottom = wr.top + wre.offsetHeight;
+        const ybottom = wr.top + wr.height;
         const yleft = wr.left;
         const yright = wr.left + wre.offsetWidth - poe.offsetWidth;
 
@@ -74,24 +74,24 @@ const usePopUp = ({ refPopover, isChildRen = false, isHover = false, placement =
         const xtop = wr.top;
         const xbottom = wr.top + wre.offsetHeight - poe.offsetHeight;
 
-        const isYOverFlowT = wr.top - poe.offsetHeight < 0 ? true : false;
-        const isYOverFlowBT = (screenHeight - (wr.top + wr.height + poe.offsetHeight)) < 0 ? true : false;
-        const isYOverFlowR = (screenWidth - (wr.left + poe.offsetWidth)) < 0 ? true : false;
-        const isYOverFlowL = (wr.left - poe.offsetWidth) < 0 ? true : false;
+        const isYOverFlowT = wr.top - poe.offsetHeight < mrOverlay ? true : false;
+        const isYOverFlowBT = (screenHeight - (wr.top + wr.height + poe.offsetHeight)) < mrOverlay ? true : false;
+        const isYOverFlowR = (screenWidth - (wr.left + poe.offsetWidth)) < mrOverlay ? true : false;
+        const isYOverFlowL = (wr.left - poe.offsetWidth) < mrOverlay ? true : false;
 
-        const isXOverFlowL = (wr.left - poe.offsetWidth) < 0 ? true : false;
-        const isXOverFlowR = (screenWidth - (wr.left + wre.offsetWidth + poe.offsetWidth)) < 0 ? true : false;
-        const isXOverFlowBT = (screenHeight - (wr.top + poe.offsetHeight)) < 0 ? true : false;
-        const isXOverFlowT = (wr.top - poe.offsetHeight) < 0 ? true : false;
+        const isXOverFlowL = (wr.left - poe.offsetWidth) < mrOverlay ? true : false;
+        const isXOverFlowR = (screenWidth - (wr.left + wre.offsetWidth + poe.offsetWidth)) < mrOverlay ? true : false;
+        const isXOverFlowBT = (screenHeight - (wr.top + poe.offsetHeight)) < mrOverlay ? true : false;
+        const isXOverFlowT = (wr.top - poe.offsetHeight) < mrOverlay ? true : false;
 
         switch (placement) {
             case "bottomLeft":
                 left = isChildRen ? 0 : isYOverFlowR ? yright : yleft;
-                top = isChildRen ? '100%' : isYOverFlowBT ? ytop : ybottom;
+                top = isChildRen ? '100%' : isYOverFlowBT ? ytop - MARGIN : ybottom + MARGIN;
                 break;
             case 'bottomRight':
                 left = isChildRen ? margin : isYOverFlowL ? yleft : yright;
-                top = isChildRen ? '100%' : isYOverFlowBT ? ytop : ybottom;
+                top = isChildRen ? '100%' : isYOverFlowBT ? ytop - MARGIN : ybottom + MARGIN;
                 break;
             case "bottomCenter":
                 left = isChildRen ? marginC : wr.left + marginC;
@@ -99,15 +99,15 @@ const usePopUp = ({ refPopover, isChildRen = false, isHover = false, placement =
                 break;
             case 'topCenter':
                 left = isChildRen ? marginC : wr.left + marginC;
-                top = isChildRen ? '100%' : isYOverFlowT ? ybottom + MARGIN : ytop - MARGIN;
+                top = isChildRen ? '100%' : isYOverFlowT ? ybottom: ytop - MARGIN;
                 break;
             case 'topRight':
                 left = isChildRen ? margin : isYOverFlowL ? yleft : yright;
-                top = isChildRen ? '100%' : isYOverFlowT ? ybottom : ytop;
+                top = isChildRen ? '100%' : isYOverFlowT ? ybottom: ytop - MARGIN;
                 break;
             case 'topLeft':
                 left = isChildRen ? margin : isYOverFlowR ? yright : yleft;
-                top = isChildRen ? '100%' : isYOverFlowT ? ybottom : ytop;
+                top = isChildRen ? '100%' : isYOverFlowT ? ybottom: ytop - MARGIN;
                 break;
             case 'leftTop':
                 left = isChildRen ? margin : isXOverFlowL ? xright : xleft;
@@ -218,7 +218,7 @@ const usePopUp = ({ refPopover, isChildRen = false, isHover = false, placement =
 
     useEffect(() => {
         function handleClikOpenPopUp(e: any) {
-            if (!refDisable?.current?.contains(e.target) && !e?.target?.clear && e.target.tagName != 'svg') setOpen(true);
+            if (!refDisable?.current?.contains(e.target)) setOpen(true);
         }
 
         if (isHover) addEventMouse();

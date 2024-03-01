@@ -14,6 +14,8 @@ interface IProps {
     keyUpdate?: string;
     value?: string;
     showMoreText?: boolean;
+    border?: boolean;
+    style?: React.CSSProperties;
 }
 
 const SelectState: React.FC<IProps> = ({
@@ -21,6 +23,8 @@ const SelectState: React.FC<IProps> = ({
     stateId,
     onChange,
     keyUpdate,
+    border,
+    style,
     showMoreText,
     value,
     beforeUpdateValue,
@@ -34,6 +38,8 @@ const SelectState: React.FC<IProps> = ({
             defaultValue={stateId}
             options={states && (convertDataOptions(states) as IOptionItem[])}
             isIconCheck
+            style={style}
+            border={border}
             isChildren={false}
             onChange={onChange}
             fontSize="text-[12px]"

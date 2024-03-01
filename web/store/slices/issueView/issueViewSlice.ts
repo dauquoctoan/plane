@@ -1,7 +1,7 @@
 /* Core */
 import { IStateDate } from '@/components/issue/fillterQueryIssue';
 import { IItemData, IItemSelected } from '@/components/ui/collapse/collapse';
-import { IInfo } from '@/types';
+import { IInfo, TLayout } from '@/types';
 import { createSlice, type PayloadAction } from '@reduxjs/toolkit';
 
 export interface IIssueViewSlice{
@@ -11,6 +11,7 @@ export interface IIssueViewSlice{
     dataFilter: IItemData[];
     lsDisableTable: string[];
     isListIssue: boolean;
+    layout: TLayout | null,
 }
 
 const initialState: IIssueViewSlice = {
@@ -20,6 +21,7 @@ const initialState: IIssueViewSlice = {
     customDate:{},
     lsDisableTable: [],
     isListIssue: false,
+    layout: null,
 }
 
 function handleRemoveChild(lsItemSelected:IItemSelected,value: string) {
@@ -42,7 +44,9 @@ export const issueViewSlice = createSlice({
     name: 'issueView',
     initialState,
     reducers: {
-
+        setLayoutProjectView: (state, action: PayloadAction<TLayout>)=>{
+            state.layout = action.payload
+        },
         setDisableTable: (state, action: PayloadAction<string[]>)=>{
             state.lsDisableTable = action.payload
         },

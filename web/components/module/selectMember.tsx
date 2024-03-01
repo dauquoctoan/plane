@@ -12,15 +12,23 @@ interface IProps {
     assigness?: string[];
     beforeUpdateValue: (a: string | string[]) => Promise<any>;
     showMoreText?: boolean;
-    size?: "sm" | "md" | "lg" | "xl"
+    size?: 'sm' | 'md' | 'lg' | 'xl';
+    border?: boolean;
+    style?: React.CSSProperties;
+    isMutiple?: boolean;
+    isOptionItem?: boolean;
 }
 
-const SelectMemberTable: React.FC<IProps> = ({
+const SelectMember: React.FC<IProps> = ({
     projectId,
     assigness,
     showMoreText = true,
     size,
+    border,
+    isMutiple = true,
+    style,
     beforeUpdateValue,
+    isOptionItem,
 }) => {
     const { data: members } = useSWR(
         () => MEMBER_KEY_BY_PROJECT(projectId),
@@ -35,21 +43,28 @@ const SelectMemberTable: React.FC<IProps> = ({
             {members && (
                 <Select
                     fontSize="text-[12px]"
-                    options={createMembeSelectOption(members, undefined, size)}
+                    options={createMembeSelectOption(
+                        members,
+                        undefined,
+                        size,
+                        isOptionItem,
+                    )}
                     isChildren={false}
                     isIconCheck
                     isSearch
+                    style={style}
+                    border={border}
                     showMoreText={showMoreText}
                     beforeUpdateValue={beforeUpdateValue}
-                    isMutiple
+                    isMutiple={isMutiple}
                     isClear
                     defaultValue={assigness}
                 >
                     {<DefaultSelectMember showMoreText={showMoreText} />}
-                </Select >
+                </Select>
             )}
         </>
     );
 };
 
-export default SelectMemberTable;
+export default SelectMember;

@@ -17,7 +17,7 @@ export class IssueReaction extends Model<IssueReaction> {
     issue_id: string;
 
     @BelongsTo(() => User, {foreignKey:'actor'})
-    User: User[];
+    user: User[];
 
     @BelongsTo(() => Issue, {foreignKey:'issue_id'})
     issue: Issue[];

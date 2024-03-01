@@ -173,7 +173,11 @@ const config: Config = {
         'color-success': "var(--color-success)",
         'color-modal-overlay': 'var(--color-modal-overlay)',
         'table-shadow-left-primary': 'var(--color-light-table-shadow-left-primary)',
-        'table-shadow-right-primary': 'var(--color-light-table-shadow-right-primary)'
+        'table-shadow-right-primary': 'var(--color-light-table-shadow-right-primary)',
+        'shadow-left':'rgba(0, 0, 0, 0.12) 0px 4px 8px 0px, rgba(16, 24, 40, 0.12) 0px 6px 12px 0px, rgba(16, 24, 40, 0.12) 0px 1px 16px 0px',
+        'shadow-right':'rgba(0, 0, 0, 0.12) 0px 4px 8px 0px, rgba(16, 24, 40, 0.12) 0px 6px 12px 0px, rgba(16, 24, 40, 0.12) 0px 1px 16px 0px',
+        'shadow-top':'rgba(0, 0, 0, 0.12) 0px 4px 8px 0px, rgba(16, 24, 40, 0.12) 0px 6px 12px 0px, rgba(16, 24, 40, 0.12) 0px 1px 16px 0px',
+        'shadow-bottom':'rgba(0, 0, 0, 0.12) 0px 4px 8px 0px, rgba(16, 24, 40, 0.12) 0px 6px 12px 0px, rgba(16, 24, 40, 0.12) 0px 1px 16px 0px'
       }
     },
   },

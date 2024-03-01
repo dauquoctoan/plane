@@ -1,7 +1,8 @@
-'use client'
+'use client';
 import ChangeCover from '@/components/layout/navbar/changeCover';
 import EmojiIconPicker from '@/components/ui/EmojiIconPicker';
 import Button from '@/components/ui/button';
+import Confirm from '@/components/ui/confirm';
 import Input from '@/components/ui/input/Input';
 import Popover from '@/components/ui/popover';
 import Select, { IOptionItem } from '@/components/ui/select/select';
@@ -14,12 +15,11 @@ import { IData, IParams, IProject } from '@/types';
 import Image from 'next/image';
 import { useParams } from 'next/navigation';
 import { changeRoute } from 'nextjs-progressloader';
-import React from 'react'
+import React from 'react';
 import { useForm } from 'react-hook-form';
 import { BiLockAlt } from 'react-icons/bi';
 import { GiEarthAmerica } from 'react-icons/gi';
 import useSWR, { mutate } from 'swr';
-
 
 interface IForm {
     cover_image: string;
@@ -33,28 +33,21 @@ interface IForm {
 const Setting = () => {
     const params = useParams<IParams>();
 
-    const { data: project } = useSWR<IData<IProject>>(
-        (params.projectid),
-        () => {
-            return projectService.findOneProject<IProject>(
-                params.projectid,
-            );
-        },
-    );
+    const { data: project } = useSWR<IData<IProject>>(params.projectid, () => {
+        return projectService.findOneProject<IProject>(params.projectid);
+    });
 
     return (
-        <div className='w-full'>
-            {
-                project && <UpdateProjectForm project={project} />
-            }
-        </div >
-    )
-}
+        <div className="w-full">
+            {project && <UpdateProjectForm project={project} />}
+        </div>
+    );
+};
 
 const UpdateProjectForm = ({ project }: { project: IProject }) => {
     const params = useParams<IParams>();
     const info = useSelector(selectInfo);
-    const lsNestwork = ['Private', 'Public']
+    const lsNestwork = ['Private', 'Public'];
 
     const {
         register: registerParent,
@@ -73,7 +66,7 @@ const UpdateProjectForm = ({ project }: { project: IProject }) => {
             identifier: project?.identifier,
             name: project?.name || '',
             description: project?.description || '',
-        }
+        },
     });
 
     const noti = useNoti();
@@ -83,36 +76,35 @@ const UpdateProjectForm = ({ project }: { project: IProject }) => {
         { icon: <GiEarthAmerica />, title: 'Public', value: '1' },
     ];
 
-
     const handleDeleteProjecct = async () => {
         const res = await projectService.deleteProject(params.projectid);
         if (res) {
             changeRoute(`/${info?.workspace?.slug}/projects`);
             noti?.success('Delete project success');
+        } else {
+            noti?.error('Delete project error');
         }
-        else {
-            noti?.error('Delete project error')
-        }
-    }
+    };
 
     return (
         <form
             id="create-issue-form"
             onSubmit={handleSubmit(async (data: IProject) => {
                 mutate(params.projectid, async (project: any) => {
-                    const res = await projectService.updateProject<IData<IProject>>(params.projectid, data);
+                    const res = await projectService.updateProject<
+                        IData<IProject>
+                    >(params.projectid, data);
                     if (res) {
-                        noti?.success('update project success')
-                        return res
+                        noti?.success('update project success');
+                        return res;
+                    } else {
+                        noti?.error('update project error');
+                        return project;
                     }
-                    else {
-                        noti?.error('update project error')
-                        return project
-                    }
-                })
+                });
             })}
         >
-            <div className='relative w-full h-[180px] rounded-t-xl'>
+            <div className="relative w-full h-[180px] rounded-t-xl">
                 <Image
                     layout="fill"
                     src={watch('cover_image') || project?.cover_image || ''}
@@ -120,8 +112,8 @@ const UpdateProjectForm = ({ project }: { project: IProject }) => {
                     objectFit="cover"
                     className="w-full h-full rounded-t-xl"
                 />
-                <div className='absolute  bottom-[10px] left-[10px] flex gap-2'>
-                    <div className='w-[60px] h-[60px] rounded-xl bg-white flex items-center justify-center'>
+                <div className="absolute  bottom-[10px] left-[10px] flex gap-2">
+                    <div className="w-[60px] h-[60px] rounded-xl bg-white flex items-center justify-center">
                         <Popover
                             isChildRen
                             placement="bottomCenter"
@@ -137,20 +129,29 @@ const UpdateProjectForm = ({ project }: { project: IProject }) => {
                             contentClassName="border w-[200px]"
                         >
                             <div className="h-10 w-10 rounded bg-theme-secondary cursor-pointer flex items-center justify-center select-none">
-                                {renderEmoji(watch('emoji') || project?.emoji || '')}
+                                {renderEmoji(
+                                    watch('emoji') || project?.emoji || '',
+                                )}
                             </div>
                         </Popover>
                     </div>
-                    <div className='text-white'>
-                        <div className='font-bold'>{project?.name}</div>
-                        <div className='flex items-center gap-2'>
-                            <div className='text-sm'>{project?.identifier}</div>
-                            <div className={`px-1 rounded ${project?.network ? 'bg-color-success' : 'bg-color-error'} text-white text-[9px]`}>{lsNestwork[project?.network || 0]}
+                    <div className="text-white">
+                        <div className="font-bold">{project?.name}</div>
+                        <div className="flex items-center gap-2">
+                            <div className="text-sm">{project?.identifier}</div>
+                            <div
+                                className={`px-1 rounded ${
+                                    project?.network
+                                        ? 'bg-color-success'
+                                        : 'bg-color-error'
+                                } text-white text-[9px]`}
+                            >
+                                {lsNestwork[project?.network || 0]}
                             </div>
                         </div>
                     </div>
                 </div>
-                <div className='absolute bottom-[10px] right-[10px] flex gap-2 bg-white text-[11px] rounded cursor-pointer select-none'>
+                <div className="absolute bottom-[10px] right-[10px] flex gap-2 bg-white text-[11px] rounded cursor-pointer select-none">
                     <Popover
                         placement="bottomRight"
                         pxContent={0}
@@ -169,10 +170,10 @@ const UpdateProjectForm = ({ project }: { project: IProject }) => {
                 </div>
             </div>
 
-            <div className='mt-2' >
+            <div className="mt-2">
                 <Input
                     placeholder="Project Name"
-                    label='Project Name'
+                    label="Project Name"
                     wrClassName="mb-4"
                     keyForm="name"
                     error={errors}
@@ -191,7 +192,7 @@ const UpdateProjectForm = ({ project }: { project: IProject }) => {
 
                 <Input
                     placeholder="Description"
-                    label='Description'
+                    label="Description"
                     wrClassName="mb-4"
                     keyForm="description"
                     error={errors}
@@ -199,10 +200,10 @@ const UpdateProjectForm = ({ project }: { project: IProject }) => {
                     validator={{ required: true }}
                     setValue={setValue}
                 />
-            </ div>
-            <div className='flex gap-3 justify-between mb-4'>
+            </div>
+            <div className="flex gap-3 justify-between mb-4">
                 <Input
-                    label='Identifier'
+                    label="Identifier"
                     wrClassName="w-[150px]"
                     keyForm="identifier"
                     nameForm="Identifier"
@@ -225,12 +226,25 @@ const UpdateProjectForm = ({ project }: { project: IProject }) => {
                 />
             </div>
 
-            <div className='flex gap-2'>
-                <Button text='Update project' type='submit' typeBTN='primary' />
-                <Button text='Delete project' type='button' typeBTN='dashed' className='bg-color-error text-theme-primary' onClick={() => { handleDeleteProjecct() }} />
+            <div className="flex gap-2">
+                <Button text="Update project" type="submit" typeBTN="primary" />
+                <Confirm
+                    title="Delete the project"
+                    desc="Are you sure to delete this project ?"
+                    onConfirm={() => {
+                        handleDeleteProjecct();
+                    }}
+                >
+                    <Button
+                        text="Delete project"
+                        type="button"
+                        typeBTN="dashed"
+                        className="bg-color-error text-theme-primary"
+                    />
+                </Confirm>
             </div>
-        </form >
-    )
-}
+        </form>
+    );
+};
 
-export default Setting
+export default Setting;

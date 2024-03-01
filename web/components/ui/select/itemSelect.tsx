@@ -46,14 +46,20 @@ export const ItemSelect: React.FC<IItemSelect> = ({
                         typeof item === 'string' ? item : item.value || '',
                     );
             }}
-            className={`hover:bg-theme-secondary ${fontSize} mb-1 last:mb-0 gap-1 select-none ${className || ''
-                } cursor-pointer flex items-center justify-between gap-2 px-2 py-1 ${isActive ? 'bg-color-special-secondary' : ''
-                } rounded`}
+            className={`hover:bg-theme-secondary ${fontSize} mb-1 last:mb-0 gap-1 select-none ${
+                className || ''
+            } cursor-pointer flex items-center justify-between gap-2 px-2 py-1 ${
+                isActive ? 'bg-color-special-secondary' : ''
+            } rounded`}
         >
             {typeof item === 'string' ? (
                 item
             ) : (
-                <div className="flex-1 flex items-center gap-1 overflow-hidden">
+                <div
+                    className={`flex-1 flex items-center ${
+                        showMoreText ? 'gap-1' : ''
+                    } overflow-hidden`}
+                >
                     {item?.icon && <div className="w-fit">{item.icon}</div>}
                     <div className="flex-1 cursor-pointer text-ellipsis overflow-hidden whitespace-nowrap">
                         {showMoreText && item.title}

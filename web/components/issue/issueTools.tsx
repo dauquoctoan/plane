@@ -1,5 +1,4 @@
 import React, { ReactElement } from 'react';
-import { BsFillPersonLinesFill } from 'react-icons/bs';
 import { IOptionItem } from '@/components/ui/select/select';
 import { IData, IProjectMember, IUser, Istate } from '@/types';
 import { HiPlusSmall } from 'react-icons/hi2';
@@ -46,7 +45,7 @@ const IssueTools: React.FC<IIssueTools> = ({
                     name="state"
                     control={control}
                     options={optionsState}
-                    defaultValue={optionsState[0].value}
+                    defaultValue={optionsState[0].value || ''}
                     isIconCheck
                     rules={{ required: true }}
                     fontSize="text-[12px]"
@@ -79,7 +78,7 @@ const IssueTools: React.FC<IIssueTools> = ({
                 name="priority"
                 control={control}
                 options={optionLevel}
-                defaultValue={optionLevel[0].value}
+                defaultValue={optionLevel[0].value || ''}
                 isIconCheck
                 fontSize="text-[12px]"
                 customeSelected={(e: any) => {

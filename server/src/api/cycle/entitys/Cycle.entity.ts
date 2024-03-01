@@ -5,6 +5,7 @@ import { CycleFavorite } from './CycleFavorite.entity';
 import sequelize from 'sequelize';
 import { Project } from 'src/api/project/entitys/Project.entity';
 import { Workspace } from 'src/api/workspace/entitys/Workspace.entity';
+import { CycleUserProperties } from './CycleUserProperties';
 
 @Table
 export class Cycle extends Model<Cycle> {
@@ -32,7 +33,11 @@ export class Cycle extends Model<Cycle> {
     @BelongsTo(() => User, {foreignKey: 'owned_by'})
     user: User;
 
-    @BelongsTo(() => Project, {foreignKey: 'project_id'})
+    @BelongsTo(() => Project, {
+        foreignKey: 'project_id',
+        onUpdate: "CASCADE",
+        onDelete: "CASCADE",
+    })
     project: Project;
 
     @BelongsTo(() => Workspace, {foreignKey: 'workspace_id'})
@@ -43,6 +48,9 @@ export class Cycle extends Model<Cycle> {
 
     @HasMany(() => CycleIssue, {foreignKey: 'cycle_id'})
     cycle_issues: CycleIssue[];
+
+    @HasMany(() => CycleUserProperties, {foreignKey: 'cycle_id'})
+    cycle_user_properties: CycleUserProperties[];
 
     @HasMany(() => CycleFavorite, {foreignKey: 'cycle_id'})
     cycle_favorites: CycleFavorite[];

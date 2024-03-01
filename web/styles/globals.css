@@ -166,3 +166,9 @@ body {
 .card:nth-child(1) svg circle:last-of-type {
     stroke: #f39c12;
 }
+
+/* body issue */
+
+.h-max-body {
+    height: calc(100vh - 60px);
+}

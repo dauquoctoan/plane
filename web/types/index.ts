@@ -154,6 +154,7 @@ export interface IIssue extends IBaseData {
     completed_at?: string;
     archived_at?: string;
     is_draft?: boolean;
+    state: Istate;
     assignees?: IUser[] | string[];
     labels?: ILabel[] | string[];
 }
@@ -195,6 +196,8 @@ export interface IIssueViews {
     query_data?: string;
 }
 
+export type TLayout = "list" | "kanban" | "calendar" | "gantt" | "spreadsheet"; 
+
 export interface IProjectMember {
     id: string;
     member: string;
@@ -202,12 +205,56 @@ export interface IProjectMember {
     project_id: string;
     workspace_id: string;
     comment: string;
-    role: number;
-    view_props: string;
+    role: 5|10|15|20|25;
+    view_props: IView_props
     default_props: string;
     preferences: string;
     sort_order: string;
 }
+
+export interface IFilters{
+    state: null,
+    labels: null,
+    priority: null,
+    assignees: null,
+    created_by: null,
+    start_date: null,
+    subscriber: null,
+    state_group: null,
+    target_date: null
+}
+
+export interface IDisplayFilters{
+    type: null,
+    layout: TLayout,
+    group_by: null,
+    order_by: string,
+    sub_issue: boolean,
+    show_empty_groups: boolean,
+    calendar_date_range: string
+}
+
+export interface IDisplayProperties {
+    key: boolean,
+    link: boolean,
+    state: boolean,
+    labels: boolean,
+    assignee: boolean,
+    due_date: boolean,
+    estimate: boolean,
+    priority: boolean,
+    created_on: boolean,
+    start_date: boolean,
+    updated_on: boolean,
+    sub_issue_count: boolean,
+    attachment_count: boolean
+}
+
+export interface IView_props{
+    filters: IFilters,
+    display_filters: IDisplayFilters,
+    display_properties:IDisplayProperties
+};
 
 export interface ICycle {
     id: string;
@@ -265,5 +312,46 @@ export interface IWorkspaceMember {
     default_props: string;
 }
 
+export interface IIsueReaction{
+    id: string;
+    actor: string;
+    issue_id: string;
+    user: IUser;
+    issue: IIssue;
+    reaction: string;
+}
 
+export interface IIsueLink extends IBaseData{
+    id: string;
+    issue_id: string;
+    issue: IIssue;
+    title: string;
+    url: string;
+    metadata: string;
+}
 
+export interface ICycleUserProperties{
+    id:string;
+    cycle_id:string;
+    user_id:string;
+    project_id:string;
+    filters: IFillterIssue;
+    display_filters: IDisplayFilters;
+    display_properties: IDisplayProperties;
+    user: IUser;
+    cycle: ICycle;
+    project: IProject;
+}
+
+export interface IModuleUserProperties{
+    id:string;
+    module_id:string;
+    user_id:string;
+    project_id:string;
+    filters: IFillterIssue;
+    display_filters: IDisplayFilters;
+    display_properties: IDisplayProperties;
+    user: IUser;
+    module: IModule;
+    project: IProject;
+}

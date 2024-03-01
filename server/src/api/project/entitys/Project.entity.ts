@@ -13,6 +13,8 @@ import { Label } from 'src/api/issue/entitys/Label.entity';
 import { ProjectMember } from './ProjectMember.entity';
 import { Cycle } from 'src/api/cycle/entitys/Cycle.entity';
 import { Module } from 'src/api/module/entitys/Module.entity';
+import { CycleUserProperties } from 'src/api/cycle/entitys/CycleUserProperties';
+import { ModuleUserProperties } from 'src/api/module/entitys/ModuleUserProperties.entity';
 
 @Table
 export class Project extends Model<Project> {
@@ -24,9 +26,17 @@ export class Project extends Model<Project> {
 
     @HasMany(() => Label, {
         onUpdate: "CASCADE",
-        onDelete: "CASCADE", foreignKey: 'project_id'
+        onDelete: "CASCADE", 
+        foreignKey: 'project_id'
     })
     label: Label[];
+
+    @HasMany(() => CycleUserProperties, {
+        onUpdate: "CASCADE",
+        onDelete: "CASCADE", 
+        foreignKey: 'project_id'
+    })
+    cycle_user_properties: CycleUserProperties[];
 
     @HasMany(() => Module, {
         onUpdate: "CASCADE",
@@ -35,9 +45,15 @@ export class Project extends Model<Project> {
     })
     module: Module[];
 
+    @HasMany(() => ModuleUserProperties, {
+        foreignKey: 'project_id'
+    })
+    module_user_properties: ModuleUserProperties[];
+
     @HasMany(() => Cycle, {
         onUpdate: "CASCADE",
-        onDelete: "CASCADE", foreignKey: 'project_id'
+        onDelete: "CASCADE", 
+        foreignKey: 'project_id'
     })
     cycle: Cycle[];
 

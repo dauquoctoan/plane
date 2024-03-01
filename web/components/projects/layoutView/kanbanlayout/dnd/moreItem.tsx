@@ -3,7 +3,7 @@ import usePopUp from '@/hooks/popUp';
 import { FC, useEffect, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
 import { LuPlus } from 'react-icons/lu';
-import { IBoardIssues } from './board';
+import { IBoardIssues } from './KanbanBoard';
 import issueService from '@/services/issue-services';
 import { useNoti } from '@/hooks';
 import { useParams, usePathname } from 'next/navigation';
@@ -11,7 +11,6 @@ import { IParams } from '@/types';
 import { useSelector } from '@/store';
 import { selectInfo } from '@/store/slices/authSlice/selectors';
 import { mutate } from 'swr';
-import { ISSUES_BY_PROJECT_ID } from '@/apiKey';
 
 interface IProps {
     block: IBoardIssues;
@@ -32,7 +31,7 @@ const MoreItem: FC<IProps> = ({ block }) => {
     const info = useSelector(selectInfo);
 
     useEffect(() => {
-        if (!title) {
+        if (!open) {
             setTitle('');
         }
     }, [open]);

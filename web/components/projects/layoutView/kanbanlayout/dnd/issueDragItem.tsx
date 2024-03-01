@@ -1,12 +1,13 @@
 import React, { FC, useRef } from 'react';
 import { IoIosMore } from 'react-icons/Io';
-import { IBoardIssues } from './board';
+import { IBoardIssues } from './KanbanBoard';
 import SelectState from '@/components/module/selectState';
 import { useParams } from 'next/navigation';
 import { ILabel, IParams } from '@/types';
 import issueService from '@/services/issue-services';
 import SelectLabelsTable from '@/components/module/selectLabels';
-import SelectMemberTable from '@/components/module/selectMemberTable';
+import SelectMemberTable from '@/components/module/selectMember';
+import { drawerViewSlice, useDispatch } from '@/store';
 export interface IProps {
     data: IBoardIssues;
     setBlocks: React.Dispatch<React.SetStateAction<IBoardIssues[]>>;
@@ -24,6 +25,8 @@ const IssueDragItem: FC<IProps> = ({
 }) => {
     const prevState = useRef<string>('');
     const param = useParams<IParams>();
+    const dispatch = useDispatch();
+
     return (
         <div className="block relative bg-theme-primary p-2 mb-3 border rounded">
             <div className="min-w-[250px] bg-theme-primary flex flex-col">
@@ -35,7 +38,18 @@ const IssueDragItem: FC<IProps> = ({
                         <IoIosMore />
                     </div>
                 </div>
-                <div className="font-bold text-sm bg-theme-primary mb-2">
+                <div
+                    className="font-bold text-sm bg-theme-primary mb-2"
+                    onClick={() => {
+                        data.data &&
+                            dispatch(
+                                drawerViewSlice.actions.setIssueSlected(
+                                    data.data,
+                                ),
+                            );
+                        dispatch(drawerViewSlice.actions.openDrawer());
+                    }}
+                >
                     {data.title}
                 </div>
                 <div className="flex gap-2 bg-theme-primary">
@@ -50,9 +64,11 @@ const IssueDragItem: FC<IProps> = ({
                                 const item = newData[
                                     indexs[0]
                                 ].children?.splice(indexs[1], 1);
+
                                 const index = newData.findIndex((e) => {
                                     return e.id === id;
                                 });
+
                                 if (index && item) {
                                     newData[index].children = [
                                         ...(newData[index].children || []),

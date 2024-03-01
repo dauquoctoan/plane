@@ -15,7 +15,8 @@ export class CreateIssueDto {
     description_html: string;
     description_stripped: string;
     priority: string;
-    start_date: Date;
+    start_date: Date;   
+    project_id:string;
     target_date: Date;
     sequence_id: number;
     sort_order: number;

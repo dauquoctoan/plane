@@ -12,6 +12,7 @@ export class CreateWorkspaceMemberDtoWidthToken{
     workspace_id: string;
     token: string;
 }
+
 export class UpdateWorkspaceMemberDto {
     workspace: number;
     member: number;

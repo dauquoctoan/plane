@@ -9,6 +9,7 @@ export const selectStateIssueView = (state: ReduxState) => state;
 export const selectDataFilter = (state: ReduxState) => state.issueView.dataFilter;
 export const selectlsDisableTable = (state: ReduxState) => state.issueView.lsDisableTable;
 export const selectListIssue = (state: ReduxState) => state.issueView.isListIssue;
+export const selectLayoutProjectView = (state: ReduxState) => state.issueView.layout;
 
 
 

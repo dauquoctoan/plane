@@ -37,7 +37,7 @@ export interface IBoardIssues {
     data?: IIssue;
 }
 
-export default function Board({ data }: { data: IBoardIssues[] }) {
+export default function KanbanBoard({ data }: { data: IBoardIssues[] }) {
     const itemDelete: IBoardIssues = {
         id: '1',
         title: '',

@@ -1,7 +1,10 @@
-export class UpdateIssueLinkDto {
+import { PartialType } from "@nestjs/swagger";
+
+export class CreateIssueLinkDto {
     issue: number;
     title: string;
     url: string;
     metadata: string;
 }
-export class CreateIssueLinkDto { }
+
+export class UpdateIssueLinkDto extends PartialType(CreateIssueLinkDto){}

@@ -85,6 +85,26 @@ export class ProjectMemberService extends BaseService<ProjectMember>{
             handleResultError({ message: messageFindFail(this.repository.getTableName()), messageDetail: error })
         }
     }
+    
+
+    async getProjectView(query: { projectId?: string }, userId: string) {
+        try {
+            const info = await this.userService.findOneById(userId);
+            if (info) {
+                return await this.repository.findOne({
+                    where: {
+                        project_id: query.projectId,
+                        workspace_id: info.last_workspace_id,
+                        member: userId
+                    }
+                });
+            }
+            handleResultError({ message: messageFindFail(this.repository.getTableName()), messageDetail: 'error' })
+        } catch (error) {
+            handleResultError({ message: messageFindFail(this.repository.getTableName()), messageDetail: error })
+        }
+    }
+
 
     async joinProject(userId: string, projectId: string, role: number) {
         try {

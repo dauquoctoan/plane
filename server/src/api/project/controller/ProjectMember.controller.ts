@@ -40,6 +40,12 @@ export class ProjectMemberController {
         return handleResultSuccess(await this.projectMemberService.me(query, request.user.id));
     }
 
+    @Get('project-view')
+    @UseGuards(AuthGuard)
+    async getProjectView(@RequestNest() request: IAuthRequest, @Query() query: { projectId: string }) {
+        return handleResultSuccess(await this.projectMemberService.getProjectView(query, request.user.id));
+    }
+
     @Patch(':id')
     async updateprojectMember(@Param('id') id: string, @Body() project: UpdateProjectMemberDto) {
         return handleResultSuccess(await this.projectMemberService.updateById(id, project));

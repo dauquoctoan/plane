@@ -22,6 +22,7 @@ interface IProps
         | ReactElement<any, string | JSXElementConstructor<any>>
         | ReactElement<any, string | JSXElementConstructor<any>>[];
     content: ReactElement;
+    icons?: ReactElement;
     contentClassName?: string;
     isChildRen?: boolean;
     className?: string;
@@ -40,6 +41,7 @@ const Popover: React.FC<IProps> = ({
     className = '',
     pxContent = 2,
     pyContent = 1,
+    icons,
     isChildRen = false,
     wrClassName = '',
     isHover = false,
@@ -47,9 +49,10 @@ const Popover: React.FC<IProps> = ({
 }) => {
     const refPopover = useRef<HTMLDivElement>(null);
     const refPopup = useRef<HTMLDivElement>(null);
+    const refDisable = useRef<HTMLDivElement>(null);
 
     const { style, open, handleWhenMouseDown, handleWhenMouseLeave } = usePopUp(
-        { refPopover, refPopup, placement, isHover, isChildRen },
+        { refPopover, refPopup, placement, isHover, isChildRen, refDisable },
     );
 
     function renderPop() {

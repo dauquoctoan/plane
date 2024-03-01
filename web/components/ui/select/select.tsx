@@ -18,6 +18,7 @@ export type FontSize =
 export interface IProps extends ICurentFieldProps {
     children?: ReactElement | string;
     options?: IOptionItem[] | string[];
+    border?: boolean;
     defaultValue?: string | string[];
     iconActive?: ReactElement;
     isIconCheck?: boolean;
@@ -29,6 +30,7 @@ export interface IProps extends ICurentFieldProps {
     className?: string;
     disableTooltip?: boolean;
     isMutiple?: boolean;
+    style?: React.CSSProperties;
     isChildren?: boolean;
     fontSize?: FontSize;
     moreItem?: ReactElement;
@@ -43,7 +45,7 @@ export interface IProps extends ICurentFieldProps {
 export interface IOptionItem {
     icon?: ReactElement;
     title: string;
-    value?: string;
+    value?: string | null;
 }
 
 export type Item = IOptionItem | string;
@@ -73,6 +75,7 @@ const Select: React.FC<ICurentField> = ({
     placement,
     onChange,
     isSearch = false,
+    border = true,
     isClear,
     customeSelected,
     keyUpdate,
@@ -80,7 +83,7 @@ const Select: React.FC<ICurentField> = ({
     beforeUpdateValue,
     msgUpdateValueSuccess,
     msgUpdateValueFail,
-
+    style: cssStyle,
     disableTooltip = false,
 }) => {
     const [curentValue, setCurentValue] = useState<string>(
@@ -257,7 +260,7 @@ const Select: React.FC<ICurentField> = ({
     };
 
     return (
-        <div className="relative">
+        <div className="relative" style={cssStyle}>
             <Tooltip
                 placement="topCenter"
                 title={
@@ -285,7 +288,11 @@ const Select: React.FC<ICurentField> = ({
                     }}
                     ref={refBtn}
                     className={`${
-                        error ? 'border border-color-error' : 'border'
+                        error
+                            ? 'border border-color-error'
+                            : border
+                            ? 'border'
+                            : ''
                     } rounded hover:bg-theme-secondary cursor-pointer`}
                 >
                     {(curentItemSelected &&

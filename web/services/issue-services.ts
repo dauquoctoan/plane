@@ -1,4 +1,4 @@
-import { IFillterIssue, IIssue, IIssueViews, ILabel, Istate } from '@/types';
+import { IFillterIssue, IIssue, IIssueViews, IIsueLink, IIsueReaction, ILabel, Istate } from '@/types';
 import { BaseService } from './base-service';
 import APP_CONFIG from '@/configs';
 import { IMoreForm } from '@/components/issue/createIssue';
@@ -42,7 +42,7 @@ class IssueService extends BaseService {
         }
     }
 
-    async createIssue<T>(issue: IIssue & IMoreForm) {
+    async createIssue<T>(issue: Partial<IIssue> & IMoreForm) {
         try {
             return await this.post<T>('issue', issue);
         } catch (error) {
@@ -58,6 +58,14 @@ class IssueService extends BaseService {
         }
     }
 
+    async deleteIssue(issueId:string) {
+        try {
+            return await this.delete('issue/' + issueId);
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
     async findIssueByProjectId<T>(projectId: string) {
         try {
             return await this.get<T>('issue/' + projectId);
@@ -66,7 +74,7 @@ class IssueService extends BaseService {
         }
     }
 
-    async updateIssue<T>(idIssue?: string, issue?: IIssue) {
+    async updateIssue<T>(idIssue?: string, issue?: Partial<IIssue>) {
         try {
             return await this.patch<T>(`issue/${idIssue}`, issue);
         } catch (error) {
@@ -125,6 +133,70 @@ class IssueService extends BaseService {
     async test(a: any) {
         try {
             return await this.post('test', a)
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+    async getReaction(issueId: string) {
+        try {
+            return await this.get('issue-reaction/' + issueId)
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+    async createReaction<T>(data: Partial<IIsueReaction>) {
+        try {
+            return await this.post<T>('issue-reaction', data);
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+    async findReaction<T>(issueId:string) {
+        try {
+            return await this.get<T>('issue-reaction/' + issueId);
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+    async removeReaction(id:string) {
+        try {
+            return await this.delete('issue-reaction/' + id);
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+    async createIssueLink(data: Partial<IIsueLink>) {
+        try {
+            return await this.post<IIsueLink>('issue-link', data);
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+    async findIssueLink(issueId:string) {
+        try {
+            return await this.get<IIsueLink[]>('issue-link/' + issueId);
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+    async updateIssueLink(issueId:string, issueLink: IIsueLink) {
+        try {
+            return await this.patch<IIsueLink[]>('issue-link/' + issueId, issueLink);
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+    async removeIssueLink(id:string) {
+        try {
+            return await this.delete('issue-link/' + id);
         } catch (error) {
             console.log(error)
         }

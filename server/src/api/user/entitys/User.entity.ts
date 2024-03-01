@@ -3,6 +3,7 @@ import { BelongsToMany, Column, CreatedAt, DataType, HasMany, Length, Model, Tab
 import { APIToken } from 'src/api/api_token/entitys/APIToken.entity';
 import { Cycle } from 'src/api/cycle/entitys/Cycle.entity';
 import { CycleFavorite } from 'src/api/cycle/entitys/CycleFavorite.entity';
+import { CycleUserProperties } from 'src/api/cycle/entitys/CycleUserProperties';
 import { Importer } from 'src/api/importer/entitys/Importer.entity';
 import { Issue } from 'src/api/issue/entitys/Issue.entity';
 import { IssueActivity } from 'src/api/issue/entitys/IssueActivity.entity';
@@ -15,6 +16,7 @@ import { Label } from 'src/api/issue/entitys/Label.entity';
 import { Module } from 'src/api/module/entitys/Module.entity';
 import { ModuleFavorite } from 'src/api/module/entitys/ModuleFavorite.entity';
 import { ModuleMember } from 'src/api/module/entitys/ModuleMember.entity';
+import { ModuleUserProperties } from 'src/api/module/entitys/ModuleUserProperties.entity';
 import { Notification } from 'src/api/notification/entitys/Notification.entity';
 import { Page } from 'src/api/page/entitys/Page.entity';
 import { PageFavorite } from 'src/api/page/entitys/PageFavorite.entity';
@@ -77,6 +79,9 @@ export class User extends Model<User> {
     @HasMany(() => SocialLoginConnection,{foreignKey:'user_id'})
     social_login_connections: SocialLoginConnection[];
 
+    @HasMany(() => ModuleUserProperties,{foreignKey:'user_id'})
+    module_user_properties: ModuleUserProperties[];
+
     @HasMany(() => ProjectFavorite,{foreignKey:'user_id'})
     project_favorites: ProjectFavorite[];
 
@@ -88,6 +93,9 @@ export class User extends Model<User> {
 
     @HasMany(() => Module, { foreignKey: 'member' })
     members_modules: Module[];
+
+    @HasMany(() => CycleUserProperties, { foreignKey: 'user_id' })
+    cycle_user_properties: CycleUserProperties[];
 
     @HasMany(() => Project, { foreignKey: 'default_assignee' })
     default_assignes: Project[];

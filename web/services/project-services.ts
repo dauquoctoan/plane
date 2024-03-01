@@ -1,4 +1,4 @@
-import { ICycle, IModule, IProject, IWorkspace } from '@/types';
+import { ICycle, ICycleUserProperties, IModule, IModuleUserProperties, IProject, IProjectMember, IWorkspace } from '@/types';
 import { BaseService } from './base-service';
 import APP_CONFIG from '@/configs';
 
@@ -24,6 +24,14 @@ class ProjectService extends BaseService {
     async getMemberByProject<T>(query: { projectId: string }) {
         try {
             return await this.get<T>('project-member', query)
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+    async getProjectViewByMember<T>(query: { projectId: string }) {
+        try {
+            return await this.get<T>('project-member/project-view', query)
         } catch (error) {
             console.log(error)
         }
@@ -101,6 +109,47 @@ class ProjectService extends BaseService {
             console.log(error)
         }
     }
+
+    async updateProjectMember<T>(projectMemberId:string, data: Partial<IProjectMember>) {
+        try {
+            return await this.patch<T>('project-member/' + projectMemberId, data)
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+    async getCycleUserProperties(projectId:string, cycleId:string) {
+        try {
+            return await this.get<ICycleUserProperties>('cycle-user-properties/' + cycleId + '/project/' + projectId);
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+    async updateCycleUserProperties(cycleUserPropertiesId:string, data: Partial<ICycleUserProperties>) {
+        try {
+            return await this.patch<ICycleUserProperties>('cycle-user-properties/' + cycleUserPropertiesId, data);
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+    async getModuleUserProperties(projectId:string, moduleId:string) {
+        try {
+            return await this.get<IModuleUserProperties>('module-user-properties/' + moduleId + '/project/' + projectId);
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+    async updateModuleUserProperties(cycleUserPropertiesId:string, data: Partial<IModuleUserProperties>) {
+        try {
+            return await this.patch<IModuleUserProperties>('cycle-user-properties/' + cycleUserPropertiesId, data);
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
 }
 
 const projectService = new ProjectService();

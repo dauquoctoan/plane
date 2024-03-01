@@ -3,33 +3,35 @@ import { ApiTags } from '@nestjs/swagger';
 import { CreateCommentReactionDto, UpdateCommentReactionDto } from '../dto/CommentReaction.dto';
 import { CommentReactionService } from '../service/CommentReaction.service';
 import { handleResultSuccess } from 'src/helper/handleresult';
+import { IssueReactionService } from '../service/IssueReaction.service';
+import { CreateIssueReactionDto } from '../dto/IssueReaction.dto';
 
 @Controller('issue-reaction')
 @ApiTags('Issue Reaction')
 export class IssueReactionController {
-    constructor(private readonly workspaceService: CommentReactionService) { }
+    constructor(private readonly workspaceService: IssueReactionService) { }
     @Post()
-    create(@Body() createWorkspaceDto: CreateCommentReactionDto) {
-        return handleResultSuccess(this.workspaceService.create(createWorkspaceDto));
+    async create(@Body() createWorkspaceDto: CreateIssueReactionDto) {
+        return handleResultSuccess(await this.workspaceService.createAction(createWorkspaceDto));
     }
 
     @Get()
-    findAll() {
-        return handleResultSuccess(this.workspaceService.findAll());
+    async findAll() {
+        return handleResultSuccess(await this.workspaceService.findAll());
     }
 
     @Get(':id')
-    findOne(@Param('id') id: string) {
-        return handleResultSuccess(this.workspaceService.findOneById(id));
+    async findOne(@Param('id') id: string) {
+        return handleResultSuccess(await this.workspaceService.findActions(id));
     }
 
     @Patch(':id')
-    update(@Param('id') id: string, @Body() updateWorkspaceDto: UpdateCommentReactionDto) {
-        return handleResultSuccess(this.workspaceService.updateById(id, updateWorkspaceDto));
+    async update(@Param('id') id: string, @Body() updateWorkspaceDto: UpdateCommentReactionDto) {
+        return handleResultSuccess(await this.workspaceService.updateById(id, updateWorkspaceDto));
     }
 
     @Delete(':id')
-    remove(@Param('id') id: string) {
-        return handleResultSuccess(this.workspaceService.removeById(id));
+    async remove(@Param('id') id: string) {
+        return handleResultSuccess(await this.workspaceService.removeAction(id));
     }
 }

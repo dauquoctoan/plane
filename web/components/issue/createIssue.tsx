@@ -60,7 +60,7 @@ const CreateIssue: React.FC<IProps> = ({
     handleCloseModel,
     projects,
     cycleId,
-    moduleId
+    moduleId,
 }) => {
     const pathName = usePathname();
     const noti = useContext(NotiContext);
@@ -176,7 +176,7 @@ const CreateIssue: React.FC<IProps> = ({
                         name="project"
                         options={projectOptions}
                         isIconCheck
-                        defaultValue={projectOptions[0].value}
+                        defaultValue={projectOptions[0].value as string}
                         fontSize="text-sm"
                         customeSelected={(res) => (
                             <div className="flex items-center px-2">
