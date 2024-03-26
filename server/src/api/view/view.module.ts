@@ -9,7 +9,7 @@ import { IssueViewFavorite } from './entitys/IssueViewFavorite.entity';
 import { GlobalView } from './entitys/GlobalView.entity';
 import { IssueViewFavoriteService } from './service/IssueViewFavorite.service';
 import { GlobalViewService } from './service/GlobalView.service';
-import { UserService } from '../user/service/User.service';
+import { UserService } from '../user/service/user.service';
 import { User } from '../user/entitys/User.entity';
 
 @Module({

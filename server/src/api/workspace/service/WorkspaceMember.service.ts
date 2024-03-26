@@ -4,12 +4,9 @@ import { WorkspaceMember } from '../entitys/WorkspaceMember.entity';
 import { InjectModel } from '@nestjs/sequelize';
 import { BaseService } from 'src/api/Base.service';
 import { JwtService } from '@nestjs/jwt';
-import { UserService } from 'src/api/user/service/User.service';
+import { UserService } from 'src/api/user/service/user.service';
 import { handleResultError, handleResultSuccess } from 'src/helper/handleresult';
 import { messageCreateFail, messageFindFail } from 'src/helper/message.create';
-import { CreateWorkspaceMemberDto } from '../dto/WorkspaceMember.dto';
-import { WorkspaceMemberInvite } from '../entitys/WorkspaceMemberInvite.entity';
-import { WorkspaceMemberInviteService } from './WorkspaceMemberInvite.service';
 import { User } from 'src/api/user/entitys/User.entity';
 
 

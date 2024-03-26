@@ -1,7 +1,7 @@
 import { Controller, Get, Post, Body, Param, Patch, Delete, Request as RequestNestjs, UseGuards } from '@nestjs/common';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
-import { ProjectService } from '../service/Project.service';
-import { CreateProjectDto, UpdateProjectDto } from '../dto/Project.dto';
+import { ProjectService } from '../service/project.service';
+import { CreateProjectDto, UpdateProjectDto } from '../dto/project.dto';
 import { handleResultSuccess } from 'src/helper/handleresult';
 import { IAuthRequest } from 'src/types/auth.types';
 import { AuthGuard } from 'src/Guards/auth.guard';

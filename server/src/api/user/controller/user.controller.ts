@@ -1,5 +1,5 @@
 import { Controller, Post, Body, Get, Param, Patch, Delete, UseGuards, Query, Request as RequestNest } from '@nestjs/common';
-import { UserService } from '../service/User.service';
+import { UserService } from '../service/user.service';
 import { CreateUserDto, UpdateUserDto } from '../dto/User.dto';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { AuthGuard } from 'src/Guards/auth.guard';

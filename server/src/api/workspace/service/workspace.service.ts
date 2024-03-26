@@ -7,7 +7,7 @@ import { User } from 'src/api/user/entitys/User.entity';
 import { handleResultError, handleResultSuccess } from 'src/helper/handleresult';
 import { messageCreateFail, messageFindFail } from 'src/helper/message.create';
 import { CreateWorkspaceDto } from '../dto/Workspace.dto';
-import { UserService } from 'src/api/user/service/User.service';
+import { UserService } from 'src/api/user/service/user.service';
 import { WorkspaceMember } from '../entitys/WorkspaceMember.entity';
 import { WorkspaceMemberService } from './WorkspaceMember.service';
 

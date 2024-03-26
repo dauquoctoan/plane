@@ -25,7 +25,7 @@ import { ProjectMember } from 'src/api/project/entitys/ProjectMember.entity';
 import { ProjectPublicMember } from 'src/api/project/entitys/ProjectPublicMember.entity';
 import { ProjectFavorite } from 'src/api/project/entitys/projectFavorite.entity';
 import { SocialLoginConnection } from 'src/api/social_connection/entitys/SocialLoginConnection.entity';
-import { State } from 'src/api/state/entitys/State.entity';
+import { State } from 'src/api/state/entitys/state.entity';
 import { IssueView } from 'src/api/view/entitys/IssueView.entity';
 import { IssueViewFavorite } from 'src/api/view/entitys/IssueViewFavorite.entity';
 import { Team } from 'src/api/workspace/entitys/Team.entity';

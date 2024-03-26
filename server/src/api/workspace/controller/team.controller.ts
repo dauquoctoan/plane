@@ -1,7 +1,7 @@
 import { Controller, Get, Post, Body, Patch, Delete, Query, Param } from '@nestjs/common';
 import { ApiTags } from "@nestjs/swagger";
 import { CreateTeamDto, UpdateTeamDto } from '../dto/Team.dto';
-import { TeamService } from '../service/Team.service';
+import { TeamService } from '../service/team.service';
 import { handleResultSuccess } from 'src/helper/handleresult';
 
 @Controller('team')

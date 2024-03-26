@@ -6,7 +6,7 @@ import { OAuth2Client } from 'google-auth-library';
 import { ApiTags } from '@nestjs/swagger';
 import { JwtService } from '@nestjs/jwt';
 import { handleResultSuccess } from 'src/helper/handleresult';
-import { UserService } from '../user/service/User.service';
+import { UserService } from '../user/service/user.service';
 
 @Controller('auth')
 @ApiTags('Auth')

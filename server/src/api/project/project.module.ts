@@ -1,7 +1,7 @@
 import { Module } from '@nestjs/common';
-import { ProjectService } from './service/Project.service';
+import { ProjectService } from './service/project.service';
 import { SequelizeModule } from '@nestjs/sequelize';
-import { ProjectController } from './controller/Project.controller';
+import { ProjectController } from './controller/project.controller';
 import { Project } from './entitys/Project.entity';
 import { ProjectMember } from './entitys/ProjectMember.entity';
 import { ProjectPublicMember } from './entitys/ProjectPublicMember.entity';
@@ -21,8 +21,8 @@ import { ProjectMemberService } from './service/ProjectMember.service';
 import { ProjectMemberInviteService } from './service/ProjectMemberInvite.service';
 import { ProjectPublicMemberService } from './service/ProjectPublicMember.service';
 import { ProjectFavorite } from './entitys/projectFavorite.entity';
-import { UserModule } from '../user/User.module';
-import { UserService } from '../user/service/User.service';
+import { UserModule } from '../user/user.module';
+import { UserService } from '../user/service/user.service';
 import { User } from '../user/entitys/User.entity';
 
 @Module({

@@ -1,7 +1,7 @@
 
 
 import { Controller, Get, UseGuards, Request as RequestNest, UnauthorizedException, Patch, Body } from '@nestjs/common';
-import { UserService } from '../service/User.service';
+import { UserService } from '../service/user.service';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { AuthGuard } from 'src/Guards/auth.guard';
 import { handleResultSuccess } from 'src/helper/handleresult';
