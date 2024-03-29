@@ -6,7 +6,7 @@ import { INVALID_ROLE } from 'src/constants/message-constant';
 import { Project } from './Project.entity';
 import { Workspace } from 'src/api/workspace/entitys/Workspace.entity';
 
-@Table
+@Table({tableName:'ProjectMembers'})
 export class ProjectMember extends Model<ProjectMember> {
     @Column({ type: sequelize.UUID, defaultValue: sequelize.UUIDV4, allowNull: false, primaryKey: true })
     id: string;

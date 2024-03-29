@@ -41,7 +41,7 @@ const ItemSelected = ({
                 }}
             >
                 <IoCloseCircleOutline
-                    onClick={(e: MouseEvent) => {
+                    onClick={() => {
                         handleRemoveSelect(data);
                     }}
                 />

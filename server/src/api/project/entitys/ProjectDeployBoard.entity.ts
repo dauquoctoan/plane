@@ -4,7 +4,7 @@ import { BelongsTo, Column, DataType, ForeignKey, Length, Model, Table } from 's
 import { Inbox } from 'src/api/inbox/entitys/Inbox.entiy';
 import { DEFAULT_VIEWS } from 'src/constants/entity-constant';
 
-@Table
+@Table({tableName:'ProjectDeployBoards'})
 export class ProjectDeployBoard extends Model<ProjectDeployBoard> {
     @Column({ type: sequelize.UUID, defaultValue: sequelize.UUIDV4, allowNull: false, primaryKey: true })
     id: string;

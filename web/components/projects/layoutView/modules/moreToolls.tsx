@@ -1,5 +1,5 @@
 import React from 'react';
-import { IoIosLink } from 'react-icons/Io';
+import { IoIosLink } from 'react-icons/io';
 import {
     MdModeEditOutline,
     MdOutlineContentCopy,

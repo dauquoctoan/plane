@@ -3,7 +3,7 @@ import { Issue } from 'src/api/issue/entitys/Issue.entity';
 import { Cycle } from './Cycle.entity';
 import sequelize from 'sequelize';
 
-@Table
+@Table({tableName:'CycleIssues'})
 export class CycleIssue extends Model<CycleIssue> {
     @Column({ type: sequelize.UUID, defaultValue: sequelize.UUIDV4, allowNull: false, primaryKey: true })
     id: string;

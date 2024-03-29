@@ -4,7 +4,7 @@ import { ROLE } from 'src/constants/entity-constant';
 import { INVALID_ROLE } from 'src/constants/message-constant';
 import sequelize from 'sequelize';
 
-@Table
+@Table({tableName:'WorkspaceMemberInvites'})
 export class WorkspaceMemberInvite extends Model<WorkspaceMemberInvite> {
     @Column({ type: sequelize.UUID, defaultValue: sequelize.UUIDV4, allowNull: false, primaryKey: true })
     id: string;

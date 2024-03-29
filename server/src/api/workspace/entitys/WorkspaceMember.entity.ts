@@ -5,7 +5,7 @@ import { DEFAULT_PROPS, ROLE } from 'src/constants/entity-constant';
 import { INVALID_ROLE } from 'src/constants/message-constant';
 import sequelize from 'sequelize';
 
-@Table
+@Table({tableName:'WorkspaceMembers'})
 export class WorkspaceMember extends Model<WorkspaceMember> {
     @Column({ type: sequelize.UUID, defaultValue: sequelize.UUIDV4, allowNull: false, primaryKey: true })
     id: string;

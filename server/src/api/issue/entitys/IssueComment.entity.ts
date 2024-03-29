@@ -6,7 +6,7 @@ import { INVALID_ISSUE_ACCESS } from 'src/constants/message-constant';
 import { IssueActivity } from './IssueActivity.entity';
 import sequelize from 'sequelize';
 
-@Table
+@Table({tableName:'IssueComments'})
 export class IssueComment extends Model<IssueComment> {
     @Column({ type: sequelize.UUID, defaultValue: sequelize.UUIDV4, allowNull: false, primaryKey: true })
     id: string;

@@ -3,7 +3,7 @@ import { Workspace } from 'src/api/workspace/entitys/Workspace.entity';
 import { Project } from './Project.entity';
 import sequelize from 'sequelize';
 
-@Table
+@Table({tableName:'ProjectIdentifiers'})
 export class ProjectIdentifier extends Model<ProjectIdentifier> {
     @Column({ type: sequelize.UUID, defaultValue: sequelize.UUIDV4, allowNull: false, primaryKey: true })
     id: string;

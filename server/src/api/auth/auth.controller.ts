@@ -6,7 +6,7 @@ import { OAuth2Client } from 'google-auth-library';
 import { ApiTags } from '@nestjs/swagger';
 import { JwtService } from '@nestjs/jwt';
 import { handleResultSuccess } from 'src/helper/handleresult';
-import { UserService } from '../user/service/User.service';
+import { UserService } from '../user/service/user.service';
 
 @Controller('auth')
 @ApiTags('Auth')
@@ -15,7 +15,6 @@ export class AuthController {
   @Post('sign-in')
   async authEndPoint(@Body() authenEndPointDto: AuthenEndPointDto) {
     const client = new OAuth2Client();
-
     try {
       const ticket = await client.verifyIdToken({
         idToken: authenEndPointDto?.idToken,

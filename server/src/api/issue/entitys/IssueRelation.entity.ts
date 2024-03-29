@@ -4,7 +4,7 @@ import { RELATION } from 'src/constants/entity-constant';
 import { INVALID_RELATION } from 'src/constants/message-constant';
 import sequelize from 'sequelize';
 
-@Table
+@Table({tableName:'IssueRelations'})
 export class IssueRelation extends Model<IssueRelation> {
     @Column({ type: sequelize.UUID, defaultValue: sequelize.UUIDV4, allowNull: false, primaryKey: true })
     id: string;

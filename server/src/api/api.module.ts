@@ -1,7 +1,5 @@
 import { Module } from '@nestjs/common';
 import { RouterModule } from '@nestjs/core'
-import { StateModule } from './state/State.module';
-import { UserModule } from './user/User.module';
 import { WorkspaceModule } from './workspace/workspace.module';
 import { ViewModule } from './view/view.module';
 import { AnalyticModule } from './analytic/analytic.module';
@@ -21,6 +19,8 @@ import { AuthModule } from './auth/auth.module';
 import { TestModule } from './test/test.module';
 import { Test1Module } from './test1/test1.module';
 import { SocialConnectionModule } from './social_connection/SocialConnection.module';
+import { StateModule } from './state/state.module';
+import { UserModule } from './user/user.module';
 
 @Module({
     imports: [

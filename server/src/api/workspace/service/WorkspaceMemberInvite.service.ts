@@ -9,7 +9,7 @@ import { WorkspaceService } from './workspace.service';
 import { sendMail } from 'src/helper/sendmail';
 import { handleResultError } from 'src/helper/handleresult';
 import { messageCreateFail, messageFindFail } from 'src/helper/message.create';
-import { UserService } from 'src/api/user/service/User.service';
+import { UserService } from 'src/api/user/service/user.service';
 import { Workspace } from '../entitys/Workspace.entity';
 import { WorkspaceMemberService } from './WorkspaceMember.service';
 import { User } from 'src/api/user/entitys/User.entity';

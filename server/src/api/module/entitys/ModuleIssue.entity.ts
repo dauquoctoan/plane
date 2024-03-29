@@ -3,7 +3,7 @@ import { Module } from './Module.entity';
 import { Issue } from 'src/api/issue/entitys/Issue.entity';
 import sequelize from 'sequelize';
 
-@Table
+@Table({tableName:'ModuleIssues'})
 export class ModuleIssue extends Model<ModuleIssue> {
     @ForeignKey(() => Module)
     @Column({ type: sequelize.UUID, allowNull: false })

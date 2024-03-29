@@ -2,7 +2,7 @@ import { BelongsTo, Column, DataType, ForeignKey, Is, Length, Model, Table } fro
 import { Estimate } from './Estimate.entity';
 import sequelize from 'sequelize';
 
-@Table
+@Table({tableName:'EstimatePoints'})
 export class EstimatePoint extends Model<EstimatePoint> {
     @Column({ type: sequelize.UUID, defaultValue: sequelize.UUIDV4, allowNull: false, primaryKey: true })
     id: string;

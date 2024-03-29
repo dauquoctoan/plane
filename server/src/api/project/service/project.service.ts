@@ -5,9 +5,9 @@ import { Project } from '../entitys/Project.entity';
 import { handleResultError } from 'src/helper/handleresult';
 import { messageCreateFail, messageFindFail } from 'src/helper/message.create';
 import { User } from 'src/api/user/entitys/User.entity';
-import { UserService } from 'src/api/user/service/User.service';
+import { UserService } from 'src/api/user/service/user.service';
 import { Sequelize } from 'sequelize';
-import { CreateProjectDto } from '../dto/Project.dto';
+import { CreateProjectDto } from '../dto/project.dto';
 import { ProjectMemberService } from './ProjectMember.service';
 import { CreateProjectMemberDto } from '../dto/ProjectMember.dto';
 
@@ -30,9 +30,9 @@ export class ProjectService extends BaseService<Project>{
             include: [
               [
                 Sequelize.literal(
-                  `(SELECT 1 FROM projectmembers WHERE
-                              projectmembers.project_id = Project.id AND
-                              projectmembers.member = '${userId}' 
+                  `(SELECT 1 FROM ProjectMembers WHERE
+                              ProjectMembers.project_id = Project.id AND
+                              ProjectMembers.member = '${userId}' 
                             )
                           `
                 ),

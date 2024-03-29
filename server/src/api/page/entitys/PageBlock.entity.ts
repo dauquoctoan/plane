@@ -4,7 +4,7 @@ import { SORT_ORDER } from 'src/constants/entity-constant';
 import { Page } from './Page.entity';
 import sequelize from 'sequelize';
 
-@Table
+@Table({tableName:'PageBlocks'})
 export class PageBlock extends Model<PageBlock> {
     @Column({ type: sequelize.UUID, defaultValue: sequelize.UUIDV4, allowNull: false, primaryKey: true })
     id: string;

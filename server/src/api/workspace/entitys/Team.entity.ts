@@ -4,7 +4,7 @@ import { TeamMember } from './TeamMember.entity';
 import { Workspace } from './Workspace.entity';
 import sequelize from 'sequelize';
 
-@Table
+@Table({tableName:'Teams'})
 export class Team extends Model<Team> {
     @Column({ type: sequelize.UUID, defaultValue: sequelize.UUIDV4, allowNull: false, primaryKey: true })
     id: string;

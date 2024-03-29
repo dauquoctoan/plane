@@ -5,7 +5,7 @@ import { User } from 'src/api/user/entitys/User.entity';
 import { Project } from 'src/api/project/entitys/Project.entity';
 import { Module } from './Module.entity';
 
-@Table
+@Table({tableName:'ModuleUserProperties'})
 export class ModuleUserProperties extends Model<ModuleUserProperties> {
     @Column({ type: sequelize.UUID, defaultValue: sequelize.UUIDV4, allowNull: false, primaryKey: true })
     id: string;

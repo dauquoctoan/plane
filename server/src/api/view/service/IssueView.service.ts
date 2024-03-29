@@ -7,7 +7,7 @@ import { InjectModel } from '@nestjs/sequelize';
 import { CreateIssueViewDto } from '../dto/IssueView.entity.dto';
 import { handleResultError } from 'src/helper/handleresult';
 import { messageCreateFail } from 'src/helper/message.create';
-import { UserService } from 'src/api/user/service/User.service';
+import { UserService } from 'src/api/user/service/user.service';
 
 @Injectable()
 export class IssueViewService extends BaseService<IssueView> {

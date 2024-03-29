@@ -131,7 +131,7 @@ const DatePicker: React.FC<ICurentField> = ({
                 <span>{formartDate(formatDate, curentValue)}</span>
                 <div ref={refClear}>
                     <IoCloseCircleOutline
-                        style={{ zindex: 100 }}
+                        style={{ zIndex: 100 }}
                         onClick={function () {
                             handleBeforeUpdate(undefined);
                         }}

@@ -4,7 +4,7 @@ import { WorkspaceService } from '../service/workspace.service';
 import { ApiBearerAuth, ApiTags } from "@nestjs/swagger";
 import { CreateWorkspaceDto, UpdateWorkspaceDto } from '../dto/Workspace.dto';
 import { handleResultError, handleResultSuccess } from 'src/helper/handleresult';
-import { UserService } from 'src/api/user/service/User.service';
+import { UserService } from 'src/api/user/service/user.service';
 import { UpdateUserDto } from 'src/api/user/dto/User.dto';
 import { IAuthRequest } from 'src/types/auth.types';
 import { messageCreateFail } from 'src/helper/message.create';

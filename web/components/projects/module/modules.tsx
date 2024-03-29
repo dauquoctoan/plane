@@ -9,7 +9,7 @@ import { ICycle, IData, IModule, IParams } from '@/types';
 import { useParams, useRouter } from 'next/navigation';
 import { ContainerLink, changeRoute } from 'nextjs-progressloader';
 import React from 'react';
-import { IoIosMore } from 'react-icons/Io';
+import { IoIosMore } from 'react-icons/io';
 import { BsFillPersonLinesFill } from 'react-icons/bs';
 import { LuInfo } from 'react-icons/lu';
 import { MdOutlineStarBorderPurple500 } from 'react-icons/md';

@@ -25,7 +25,7 @@ import { ProjectMember } from 'src/api/project/entitys/ProjectMember.entity';
 import { ProjectPublicMember } from 'src/api/project/entitys/ProjectPublicMember.entity';
 import { ProjectFavorite } from 'src/api/project/entitys/projectFavorite.entity';
 import { SocialLoginConnection } from 'src/api/social_connection/entitys/SocialLoginConnection.entity';
-import { State } from 'src/api/state/entitys/State.entity';
+import { State } from 'src/api/state/entitys/state.entity';
 import { IssueView } from 'src/api/view/entitys/IssueView.entity';
 import { IssueViewFavorite } from 'src/api/view/entitys/IssueViewFavorite.entity';
 import { Team } from 'src/api/workspace/entitys/Team.entity';
@@ -36,7 +36,7 @@ import { WorkspaceTheme } from 'src/api/workspace/entitys/WorkspaceTheme.entity'
 import { DEFAULT_ONBOARDING } from 'src/constants/entity-constant';
 import { validEmail } from 'src/helper/regex';
 
-@Table
+@Table({tableName:'Users'})
 export class User extends Model<User> {
     @Column({ type: sequelize.UUID, defaultValue: sequelize.UUIDV4, allowNull: false, primaryKey: true })
     id: string;

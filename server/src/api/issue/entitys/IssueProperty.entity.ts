@@ -3,7 +3,7 @@ import { BelongsTo, Column, DataType, ForeignKey, Model, Table } from 'sequelize
 import { User } from 'src/api/user/entitys/User.entity';
 import { DEFAULT_PROPS } from 'src/constants/entity-constant';
 
-@Table
+@Table({tableName:'IssuePropertys'})
 export class IssueProperty extends Model<IssueProperty> {
     @Column({ type: sequelize.UUID, defaultValue: sequelize.UUIDV4, allowNull: false, primaryKey: true })
     id: string;

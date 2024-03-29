@@ -6,7 +6,7 @@ import { handleResultError } from 'src/helper/handleresult';
 import { messageCreateFail, messageFindFail } from 'src/helper/message.create';
 import { User } from 'src/api/user/entitys/User.entity';
 import { CreateIssueDto, QueryIssueDto } from '../dto/Issue.dto';
-import { UserService } from 'src/api/user/service/User.service';
+import { UserService } from 'src/api/user/service/user.service';
 import { Op } from 'sequelize';
 import { LabelService } from './Label.service';
 import { Label } from '../entitys/Label.entity';
@@ -15,7 +15,7 @@ import { CycleIssueService } from 'src/api/cycle/service/CycleIssue.service';
 import { CycleIssue } from 'src/api/cycle/entitys/CycleIssue.entity';
 import { ModuleIssueService } from 'src/api/module/service/ModuleIssue.service';
 import { ModuleIssue } from 'src/api/module/entitys/ModuleIssue.entity';
-import { State } from 'src/api/state/entitys/State.entity';
+import { State } from 'src/api/state/entitys/state.entity';
 
 @Injectable()
 export class IssueService extends BaseService<Issue>{

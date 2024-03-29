@@ -1,3 +1,4 @@
+
 import '../styles/globals.css';
 import '../styles/variable.css';
 import '../styles/icons.css';
@@ -5,7 +6,7 @@ import '../styles/loading.css';
 import { Providers } from '@/store/providers';
 import { Inter } from 'next/font/google';
 import SWRProvider from '@/components/commont/swr-provider';
-import { ProgressLoader } from 'nextjs-progressloader';
+import ProgressLoader from '@/components/ui/ProgressLoader';
 
 const inter = Inter({ subsets: ['vietnamese'] });
 export const metadata: any = {
@@ -26,7 +27,6 @@ export default function RootLayout({
                 <body className={`${inter.className} theme-light`}>
                     <ProgressLoader
                         color="var(--color-special-primary)"
-                        showSpinner={false}
                     />
                     <SWRProvider>{children}</SWRProvider>
                 </body>

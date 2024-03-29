@@ -7,7 +7,7 @@ import { selectInfo } from '@/store/slices/authSlice/selectors';
 import { IIssue, ILabel, IParams, IProject, Istate } from '@/types';
 import { useParams, usePathname } from 'next/navigation';
 import React, { FC, useEffect, useRef, useState } from 'react';
-import { IoIosMore } from 'react-icons/Io';
+import { IoIosMore } from 'react-icons/io';
 import { HiPlusSm } from 'react-icons/hi';
 import useSWR, { mutate } from 'swr';
 import MoreToolls from '../modules/moreToolls';

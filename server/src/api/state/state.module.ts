@@ -2,9 +2,9 @@
 import { Module } from '@nestjs/common';
 import { SequelizeModule } from '@nestjs/sequelize';
 /* feachture */
-import { StateService } from './service/State.service';
-import { StateController } from './controller/State.controller';
-import { State } from './entitys/State.entity';
+import { StateService } from './service/state.service';
+import { StateController } from './controller/state.controller';
+import { State } from './entitys/state.entity';
 
 @Module({
   imports: [SequelizeModule.forFeature([State])],

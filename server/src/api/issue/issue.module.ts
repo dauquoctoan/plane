@@ -28,7 +28,6 @@ import { IssueReactionService } from './service/IssueReaction.service';
 import { IssueSubscriberService } from './service/IssueSubscriber.service';
 import { IssueVoteService } from './service/IssueVote.service';
 import { LabelService } from './service/Label.service';
-import { IssueController } from './controller/Issue.controller';
 import { IssueActivityController } from './controller/IssueActivity.controller';
 import { IssueReactionController } from './controller/IssueReaction.controller';
 import { IssueAssigneeController } from './controller/IssueAssignee.controller';
@@ -45,12 +44,13 @@ import { CommentReactionController } from './controller/CommentReaction.controll
 import { IssueRelation } from './entitys/IssueRelation.entity';
 import { IssueSequence } from './entitys/IssueSequence.entity';
 import { User } from '../user/entitys/User.entity';
-import { UserService } from '../user/service/User.service';
 import { CycleIssueService } from '../cycle/service/CycleIssue.service';
 import { CycleModule } from '../cycle/cycle.module';
 import { CycleIssue } from '../cycle/entitys/CycleIssue.entity';
 import { ModuleIssue } from '../module/entitys/ModuleIssue.entity';
 import { ModuleIssueService } from '../module/service/ModuleIssue.service';
+import { UserService } from '../user/service/user.service';
+import { IssueController } from './controller/issue.controller';
 
 @Module({
   imports: [SequelizeModule.forFeature([

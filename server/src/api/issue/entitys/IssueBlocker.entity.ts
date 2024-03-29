@@ -2,7 +2,7 @@ import { BelongsTo, Column, ForeignKey, Model, Table } from 'sequelize-typescrip
 import { Issue } from './Issue.entity';
 import sequelize from 'sequelize';
 
-@Table
+@Table({tableName:'IssueBlockers'})
 export class IssueBlocker extends Model<IssueBlocker> {
     @Column({ type: sequelize.UUID, defaultValue: sequelize.UUIDV4, allowNull: false, primaryKey: true })
     id: string;

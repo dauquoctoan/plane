@@ -6,14 +6,14 @@ import { CycleIssue } from './entitys/CycleIssue.entity';
 import { CycleFavorite } from './entitys/CycleFavorite.entity';
 import { CycleFavoriteService } from './service/CycleFavorite.service';
 import { CycleIssueService } from './service/CycleIssue.service';
-import { CycleController } from './controller/cycle.controller';
 import { CycleFavoriteController } from './controller/CycleFavorite.controller';
 import { CycleIssueController } from './controller/CycleIssue.controller';
-import { UserService } from '../user/service/User.service';
 import { User } from '../user/entitys/User.entity';
 import { CycleUserPropertiesService } from './service/CycleUserProperties.service';
 import { CycleUserPropertiesController } from './controller/CycleUserProperties.controller';
 import { CycleUserProperties } from './entitys/CycleUserProperties';
+import { CycleController } from './controller/Cycle.controller';
+import { UserService } from '../user/service/user.service';
 
 @Module({
   imports: [SequelizeModule.forFeature([Cycle, CycleIssue, CycleFavorite, User, CycleUserProperties])

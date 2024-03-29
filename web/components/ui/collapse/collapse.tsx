@@ -1,5 +1,5 @@
 import React, { ReactElement, useState } from 'react';
-import { IoIosCheckbox, IoIosCheckboxOutline } from 'react-icons/Io';
+import { IoIosCheckbox, IoIosCheckboxOutline } from 'react-icons/io';
 import { FaAngleDown } from 'react-icons/fa';
 import { LiaWindowMinimizeSolid } from 'react-icons/lia';
 import Empty from '../empty';

@@ -5,7 +5,7 @@ import { User } from 'src/api/user/entitys/User.entity';
 import { SERVICE, STATUS } from 'src/constants/entity-constant';
 import { INVALID_SERVICE, INVALID_STATUS } from 'src/constants/message-constant';
 
-@Table
+@Table({tableName:'Importers'})
 export class Importer extends Model<Importer> {
     @Column({ type: sequelize.UUID, defaultValue: sequelize.UUIDV4, allowNull: false, primaryKey: true })
     id: string;

@@ -4,7 +4,7 @@ import { Project } from 'src/api/project/entitys/Project.entity';
 import { User } from 'src/api/user/entitys/User.entity';
 import { Workspace } from 'src/api/workspace/entitys/Workspace.entity';
 
-@Table
+@Table({tableName:'Notifications'})
 export class Notification extends Model<Notification> {
     @Column({ type: sequelize.UUID, defaultValue: sequelize.UUIDV4, allowNull: false, primaryKey: true })
     id: string;

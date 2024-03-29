@@ -3,14 +3,14 @@ import { InjectModel } from '@nestjs/sequelize';
 import { Module } from '../entitys/Module.entity';
 import { Repository } from 'sequelize-typescript';
 import { BaseService } from 'src/api/Base.service';
-import { UserService } from 'src/api/user/service/User.service';
+import { UserService } from 'src/api/user/service/user.service';
 import { handleResultError } from 'src/helper/handleresult';
 import { messageCreateFail, messageFindFail } from 'src/helper/message.create';
 import { CreateModuleDto } from '../dto/Module.dto';
 import sequelize from 'sequelize';
 import { ModuleIssue } from '../entitys/ModuleIssue.entity';
 import { Issue } from 'src/api/issue/entitys/Issue.entity';
-import { State } from 'src/api/state/entitys/State.entity';
+import { State } from 'src/api/state/entitys/state.entity';
 
 @Injectable()
 export class ModuleService extends BaseService<Module> {

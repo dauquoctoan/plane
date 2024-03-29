@@ -8,7 +8,7 @@ import useSWR, { mutate } from 'swr';
 import workspaceService from '@/services/workspace-services';
 import { IWorkspace, IWorkspaceMember } from '@/types';
 import Avatar from '../ui/avatar';
-import { IoIosCloseCircleOutline } from 'react-icons/Io';
+import { IoIosCloseCircleOutline } from 'react-icons/io';
 import { MEMBER_ROLE_KEY } from '@/constants';
 import { useNoti } from '@/hooks';
 import { useSelector } from '@/store';

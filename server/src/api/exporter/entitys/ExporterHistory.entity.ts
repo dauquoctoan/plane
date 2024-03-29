@@ -4,7 +4,7 @@ import { Workspace } from 'src/api/workspace/entitys/Workspace.entity';
 import { PROVIDE, STATUS } from 'src/constants/entity-constant';
 import { INVALID_PROVIDE, INVALID_STATUS } from 'src/constants/message-constant';
 
-@Table
+@Table({tableName:'ExporterHistorys'})
 export class ExporterHistory extends Model {
     /**
     * !FK

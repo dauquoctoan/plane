@@ -1,6 +1,6 @@
 import { Istate } from '@/types';
 import { ReactElement } from 'react';
-import { IoIosCheckmarkCircleOutline } from 'react-icons/Io';
+import { IoIosCheckmarkCircleOutline } from 'react-icons/io';
 import { CiCircleMore } from 'react-icons/ci';
 import { FaRegCircle } from 'react-icons/fa';
 import { IoCloseCircleOutline } from 'react-icons/io5';

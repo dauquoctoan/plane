@@ -1,7 +1,7 @@
 import { Controller, Get, Post, Body, Param, Patch, Delete, Request as RequestNestjs, UseGuards } from '@nestjs/common';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
-import { ProjectService } from '../service/Project.service';
-import { CreateProjectDto, UpdateProjectDto } from '../dto/Project.dto';
+import { ProjectService } from '../service/project.service';
+import { CreateProjectDto, UpdateProjectDto } from '../dto/project.dto';
 import { handleResultSuccess } from 'src/helper/handleresult';
 import { IAuthRequest } from 'src/types/auth.types';
 import { AuthGuard } from 'src/Guards/auth.guard';
@@ -29,9 +29,9 @@ export class ProjectController {
         include: [
           [
             Sequelize.literal(
-              `(SELECT 1 FROM projectmembers WHERE
-                    projectmembers.id = Project.id AND
-                      projectmembers.member = '${request.user.id}' 
+              `(SELECT 1 FROM ProjectMembers WHERE
+                      ProjectMembers.id = Project.id AND
+                      ProjectMembers.member = '${request.user.id}' 
                     )
                   `
             ),

@@ -3,7 +3,7 @@ import { User } from 'src/api/user/entitys/User.entity';
 import { Issue } from './Issue.entity';
 import sequelize from 'sequelize';
 
-@Table
+@Table({tableName:'IssueReactions'})
 export class IssueReaction extends Model<IssueReaction> {
     @Column({ type: sequelize.UUID, defaultValue: sequelize.UUIDV4, allowNull: false, primaryKey: true })
     id: string;

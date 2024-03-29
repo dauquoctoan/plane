@@ -1,5 +1,5 @@
 import React, { FC, useRef } from 'react';
-import { IoIosMore } from 'react-icons/Io';
+import { IoIosMore } from 'react-icons/io';
 import { IBoardIssues } from './KanbanBoard';
 import SelectState from '@/components/module/selectState';
 import { useParams } from 'next/navigation';

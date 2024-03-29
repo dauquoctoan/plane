@@ -1,6 +1,6 @@
 import { BelongsTo, BelongsToMany, Column, DataType, ForeignKey, HasMany, HasOne, Is, Length, Model, Table } from 'sequelize-typescript';
 import { CycleIssue } from 'src/api/cycle/entitys/CycleIssue.entity';
-import { State } from 'src/api/state/entitys/State.entity';
+import { State } from 'src/api/state/entitys/state.entity';
 import { User } from 'src/api/user/entitys/User.entity';
 import { IssueAssignee } from './IssueAssignee.entity';
 import { Label } from './Label.entity';
@@ -23,7 +23,7 @@ import { Project } from 'src/api/project/entitys/Project.entity';
 import { Workspace } from 'src/api/workspace/entitys/Workspace.entity';
 import sequelize from 'sequelize';
 
-@Table
+@Table({tableName:'Issue'})
 export class Issue extends Model<Issue> {
     /**
    * @ForeignKey: Issue, State

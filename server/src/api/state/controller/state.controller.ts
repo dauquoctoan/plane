@@ -1,12 +1,10 @@
 import { Controller, Post, Body, Get, Param, Patch, Delete, Request as RequestNestjs, UseGuards } from '@nestjs/common';
-import { StateService } from '../service/State.service';
+import { StateService } from '../service/state.service';
 import { CreateStateDto, UpdateStateDto } from '../dto/State.dto';
-import jstz from 'jstz';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { handleResultSuccess } from 'src/helper/handleresult';
 import { IAuthRequest } from 'src/types/auth.types';
 import { AuthGuard } from 'src/Guards/auth.guard';
-import { Op } from "sequelize";
 
 @Controller('state')
 @ApiTags('state')

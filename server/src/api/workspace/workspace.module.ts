@@ -1,13 +1,10 @@
 import { Module, forwardRef } from '@nestjs/common';
 import { WorkspaceService } from './service/workspace.service';
 import { Workspace } from './entitys/Workspace.entity';
-import { WorkspaceController } from './controller/Workspace.controller';
 import { SequelizeModule } from '@nestjs/sequelize';
 import { Team } from './entitys/Team.entity';
 import { TeamMember } from './entitys/TeamMember.entity';
-import { TeamService } from './service/Team.service';
 import { TeamMemberService } from './service/TeamMember.service';
-import { TeamController } from './controller/Team.controller';
 import { TeamMemberController } from './controller/TeamMember.controller';
 import { WorkspaceMember } from './entitys/WorkspaceMember.entity';
 import { WorkspaceMemberInvite } from './entitys/WorkspaceMemberInvite.entity';
@@ -18,9 +15,12 @@ import { WorkspaceThemeController } from './controller/WorkspaceTheme.controller
 import { WorkspaceMemberService } from './service/WorkspaceMember.service';
 import { WorkspaceMemberInviteService } from './service/WorkspaceMemberInvite.service';
 import { WorkspaceThemeService } from './service/WorkspaceTheme.service';
-import { UserModule } from '../user/User.module';
 import { User } from '../user/entitys/User.entity';
-import { UserService } from '../user/service/User.service';
+import { UserModule } from '../user/user.module';
+import { UserService } from '../user/service/user.service';
+import { TeamService } from './service/team.service';
+import { TeamController } from './controller/team.controller';
+import { WorkspaceController } from './controller/workspace.controller';
 
 @Module({
   imports: [SequelizeModule.forFeature([

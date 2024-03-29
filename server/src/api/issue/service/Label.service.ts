@@ -5,7 +5,7 @@ import { Label } from '../entitys/Label.entity';
 import { CreateLabelDto } from '../dto/Label.dto';
 import { handleResultError } from 'src/helper/handleresult';
 import { messageCreateFail, messageFindFail } from 'src/helper/message.create';
-import { UserService } from 'src/api/user/service/User.service';
+import { UserService } from 'src/api/user/service/user.service';
 
 
 @Injectable()

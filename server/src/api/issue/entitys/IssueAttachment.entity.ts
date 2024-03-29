@@ -2,7 +2,7 @@ import { BelongsTo, Column, DataType, ForeignKey, Model, Table } from 'sequelize
 import { Issue } from './Issue.entity';
 import sequelize from 'sequelize';
 
-@Table
+@Table({tableName:'IssueAttachments'})
 export class IssueAttachment extends Model<IssueAttachment> {
     @Column({ type: sequelize.UUID, defaultValue: sequelize.UUIDV4, allowNull: false, primaryKey: true })
     id: string;

@@ -1,7 +1,7 @@
 import { BelongsTo, Column, DataType, ForeignKey, HasMany, HasOne, Is, Length, Model, Table } from 'sequelize-typescript';
 import { Notification } from 'src/api/notification/entitys/Notification.entity';
 import { Estimate } from 'src/api/estimate/entitys/Estimate.entity';
-import { State } from 'src/api/state/entitys/State.entity';
+import { State } from 'src/api/state/entitys/state.entity';
 import { User } from 'src/api/user/entitys/User.entity';
 import { Workspace } from 'src/api/workspace/entitys/Workspace.entity';
 import { NETWORK } from 'src/constants/entity-constant';
@@ -16,7 +16,7 @@ import { Module } from 'src/api/module/entitys/Module.entity';
 import { CycleUserProperties } from 'src/api/cycle/entitys/CycleUserProperties';
 import { ModuleUserProperties } from 'src/api/module/entitys/ModuleUserProperties.entity';
 
-@Table
+@Table({tableName:'Projects'})
 export class Project extends Model<Project> {
     @Column({ type: sequelize.UUID, defaultValue: sequelize.UUIDV4, allowNull: false, primaryKey: true })
     id: string;

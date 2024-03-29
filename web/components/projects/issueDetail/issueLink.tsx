@@ -11,7 +11,7 @@ import { IIsueLink } from '@/types';
 import moment from 'moment';
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { IoMdLink } from 'react-icons/Io';
+import { IoMdLink } from 'react-icons/io';
 import { HiMiniPlusSmall } from 'react-icons/hi2';
 import { MdDeleteOutline, MdOutlineModeEditOutline } from 'react-icons/md';
 import useSWR, { mutate } from 'swr';

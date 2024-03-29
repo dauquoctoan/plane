@@ -16,7 +16,7 @@ import { ModuleIssueController } from './controller/ModuleIssue.controller';
 import { ModuleFavoriteController } from './controller/ModuleFavorite.controller';
 import { ModuleMemberController } from './controller/ModuleMember.controller';
 import { User } from '../user/entitys/User.entity';
-import { UserService } from '../user/service/User.service';
+import { UserService } from '../user/service/user.service';
 import { ModuleUserProperties } from './entitys/ModuleUserProperties.entity';
 import { ModuleUserPropertiesService } from './service/ModuleUserProperties.service';
 import { ModuleUserPropertiesController } from './controller/ModuleUserProperties.controller';

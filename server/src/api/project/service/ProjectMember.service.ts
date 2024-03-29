@@ -5,7 +5,7 @@ import { BaseService } from 'src/api/Base.service';
 import { ProjectMember } from '../entitys/ProjectMember.entity';
 import { handleResultError } from 'src/helper/handleresult';
 import { messageFindFail } from 'src/helper/message.create';
-import { UserService } from 'src/api/user/service/User.service';
+import { UserService } from 'src/api/user/service/user.service';
 import { User } from 'src/api/user/entitys/User.entity';
 
 
