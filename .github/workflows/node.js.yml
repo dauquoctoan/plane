@@ -38,7 +38,9 @@ jobs:
         password: ${{ secrets.PASSWORD }}
         port: ${{ secrets.PORT }}
         script: |
-          whoami
+          export PATH="/home/toan/.nvm/versions/node/v20.0.0/bin:$PATH"
+          node -v
+          which node
           cd ..
           cd ..
           cd source-code-pro
