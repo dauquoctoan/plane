@@ -5,7 +5,7 @@ name: Node.js CI
 
 on:
   push:
-    branches: [ "develop" ]
+    branches: [ "product" ]
 
 jobs:
   build:
@@ -36,4 +36,18 @@ jobs:
         host: ${{ secrets.HOST }}
         username: ${{ secrets.USERNAME }}
         password: ${{ secrets.PASSWORD }}
-        script: whoami
+        script: |
+          cd ..
+          cd ..
+          cd source-code-pro
+          cd plane
+          git pull origin product
+          cd web
+          npm i
+          npm run build
+          cd ..
+          cd server
+          npm i
+          npm run build
+          cd ..
+          pm2 reload all
