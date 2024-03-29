@@ -27,7 +27,7 @@ jobs:
         path: web
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
-    - run: npm ci
+    - run: npm i
     - run: npm run build --if-present
 
   deploy_server:
@@ -47,6 +47,6 @@ jobs:
         path: server
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
-    - run: npm ci
+    - run: npm i
     - run: npm run build --if-present
 
