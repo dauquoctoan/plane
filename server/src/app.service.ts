@@ -9,7 +9,7 @@ export class AppService {
     constructor(private sequelize: Sequelize) { }
 
     getHello(): string {
-        return 'Hello World!';
+        return 'Hello Mấy cưng!';
     }
 
     async sendMail(){
