@@ -44,6 +44,8 @@ jobs:
           cd plane
           git pull origin product
           cd web
+          ls -l
+          node -v
           npm i
           npm run build
           cd ..
