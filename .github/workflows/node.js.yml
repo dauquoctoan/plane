@@ -31,11 +31,12 @@ jobs:
     - run: npm ci
     - run: npm run build --if-present
     - name: executing remote ssh commands using password
-      uses: actions/setup-node@v3
+      uses: appleboy/ssh-action@v3
       with:
         host: ${{ secrets.HOST }}
         username: ${{ secrets.USERNAME }}
         password: ${{ secrets.PASSWORD }}
+        port: ${{ secrets.PORT }}
         script: |
           cd ..
           cd ..
