@@ -37,8 +37,9 @@ jobs:
         username: ${{ secrets.USERNAME }}
         password: ${{ secrets.PASSWORD }}
         port: ${{ secrets.PORT }}
+        shell: bash
         script: |
-          echo $PATH | grep node
+          export PATH="/usr/local/bin:/usr/bin:/bin:/usr/local/games:/usr/games:/home/runner/.npm-global/bin:$PATH"
           cd ..
           cd ..
           cd source-code-pro
