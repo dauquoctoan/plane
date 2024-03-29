@@ -10,6 +10,25 @@ on:
   #   branches: [ "develop" ]
 
 jobs:
+  deploy_server:
+
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [20.x]
+
+    steps:
+    - uses: actions/checkout@v3
+    - name: Use Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v3
+      with:
+        path: server
+        node-version: ${{ matrix.node-version }}
+        cache: 'npm'
+    - run: npm i
+    - run: npm run build --if-present
+
   deploy_web:
 
     runs-on: ubuntu-latest
@@ -17,7 +36,6 @@ jobs:
     strategy:
       matrix:
         node-version: [20.x]
-        # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
 
     steps:
     - uses: actions/checkout@v3
@@ -30,23 +48,4 @@ jobs:
     - run: npm i
     - run: npm run build --if-present
 
-  deploy_server:
-
-    runs-on: ubuntu-latest
-
-    strategy:
-      matrix:
-        node-version: [20.x]
-        # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
-
-    steps:
-    - uses: actions/checkout@v3
-    - name: Use Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v3
-      with:
-        path: server
-        node-version: ${{ matrix.node-version }}
-        cache: 'npm'
-    - run: npm i
-    - run: npm run build --if-present
 
