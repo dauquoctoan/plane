@@ -4,7 +4,7 @@ import { IWorkspace } from '@/types';
 import { usePathname } from 'next/navigation';
 import { ContainerLink, changeRoute } from 'nextjs-progressloader';
 import React from 'react';
-import { IoMdPersonAdd } from 'react-icons/Io';
+import { IoMdPersonAdd } from 'react-icons/io';
 import { BiSolidPlusSquare } from 'react-icons/bi';
 import { CgProfile } from 'react-icons/cg';
 import { FaAngleLeft, FaRegHeart } from 'react-icons/fa';

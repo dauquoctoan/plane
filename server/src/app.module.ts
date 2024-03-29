@@ -6,12 +6,11 @@ import { ConfigModule } from '@nestjs/config';
 import { CONFIG_DB } from './configs/db-config';
 import { ApiModule } from './api/api.module';
 import { JwtModule } from '@nestjs/jwt';
-import { Sequelize } from 'sequelize';
 
 @Module({
   imports: [
     ConfigModule.forRoot({
-      envFilePath: '.env',
+      envFilePath: '.env.development',
       isGlobal: true,
       cache: true,
     }),

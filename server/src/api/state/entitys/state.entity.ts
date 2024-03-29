@@ -7,8 +7,7 @@ import { User } from 'src/api/user/entitys/User.entity';
 import { GROUP } from 'src/constants/entity-constant';
 import { INVALID_GROUP } from 'src/constants/message-constant';
 
-@Table
-@ApiTags('workspace')
+@Table({tableName:'States'})
 export class State extends Model<State> {
     @Column({ type: sequelize.UUID, defaultValue: sequelize.UUIDV4, allowNull: false, primaryKey: true })
     id: string;

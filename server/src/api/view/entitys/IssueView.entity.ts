@@ -6,7 +6,7 @@ import sequelize from 'sequelize';
 import { Workspace } from 'src/api/workspace/entitys/Workspace.entity';
 import { User } from 'src/api/user/entitys/User.entity';
 
-@Table
+@Table({tableName:'IssueViews'})
 export class IssueView extends Model<IssueView> {
     @Column({ type: sequelize.UUID, defaultValue: sequelize.UUIDV4, allowNull: false, primaryKey: true })
     id: string;

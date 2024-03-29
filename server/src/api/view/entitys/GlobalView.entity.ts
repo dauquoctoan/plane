@@ -4,7 +4,7 @@ import { Workspace } from 'src/api/workspace/entitys/Workspace.entity';
 import { ACCESS } from 'src/constants/entity-constant';
 import { INVALID_ACCESS } from 'src/constants/message-constant';
 
-@Table
+@Table({tableName:'GlobalViews'})
 export class GlobalView extends Model<GlobalView> {
     @Column({ type: sequelize.UUID, defaultValue: sequelize.UUIDV4, allowNull: false, primaryKey: true })
     id: string;

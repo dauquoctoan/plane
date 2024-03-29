@@ -16,7 +16,7 @@ async function bootstrap() {
     }),
   );
   const configService = app.get(ConfigService);
-  app.setGlobalPrefix('api/v1', {
+  app.setGlobalPrefix('v1', {
     exclude: [{ path: 'page', method: RequestMethod.GET }],
   });
 

@@ -8,7 +8,7 @@ import sequelize from 'sequelize';
 import { PageBlock } from './PageBlock.entity';
 import { PageFavorite } from './PageFavorite.entity';
 
-@Table
+@Table({tableName:'Pages'})
 export class Page extends Model<Page> {
     @Column({ type: sequelize.UUID, defaultValue: sequelize.UUIDV4, allowNull: false, primaryKey: true })
     id: string;

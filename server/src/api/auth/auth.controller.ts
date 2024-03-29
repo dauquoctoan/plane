@@ -15,7 +15,6 @@ export class AuthController {
   @Post('sign-in')
   async authEndPoint(@Body() authenEndPointDto: AuthenEndPointDto) {
     const client = new OAuth2Client();
-
     try {
       const ticket = await client.verifyIdToken({
         idToken: authenEndPointDto?.idToken,

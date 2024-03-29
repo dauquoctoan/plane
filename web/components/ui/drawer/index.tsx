@@ -1,6 +1,6 @@
 import React, { ReactElement, useEffect, useRef, memo, useState } from 'react';
 import { createPortal } from 'react-dom';
-import { IoMdClose } from 'react-icons/Io';
+import { IoMdClose } from 'react-icons/io';
 
 export interface IDrawer {
     position?: 'top' | 'left' | 'right' | 'bottom';

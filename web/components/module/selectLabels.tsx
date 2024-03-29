@@ -4,7 +4,7 @@ import useSWR from 'swr';
 import Select from '../ui/select/select';
 import { createIssueLabelSelectOption } from '@/helpers';
 import { IData, ILabel } from '@/types';
-import { IoMdPricetags } from 'react-icons/Io';
+import { IoMdPricetags } from 'react-icons/io';
 import issueService from '@/services/issue-services';
 
 interface IProps {

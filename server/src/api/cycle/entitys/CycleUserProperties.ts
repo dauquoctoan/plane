@@ -5,7 +5,7 @@ import { DEFAULT_PROPS } from 'src/constants/entity-constant';
 import { User } from 'src/api/user/entitys/User.entity';
 import { Project } from 'src/api/project/entitys/Project.entity';
 
-@Table
+@Table({tableName:'CycleUserProperties'})
 export class CycleUserProperties extends Model<CycleUserProperties> {
     @Column({ type: sequelize.UUID, defaultValue: sequelize.UUIDV4, allowNull: false, primaryKey: true })
     id: string;

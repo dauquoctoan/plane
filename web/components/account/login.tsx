@@ -1,5 +1,5 @@
 'use client';
-import React, { useState, useLayoutEffect } from 'react';
+import React, { useState, useLayoutEffect, Suspense } from 'react';
 import { GoogleLoginButton } from './google-login';
 import authService from '@/services/auth-services';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
@@ -9,7 +9,7 @@ import { IInfo } from '@/types';
 import { selectInfo } from '@/store/slices/authSlice/selectors';
 import { Spinner } from '../ui/loading/Spinner';
 
-const Login = () => {
+const LoginForm = () => {
     const dispatch = useDispatch();
     const router = useRouter();
     const [loading, setLoading] = useState(true);
@@ -40,5 +40,13 @@ const Login = () => {
 
     return <></>;
 };
+
+const Login = ()=>{
+    return (
+        <Suspense>
+            <LoginForm></LoginForm>
+        </Suspense>
+    )
+}
 
 export default React.memo(Login);

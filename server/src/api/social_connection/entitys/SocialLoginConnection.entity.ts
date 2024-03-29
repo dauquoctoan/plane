@@ -4,7 +4,7 @@ import { User } from 'src/api/user/entitys/User.entity';
 import { MEDIUM } from 'src/constants/entity-constant';
 import { INVALID_MEDIUM } from 'src/constants/message-constant';
 
-@Table
+@Table({tableName:'SocialLoginConnections'})
 export class SocialLoginConnection extends Model<SocialLoginConnection> {
     @Column({ type: sequelize.UUID, defaultValue: sequelize.UUIDV4, allowNull: false, primaryKey: true })
     id: string;

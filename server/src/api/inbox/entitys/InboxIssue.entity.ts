@@ -5,7 +5,7 @@ import { ISSUE_STATUS } from 'src/constants/entity-constant';
 import { INVALID_ISSUE_STATUS } from 'src/constants/message-constant';
 import sequelize from 'sequelize';
 
-@Table
+@Table({tableName:'InboxIssues'})
 export class InboxIssue extends Model<InboxIssue> {
     @Column({ type: sequelize.UUID, defaultValue: sequelize.UUIDV4, allowNull: false, primaryKey: true })
     id: string;

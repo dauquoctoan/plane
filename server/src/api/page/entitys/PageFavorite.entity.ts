@@ -3,7 +3,7 @@ import { User } from 'src/api/user/entitys/User.entity';
 import { Page } from './Page.entity';
 import sequelize from 'sequelize';
 
-@Table
+@Table({tableName:'PageFavorites'})
 export class PageFavorite extends Model<PageFavorite> {
     @ForeignKey(() => User)
     @Column({ type: sequelize.UUID })

@@ -48,7 +48,6 @@
     "moment": "^2.29.4",
     "next": "latest",
     "next-redux-wrapper": "^8.1.0",
-    "nextjs-progressbar": "^0.0.16",
     "nextjs-progressloader": "^0.2.3",
     "nextjs-toploader": "^1.6.4",
     "qs": "^6.11.2",

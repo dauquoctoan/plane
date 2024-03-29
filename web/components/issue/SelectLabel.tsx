@@ -1,7 +1,7 @@
 import SelectField from '@/components/ui/select/selectField';
 import { IFiledReactHookForm } from '@/components/ui/types';
 import React from 'react';
-import { IoMdPricetags } from 'react-icons/Io';
+import { IoMdPricetags } from 'react-icons/io';
 import { HiPlusSmall } from 'react-icons/hi2';
 import { IOpenModal } from './createIssue';
 import useSWR from 'swr';

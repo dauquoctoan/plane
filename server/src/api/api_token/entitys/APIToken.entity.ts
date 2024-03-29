@@ -6,7 +6,7 @@ import { Workspace } from 'src/api/workspace/entitys/Workspace.entity';
 import { USER_TYPE } from 'src/constants/entity-constant';
 import { INVALID_USER_TYPE } from 'src/constants/message-constant';
 
-@Table
+@Table({tableName:'APITokens'})
 export class APIToken extends Model<APIToken> {
     @Column({ type: sequelize.UUID, defaultValue: sequelize.UUIDV4, allowNull: false, primaryKey: true })
     id: string;

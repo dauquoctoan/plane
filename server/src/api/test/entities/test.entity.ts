@@ -3,7 +3,7 @@ import { BelongsTo, Column, ForeignKey, HasOne, Is, Length, Model, PrimaryKey, T
 import { Estimate } from 'src/api/estimate/entitys/Estimate.entity';
 import { Test1 } from 'src/api/test1/entities/test1.entity';
 
-@Table
+@Table({tableName:'Tests'})
 export class Test extends Model {
     @ForeignKey(() => Test1)
     @Column({ type: sequelize.UUID, allowNull: true })

@@ -3,7 +3,7 @@ import { User } from 'src/api/user/entitys/User.entity';
 import { IssueView } from './IssueView.entity';
 import sequelize from 'sequelize';
 
-@Table
+@Table({tableName:'IssueViewFavorites'})
 export class IssueViewFavorite extends Model<IssueViewFavorite> {
     /**
     * ! table GlobalView

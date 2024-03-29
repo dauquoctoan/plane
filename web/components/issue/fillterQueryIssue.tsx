@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { IoIosClose, IoIosSearch } from 'react-icons/Io';
+import { IoIosClose, IoIosSearch } from 'react-icons/io';
 import Collapse from '../ui/collapse/collapse';
 import { IItemSelected } from '../ui/treeSelect/treeSelect';
 import { IItemData } from '../ui/treeSelect/popOver';

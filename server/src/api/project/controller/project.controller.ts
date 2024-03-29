@@ -29,9 +29,9 @@ export class ProjectController {
         include: [
           [
             Sequelize.literal(
-              `(SELECT 1 FROM projectmembers WHERE
-                    projectmembers.id = Project.id AND
-                      projectmembers.member = '${request.user.id}' 
+              `(SELECT 1 FROM ProjectMembers WHERE
+                      ProjectMembers.id = Project.id AND
+                      ProjectMembers.member = '${request.user.id}' 
                     )
                   `
             ),

@@ -1,7 +1,7 @@
 'use client';
 import React, { useEffect, useRef, createContext, ReactElement } from 'react';
 import { createPortal } from 'react-dom';
-import { IoIosWarning, IoMdCloseCircle } from 'react-icons/Io';
+import { IoIosWarning, IoMdCloseCircle } from 'react-icons/io';
 import { IoCheckmarkCircle, IoInformationCircleSharp } from 'react-icons/io5';
 
 export const NotiContext = createContext<INotiConext | undefined>(undefined);

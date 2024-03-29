@@ -8,7 +8,7 @@ import { selectInfo } from '@/store/slices/authSlice/selectors';
 import { IIssue, IIsueReaction, ILabel, IParams, IUser } from '@/types';
 import { useParams, usePathname } from 'next/navigation';
 import React, { FC, useState } from 'react';
-import { IoMdLink } from 'react-icons/Io';
+import { IoMdLink } from 'react-icons/io';
 import {
     MdDeleteOutline,
     MdOutlineOpenInFull,

@@ -3,7 +3,7 @@ import { Column, DataType, Is, Length, Model, Table } from 'sequelize-typescript
 import { ROLE } from 'src/constants/entity-constant';
 import { INVALID_ROLE } from 'src/constants/message-constant';
 
-@Table
+@Table({tableName:'ProjectMemberInvites'})
 export class ProjectMemberInvite extends Model<ProjectMemberInvite> {
     @Column({ type: sequelize.UUID, defaultValue: sequelize.UUIDV4, allowNull: false, primaryKey: true })
     id: string;

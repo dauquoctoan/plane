@@ -3,7 +3,7 @@ import { BelongsTo, Column, ForeignKey, Model, Table } from 'sequelize-typescrip
 import { User } from 'src/api/user/entitys/User.entity';
 import { Project } from './Project.entity';
 
-@Table
+@Table({tableName:'ProjectPublicMembers'})
 export class ProjectPublicMember extends Model<ProjectPublicMember> {
     @Column({ type: sequelize.UUID, defaultValue: sequelize.UUIDV4, allowNull: false, primaryKey: true })
     id: string;

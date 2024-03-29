@@ -16,7 +16,7 @@ import { Module } from 'src/api/module/entitys/Module.entity';
 import { CycleUserProperties } from 'src/api/cycle/entitys/CycleUserProperties';
 import { ModuleUserProperties } from 'src/api/module/entitys/ModuleUserProperties.entity';
 
-@Table
+@Table({tableName:'Projects'})
 export class Project extends Model<Project> {
     @Column({ type: sequelize.UUID, defaultValue: sequelize.UUIDV4, allowNull: false, primaryKey: true })
     id: string;

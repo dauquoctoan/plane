@@ -36,7 +36,7 @@ import { WorkspaceTheme } from 'src/api/workspace/entitys/WorkspaceTheme.entity'
 import { DEFAULT_ONBOARDING } from 'src/constants/entity-constant';
 import { validEmail } from 'src/helper/regex';
 
-@Table
+@Table({tableName:'Users'})
 export class User extends Model<User> {
     @Column({ type: sequelize.UUID, defaultValue: sequelize.UUIDV4, allowNull: false, primaryKey: true })
     id: string;

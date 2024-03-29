@@ -5,7 +5,7 @@ import { VOTE } from 'src/constants/entity-constant';
 import { INVALID_VOTE } from 'src/constants/message-constant';
 import sequelize from 'sequelize';
 
-@Table
+@Table({tableName:'IssueVotes'})
 export class IssueVote extends Model<IssueVote> {
     @Column({ type: sequelize.UUID, defaultValue: sequelize.UUIDV4, allowNull: false, primaryKey: true })
     id: string;

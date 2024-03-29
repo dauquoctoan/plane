@@ -10,7 +10,7 @@ import { Project } from 'src/api/project/entitys/Project.entity';
 import { Workspace } from 'src/api/workspace/entitys/Workspace.entity';
 import { ModuleUserProperties } from './ModuleUserProperties.entity';
 
-@Table
+@Table({tableName:'Modules'})
 export class Module extends Model<Module> {
     @Column({ type: sequelize.UUID, defaultValue: sequelize.UUIDV4, allowNull: false, primaryKey: true })
     id: string;

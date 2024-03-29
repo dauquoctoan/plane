@@ -8,11 +8,10 @@ interface IConfigs {
 
 export const getConfigs = (): IConfigs => {
     const environmentType = process.env.NODE_ENV;
-
     switch (environmentType) {
         case 'development':
             return {
-                DOMAIN_URL: process.env.NEXT_PUBLIC_HOST && process.env.NEXT_PUBLIC_PORT ? process.env.NEXT_PUBLIC_HOST + process.env.NEXT_PUBLIC_PORT : "",
+                DOMAIN_URL: process.env.NEXT_PUBLIC_HOST && process.env.NEXT_PUBLIC_PORT ? process.env.NEXT_PUBLIC_HOST +':'+ process.env.NEXT_PUBLIC_PORT : "",
                 API_BASE_URL: process.env.NEXT_PUBLIC_API_BASE_URL ? process.env.NEXT_PUBLIC_API_BASE_URL : "",
                 GOOGLE_CLIENTID: process.env.NEXT_PUBLIC_GOOGLE_CLIENTID ? process.env.NEXT_PUBLIC_GOOGLE_CLIENTID : "",
             }

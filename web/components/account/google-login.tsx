@@ -7,6 +7,7 @@ import {
     useRef,
     useCallback,
     useState,
+    Suspense,
 } from 'react';
 import { Spinner } from '../ui/loading/Spinner';
 import APP_CONFIG from '@/configs';
@@ -27,7 +28,7 @@ export interface IGoogleLoginButton {
     styles?: CSSProperties;
 }
 
-export const GoogleLoginButton: FC<IGoogleLoginButton> = () => {
+const GoogleLoginButtonitem: FC<IGoogleLoginButton> = () => {
     const { GOOGLE_CLIENTID } = APP_CONFIG;
     const router = useRouter();
     const googleSignInButton = useRef<HTMLDivElement>(null);
@@ -137,3 +138,7 @@ export const GoogleLoginButton: FC<IGoogleLoginButton> = () => {
         </>
     );
 };
+
+const GoogleLoginButton = ()=>{return <Suspense><GoogleLoginButtonitem/></Suspense>}
+
+export  {GoogleLoginButton}

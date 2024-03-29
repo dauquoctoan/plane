@@ -30,9 +30,9 @@ export class ProjectService extends BaseService<Project>{
             include: [
               [
                 Sequelize.literal(
-                  `(SELECT 1 FROM projectmembers WHERE
-                              projectmembers.project_id = Project.id AND
-                              projectmembers.member = '${userId}' 
+                  `(SELECT 1 FROM ProjectMembers WHERE
+                              ProjectMembers.project_id = Project.id AND
+                              ProjectMembers.member = '${userId}' 
                             )
                           `
                 ),

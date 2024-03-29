@@ -3,7 +3,7 @@ import { User } from 'src/api/user/entitys/User.entity';
 import { Cycle } from './Cycle.entity';
 import sequelize from 'sequelize';
 
-@Table
+@Table({tableName:'CycleFavorites'})
 export class CycleFavorite extends Model<CycleFavorite> {
     @Column({ type: sequelize.UUID, defaultValue: sequelize.UUIDV4, allowNull: false, primaryKey: true })
     id: string;

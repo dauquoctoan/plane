@@ -2,7 +2,7 @@ import { BelongsTo, Column, DataType, ForeignKey, Model, Table } from 'sequelize
 import { Module } from './Module.entity';
 import sequelize from 'sequelize';
 
-@Table
+@Table({tableName:'ModuleLinks'})
 export class ModuleLink extends Model<ModuleLink> {
     @Column({ type: sequelize.UUID, defaultValue: sequelize.UUIDV4, allowNull: false, primaryKey: true })
     id: string;

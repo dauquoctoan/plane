@@ -8,7 +8,7 @@ import { Workspace } from 'src/api/workspace/entitys/Workspace.entity';
 import { User } from 'src/api/user/entitys/User.entity';
 import sequelize from 'sequelize';
 
-@Table
+@Table({tableName:'Labels'})
 export class Label extends Model<Label> {
     @Column({ type: sequelize.UUID, defaultValue: sequelize.UUIDV4, allowNull: false, primaryKey: true })
     id: string;

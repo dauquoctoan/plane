@@ -74,7 +74,7 @@ export const ItemSelect: React.FC<IItemSelect> = ({
             {isClear && (
                 <div ref={refClear}>
                     <IoCloseCircleOutline
-                        onClick={(e: MouseEvent) => {
+                        onClick={(e: any) => {
                             e.stopPropagation();
                             setValue && setValue('');
                             handleClear && handleClear();

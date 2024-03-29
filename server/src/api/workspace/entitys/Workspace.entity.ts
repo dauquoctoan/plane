@@ -21,7 +21,7 @@ import { IssueView } from 'src/api/view/entitys/IssueView.entity';
 import { Cycle } from 'src/api/cycle/entitys/Cycle.entity';
 import { Module } from 'src/api/module/entitys/Module.entity';
 
-@Table
+@Table({tableName:'Workspaces'})
 export class Workspace extends Model<Workspace> {
     @Column({ type: sequelize.UUID, defaultValue: sequelize.UUIDV4, allowNull: false, primaryKey: true })
     id: string;

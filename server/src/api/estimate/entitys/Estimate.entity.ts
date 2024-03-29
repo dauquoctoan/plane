@@ -3,7 +3,7 @@ import { EstimatePoint } from './EstimatePoint.entity';
 import { Project } from 'src/api/project/entitys/Project.entity';
 import sequelize from 'sequelize';
 
-@Table
+@Table({tableName:'Estimates'})
 export class Estimate extends Model<Estimate> {
     @Column({ type: sequelize.UUID, defaultValue: sequelize.UUIDV4, allowNull: false, primaryKey: true })
     id: string;

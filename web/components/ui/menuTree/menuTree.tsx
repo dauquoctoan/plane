@@ -1,6 +1,6 @@
 import { title } from 'process';
 import React, { ReactElement, useEffect, useRef, useState } from 'react';
-import { IoIosArrowDown } from 'react-icons/Io';
+import { IoIosArrowDown } from 'react-icons/io';
 import { MdChevronLeft } from 'react-icons/md';
 
 export interface IMenuTree {
@@ -69,7 +69,7 @@ const MenuTree: React.FC<IMenuTree> = ({ children, data, onClick }) => {
     const [isOpen, setIsOpen] = useState(false);
     const refMenuItem = useRef<HTMLDivElement>(null);
 
-    function handleCLick(e: MouseEvent) {
+    function handleCLick(e: any) {
         if (refMenuItem.current?.contains(e.target as any)) setIsOpen(true);
         else setIsOpen(false);
     }

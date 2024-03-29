@@ -4,7 +4,7 @@ import { Team } from './Team.entity';
 import { User } from 'src/api/user/entitys/User.entity';
 import sequelize from 'sequelize';
 
-@Table
+@Table({tableName:'TeamMembers'})
 export class TeamMember extends Model<TeamMember> {
     @Column({ type: sequelize.UUID, defaultValue: sequelize.UUIDV4, allowNull: false, primaryKey: true })
     id: string;

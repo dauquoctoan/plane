@@ -23,7 +23,7 @@ import { Project } from 'src/api/project/entitys/Project.entity';
 import { Workspace } from 'src/api/workspace/entitys/Workspace.entity';
 import sequelize from 'sequelize';
 
-@Table
+@Table({tableName:'Issue'})
 export class Issue extends Model<Issue> {
     /**
    * @ForeignKey: Issue, State
