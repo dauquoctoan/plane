@@ -28,7 +28,7 @@ const ProjectITem: React.FC<IPropsProjectItem> = ({ dataItem }) => {
     const noti = useNoti()
     const info = useSelector(selectInfo);
     
-    console.log('good good')
+    console.log('good good good')
 
     return (
         <div className="rounded cursor-pointer bg-theme-secondary border shadow-theme-secondary">
