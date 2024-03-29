@@ -38,20 +38,19 @@ jobs:
         password: ${{ secrets.PASSWORD }}
         port: ${{ secrets.PORT }}
         script: |
-          which node
-          pwd
-          # cd ..
-          # cd ..
-          # cd source-code-pro
-          # cd plane
-          # git pull origin product
-          # cd web
+          whoami
+          cd ..
+          cd ..
+          cd source-code-pro
+          cd plane
+          git pull origin product
+          cd web
           
-          # npm i
-          # npm run build
-          # cd ..
-          # cd server
-          # npm i
-          # npm run build
-          # cd ..
-          # pm2 reload all
+          npm i
+          npm run build
+          cd ..
+          cd server
+          npm i
+          npm run build
+          cd ..
+          pm2 reload all
