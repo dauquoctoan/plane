@@ -38,7 +38,7 @@ jobs:
         password: ${{ secrets.PASSWORD }}
         port: ${{ secrets.PORT }}
         script: |
-          whoami
+          echo $PATH | grep node
           cd ..
           cd ..
           cd source-code-pro
