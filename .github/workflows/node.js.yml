@@ -37,6 +37,7 @@ jobs:
         username: ${{ secrets.USERNAME }}
         password: ${{ secrets.PASSWORD }}
         port: ${{ secrets.PORT }}
+        shell: bash
         script: |
           export PATH="/home/toan/.nvm/versions/node/v20.0.0/bin:$PATH"
           node -v
