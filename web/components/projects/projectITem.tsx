@@ -1,3 +1,4 @@
+'use client'
 import { renderEmoji } from '@/helpers';
 import { IProject } from '@/types';
 import Image from 'next/image';
@@ -26,6 +27,8 @@ interface IPropsProjectItem {
 const ProjectITem: React.FC<IPropsProjectItem> = ({ dataItem }) => {
     const noti = useNoti()
     const info = useSelector(selectInfo);
+    
+    console.log('test cicd ss')
 
     return (
         <div className="rounded cursor-pointer bg-theme-secondary border shadow-theme-secondary">

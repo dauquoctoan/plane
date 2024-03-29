@@ -6,13 +6,14 @@ name: Node.js CI
 on:
   push:
     branches: [ "product" ]
-  pull_request:
-    branches: [ "develop" ]
 
 jobs:
-  deploy_web:
+  build:
 
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./web
 
     strategy:
       matrix:
@@ -27,26 +28,26 @@ jobs:
         path: web
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
-    - run: npm i
+    - run: npm ci
     - run: npm run build --if-present
-
-  deploy_server:
-
-    runs-on: ubuntu-latest
-
-    strategy:
-      matrix:
-        node-version: [20.x]
-        # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
-
-    steps:
-    - uses: actions/checkout@v3
-    - name: Use Node.js ${{ matrix.node-version }}
+    - name: executing remote ssh commands using password
       uses: actions/setup-node@v3
       with:
-        path: server
-        node-version: ${{ matrix.node-version }}
-        cache: 'npm'
-    - run: npm i
-    - run: npm run build --if-present
-
+        host: ${{ secrets.HOST }}
+        username: ${{ secrets.USERNAME }}
+        password: ${{ secrets.PASSWORD }}
+        script: |
+          cd ..
+          cd ..
+          cd source-code-pro
+          cd plane
+          git pull origin product
+          cd web
+          npm i
+          npm run build
+          cd ..
+          cd server
+          npm i
+          npm run build
+          cd ..
+          pm2 reload all
