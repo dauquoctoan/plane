@@ -39,7 +39,9 @@ jobs:
         port: ${{ secrets.PORT }}
         shell: bash
         script: |
-          export PATH="/usr/local/bin:/usr/bin:/bin:/usr/local/games:/usr/games:/home/runner/.npm-global/bin:$PATH"
+          echo "export PATH=\"/usr/local/bin:/usr/bin:/bin:/usr/local/games:/usr/games:/home/runner/.npm-global/bin:\$PATH\"" >> ~/.bashrc
+          source ~/.bashrc
+          echo $PATH | grep node
           cd ..
           cd ..
           cd source-code-pro
