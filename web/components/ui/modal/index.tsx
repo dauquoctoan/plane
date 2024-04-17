@@ -19,7 +19,7 @@ const Modal: React.FC<IProps> = ({
     isOpen = false,
     handleClose,
     isOnClose,
-    mrTop = 200,
+    // mrTop = 200,
     isPadding = true,
     className = '',
     disableClickOverlay = false,
@@ -102,9 +102,9 @@ const Modal: React.FC<IProps> = ({
                         className={`box-border animate-overlay absolute top-0 left-0 bottom-0 right-0 w-full h-screen overflow-hidden bg-color-modal-overlay z-50 shadow-theme-text-primary flex justify-center transition-all`}
                     >
                         <div
-                            style={{ top: mrTop }}
+                            // style={{ top: mrTop }}
                             ref={wrap}
-                            className={`absolute scale-100 rounded bg-theme-primary ${
+                            className={`absolute top-[50%] translate-y-[-50%] scale-100 rounded bg-theme-primary ${
                                 isPadding ? 'px-6 py-4' : ''
                             } animate-modalContentPopup transition-all box-border ${className}`}
                         >

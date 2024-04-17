@@ -250,7 +250,7 @@ const IssueDetail: FC<IIssueDetail> = ({ issue }) => {
                         className="cursor-pointer"
                         onClick={() => {
                             navigator.clipboard.writeText(
-                                `${process.env.NEXT_PUBLIC_DOMAIN}/${info?.workspace?.slug}/projects/${param.projectid}/issues/${issue?.id}`,
+                                `${process.env.NEXT_PUBLIC_HOST}/${info?.workspace?.slug}/projects/${param.projectid}/issues/${issue?.id}`,
                             );
                             noti?.success('successfully copied the path');
                         }}
