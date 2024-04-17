@@ -2,6 +2,7 @@ import React from 'react';
 import Graph from './graph';
 import IssueBox from './issueBox';
 import IssueStates from './issueStates';
+import Popover from '../ui/popover/popover';
 
 const Dashboard = () => {
     return (
@@ -11,6 +12,9 @@ const Dashboard = () => {
                     Good morning, Đậu Quốc Toàn toandq
                 </h2>
                 <span className="">🌤️friday, Nov 17 19:22</span>
+            </div>
+            <div>
+                <Popover/>
             </div>
             <div className="mt-5 border rounded flex xl:flex-col xl:h-[742px]">
                 <div className="grid grid-cols-2 flex-[1]">

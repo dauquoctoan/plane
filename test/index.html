@@ -5,68 +5,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>File Drop Example</title>
-    <style>
-        #dropArea {
-            width: 300px;
-            height: 200px;
-            border: 2px dashed #ccc;
-            border-radius: 5px;
-            text-align: center;
-            line-height: 200px;
-            font-size: 20px;
-            margin: 50px auto;
-        }
-
-        #dropArea.dragover {
-            background-color: #f0f0f0;
-        }
-
-        #imagePreview {
-            max-width: 100%;
-            max-height: 100%;
-            display: none;
-        }
-    </style>
+    
 </head>
 
 <body>
-    <div id="dropArea" ondragover="handleDragOver(event)" ondrop="handleDrop(event)"
-        ondragenter="this.classList.add('dragover')" ondragleave="this.classList.remove('dragover')">
-        Drop image here
-    </div>
-    <img id="imagePreview" alt="Preview Image">
-    <script>
-        function handleDragOver(event) {
-            event.preventDefault();
-            event.dataTransfer.dropEffect = 'copy';
-        }
-
-        function handleDrop(event) {
-            event.preventDefault();
-            event.stopPropagation();
-
-            var files = event.dataTransfer.files;
-            handleFiles(files);
-        }
-
-        function handleFiles(files) {
-            for (var i = 0; i < files.length; i++) {
-                var file = files[i];
-                if (file.type.match('image.*')) {
-                    var reader = new FileReader();
-                    reader.onload = function (event) {
-                        var img = document.getElementById('imagePreview');
-                        img.src = event.target.result;
-                        img.style.display = 'block';
-                    };
-                    reader.readAsDataURL(file);
-                    console.log('Image dropped: ' + file.name);
-                } else {
-                    console.log('Not an image file: ' + file.name);
-                }
-            }
-        }
-    </script>
+    <div id="progress">sdfsdf</div>
+    <script src="./index.js"></script>
 </body>
 
 </html>
