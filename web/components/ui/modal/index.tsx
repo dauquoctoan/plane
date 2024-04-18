@@ -106,7 +106,7 @@ const Modal: React.FC<IProps> = ({
                             ref={wrap}
                             className={`absolute top-[50%] translate-y-[-50%] scale-100 rounded bg-theme-primary ${
                                 isPadding ? 'px-6 py-4' : ''
-                            } animate-modalContentPopup transition-all box-border ${className}`}
+                            } transition-all box-border ${className}`}
                         >
                             {isOnClose && (
                                 <div
