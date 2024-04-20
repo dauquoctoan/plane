@@ -94,7 +94,7 @@ jobs:
         username: ${{ secrets.USERNAME }}
         password: ${{ secrets.PASSWORD }}
         script: |
-          cd source-code
+          cd product
           cd plane
           docker-compose pull
           docker-compose up -d
