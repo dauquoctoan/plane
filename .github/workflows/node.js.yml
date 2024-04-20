@@ -77,3 +77,24 @@ jobs:
 
     - name: Build and push images
       run: docker-compose -f docker-compose.yml build && docker-compose -f docker-compose.yml push
+
+    - uses: actions/checkout@v3
+    - name: Use Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v3
+      with:
+        path: web
+        node-version: ${{ matrix.node-version }}
+        cache: 'npm'
+    - run: npm ci
+    - run: npm run build --if-present
+    - name: executing remote ssh commands using password
+      uses: actions/setup-node@v3
+      with:
+        host: ${{ secrets.HOST }}
+        username: ${{ secrets.USERNAME }}
+        password: ${{ secrets.PASSWORD }}
+        script: |
+          cd source-code
+          cd plane
+          docker-compose pull
+          docker-compose up -d
