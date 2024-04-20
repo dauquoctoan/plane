@@ -1,6 +1,6 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-    mode: 'production',
+  output: "standalone",
     images: {
         // remotePatterns: [
         //   {
