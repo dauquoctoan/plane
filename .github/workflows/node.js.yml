@@ -90,7 +90,6 @@ jobs:
         password: ${{ secrets.PASSWORD }}
         script: |
           cd product
-          whoami
           cd plane
           docker-compose pull
           docker-compose up -d
