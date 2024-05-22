@@ -1,3 +1,4 @@
+import HeaderSetting from '@/components/profile/headerSetting';
 import ProfileSettingLayout from '@/components/profile/profileSettingLayout';
 import NotificationProvider from '@/components/ui/notification';
 import AuthProvider from '@/layouts/authprovider';
@@ -10,9 +11,12 @@ export default function WorkspaceLayout({
     return (
         <AuthProvider>
             <NotificationProvider>
-                <div className='flex'>
+                <div className='md:flex relative'>
                     <ProfileSettingLayout />
-                    <div className='flex-1'>{children}</div>
+                    <div className='md:flex-1'>
+                        <HeaderSetting/>  
+                        {children}
+                    </div>
                 </div>
             </NotificationProvider>
         </AuthProvider>

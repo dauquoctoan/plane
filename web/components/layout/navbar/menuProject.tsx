@@ -18,14 +18,11 @@ const MenuProject = () => {
     const info = useSelector(selectInfo);
     const [open, setOpen] = useState(false);
 
-    const { data } = useSWR<IData<IProject[]>>(
+    const { data } = useSWR(
         LS_PROJECT_KEY(info?.last_workspace_id),
-        () => {
-            return projectService.getProjects<IData<IProject[]>>(
-                info?.last_workspace_id || '',
-            );
-        },
-    );
+        () => projectService.getProjects(
+            info?.last_workspace_id || ''
+        ))
 
     async function handleCreateProject(data: IProject) {
         mutate(
@@ -41,7 +38,6 @@ const MenuProject = () => {
                 }
                 return [...project];
             },
-            { revalidate: false },
         );
     }
 
@@ -61,17 +57,14 @@ const MenuProject = () => {
                     </div>
                 )}
                 <div>
-                    {data &&
-                        data.map((item, index) =>
-                            item.is_member ? (
-                                <ProjectMenuItem
-                                    key={index}
-                                    idProject={item?.id}
-                                    emoji={item.emoji}
-                                    text={item?.name}
-                                />
-                            ) : undefined,
-                        )}
+                    {
+                        data?.filter((item)=>item.is_member).map((item, index:number) =><ProjectMenuItem
+                                key={item.id}
+                                idProject={item?.id}
+                                emoji={item.emoji}
+                                text={item?.name}
+                            />)
+                    }
                 </div>
             </div>
             <Modal

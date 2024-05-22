@@ -1,24 +1,25 @@
 'use client';
-import React, { useState, useLayoutEffect, Suspense } from 'react';
+import React, { useState, useLayoutEffect, Suspense, useEffect } from 'react';
 import { GoogleLoginButton } from './google-login';
 import authService from '@/services/auth-services';
-import { usePathname, useRouter, useSearchParams } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { useDispatch, useSelector } from '@/store';
 import { authSlice } from '@/store/slices/authSlice';
 import { IInfo } from '@/types';
 import { selectInfo } from '@/store/slices/authSlice/selectors';
 import { Spinner } from '../ui/loading/Spinner';
+import { changeRoute, ContainerLink } from 'nextjs-progressloader';
+import { createNickNameLink } from '@/helpers';
 
-const LoginForm = () => {
+const Login = () => {
     const dispatch = useDispatch();
-    const router = useRouter();
     const [loading, setLoading] = useState(true);
-    const info = useSelector(selectInfo);
     const next = useSearchParams().get('next');
-
+    const info = useSelector(selectInfo);
+    
     async function getData() {
         try {
-            const data = await authService.getUser<IInfo>();
+            const data = await authService.getUser();
             if (data) dispatch(authSlice.actions.setInfo(data));
         } catch (error) {
             console.log(error);
@@ -31,22 +32,39 @@ const LoginForm = () => {
         getData();
     }, []);
 
-    if (info?.workspace?.slug && info?.is_onboarded)
-        router.push(next || info?.workspace?.slug);
-
     if (loading) return <Spinner />;
 
-    if (!loading && !info) return <GoogleLoginButton />;
+    if (!info) return <GoogleLoginButton />;
 
-    return <></>;
+    if(info?.id){
+        if (!info?.is_onboarded) {
+            setTimeout(()=>{
+                changeRoute('/setup');
+            },1000)
+        }else{
+            if (next) {
+                console.log('next', next);
+                setTimeout(()=>{
+                    changeRoute(next);
+                },1000)
+            }else{
+                if (info?.workspace?.slug){
+                    setTimeout(()=>{
+                        changeRoute('/' + info?.workspace?.slug);
+                    },1000)
+                }
+            }
+        }
+    }
+
+    const nextLink = next ? [{href: next, nickname: createNickNameLink(next)}]: null
+    const workspaceLink = info?.workspace?.slug ? [{href: '/'+ info?.workspace?.slug, nickname:createNickNameLink(info?.workspace?.slug)}]:null
+    
+    const links = nextLink || workspaceLink || [];
+
+    return <ContainerLink links={[{href:'/setup', nickname:'setupproject'},...links]}/>
 };
 
-const Login = ()=>{
-    return (
-        <Suspense>
-            <LoginForm></LoginForm>
-        </Suspense>
-    )
-}
+
 
 export default React.memo(Login);

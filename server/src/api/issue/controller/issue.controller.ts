@@ -39,7 +39,7 @@ export class IssueController {
     }
 
     @Delete(':id')
-    @UseGuards(AuthGuard)
+    // @UseGuards(AuthGuard)
     async delete(@Param('id') id:string) {
         return handleResultSuccess(await this.issueService.removeById(id));
     }

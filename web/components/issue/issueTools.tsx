@@ -3,7 +3,7 @@ import { IOptionItem } from '@/components/ui/select/select';
 import { IData, IProjectMember, IUser, Istate } from '@/types';
 import { HiPlusSmall } from 'react-icons/hi2';
 import DatePickerField from '@/components/ui/datepicker/datePickerField';
-import { IOpenModal } from './createIssue';
+import { IOpenModal } from '../module/createIssue';
 import SelectField from '@/components/ui/select/selectField';
 import { IFiledReactHookForm } from '@/components/ui/types/form';
 import SelectLabel from './SelectLabel';
@@ -39,7 +39,7 @@ const IssueTools: React.FC<IIssueTools> = ({
 
     const optionsMember: IOptionItem[] = createMembeSelectOption(members);
     return (
-        <div className="mb-5 flex items-center justify-between gap-2">
+        <div className="mb-5 flex flex-wrap md:flex-nowrap items-center justify-between gap-2">
             {optionsState && optionsState?.length > 0 ? (
                 <SelectField
                     name="state"

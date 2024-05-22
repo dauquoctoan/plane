@@ -21,53 +21,52 @@ export type TCalBackChangeDate = (
 function getDates(name: string, cb?: TCalBackChangeDate): IItemData[] {
     return [
         {
-            value: name + '::7',
+            value: name+'::1_week',
             title: '1 week from now',
         },
 
         {
-            value: name + '::14',
+            value: name+'::2_weeks',
             title: '2 weeks from now',
         },
 
         {
-            value: name + '::30',
+            value: name+'::1_month',
             title: '1 month from now',
         },
-
         {
-            value: name + '::60',
+            value: name+'::2_months',
             title: '2 months from now',
         },
-        {
-            value: 'custom',
-            title: 'Custom',
-            disable: true,
-            render: () => (
-                <div className="flex gap-2 items-center">
-                    <span className="font-medium">CusTom:</span>
-                    <DatePicker
-                        onChange={(value) => {
-                            cb && cb('from', name, value);
-                        }}
-                        isChildren={false}
-                        formatDate="MM/DD/YYY"
-                    >
-                        From
-                    </DatePicker>
+        // {
+        //     value: 'custom',
+        //     title: 'Custom',
+        //     disable: true,
+        //     render: () => (
+        //         <div className="flex gap-2 items-center">
+        //             <span className="font-medium">CusTom:</span>
+        //             <DatePicker
+        //                 onChange={(value) => {
+        //                     cb && cb('from', name, value);
+        //                 }}
+        //                 isChildren={false}
+        //                 formatDate="MM/DD/YYY"
+        //             >
+        //                 From
+        //             </DatePicker>
 
-                    <DatePicker
-                        onChange={(value) => {
-                            cb && cb('to', name, value);
-                        }}
-                        isChildren={false}
-                        formatDate="MM/DD/YYY"
-                    >
-                        To
-                    </DatePicker>
-                </div>
-            ),
-        },
+        //             <DatePicker
+        //                 onChange={(value) => {
+        //                     cb && cb('to', name, value);
+        //                 }}
+        //                 isChildren={false}
+        //                 formatDate="MM/DD/YYY"
+        //             >
+        //                 To
+        //             </DatePicker>
+        //         </div>
+        //     ),
+        // },
     ];
 }
 
@@ -82,7 +81,7 @@ export const useDataFilter = (cb?: TCalBackChangeDate) => {
         isLoading,
         isValidating,
     } = useSWR('DEFAULT_STATE', (a) =>
-        issueService.getDefaultState<IData<Istate[]>>(),
+        issueService.getDefaultState(),
     );
 
     const { data: members } = useSWR(

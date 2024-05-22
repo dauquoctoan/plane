@@ -1,7 +1,6 @@
 'use client';
 import { ReactNode, memo } from 'react';
 import { SWRConfig } from 'swr';
-import { useRouter, usePathname } from 'next/navigation';
 import authService from '@/services/auth-services';
 import { authSlice, useDispatch, useSelector } from '@/store';
 import { selectInfo } from '@/store/slices/authSlice/selectors';
@@ -15,6 +14,7 @@ const SWRProvider = ({ children }: ISWRProvide) => {
     const dispatch = useDispatch();
     const { pathName, router } = useLogout();
     const info = useSelector(selectInfo);
+
     return (
         <SWRConfig
             value={{
@@ -22,7 +22,10 @@ const SWRProvider = ({ children }: ISWRProvide) => {
                     if (error?.response?.status == 401) {
                         dispatch(authSlice.actions.clearInfo());
                         info && authService.logOut();
-                        router.push(`/?next=${pathName}`);
+                        
+                        setTimeout(()=>{
+                            router.push(`/?next=${pathName}`);
+                        },1000)
                     }
                 },
             }}

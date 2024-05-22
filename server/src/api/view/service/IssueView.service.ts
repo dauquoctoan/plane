@@ -4,7 +4,7 @@ import { IssueView } from '../entitys/IssueView.entity';
 import { Repository } from 'sequelize-typescript';
 import { InjectRepository } from '@nestjs/typeorm';
 import { InjectModel } from '@nestjs/sequelize';
-import { CreateIssueViewDto } from '../dto/IssueView.entity.dto';
+import { CreateIssueViewDto } from '../dto/IssueView.dto';
 import { handleResultError } from 'src/helper/handleresult';
 import { messageCreateFail } from 'src/helper/message.create';
 import { UserService } from 'src/api/user/service/user.service';
@@ -17,7 +17,7 @@ export class IssueViewService extends BaseService<IssueView> {
         super(repository);
     }
 
-    async createIssueViews(issueView: CreateIssueViewDto){
+   async createIssueViews(issueView: CreateIssueViewDto){
         try {
             const user = await this.userService.findOneById(issueView.created_at);
 
@@ -36,12 +36,12 @@ export class IssueViewService extends BaseService<IssueView> {
         try {
             const user = await this.userService.findOneById(userId);
             if(user.last_workspace_id){
-                return await this.findAll({where:{workpsace_id:user.last_workspace_id},order: [['createdAt', 'DESC']], 
+                return await this.findAll({where:{workpsace_id:user.last_workspace_id, created_at: user.id},order: [['createdAt', 'DESC']], 
                 limit: 10});
             }
             handleResultError({message: messageCreateFail(this.repository.getTableName()), messageDetail: 'error'})
         } catch (error) {
             handleResultError({message: messageCreateFail(this.repository.getTableName()), messageDetail: error})
         }    
-    }
+    } 
 }

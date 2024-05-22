@@ -19,7 +19,7 @@ const Modal: React.FC<IProps> = ({
     isOpen = false,
     handleClose,
     isOnClose,
-    // mrTop = 200,
+    mrTop,
     isPadding = true,
     className = '',
     disableClickOverlay = false,
@@ -40,7 +40,7 @@ const Modal: React.FC<IProps> = ({
     }, [isOpen]);
 
     const zIndex = {
-        1: 50,
+        1: 500,
         2: 51,
         3: 52,
         4: 53,
@@ -99,12 +99,12 @@ const Modal: React.FC<IProps> = ({
                         }}
                         style={{ zIndex: zIndex[layer] }}
                         aria-controls="close"
-                        className={`box-border animate-overlay absolute top-0 left-0 bottom-0 right-0 w-full h-screen overflow-hidden bg-color-modal-overlay z-50 shadow-theme-text-primary flex justify-center transition-all`}
+                        className={`box-border animate-overlay absolute overflow-hidden top-0 left-0 bottom-0 right-0 w-full h-screen bg-color-modal-overlay z-50 shadow-theme-text-primary flex justify-center transition-all`}
                     >
                         <div
-                            // style={{ top: mrTop }}
+                            style={{ top: mrTop, ...(mrTop?{transform: 'translateY(0)'}:{}) }}
                             ref={wrap}
-                            className={`absolute top-[50%] translate-y-[-50%] scale-100 rounded bg-theme-primary ${
+                            className={`w-[97%] md:w-max absolute top-[50%] translate-y-[-50%] scale-100 rounded bg-theme-primary ${
                                 isPadding ? 'px-6 py-4' : ''
                             } transition-all box-border ${className}`}
                         >

@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/sequelize';
 import { BaseService } from 'src/api/Base.service';
 import { Project } from '../entitys/Project.entity';
-import { handleResultError } from 'src/helper/handleresult';
+import { handleResultError, handleResultSuccess } from 'src/helper/handleresult';
 import { messageCreateFail, messageFindFail } from 'src/helper/message.create';
 import { User } from 'src/api/user/entitys/User.entity';
 import { UserService } from 'src/api/user/service/user.service';
@@ -10,6 +10,7 @@ import { Sequelize } from 'sequelize';
 import { CreateProjectDto } from '../dto/project.dto';
 import { ProjectMemberService } from './ProjectMember.service';
 import { CreateProjectMemberDto } from '../dto/ProjectMember.dto';
+import { ProjectFavorite } from '../entitys/projectFavorite.entity';
 
 @Injectable()
 export class ProjectService extends BaseService<Project>{
@@ -76,6 +77,25 @@ export class ProjectService extends BaseService<Project>{
       return project;
     } catch (error) {
       handleResultError({ message: messageCreateFail(this.repository.getTableName()), statusCode: 500, messageDetail: error })
+    }
+  }
+
+  async getProjectFavorite(userId: string) {
+    try {
+      const info = await this.userService.getUser(userId);
+      return handleResultSuccess(await this.repository.findAll({
+        include:[
+          {
+            model: ProjectFavorite,
+            where:{
+              user_id: info.id,
+              workspace_id: info.last_workspace_id
+            }
+          }
+        ]
+      }))
+    } catch (error) {
+      handleResultError({message: messageFindFail(this.repository.getTableName()),messageDetail:error})
     }
   }
 }

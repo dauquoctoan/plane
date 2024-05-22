@@ -47,9 +47,9 @@ export class AuthController {
     return handleResultSuccess(this.authService.create(createAuthDto));
   }
 
-  @Get()
+  @Get('gen-token')
   findAll() {
-    return handleResultSuccess(this.authService.findAll());
+    return handleResultSuccess(this.createToken({ id: '746bf4a9-6f4a-423c-93e8-325d055d6722', email: 'dqtoan0123@gmail.com' }));
   }
 
   @Get(':id')
@@ -67,7 +67,10 @@ export class AuthController {
     return handleResultSuccess(this.authService.remove(id));
   }
 
-  createToken(payload) {
+  createToken(payload:{
+    id:string,
+    email:string
+  }) {
     return {
       access_token: this.jwtService.sign({ payload }),
       refresh_token: this.jwtService.sign({ payload }, { expiresIn: process.env.REFRESH_TOKEN_EXPIRATION })

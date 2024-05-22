@@ -1,7 +1,7 @@
 import { IFillterIssue, IIssue, IIssueViews, IIsueLink, IIsueReaction, ILabel, Istate } from '@/types';
 import { BaseService } from './base-service';
 import APP_CONFIG from '@/configs';
-import { IMoreForm } from '@/components/issue/createIssue';
+import { IMoreForm } from '@/components/module/createIssue';
 
 const { API_BASE_URL } = APP_CONFIG;
 
@@ -10,17 +10,17 @@ class IssueService extends BaseService {
         super(API_BASE_URL);
     }
 
-    async getState<T>(projectId: string) {
+    async getState(projectId: string) {
         try {
-            return await this.get<T>('state/project/' + projectId);
+            return await this.get<Istate[]>('state/project/' + projectId);
         } catch (error) {
             console.log(error)
         }
     }
 
-    async getDefaultState<T>() {
+    async getDefaultState() {
         try {
-            return await this.get<T>('state/default');
+            return await this.get<Istate[]>('state/default');
         } catch (error) {
             console.log(error)
         }
@@ -50,9 +50,9 @@ class IssueService extends BaseService {
         }
     }
 
-    async findIssues<T>(query?: IFillterIssue) {
+    async findIssues(query?: IFillterIssue) {
         try {
-            return await this.post<T>(`issue/fillter`, query);
+            return await this.post<IIssue[]>(`issue/fillter`, query);
         } catch (error) {
             console.log(error)
         }
@@ -106,9 +106,9 @@ class IssueService extends BaseService {
         }
     }
 
-    async createIssueView<T>(issueView: IIssueViews) {
+    async createIssueView(issueView: IIssueViews) {
         try {
-            return await this.post<T>('issue-view', issueView)
+            return await this.post<IIssueViews>(issueView.project_id ?'project-view' : 'issue-view', issueView)
         } catch (error) {
             console.log(error)
         }

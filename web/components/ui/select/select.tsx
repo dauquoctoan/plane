@@ -1,3 +1,5 @@
+'use client'
+
 import React, { ReactElement, memo, useEffect, useRef, useState } from 'react';
 import { ICurentFieldProps } from '../types/form';
 import SelectPopup from './selectPopup';

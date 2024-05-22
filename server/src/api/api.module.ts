@@ -21,6 +21,8 @@ import { Test1Module } from './test1/test1.module';
 import { SocialConnectionModule } from './social_connection/SocialConnection.module';
 import { StateModule } from './state/state.module';
 import { UserModule } from './user/user.module';
+import { SearchModule } from './search/Search.module';
+import { UploadModule } from './upload/upload.module';
 
 @Module({
     imports: [
@@ -45,6 +47,8 @@ import { UserModule } from './user/user.module';
         AuthModule,
         TestModule,
         Test1Module,
+        SearchModule,
+        UploadModule
     ]
 })
 

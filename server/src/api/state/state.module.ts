@@ -5,10 +5,12 @@ import { SequelizeModule } from '@nestjs/sequelize';
 import { StateService } from './service/state.service';
 import { StateController } from './controller/state.controller';
 import { State } from './entitys/state.entity';
+import { User } from '../user/entitys/User.entity';
+import { UserService } from '../user/service/user.service';
 
 @Module({
-  imports: [SequelizeModule.forFeature([State])],
-  providers: [StateService],
+  imports: [SequelizeModule.forFeature([State, User])],
+  providers: [StateService, UserService],
   controllers: [StateController]
 })
 

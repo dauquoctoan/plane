@@ -14,8 +14,9 @@ import {
 } from 'react-icons/pi';
 import { TfiAngleDown } from 'react-icons/tfi';
 
-const Node = ({ editor }: { editor: Editor }) => {
-    const [open, setOpen] = useState(false);
+interface INode{ editor: Editor, setOpenTab: React.Dispatch<React.SetStateAction<number>>, index: number, tab: number}
+
+const Node = ({ editor, setOpenTab, tab, index }: INode) => {
 
     const node = [
         {
@@ -82,11 +83,12 @@ const Node = ({ editor }: { editor: Editor }) => {
     const activeItem = node.filter((item) => item.isActive()).pop() ?? {
         name: 'Multiple',
     };
+
     return (
         <div className="relative cursor-pointer flex items-center gap-1 border-r px-2">
             <button
                 onClick={() => {
-                    setOpen(!open);
+                    setOpenTab(tab == -1 ? index : -1);
                 }}
                 className="flex items-center gap-1"
                 type="button"
@@ -94,7 +96,7 @@ const Node = ({ editor }: { editor: Editor }) => {
                 <span>{activeItem?.name}</span>
                 <TfiAngleDown className="text-sm" />
             </button>
-            {open && (
+            {tab == index && (
                 <div className="border rounded absolute bg-theme-primary px-2 mt-2 py-1 animate-popUp origin-top-left top-[100%] left-0 w-[200px] shadow-theme-primary">
                     {node.map((item, index) => {
                         return (
@@ -102,7 +104,7 @@ const Node = ({ editor }: { editor: Editor }) => {
                                 key={index}
                                 type="button"
                                 onClick={() => {
-                                    setOpen(false);
+                                    setOpenTab(-1)
                                     return item.command();
                                 }}
                                 className={cn(

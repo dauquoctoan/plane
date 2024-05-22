@@ -13,7 +13,7 @@ export class CycleIssue extends Model<CycleIssue> {
     */
 
     @ForeignKey(() => Issue)
-    @Column({ type: sequelize.UUID })
+    @Column({ type: sequelize.UUID, allowNull:true })
     issue_id: string;
 
     @ForeignKey(() => Cycle)

@@ -33,11 +33,7 @@ export class Cycle extends Model<Cycle> {
     @BelongsTo(() => User, {foreignKey: 'owned_by'})
     user: User;
 
-    @BelongsTo(() => Project, {
-        foreignKey: 'project_id',
-        onUpdate: "CASCADE",
-        onDelete: "CASCADE",
-    })
+    @BelongsTo(() => Project)
     project: Project;
 
     @BelongsTo(() => Workspace, {foreignKey: 'workspace_id'})
@@ -46,13 +42,24 @@ export class Cycle extends Model<Cycle> {
     @BelongsTo(() => User, {foreignKey: 'created_by'})
     user_created: User;
 
-    @HasMany(() => CycleIssue, {foreignKey: 'cycle_id'})
+    @HasMany(() => CycleIssue, {foreignKey: 'cycle_id',
+        onUpdate: "CASCADE",
+        onDelete: "CASCADE",
+    })
     cycle_issues: CycleIssue[];
 
-    @HasMany(() => CycleUserProperties, {foreignKey: 'cycle_id'})
+    @HasMany(() => CycleUserProperties, {
+        foreignKey: 'cycle_id',
+        onUpdate: "CASCADE",
+        onDelete: "CASCADE",
+    })
     cycle_user_properties: CycleUserProperties[];
 
-    @HasMany(() => CycleFavorite, {foreignKey: 'cycle_id'})
+    @HasMany(() => CycleFavorite, {
+        foreignKey: 'cycle_id',
+        onUpdate: "CASCADE",
+        onDelete: "CASCADE",
+    })
     cycle_favorites: CycleFavorite[];
 
     @Length({ max: 255 })

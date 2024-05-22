@@ -330,7 +330,7 @@ const IssueDetail: FC<IIssueDetail> = ({ issue }) => {
                     </div>
                 </div>
                 <div>
-                    <div>Properties</div>
+                    <div className='text-sm'>Properties</div>
                     <Line />
                     <div className="w-full flex flex-col gap-2">
                         {properties.map((item, index) => {
@@ -341,9 +341,9 @@ const IssueDetail: FC<IIssueDetail> = ({ issue }) => {
                                 >
                                     <div className="flex items-center gap-2 w-[200px]">
                                         {item.icons}
-                                        <div>{item.name}</div>
+                                        <div className='text-sm'>{item.name}</div>
                                     </div>
-                                    <div className="flex items-center gap-2 flex-1 py-1 hover:bg-theme-secondary rounded cursor-pointer">
+                                    <div className="text-sm flex items-center gap-2 flex-1 py-1 hover:bg-theme-secondary rounded cursor-pointer">
                                         {item.content}
                                     </div>
                                 </div>

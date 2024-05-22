@@ -29,8 +29,8 @@ export class ModuleController {
     }
 
     @Patch(':id')
-    update(@Param('id') id: string, @Body() module: UpdateModuleDto) {
-        return handleResultSuccess(this.moduleService.updateById(id, module));
+    async update(@Param('id') id: string, @Body() module: UpdateModuleDto) {
+        return handleResultSuccess(await this.moduleService.updateById(id, module));
     }
 
     @Delete(':id')

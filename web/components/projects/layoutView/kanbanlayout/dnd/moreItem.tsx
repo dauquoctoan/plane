@@ -31,9 +31,7 @@ const MoreItem: FC<IProps> = ({ block }) => {
     const info = useSelector(selectInfo);
 
     useEffect(() => {
-        if (!open) {
-            setTitle('');
-        }
+        if (!open)setTitle('');
     }, [open]);
 
     return (
@@ -43,13 +41,13 @@ const MoreItem: FC<IProps> = ({ block }) => {
         >
             <div className="relative flex gap-2 text-color-special-primary items-center cursor-pointer px-3">
                 <LuPlus />
-                <div>New Issue</div>
+                <div className='text-sm'>New Issue</div>
             </div>
             {open &&
                 createPortal(
                     <div
                         ref={refPopup}
-                        className="px-3 py-1 absolute top-[100%] left-0 rounded shadow-theme-primary"
+                        className="px-3 py-1 absolute top-[100%] left-0 rounded bg-theme-primary shadow-theme-primary"
                         style={{ zIndex: 400, ...style }}
                         onKeyDown={async (e) => {
                             if (e.keyCode == 13) {
@@ -73,9 +71,12 @@ const MoreItem: FC<IProps> = ({ block }) => {
                                             if (issueResult) {
                                                 noti?.success('Issue created');
                                                 handleClose();
-                                                return issue
-                                                    ? [...issue, issueResult]
-                                                    : [issueResult];
+                                                return [...issue, {...issueResult, 
+                                                    state_id: block.id,
+                                                    state: {
+                                                        id: block.id,
+                                                        name: block.title
+                                                    }}];
                                             } else {
                                                 noti?.error(
                                                     'An error occurred, please try again later',

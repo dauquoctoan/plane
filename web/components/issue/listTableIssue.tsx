@@ -9,6 +9,7 @@ import { lsTabsIssues } from '@/constants';
 import { selectInfo } from '@/store/slices/authSlice/selectors';
 import { issueViewSlice, useDispatch, useSelector } from '@/store';
 import { ContainerLink, LinkProps, changeRoute } from 'nextjs-progressloader';
+import { createNickNameLink } from '@/helpers';
 
 function createLink(slug: string = '', id: string = '') {
     return `/${slug}/workspace-views/${id}`;
@@ -24,21 +25,21 @@ const ListTableIssue = () => {
     const lsLinks =
         issueViews?.map((e) => ({
             href: `/${info?.workspace?.slug}/workspace-views/${e.id}`,
-            nickname: `workspace-views-${e.id}`,
+            nickname: createNickNameLink(`workspace-views-${e.id}`),
         })) || [];
 
     const customeLink: LinkProps[] = [
         {
             href: `/${info?.workspace?.slug}/workspace-views/assigned`,
-            nickname: 'workspace-views-assigned',
+            nickname: createNickNameLink('workspace-views-assigned'),
         },
         {
             href: `/${info?.workspace?.slug}/workspace-views/created`,
-            nickname: 'workspace-views-created',
+            nickname: createNickNameLink('workspace-views-created'),
         },
         {
             href: `/${info?.workspace?.slug}/workspace-views/subscribed`,
-            nickname: 'workspace-views-subscribed',
+            nickname: createNickNameLink('workspace-views-subscribed'),
         },
         ...lsLinks.reverse(),
     ];

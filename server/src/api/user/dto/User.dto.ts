@@ -9,5 +9,9 @@ export class CreateUserDto {
     avatar: string;
 }
 
+export class generatePinDto {
+    email: string;
+}
+
 export class UpdateUserDto extends PartialType(CreateUserDto) {
 }

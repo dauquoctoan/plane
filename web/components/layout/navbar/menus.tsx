@@ -81,10 +81,7 @@ const MenuItem: React.FC<IMenu> = ({
             onClick={() => {
                 changeRoute(path);
             }}
-            className={`mb-1 flex items-center gap-2 px-4 py-2 cursor-pointer hover:bg-theme-secondary rounded ${path == (pathName)
-                ? 'text-color-special-primary bg-color-special-secondary'
-                : ''
-                }`}
+            className={`mb-1 text-sm flex items-center ${text ? 'gap-2':'flex items-center justify-center'} px-4 py-2 cursor-pointer hover:bg-theme-secondary rounded ${path == (pathName) ? 'text-color-special-primary bg-color-special-secondary text-sm' : ''}`}
         >
             {icon}
             {text && <label className="cursor-pointer">{text}</label>}

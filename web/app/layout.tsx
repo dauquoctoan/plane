@@ -9,6 +9,7 @@ import SWRProvider from '@/components/commont/swr-provider';
 import ProgressLoader from '@/components/ui/ProgressLoader';
 
 const inter = Inter({ subsets: ['vietnamese'] });
+
 export const metadata: any = {
     title: 'Plane',
     description: 'Plane',

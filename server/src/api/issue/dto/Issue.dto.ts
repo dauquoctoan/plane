@@ -75,6 +75,12 @@ export class QueryIssueDto {
     startDate?: string;
 
     @IsOptional()
-    @IsEmpty()
+    @IsNotEmpty()
     dueDate?: string;
+
+    @IsOptional()
+    @IsNotEmpty()
+    typeDateQuery?: TypeQuery;
 }
+
+export type TypeQuery = 'lt'|'gte'|'gt'|'lte'|'between'

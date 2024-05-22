@@ -59,7 +59,7 @@ export class BaseService {
             method: "post",
             url: this.baseURL + url,
             headers: this.getAccessToken() ? this.getHeaders() : {},
-            data: qs.stringify(data),
+            data: data,
             ...config,
         }).then((res) => res.data).then(this.handleResult);
     }

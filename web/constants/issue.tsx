@@ -21,11 +21,17 @@ import {
 } from 'react-icons/md';
 import { RiErrorWarningLine } from 'react-icons/ri';
 import moment from 'moment';
+import { IconType } from 'react-icons';
+import { ReactElement } from 'react';
 
 export interface ILink {
     title: string;
     key: string;
 }
+
+export const END_DATE_QUERY = 'dueDate';
+export const STATE_QUERY= 'states';
+export const TYPE_DATE_QUERY = 'typeDateQuery';
 
 export const TIME_ZONE_CHOICE = [
     'Africa/Abidjan, GMT',
@@ -665,6 +671,14 @@ export const optionLevel: IOptionItem[] = [
     { icon: <IoBan />, title: 'None', value: 'none' },
 ];
 
+export const optionLevelIcons:{[e:string]:ReactElement} = {
+    urgent:<RiErrorWarningLine />,
+    high: <MdOutlineSignalCellularAlt />,
+    medium: <MdOutlineSignalCellularAlt2Bar/>,
+    low: <MdSignalCellularAlt1Bar />,
+    none: <IoBan />,
+};
+
 export const lsDefaultTabsIssue = [
     <div
         key={'lsMenu1'}
@@ -721,15 +735,16 @@ export const menuLayoutIssue = [
         icon: <MdCalendarMonth />,
         key: 'calendar',
     },
-    {
-        icon: <LuGanttChartSquare />,
-        key: 'gantt',
-    },
+    // {
+    //     icon: <LuGanttChartSquare />,
+    //     key: 'gantt',
+    // },
     {
         icon: <LiaThListSolid />,
         key: 'spreadsheet',
     },
 ];
+
 export const DATE_FORMAT = 'MMMM Do, h:mm:ss a';
 
 export const TableConfigs: ITableConfigs[] = [
@@ -737,6 +752,9 @@ export const TableConfigs: ITableConfigs[] = [
         title: 'ID',
         dataIndex: 'id',
         fixed: 'left',
+        render:(e:IIssue,record:IIssue)=>{
+            return <div>{record?.project?.identifier?.toUpperCase() + '-' + (record.sequence_id|| '')}</div>;
+        }
     },
     {
         title: 'Issue',

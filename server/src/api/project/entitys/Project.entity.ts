@@ -15,6 +15,9 @@ import { Cycle } from 'src/api/cycle/entitys/Cycle.entity';
 import { Module } from 'src/api/module/entitys/Module.entity';
 import { CycleUserProperties } from 'src/api/cycle/entitys/CycleUserProperties';
 import { ModuleUserProperties } from 'src/api/module/entitys/ModuleUserProperties.entity';
+import { ProjectFavorite } from './projectFavorite.entity';
+import { ProjectView } from 'src/api/view/entitys/ProjectView.entity';
+import { Page } from 'src/api/page/entitys/Page.entity';
 
 @Table({tableName:'Projects'})
 export class Project extends Model<Project> {
@@ -44,6 +47,29 @@ export class Project extends Model<Project> {
         foreignKey: 'project_id'
     })
     module: Module[];
+
+
+    @HasMany(() => ProjectFavorite, {
+        onUpdate: "CASCADE",
+        onDelete: "CASCADE",
+        foreignKey: 'project_id'
+    })
+    project_favorite: ProjectFavorite[];
+
+    
+    @HasMany(() => ProjectFavorite, {
+        onUpdate: "CASCADE",
+        onDelete: "CASCADE",
+        foreignKey: 'project_id'
+    })
+    pages: Page[];
+
+    @HasMany(() => ProjectView, {
+        onUpdate: "CASCADE",
+        onDelete: "CASCADE",
+        foreignKey: 'project_id'
+    })
+    project_views: ProjectView[];
 
     @HasMany(() => ModuleUserProperties, {
         foreignKey: 'project_id'

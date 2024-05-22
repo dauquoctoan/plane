@@ -1,21 +1,32 @@
-import { Controller, Get, Post, Body, Param, Patch, Delete, Query } from '@nestjs/common';
-import { ApiTags } from '@nestjs/swagger';
+import { Controller, Get, Post, Body,Request as RequestNestjs, Param, Patch, Delete, Query, UseGuards } from '@nestjs/common';
+import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { ProjectFavoriteService } from '../service/ProjectFavorite.service';
 import { CreateProjectFavoriteDto, UpdateProjectFavoriteDto } from '../dto/ProjectFavorite.dto';
 import { handleResultSuccess } from 'src/helper/handleresult';
+import { IAuthRequest } from 'src/types/auth.types';
+import { AuthGuard } from 'src/Guards/auth.guard';
+import { ProjectService } from '../service/project.service';
 
 @Controller('project-favorite')
 @ApiTags('Project Favorite')
+@ApiBearerAuth('access-token')
 export class ProjectFavoriteController {
-    constructor(private readonly projectFavoriteService: ProjectFavoriteService) { }
-    @Post()
-    create(@Body() project: CreateProjectFavoriteDto) {
-        return handleResultSuccess(this.projectFavoriteService.create(project));
+    constructor(
+        private readonly projectFavoriteService: ProjectFavoriteService,
+        private readonly projectService: ProjectService
+    ) { }
+    
+    
+    @Post(':id')
+    @UseGuards(AuthGuard)
+    async create(@Param('id') projectId: string, @RequestNestjs() request: IAuthRequest) {
+        return handleResultSuccess(await this.projectFavoriteService.createProjectFavorite(projectId, request.user.id));
     }
 
     @Get()
-    findAllProjectFavorite() {
-        return handleResultSuccess(this.projectFavoriteService.findAll());
+    @UseGuards(AuthGuard)
+    async findAllProjectFavorite(@RequestNestjs() request: IAuthRequest) {
+        return handleResultSuccess(await this.projectService.getProjectFavorite(request?.user?.id));
     }
 
     @Get(':id')
@@ -29,7 +40,7 @@ export class ProjectFavoriteController {
     }
 
     @Delete(':id')
-    removeProjectFavorite(@Param("id") id?: string) {
-        return handleResultSuccess(this.projectFavoriteService.removeById(id));
+    async removeProjectFavorite(@Param("id") id?: string) {
+        return handleResultSuccess(await this.projectFavoriteService.removeById(id));
     }
 }

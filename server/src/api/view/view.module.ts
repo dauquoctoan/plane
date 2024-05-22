@@ -11,11 +11,14 @@ import { IssueViewFavoriteService } from './service/IssueViewFavorite.service';
 import { GlobalViewService } from './service/GlobalView.service';
 import { UserService } from '../user/service/user.service';
 import { User } from '../user/entitys/User.entity';
+import { ProjectView } from './entitys/ProjectView.entity';
+import { ProjectViewService } from './service/ProjectView.service';
+import { ProjectViewController } from './controller/ProjectView.controller';
 
 @Module({
-  imports: [SequelizeModule.forFeature([IssueView, IssueViewFavorite, GlobalView, User])],
-  providers: [IssueViewService, GlobalViewService, IssueViewFavoriteService, UserService],
-  controllers: [IssueViewController, GlobalViewController, IssueViewFavoriteController]
+  imports: [SequelizeModule.forFeature([IssueView, IssueViewFavorite, GlobalView, User, ProjectView])],
+  providers: [IssueViewService, GlobalViewService, IssueViewFavoriteService, UserService, ProjectViewService],
+  controllers: [IssueViewController, GlobalViewController, IssueViewFavoriteController, ProjectViewController]
 })
 
-export class ViewModule { }
+export class ViewModule {}

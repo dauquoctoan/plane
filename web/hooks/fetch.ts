@@ -5,7 +5,6 @@ import projectService from "@/services/project-services";
 import { useSelector } from "@/store";
 import { selectInfo } from "@/store/slices/authSlice/selectors";
 import { IData, IParams, IProject } from "@/types";
-import { info } from "console";
 import { useParams } from "next/navigation";
 import { useEffect, useState } from "react"
 import useSWR from "swr";
@@ -33,18 +32,38 @@ export const useFetch = <T>(apifetch: apifetch, url?: string) => {
     }
 }
 
-
 export const useCurentProject = ()=>{
     const info = useSelector(selectInfo)
     const params = useParams<IParams>()
-    const { data: projects } = useSWR<IData<IProject[]>>(
+    const { data: projects } = useSWR(
         LS_PROJECT_KEY(info?.last_workspace_id),
         () => {
-            return projectService.getProjects<IData<IProject[]>>(
+            return projectService.getProjects(
                 info?.last_workspace_id || '',
             );
         },
     );
 
-    return projects?.find((e) => (e.id = params.projectid))
+    return projects?.find((e) => (e.id == params.projectid))
 }
+
+
+
+
+const useDebounce = (value:string, delay:number) => {
+  const [debouncedValue, setDebouncedValue] = useState(value);
+
+  useEffect(() => {
+    const handler = setTimeout(() => {
+      setDebouncedValue(value);
+    }, delay);
+
+    return () => {
+      clearTimeout(handler);
+    };
+  }, [value, delay]);
+
+  return debouncedValue;
+}
+
+export default useDebounce;

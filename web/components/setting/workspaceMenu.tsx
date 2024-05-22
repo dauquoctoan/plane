@@ -1,4 +1,5 @@
 'use client';
+import { createNickNameLink } from '@/helpers';
 import { useSelector } from '@/store';
 import { selectInfo } from '@/store/slices/authSlice/selectors';
 import { IParams } from '@/types';
@@ -26,7 +27,7 @@ const Menu = () => {
                 links={menus.map((e) => {
                     return {
                         href: `/${info?.workspace?.slug}/settings/${e.href}`,
-                        nickname: e.nickname + info?.workspace?.slug,
+                        nickname: createNickNameLink(e.nickname + info?.workspace?.slug),
                     };
                 })}
             />

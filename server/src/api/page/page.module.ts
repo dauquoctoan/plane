@@ -12,10 +12,12 @@ import { PageFavoriteService } from './service/PageFavorite.service';
 import { PageLabelService } from './service/PageLabel.service';
 import { PageController } from './controller/page.controller';
 import { PageBlockBlockController } from './controller/PageBlock.controller';
+import { User } from '../user/entitys/User.entity';
+import { UserService } from '../user/service/user.service';
 
 @Module({
-  imports: [SequelizeModule.forFeature([Page, PageBlock, PageFavorite, PageLabel])],
-  providers: [PageService, PageBlockService, PageFavoriteService, PageLabelService],
+  imports: [SequelizeModule.forFeature([Page, PageBlock, PageFavorite, PageLabel, User])],
+  providers: [PageService, PageBlockService, PageFavoriteService, PageLabelService, UserService],
   controllers: [PageController, PageBlockBlockController, PageFavoriteController, PageLabelController]
 })
 

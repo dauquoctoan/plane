@@ -3,7 +3,7 @@ import { useDataFilter } from '@/hooks';
 import React from 'react';
 import { IItemData, IItemSelected } from '../ui/collapse/collapse';
 import { ItemSelected } from './fillterQueryIssue';
-import { filterSelected } from './createViewIssue';
+import { filterSelected } from '../module/createViewIssue';
 
 function _filter(datas: IItemData[], key: string[]): IItemSelected {
     return datas.reduce((data: IItemSelected, item) => {

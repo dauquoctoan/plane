@@ -11,6 +11,7 @@ import { useDispatch } from 'react-redux';
 import Tab, { ITabItem } from '../ui/tab';
 import React from 'react';
 import useSWR from 'swr';
+import { createNickNameLink } from '@/helpers';
 
 const TabsIssue = () => {
     const info = useSelector(selectInfo);
@@ -24,21 +25,21 @@ const TabsIssue = () => {
     const lsLinks =
         issueViews?.map((e) => ({
             href: `/${info?.workspace?.slug}/workspace-views/${e.id}`,
-            nickname: `workspace-views-${e.id}`,
+            nickname: createNickNameLink(`workspace-views-${e.id}`),
         })) || [];
 
     const customeLink: LinkProps[] = [
         {
             href: `/${info?.workspace?.slug}/workspace-views/assigned`,
-            nickname: 'workspace-views-assigned',
+            nickname: createNickNameLink('workspace-views-assigned'),
         },
         {
             href: `/${info?.workspace?.slug}/workspace-views/created`,
-            nickname: 'workspace-views-created',
+            nickname: createNickNameLink('workspace-views-created'),
         },
         {
             href: `/${info?.workspace?.slug}/workspace-views/subscribed`,
-            nickname: 'workspace-views-subscribed',
+            nickname: createNickNameLink('workspace-views-subscribed'),
         },
         ...lsLinks.reverse(),
     ];

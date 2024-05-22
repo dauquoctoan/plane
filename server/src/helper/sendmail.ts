@@ -6,6 +6,12 @@ export interface ISendMailInfo{
     href: string;
 }
 
+export interface ISendMailPin{
+  email: string;
+  pin: string;
+}
+
+
 export function sendMail({email, workspaceName, href}:ISendMailInfo){
     const transporter = nodemailer.createTransport({
         service: 'gmail',
@@ -33,5 +39,33 @@ export function sendMail({email, workspaceName, href}:ISendMailInfo){
       }
       console.log('Email sent: ' + info.response);
     });
+}
+
+export function sendPinToMail({email, pin}:ISendMailPin){
+  const transporter = nodemailer.createTransport({
+      service: 'gmail',
+      auth: {
+          user: 'dqtoan0123@gmail.com',
+          pass: 'njnu jnyg mfpp pozp'
+      }
+  });  
+
+  const mailOptions = {
+    from: 'dqtoan0123@gmail.com', 
+    to: email,
+    subject: `Your unique Plane login code is ${pin}`,
+    html: `
+      <h1>The code below is only valid for 10 minutes.</h1>
+      <h2>${pin}</h2>
+      <p>Please copy and paste this on the screen where you requested this from.</p>
+    `
+  };
+
+  transporter.sendMail(mailOptions, (error, info) => {
+    if (error) {
+      return console.error(error);
+    }
+    console.log('Email sent: ' + info.response);
+  });
 }
 

@@ -33,6 +33,7 @@ export interface IProps {
     configs?: ITableConfigs[];
     fixedHeader?: boolean;
     lsKeyDisable?: string[];
+    className?: string;
 }
 
 export type TTotal = ITotal | null;
@@ -42,6 +43,7 @@ const Table: React.FC<IProps> = ({
     configs: defConfgs,
     fixedHeader,
     lsKeyDisable,
+    className
 }) => {
     const DEFAULT_WIDTH = 125;
     const refTable = useRef<HTMLDivElement>(null);
@@ -100,10 +102,10 @@ const Table: React.FC<IProps> = ({
                             i === configs.length - 1 && space > 0
                                 ? (e.width || DEFAULT_WIDTH) + space
                                 : e.width,
-                        zIndex: e.fixed && (isHeader ? 49 : 48),
+                        zIndex: e.fixed && (isHeader ? 39 : 38),
                     }}
                     className={cn(
-                        'w-[125px] px-4 py-2 border-b border-theme-border-secondary whitespace-nowrap text-ellipsis transition-all',
+                        `w-[125px] px-4 py-2 border-b border-theme-border-secondary whitespace-nowrap text-ellipsis transition-all`,
                         {
                             'after:content-[""] after:top-0 after:w-[40px] after:absolute after:pointer-events-none after:bottom-[1px] after:h-full':
                                 isScroll && e.fixed,
@@ -142,14 +144,14 @@ const Table: React.FC<IProps> = ({
                 else setIsScroll(false);
             }}
             ref={refTable}
-            className="w-full overflow-auto hover-scroll border border-collapse border-x-0 h-full border-theme-border-secondary"
+            className={`w-full relative overflow-auto hover-scroll border border-collapse border-x-0 border-theme-border-secondary ${className}`}
         >
             {configs ? (
                 <>
                     <div
                         style={{ zIndex: fixedHeader ? 50 : undefined }}
                         className={`flex w-fit bg-theme-secondary ${
-                            fixedHeader ? 'sticky top-0' : ''
+                            fixedHeader ? 'sticky top-0 left-0' : ''
                         }`}
                     >
                         {getItemTable(configs, true)}

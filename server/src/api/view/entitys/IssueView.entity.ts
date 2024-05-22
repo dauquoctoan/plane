@@ -1,4 +1,4 @@
-import { Column, DataType, ForeignKey, HasMany, Is, Length, Model, Table } from 'sequelize-typescript';
+import { BelongsTo, Column, DataType, ForeignKey, HasMany, Is, Length, Model, Table } from 'sequelize-typescript';
 import { ACCESS, ROLE } from 'src/constants/entity-constant';
 import { INVALID_ACCESS } from 'src/constants/message-constant';
 import { IssueViewFavorite } from './IssueViewFavorite.entity';
@@ -28,8 +28,8 @@ export class IssueView extends Model<IssueView> {
     @HasMany(() => Workspace, {foreignKey:'workpsace_id'})
     workpsace : Workspace[];
 
-    @HasMany(() => User, {foreignKey:'created_at'})
-    creator : User[];
+    @BelongsTo(() => User, {foreignKey:'created_at'})
+    creator : User;
 
     @Length({ max: 255 })
     @Column({ allowNull: false })

@@ -1,4 +1,4 @@
-import { Attributes, FindOptions, Model, ModelCtor, UpdateOptions, WhereOptions } from "sequelize";
+import { Attributes, DestroyOptions, FindOptions, Model, ModelCtor, UpdateOptions, WhereOptions } from "sequelize";
 import { handleResultError } from "src/helper/handleresult";
 import { removeKeyNull } from "src/helper/key";
 import { messageCreateFail, messageDeleteFail, messageFindFail, messageUpdateFail } from "src/helper/message.create";
@@ -71,6 +71,14 @@ export abstract class BaseService<T extends Model>{
     async removeById(id: number | string): Promise<number> {
         try {
             return await this.repository.destroy({ where: { id: id as any } });
+        } catch (error) {
+            handleResultError({ message: messageDeleteFail(`[${this.repository.getTableName()}]`), messageDetail: error });
+        }
+    }
+
+    async remove(where: DestroyOptions<Attributes<any>>): Promise<number> {
+        try {
+            return await this.repository.destroy(where);
         } catch (error) {
             handleResultError({ message: messageDeleteFail(`[${this.repository.getTableName()}]`), messageDetail: error });
         }

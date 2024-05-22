@@ -6,31 +6,24 @@ import projectService from '@/services/project-services';
 import { IParams, IProjectMember, TLayout } from '@/types';
 import { useParams } from 'next/navigation';
 import React from 'react';
-import { AiOutlineTable } from 'react-icons/ai';
-import { CiViewList } from 'react-icons/ci';
-import {
-    MdCalendarMonth,
-    MdOutlineKeyboardArrowRight,
-    MdOutlineViewKanban,
-} from 'react-icons/md';
 import { PiSuitcaseSimpleBold } from 'react-icons/pi';
 import useSWR, { mutate } from 'swr';
 import lodash from 'lodash';
-import { LuGanttChartSquare } from 'react-icons/lu';
-import { BiSpreadsheet } from 'react-icons/bi';
-import { LiaThListSolid } from 'react-icons/lia';
 import { useDispatch } from 'react-redux';
 import { issueViewSlice } from '@/store';
 import { menuLayoutIssue } from '@/constants';
+import RoadMap from '@/components/module/roadMap';
 
 const IssueHeader = () => {
     const params = useParams<IParams>();
     const dispatch = useDispatch();
-    const { data } = useSWR('PROJECT_VIEW', () => {
+    
+    const { data } = useSWR('PROJECT_VIEW' + params.projectid, () => {
         return projectService.getProjectViewByMember<IProjectMember>({
             projectId: params.projectid,
         });
     });
+    
 
     let changeLayout = lodash.debounce(function (id, viewProps) {
         projectService.updateProjectMember(id, {
@@ -39,18 +32,23 @@ const IssueHeader = () => {
     }, 1000);
 
     return (
-        <div className="flex gap-2 items-center justify-between text-sm pr-2">
+        <div className="flex gap-2 items-center text-sm pr-2">
             <div className="flex items-center gap-2">
-                <PiSuitcaseSimpleBold />
-                <span>Projects</span>
-                <div>
-                    <MdOutlineKeyboardArrowRight />
-                </div>
-                <span>Issue</span>
+                <RoadMap
+                    roads={[
+                        {
+                            title: 'Projects',
+                            icon: <PiSuitcaseSimpleBold />,
+                        },
+                        {
+                            title: 'Issue',
+                        },
+                    ]}
+                />
             </div>
 
-            <div className="flex items-center gap-2">
-                <div>
+            <div className="md:flex hidden flex-1 justify-end overflow-x-auto items-center gap-2">
+                <div className='w-fit'>
                     {data && (
                         <LayoutSwitch
                             defaultValue={
