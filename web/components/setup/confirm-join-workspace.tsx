@@ -13,7 +13,7 @@ const Page = () => {
     const token = useSearchParams().get('token');
 
     const { data: info, isLoading: loadingInfo } = useSWR('me', () =>
-        authService.getUser<IData<IInfo>>(),
+        authService.getUser(),
     );
 
     const { data: workspace } = useSWR(

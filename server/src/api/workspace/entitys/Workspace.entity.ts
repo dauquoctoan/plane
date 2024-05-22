@@ -20,6 +20,8 @@ import { ProjectMember } from 'src/api/project/entitys/ProjectMember.entity';
 import { IssueView } from 'src/api/view/entitys/IssueView.entity';
 import { Cycle } from 'src/api/cycle/entitys/Cycle.entity';
 import { Module } from 'src/api/module/entitys/Module.entity';
+import { ProjectFavorite } from 'src/api/project/entitys/projectFavorite.entity';
+import { Page } from 'src/api/page/entitys/Page.entity';
 
 @Table({tableName:'Workspaces'})
 export class Workspace extends Model<Workspace> {
@@ -32,11 +34,13 @@ export class Workspace extends Model<Workspace> {
     * WorkspaceTheme, AnalyticView, WorkspaceMemberInvite, WorkspaceMember, FileAsset, 
     * APIToken, ExporterHistory, Notification;
     */
+   
     @ForeignKey(() => User)
     @Column({ type: sequelize.UUID, allowNull: false })
     owner: string;
 
     /* ================================================== */
+
     @BelongsTo(() => User, { foreignKey: 'owner' })
     user: User;
 
@@ -48,6 +52,13 @@ export class Workspace extends Model<Workspace> {
 
     @HasMany(() => ProjectMember, { foreignKey: 'workspace_id' })
     project_member: ProjectMember[];
+
+    @HasMany(() => Page, { foreignKey: 'workspace_id' })
+    pages: Page[];
+
+    @HasMany(() => ProjectFavorite, { foreignKey: 'workspace_id' })
+    project_favorites: ProjectFavorite[];
+    
 
     @HasMany(() => Module, { foreignKey: 'workspace_id' })
     module: Module[];

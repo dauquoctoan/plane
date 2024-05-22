@@ -1,3 +1,5 @@
+import { STATE_QUERY, TYPE_DATE_QUERY } from "@/constants";
+
 interface IBaseData {
     createdAt?: string;
     updatedAt?: string;
@@ -9,6 +11,8 @@ export type IParams = {
     projectid: string;
     cycleid: string;
     moduleid: string;
+    projectviewid:string;
+    pageid:string;
 }
 export interface IResult<T> {
     code: 0 | 1
@@ -157,6 +161,7 @@ export interface IIssue extends IBaseData {
     state: Istate;
     assignees?: IUser[] | string[];
     labels?: ILabel[] | string[];
+    project?: IProject;
 }
 export interface ILabel extends IBaseData {
     id: string;
@@ -173,7 +178,7 @@ export interface IFillterIssue {
     cycle_id?: string;
     projects?: string[];
     userId?: string;
-    states?: string[];
+    [STATE_QUERY]?: string[];
     labels?: string[];
     priorities?: string[];
     createBys?: string[];
@@ -185,6 +190,7 @@ export interface IFillterIssue {
     startCustomTo?: string;
     dueCustomFrom?: string;
     dueCustomTo?: string;
+    [TYPE_DATE_QUERY]?: string;
 }
 
 export interface IIssueViews {
@@ -194,6 +200,18 @@ export interface IIssueViews {
     query?: IFillterIssue;
     access?: number;
     query_data?: string;
+    project_id?:string
+}
+
+export interface IProjectViews {
+    id?: string;
+    name: string;
+    description?: string;
+    query?: IFillterIssue;
+    access?: number;
+    query_data?: string;
+    project_id?:string
+    creator?: IUser;
 }
 
 export type TLayout = "list" | "kanban" | "calendar" | "gantt" | "spreadsheet"; 
@@ -271,10 +289,16 @@ export interface ICycle {
     // cycle_favorites: ICycleFavorite[];
     name: string;
     description: string;
-    start_date: Date;
-    end_date: Date;
+    is_favorite: 0|1;
+    start_date: string;
+    end_date: string;
     view_props: string;
     sort_order: number;
+}
+
+export interface ICycleFavorite{
+    user_id:string;
+    cycle_id:string;
 }
 
 export interface IModule {
@@ -328,6 +352,34 @@ export interface IIsueLink extends IBaseData{
     title: string;
     url: string;
     metadata: string;
+}
+
+export interface IPageBlock extends IBaseData{
+    id: string;
+}
+
+export interface IPageFavorite extends IBaseData{
+    id: string;
+}
+
+
+export interface IPage extends IBaseData{
+    id: string;
+    owned_by: string;
+    project_id: string;
+    workspace_id:string;
+    project: IProject;
+    workspace: IWorkspace;
+    user: IUser;
+    name: string;
+    description: string;
+    description_html: string;
+    description_stripped: string;
+    access: string;
+    color: string;
+    page_blocks: IPageBlock[];
+    page_favorites: IPageFavorite[];
+    labels: ILabel[];
 }
 
 export interface ICycleUserProperties{

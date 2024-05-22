@@ -22,7 +22,7 @@ import projectService from '@/services/project-services';
 import ListBoard from './layoutView/listLayout/listBoard';
 import Table from '../ui/table/table';
 import { TableConfigs } from '@/constants';
-import IssueBoardCalender from '../module/IssueBoardCalender';
+import IssueBoardCalender from './layoutView/calender/IssueBoardCalender';
 
 export interface IProps {
     query?: {
@@ -48,7 +48,7 @@ const IssueBoard: FC<IProps> = ({ query = {}, layout: typeLayout }) => {
     const layout = useSelector(selectLayoutProjectView);
 
     const { data: issues } = useSWR(pathName, () => {
-        return issueService.findIssues<IIssue[]>({
+        return issueService.findIssues({
             projects: [params.projectid],
             ...query,
         });
@@ -56,7 +56,7 @@ const IssueBoard: FC<IProps> = ({ query = {}, layout: typeLayout }) => {
 
     const { data: states } = useSWR(
         () => STATES_KEY(params.projectid),
-        () => issueService.getState<Istate[]>(params.projectid),
+        () => issueService.getState(params.projectid),
     );
 
     function getDataBoard(states: Istate[], issues: IIssue[]): IBoardIssues[] {
@@ -88,13 +88,14 @@ const IssueBoard: FC<IProps> = ({ query = {}, layout: typeLayout }) => {
             });
         }, stateParent);
     }
+    
     const Layouts: { [e: string]: any } = {
         kanban: states && issues && (
             <KanbanBoard data={getDataBoard(states, issues)} />
         ),
         list: issues && states && <ListBoard issues={issues} states={states} />,
         spreadsheet: <Table configs={TableConfigs} data={issues} />,
-        calendar: <IssueBoardCalender />,
+        calendar: <IssueBoardCalender data={issues}/>,
     };
 
     return (

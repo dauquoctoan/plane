@@ -9,7 +9,7 @@ import { useNoti } from '@/hooks';
 import projectService from '@/services/project-services';
 import { useSelector } from '@/store';
 import { selectInfo } from '@/store/slices/authSlice/selectors';
-import { IData, IProject } from '@/types';
+import { IData, IModule, IProject } from '@/types';
 import { userInfo } from 'os';
 import React, { FC } from 'react';
 import { useForm } from 'react-hook-form';
@@ -19,21 +19,18 @@ export interface IProps {
     id: string;
     name: string;
     handleCloseModel: () => void;
+    defaultValue?: IModule;
 }
 
-const AddModule: FC<IProps> = ({ id, name, handleCloseModel }) => {
+const AddModule: FC<IProps> = ({ id, name, handleCloseModel, defaultValue }) => {
     const {
         register: registerParent,
         handleSubmit,
         formState: { errors },
         setValue,
-        control,
-        watch,
-        resetField,
-        getValues,
-        unregister,
-        reset,
-    } = useForm();
+    } = useForm({defaultValues:{
+        ...defaultValue
+    }});
     const noti = useNoti();
 
     return (
@@ -42,15 +39,22 @@ const AddModule: FC<IProps> = ({ id, name, handleCloseModel }) => {
                 mutate(
                     MODULEs_BY_PROJECT_KEY(id),
                     async (modules: any) => {
-                        const resutl = await projectService.createModule(id, {
+                        const resutl = await (defaultValue?.id ? projectService.updateModule(defaultValue.id, {
                             name: data.name,
-                            description: data.desc,
-                        });
+                            description: data.description,
+                        }):projectService.createModule(id, {
+                            name: data.name,
+                            description: data.description,
+                        }))
 
                         if (resutl) {
-                            noti?.success('Issue created');
+                            noti?.success('Module ' + defaultValue?.id ? 'updated':'created');
                             handleCloseModel();
-                            return modules ? [...modules, resutl] : [resutl];
+                            return defaultValue?.id ? modules.map((itemModule:IModule)=>{
+                                if(defaultValue.id == itemModule.id) return {...defaultValue, name: data.name,
+                                    description: data.description};
+                                else return itemModule;
+                            })  : [...modules, resutl];
                         } else {
                             noti?.error(
                                 'An error occurred, please try again later',
@@ -61,7 +65,7 @@ const AddModule: FC<IProps> = ({ id, name, handleCloseModel }) => {
                     { revalidate: false },
                 );
             })}
-            className="w-[500px]"
+            className="md:w-[500px] w-full"
         >
             <div className="flex gap-2">
                 <div className="px-2 border rounded text-sm select-none">
@@ -86,7 +90,7 @@ const AddModule: FC<IProps> = ({ id, name, handleCloseModel }) => {
                     placeholder="Description"
                     wrClassName="mb-4"
                     isTextArea
-                    keyForm="desc"
+                    keyForm="description"
                     error={errors}
                     register={registerParent}
                     setValue={setValue}
@@ -99,7 +103,7 @@ const AddModule: FC<IProps> = ({ id, name, handleCloseModel }) => {
                     typeBTN="text"
                     onClick={handleCloseModel}
                 />
-                <Button text="Create cycle" type="submit" typeBTN="primary" />
+                <Button text={defaultValue?.id ? "Update cycle":"Create cycle"} type="submit" typeBTN="primary" />
             </div>
         </form>
     );

@@ -1,3 +1,4 @@
+import RoadMap from '@/components/module/roadMap';
 import MenuSetting from '@/components/projects/setting/projectMenu';
 import { Spinner } from '@/components/ui/loading/Spinner';
 import Header from '@/layouts/layout-components/header/header';
@@ -17,16 +18,17 @@ export default function WorkspaceLayout({
         <>
             <Header
                 header={
-                    <div className="flex gap-2 items-center">
-                        <PiSuitcaseSimpleBold />
-                        <span>Projects</span>
-                    </div>
+                    <RoadMap roads={[{
+                        title:'Projects',
+                        icon:<PiSuitcaseSimpleBold />
+                    }]}/>
                 }
             />
+            
             <div className="main p-4">
                 <div className='text-color-text-sidebar font-bold text-[11px] mb-2'>SETTING</div>
-                <div className='flex gap-4'>
-                    <div className='w-[300px]'>
+                <div className='flex gap-4 flex-col md:flex-row'>
+                    <div className='w-full md:w-[300px]'>
                         <MenuSetting />
                     </div>
                     <div className='flex-1'>

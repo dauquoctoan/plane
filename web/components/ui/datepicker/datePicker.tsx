@@ -1,3 +1,4 @@
+'use client'
 import React, { ReactElement, useEffect, useRef, useState } from 'react';
 import { IoCloseCircleOutline } from 'react-icons/io5';
 import { AiOutlineCalendar } from 'react-icons/ai';
@@ -28,13 +29,13 @@ export interface Iprops {
     beforeUpdateValue?: (data?: string) => Promise<any>;
 }
 
-type formatDate = 'DD/MM/YYY' | 'YYY/DD/MM' | 'MM/DD/YYY';
+export type formatDate = 'DD/MM/YYY' | 'YYY/DD/MM' | 'MM/DD/YYY';
 
-type ICurentField = Iprops & ICurentFieldProps;
+export type ICurentField = Iprops & ICurentFieldProps;
 
 export function formartDate(
-    type: formatDate | undefined,
     value: IItemDate | undefined,
+    type: formatDate = 'DD/MM/YYY',
 ): string | undefined {
     if (!value) return value;
     switch (type) {
@@ -44,12 +45,10 @@ export function formartDate(
             return `${value.month + 1}/${value.date}/${value.year}`;
         case 'YYY/DD/MM':
             return `${value.year}/${value.date}/${value.month + 1}`;
-        default:
-            return `${value.date}/${value.month + 1}/${value.year}`;
     }
 }
 
-function convertStringToDateObj(value: string): IItemDate {
+export function convertStringToDateObj(value: string): IItemDate {
     const curentDate = new Date(value);
     return {
         date: curentDate.getDate(),
@@ -77,8 +76,9 @@ const DatePicker: React.FC<ICurentField> = ({
     const [month, setMonth] = useState(new Date().getMonth());
     const [year, setYear] = useState(new Date().getFullYear());
     const [curentValue, setCurentValue] = useState<IItemDate | undefined>(
-        (defaultDate && convertStringToDateObj(defaultDate)) || undefined,
+        ((value||defaultDate) && convertStringToDateObj(value||defaultDate)) || undefined,
     );
+    
     const noti = useNoti();
 
     const refBtn = useRef<HTMLDivElement>(null);
@@ -118,7 +118,7 @@ const DatePicker: React.FC<ICurentField> = ({
 
     useEffect(() => {
         if (open) handleClose();
-        onChange && onChange(formartDate(formatDate, curentValue));
+        onChange && onChange(formartDate(curentValue,formatDate));
     }, [curentValue]);
 
     useEffect(() => {
@@ -128,7 +128,7 @@ const DatePicker: React.FC<ICurentField> = ({
     function getItem(curentValue: IItemDate) {
         return (
             <div className="flex items-center gap-1">
-                <span>{formartDate(formatDate, curentValue)}</span>
+                <span>{formartDate(curentValue,formatDate)}</span>
                 <div ref={refClear}>
                     <IoCloseCircleOutline
                         style={{ zIndex: 100 }}
@@ -145,12 +145,12 @@ const DatePicker: React.FC<ICurentField> = ({
         if (value === '') {
             setCurentValue(undefined);
         }
-    }, [value]);
+    }, []);
 
     async function handleBeforeUpdate(newValue: IItemDate | undefined) {
         let result;
         if (beforeUpdateValue) {
-            result = await beforeUpdateValue(formartDate(formatDate, newValue));
+            result = await beforeUpdateValue(formartDate( newValue,formatDate));
             if (!result) {
                 noti?.error('An error occurred, please try again');
                 return;

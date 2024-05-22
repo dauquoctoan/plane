@@ -7,6 +7,8 @@ import { PageLabel } from './PageLabel.entity';
 import sequelize from 'sequelize';
 import { PageBlock } from './PageBlock.entity';
 import { PageFavorite } from './PageFavorite.entity';
+import { Project } from 'src/api/project/entitys/Project.entity';
+import { Workspace } from 'src/api/workspace/entitys/Workspace.entity';
 
 @Table({tableName:'Pages'})
 export class Page extends Model<Page> {
@@ -17,13 +19,34 @@ export class Page extends Model<Page> {
     @Column({ type: sequelize.UUID })
     owned_by: string;
 
+    @ForeignKey(() => Project)
+    @Column({ type: sequelize.UUID })
+    project_id: string;
+
+    @ForeignKey(() => Workspace)
+    @Column({ type: sequelize.UUID })
+    workspace_id: string;
+
+    @BelongsTo(() => Project,{foreignKey:'project_id'})
+    project: Project;
+
+    @BelongsTo(() => Workspace,{foreignKey:'workspace_id'})
+    workspace: Workspace;
+
     @BelongsTo(() => User, {foreignKey:'owned_by'})
     user: User;
 
-    @HasMany(() => PageBlock)
+    @HasMany(() => PageBlock,{
+        onDelete: 'CASCADE',
+        onUpdate: 'CASCADE'
+    })
     page_blocks: PageBlock[];
 
-    @HasMany(() => PageFavorite)
+    @HasMany(() => PageFavorite,
+    {
+        onDelete: 'CASCADE',
+        onUpdate: 'CASCADE'
+    })
     page_favorites: PageFavorite[];
 
     @BelongsToMany(() => Label, () => PageLabel)
@@ -36,7 +59,7 @@ export class Page extends Model<Page> {
     @Column({ type: DataType.JSON, defaultValue: {} })
     description: string;
 
-    @Column({ defaultValue: '<p></p>' })
+    @Column({ type: DataType.TEXT('long') })
     description_html: string;
 
     @Column({ type: DataType.TEXT })

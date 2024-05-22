@@ -1,7 +1,6 @@
 import React from 'react';
 import MenuProject from '@/components/layout/navbar/menuProject';
 import Menus from '@/components/layout/navbar/menus';
-import MenuTools from '@/components/layout/navbar/menuTools';
 
 const MenuMain = () => {
     return (

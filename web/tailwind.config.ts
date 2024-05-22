@@ -10,6 +10,9 @@ const config: Config = {
   ],
   theme: {
     extend: {
+      zIndex:{
+        '100': '100',
+      },
       gridTemplateColumns: {
         '25': 'repeat(25, minmax(0, 1fr))',
       },
@@ -26,11 +29,6 @@ const config: Config = {
       },
       transitionTimingFunction: {
         'out-expo': 'cubic-bezier(.4,0,.2,1)',
-      },
-      screens: {
-        md: { max: "768px", min: '0' },
-        lg: { max: "1024px", min: '768px' },
-        xl: { min: '1024px' }
       },
       width: {
         'width-menu': 'var(--width-menu)',
@@ -143,9 +141,20 @@ const config: Config = {
           to: {
             'max-height': '500px'
           }
+        },
+        pingTW:{
+          "75%":{
+            transform: "scale(2)",
+            opacity: "0"
+          },
+          "100%":{
+            transform: "scale(2)",
+            opacity: "0"
+          }
         }
       },
       animation: {
+        pingDot: "pingTW 1s cubic-bezier(0, 0, 0.2, 1) infinite",
         openNoti: 'openNoti .4s ease-out',
         closeNoti: 'closeNoti .4s ease-out',
         popUp: 'popUp .3s ease-out',

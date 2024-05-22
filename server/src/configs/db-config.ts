@@ -10,13 +10,13 @@ export const CONFIG_DB: SequelizeModuleAsyncOptions = {
     username: configService.get<string>('DB_USER_NAME') || 'root',
     password: configService.get<string>('DB_PASSWORD') || '123456',
     database: configService.get<string>('DB_NAME') || 'plane',
-    timezone: "+08:00",
+    timezone: "+00:00",
     autoLoadModels: true,
     synchronize: false, //false : production
     logging: console.log,
     cache: {
-      max: 500,       // Số lượng model được lưu trữ trong bộ nhớ
-      maxAge: 60000,  // Thời gian sống của cache (milliseconds)
+      max: 500, // Số lượng model được lưu trữ trong bộ nhớ
+      maxAge: 60000, //Thời gian sống của cache (milliseconds)
     },
     sync: { force: true } //true : create new model
   }),

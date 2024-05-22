@@ -2,25 +2,34 @@ import Popover from '@/components/ui/popover';
 import { useNoti } from '@/hooks';
 import issueService from '@/services/issue-services';
 import projectService from '@/services/project-services';
-import { useSelector } from '@/store';
+import { modalSlice, useSelector } from '@/store';
 import { selectInfo } from '@/store/slices/authSlice/selectors';
-import { IIssue, ILabel, IParams, IProject, Istate } from '@/types';
+import { IInfo, IIssue, ILabel, IParams, IProject, Istate } from '@/types';
 import { useParams, usePathname } from 'next/navigation';
-import React, { FC, useEffect, useRef, useState } from 'react';
-import { IoIosMore } from 'react-icons/io';
+import React, { Dispatch, FC, useEffect, useRef, useState } from 'react';
+import { IoIosLink, IoIosMore } from 'react-icons/io';
 import { HiPlusSm } from 'react-icons/hi';
 import useSWR, { mutate } from 'swr';
-import MoreToolls from '../modules/moreToolls';
+import MoreToolls from '../../../module/moreToolls';
 import SelectState from '@/components/module/selectState';
 import SelectMember from '@/components/module/selectMember';
 import SelectLabels from '@/components/module/selectLabels';
 import DatepickerTable from '@/components/module/datepickerTable';
 import moment from 'moment';
+import { MdModeEditOutline, MdOutlineContentCopy, MdOutlineDeleteOutline } from 'react-icons/md';
+import { icons } from '@/constants';
+import { useDispatch } from 'react-redux';
+import { env } from 'process';
+import APP_CONFIG from '@/configs';
+import { AnyAction } from '@reduxjs/toolkit';
+import { INotiConext } from '@/components/ui/notification';
+import { getConfigMoreIssue } from '@/helpers';
 
 interface IListBoard {
     states: Istate[];
     issues: IIssue[];
 }
+
 
 const ListBoard: FC<IListBoard> = ({ states, issues }) => {
     const dataConvert: { [e: string]: { name: string; chilren: IIssue[] } } =
@@ -34,6 +43,9 @@ const ListBoard: FC<IListBoard> = ({ states, issues }) => {
             };
         }, {});
     const params = useParams<IParams>();
+    const pathName = usePathname();
+    const info = useSelector(selectInfo)
+    const dispatch = useDispatch()
 
     issues.forEach((e) => {
         dataConvert[e.state.id].chilren.push(e);
@@ -42,14 +54,14 @@ const ListBoard: FC<IListBoard> = ({ states, issues }) => {
     const { data: project } = useSWR(params.projectid, () => {
         return projectService.findOneProject<IProject>(params.projectid);
     });
-
+    const noti = useNoti()
     return (
         <div className="w-full">
             {Object.keys(dataConvert).map((key, index) => {
                 return (
                     <div className="" key={index}>
                         <div className="px-3 py-3 border-b bg-theme-secondary flex gap-2 items-center">
-                            <div>{dataConvert[key].name}</div>
+                            <div className='text-sm'>{dataConvert[key].name}</div>
                             <div className="text-sm font-semibold">
                                 ({dataConvert[key].chilren.length})
                             </div>
@@ -59,19 +71,19 @@ const ListBoard: FC<IListBoard> = ({ states, issues }) => {
                                 return (
                                     <div
                                         key={item.id}
-                                        className="px-3 py-2 border-b flex items-center justify-between"
+                                        className="flex-col md:flex-row px-3 py-2 border-b flex items-center justify-between"
                                     >
-                                        <div className="flex items-center gap-4">
+                                        <div className="flex items-center gap-4 whitespace-nowrap">
                                             <div className="text-sm font-semibold">
                                                 {project?.identifier?.toUpperCase() +
                                                     '-' +
                                                     item.sequence_id}
                                             </div>
-                                            <div className="text-sm">
+                                            <div className="text-sm whitespace-nowrap">
                                                 {item.name}
                                             </div>
                                         </div>
-                                        <div className="flex flex-1 items-center justify-end gap-2">
+                                        <div className="flex-wrap md:flex-nowrap flex flex-1 justify-start items-center md:justify-end gap-2">
                                             <SelectMember
                                                 assigness={
                                                     item.assignees?.map(
@@ -130,8 +142,8 @@ const ListBoard: FC<IListBoard> = ({ states, issues }) => {
                                                         {
                                                             start_date: e
                                                                 ? moment(
-                                                                      e,
-                                                                  ).format()
+                                                                    e,
+                                                                ).format()
                                                                 : (null as any),
                                                         },
                                                     );
@@ -148,15 +160,15 @@ const ListBoard: FC<IListBoard> = ({ states, issues }) => {
                                                         {
                                                             target_date: e
                                                                 ? moment(
-                                                                      e,
-                                                                  ).format()
+                                                                    e,
+                                                                ).format()
                                                                 : (null as any),
                                                         },
                                                     );
                                                 }}
                                             />
 
-                                            <Popover content={<MoreToolls />}>
+                                            <Popover content={<MoreToolls data={getConfigMoreIssue(item, pathName, dispatch, noti, info )} />}>
                                                 <div className="p-2 rounded-full hover:bg-theme-secondary cursor-pointer">
                                                     <IoIosMore />
                                                 </div>
@@ -208,7 +220,7 @@ const MoreIssue = ({
         return () => {
             document.removeEventListener('click', handleClickClose);
         };
-    });
+    },[open]);
 
     const handleCreateIssue = async (
         name: string,
@@ -255,13 +267,13 @@ const MoreIssue = ({
                 <div className="px-3">
                     <div
                         ref={refInput}
-                        className="flex py-2 w-full border-b border-theme-border-secondary"
+                        className="py-2 w-full border-b border-theme-border-secondary flex gap-2"
                     >
-                        <div className="text-sm font-semibold">
+                        <div className="text-sm font-semibold whitespace-nowrap">
                             {identifier + ' - ' + name}
                         </div>
                         <input
-                            className="outline-none px-3 text-sm flex-1"
+                            className="outline-none text-sm flex-1"
                             autoFocus
                             onKeyDown={(e: any) => {
                                 if (e.keyCode == 13) {
@@ -286,7 +298,7 @@ const MoreIssue = ({
                     className="px-3 py-2 flex items-center gap-2 border-b bg-color-special-secondary text-color-special-primary cursor-pointer select-none"
                 >
                     <HiPlusSm />
-                    <div>New issue</div>
+                    <div className='text-sm'>New issue</div>
                 </div>
             )}
         </div>

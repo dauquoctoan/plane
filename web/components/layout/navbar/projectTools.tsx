@@ -10,6 +10,7 @@ import { selectIsCollap, useSelector } from '@/store';
 import { changeRoute, ContainerLink } from 'nextjs-progressloader';
 import { selectInfo } from '@/store/slices/authSlice/selectors';
 import { usePathname } from 'next/navigation';
+import { createNickNameLink } from '@/helpers';
 
 export interface LinkProps {
     href: string;
@@ -76,7 +77,7 @@ const ProjectTools: React.FC<IProjectTools> = ({ idProject }) => {
     function getLink(links: CustomeLink[], id: string) {
         return links.map((e) => ({
             ...e,
-            nickname: (e.nickname as string) + id,
+            nickname: createNickNameLink((e.nickname as string) + id),
             href: `/${info?.workspace?.slug}/projects/${id}/${e.href}`,
         }));
     }
@@ -97,7 +98,7 @@ const ProjectTools: React.FC<IProjectTools> = ({ idProject }) => {
                         } items-center gap-2 cursor-pointer px-3 py-1 hover:bg-color-special-secondary rounded`}
                 >
                     {e.icon}
-                    {!isCollap && <div className="">{e.name}</div>}
+                    {!isCollap && <div className="text-xs">{e.name}</div>}
                 </div>
             ))}
         </div>

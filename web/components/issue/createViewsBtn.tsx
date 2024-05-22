@@ -2,7 +2,7 @@
 import React, { useState } from 'react';
 import { LiaPlusSolid } from 'react-icons/lia';
 import Modal from '../ui/modal';
-import CreateViewIssue from './createViewIssue';
+import CreateViewIssue from '../module/createViewIssue';
 
 const CreateViewsBtn = () => {
     const [isOpenCreateIssue, setIsOpenCreateIssue] = useState(false);
@@ -16,7 +16,6 @@ const CreateViewsBtn = () => {
         >
             <LiaPlusSolid className="text-color-special-primary" />
             <Modal
-                mrTop={20}
                 isOpen={isOpenCreateIssue}
                 content={
                     <CreateViewIssue

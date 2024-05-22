@@ -61,9 +61,9 @@ const AddProject: React.FC<IProps> = ({ setOpen, handleCreateProject }) => {
                     workspace_id: info?.workspace?.id,
                 });
             })}
-            className="p-2"
+            className="w-full p-2 md:w-[500px]"
         >
-            <div className="h-36 rounded bg-blue-400 w-[500px] relative">
+            <div className="h-36 rounded bg-blue-400 w-full relative">
                 <Image
                     layout="fill"
                     src={watch('cover_image')}
@@ -73,7 +73,6 @@ const AddProject: React.FC<IProps> = ({ setOpen, handleCreateProject }) => {
                 />
                 <div className="absolute bottom-0 translate-y-[40%] left-2 bg-red">
                     <Popover
-                        isChildRen
                         placement="bottomCenter"
                         pxContent={0}
                         pyContent={0}
@@ -103,14 +102,13 @@ const AddProject: React.FC<IProps> = ({ setOpen, handleCreateProject }) => {
                                 }}
                             />
                         }
-                        isChildRen
                     >
                         <div className="px-2 py-1">Change Cover</div>
                     </Popover>
                 </div>
             </div>
 
-            <div className="flex items-center justify-between py-3 gap-2 mt-3">
+            <div className="w-full flex-col items-start md:flex-row flex md:items-center justify-between py-3 gap-2 mt-3">
                 <Input
                     placeholder="Project title"
                     nameForm="Project title"
@@ -153,7 +151,7 @@ const AddProject: React.FC<IProps> = ({ setOpen, handleCreateProject }) => {
                 className="max-h-[200px] h-[150px]"
             />
 
-            <div className="flex text-sm items-center gap-2 py-2 select-none">
+            <div className="w-full flex text-sm items-center gap-2 py-2 select-none">
                 <Select
                     placement="topLeft"
                     isIconCheck
@@ -188,7 +186,7 @@ const AddProject: React.FC<IProps> = ({ setOpen, handleCreateProject }) => {
                 </Select>
             </div>
             <Line />
-            <div className="flex items-center justify-end gap-2 pt-2 ">
+            <div className="w-full flex items-center justify-end gap-2 pt-2 ">
                 <Button typeBTN="text" type="button" text="Cancel" />
                 <Button
                     typeBTN="primary"

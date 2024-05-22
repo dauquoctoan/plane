@@ -1,4 +1,5 @@
 'use client';
+import { createNickNameLink } from '@/helpers';
 import { useSelector } from '@/store';
 import { selectInfo } from '@/store/slices/authSlice/selectors';
 import { IParams } from '@/types';
@@ -20,18 +21,18 @@ const Menu = () => {
         { href: 'features', nickname: 'Features' },
         { href: 'states', nickname: 'States' },
         { href: 'labels', nickname: 'Labels' },
-        { href: 'integrations', nickname: 'Integrations' },
+        // { href: 'integrations', nickname: 'Integrations' },
         { href: 'estimates', nickname: 'Estimates' },
-        { href: 'automations', nickname: 'Automations' },
+        // { href: 'automations', nickname: 'Automations' },
     ];
 
     return (
-        <div className="">
+        <div className="w-full flex overflow-x-auto no-scrool overflow-y-hidden md:block md:w-auto">
             <ContainerLink
                 links={menus.map((e) => {
                     return {
                         href: `/${info?.workspace?.slug}/projects/${params.projectid}/settings/${e.href}`,
-                        nickname: e.nickname + params.projectid,
+                        nickname: createNickNameLink(e.nickname + params.projectid),
                     };
                 })}
             />

@@ -29,6 +29,7 @@ interface IProps
     className?: string;
     wrClassName?: string;
     loading?: boolean;
+    suffix?: React.ReactElement;
 }
 
 interface IColor {
@@ -42,6 +43,7 @@ const Button: React.FC<IProps> = ({
     className,
     wrClassName,
     loading = false,
+    suffix,
     ...rest
 }) => {
     const color: IColor = {
@@ -119,10 +121,11 @@ const Button: React.FC<IProps> = ({
                 type="submit"
                 className={`${
                     disable ? 'cursor-not-allowed' : 'cursor-pointer'
-                } ${bg} ${bgHover} ${border} ${textColor} ${opacity} relative z-2 rounded px-3 py-1 border select-none ${className} m-0 flex items-center gap-1`}
+                } ${bg} ${bgHover} ${border} ${textColor} ${opacity} text-xs relative z-2 rounded px-3 py-1 border select-none m-0 flex items-center gap-1 ${className}`}
                 {...rest}
             >
                 {text}
+                {suffix}
                 {loading && <VscLoading className="animate-spin" />}
             </button>
         </div>

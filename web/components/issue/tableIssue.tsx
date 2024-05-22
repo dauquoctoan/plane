@@ -1,40 +1,39 @@
 'use client';
 import issueService from '@/services/issue-services';
-import { IData, IIssue, IUser, Istate, ILabel, IFillterIssue } from '@/types';
-import React, { useEffect } from 'react';
+import { IFillterIssue } from '@/types';
+import React, { useEffect, useState } from 'react';
 import useSWR from 'swr';
-import { ITableConfigs } from '../ui/table';
 import Table from '../ui/table/table';
-import Select from '../ui/select/select';
-import { TableConfigs, optionLevel } from '@/constants/issue';
-import SelectMemberTable from '../module/selectMember';
-import SelectLabels from '../module/selectLabels';
-import DatepickerTable from '../module/datepickerTable';
-import moment from 'moment';
+import { TableConfigs } from '@/constants/issue';
 import FilterTableIssue from './filterTableIssue';
 import { useSelector } from '@/store';
 import {
-    selectListIssue,
     selectlsDisableTable,
 } from '@/store/slices/issueView/selectors';
-import ListTableIssue from './listTableIssue';
-import SelectState from '../module/selectState';
 import { usePathname } from 'next/navigation';
 
-export interface IPropsTable extends IFillterIssue {
-    // keyApi: string;
-}
-
-const IssueTableFilter: React.FC<IPropsTable> = ({ ...res }) => {
+const IssueTableFilter: React.FC<IFillterIssue> = ({ ...res }) => {
     const lsDisable = useSelector(selectlsDisableTable);
     const pathName = usePathname();
+    const [width, setWidth] = useState(0)
     const {
         data: issue,
-        isLoading,
-        isValidating,
     } = useSWR(pathName, (e) => {
-        return issueService.findIssues<IIssue[]>({ ...res });
+        return issueService.findIssues({ ...res });
     });
+
+    const {
+        data
+    } = useSWR(pathName, (e) => {
+        return issueService.findIssues({ ...res });
+    });
+
+    useEffect(()=>{
+        setWidth(document.body.clientWidth)
+    },[])
+
+    TableConfigs[1].fixed = width > 768 ? 'left' : undefined;
+
     return (
         <div>
             <div>
@@ -46,6 +45,8 @@ const IssueTableFilter: React.FC<IPropsTable> = ({ ...res }) => {
                 <Table
                     lsKeyDisable={lsDisable}
                     configs={TableConfigs}
+                    className='height-table-body'
+                    fixedHeader
                     data={issue}
                 />
             </div>

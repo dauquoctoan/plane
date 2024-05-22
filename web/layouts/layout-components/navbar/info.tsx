@@ -19,7 +19,7 @@ const Info = () => {
                     links={[
                         {
                             href: `/create-workspace`,
-                            nickname: 'create-workspace',
+                            nickname: 'createWorkspace',
                         },
                         {
                             href: `/invitations`,

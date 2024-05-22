@@ -1,6 +1,7 @@
-import { ICycle, ICycleUserProperties, IModule, IModuleUserProperties, IProject, IProjectMember, IWorkspace } from '@/types';
+import { ICycle, ICycleFavorite, ICycleUserProperties, IIssue, IIssueViews, IModule, IModuleUserProperties, IPage, IProject, IProjectMember, IProjectViews, IWorkspace } from '@/types';
 import { BaseService } from './base-service';
 import APP_CONFIG from '@/configs';
+import Page from '@/app/[workspaceSlug]/page';
 
 const { API_BASE_URL } = APP_CONFIG;
 
@@ -13,9 +14,9 @@ class ProjectService extends BaseService {
         return await this.post<T>('project', project);
     }
 
-    async getProjects<T>(workspaceId: string) {
+    async getProjects(workspaceId: string) {
         try {
-            return await this.get<T>('project/by-user/' + workspaceId);
+            return await this.get<IProject[]>('project/by-user/' + workspaceId);
         } catch (error) {
             console.log(error)
         }
@@ -46,25 +47,74 @@ class ProjectService extends BaseService {
     }
 
     /* cycle */
-    async createCycle<T>(projectId: string, query: Partial<ICycle>) {
+    async createCycle(projectId: string, cycle: Partial<ICycle>) {
         try {
-            return await this.post<T>('cycle/' + projectId, query)
+            return await this.post<ICycle>('cycle/' + projectId, cycle)
         } catch (error) {
             console.log(error)
         }
     }
 
-    async findAllCyclesByProject<T>(projectId: string) {
+    async upDateCycle(cycleId: string, cycle: Partial<ICycle>) {
         try {
-            return await this.get<T>('cycle/' + projectId)
+            return await this.patch<ICycle>('cycle/' + cycleId, cycle)
         } catch (error) {
             console.log(error)
         }
     }
-    /* cycle */
-    async createModule<T>(projectId: string, query: Partial<IModule>) {
+
+    async deleteCycle(cycleId: string) {
         try {
-            return await this.post<T>('module/' + projectId, query)
+            return await this.delete('cycle/' + cycleId)
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+    async findAllCyclesByProject<T>(projectId: string,tab:String) {
+        try {
+            return await this.get<T>('cycle/' + projectId+'?type='+tab)
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+    async createCyclesFavorite(data: ICycleFavorite) {
+        try {
+            return await this.post<ICycleFavorite>('cycle-favorite', data)
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+    async deleteCyclesFavorite(data: ICycleFavorite) {
+        try {
+            return await this.delete(`cycle-favorite?userId=${data.user_id}&cycleId=${data.cycle_id}` )
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+    /* end cycle */
+    async createModule(projectId: string, query: Partial<IModule>) {
+        try {
+            return await this.post<IModule>('module/' + projectId, query)
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+    async updateModule(moduleId: string, module: Partial<IModule>) {
+        try {
+            return await this.patch<IModule>('module/' + moduleId, module)
+        } catch (error) {
+            console.log(error)
+        }
+    }
+    
+    async deleteModule(moduleId: string) {
+        try {
+            return await this.delete(`module/`+moduleId )
         } catch (error) {
             console.log(error)
         }
@@ -145,6 +195,71 @@ class ProjectService extends BaseService {
     async updateModuleUserProperties(cycleUserPropertiesId:string, data: Partial<IModuleUserProperties>) {
         try {
             return await this.patch<IModuleUserProperties>('cycle-user-properties/' + cycleUserPropertiesId, data);
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+    //view
+    async getProjectView(projectView: string) {
+        try {
+            return await this.get<IProjectViews[]>('project-view?projectId=' + projectView)
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+    async deleteProjectView(projectView: string) {
+        try {
+            return await this.delete('project-view/' + projectView)
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+    async findOneProjectView(projectViewId: string) {
+        try {
+            return await this.get<IIssueViews>('project-view/' + projectViewId)
+        } catch (error) {
+            console.log(error)
+        }
+    }
+    //page
+    async createPage(page: Partial<IPage>) {
+        try {
+            return await this.post<IPage>('page', page)
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+    async getPages(ProjectId: string) {
+        try {
+            return await this.get<IPage[]>('page?ProjectId=' + ProjectId)
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+    async updatePages(page: Partial<IPage>) {
+        try {
+            return await this.patch<IPage>('page/' + page.id, page)
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+    async deletePage(PageId: string) {
+        try {
+            return await this.delete('page/' + PageId)
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+    async findOnePage(PageId: string) {
+        try {
+            return await this.get<IPage>('page/' + PageId)
         } catch (error) {
             console.log(error)
         }

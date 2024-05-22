@@ -70,30 +70,8 @@ const FillterQueryIssue: React.FC<IFillterQueryIssue> = ({
         });
     }
 
-    // useEffect(() => {
-    //     if (customDate.dueDate?.from || customDate.dueDate?.to) {
-    //         const newDataSelect: any = { ...itemSelected };
-    //         Object.keys(newDataSelect).forEach((e) => {
-    //             if (newDataSelect[e].parentKey === 'dueDate') {
-    //                 delete newDataSelect[e];
-    //             }
-    //         });
-    //         setItemSelected(newDataSelect);
-    //     }
-
-    //     if (customDate.startDate?.from || customDate.startDate?.to) {
-    //         const newDataSelect: any = { ...itemSelected };
-    //         Object.keys(newDataSelect).forEach((e) => {
-    //             if (newDataSelect[e].parentKey === 'startDate') {
-    //                 delete newDataSelect[e];
-    //             }
-    //         });
-    //         setItemSelected(newDataSelect);
-    //     }
-    // }, [customDate]);
-
     return (
-        <div className="w-full h-full border-l pl-2">
+        <div className="w-full h-full md:border-l md:pl-2 mt-6 md:mt-0">
             <div className="">
                 <div className="pb-3">
                     <div className="relative">
@@ -146,11 +124,11 @@ export const ItemSelected = ({
                     <div className="text-sm flex items-center gap-2 font-medium whitespace-nowrap w-fit">
                         {item.title}:
                     </div>
-                    <div className="flex gap-1 flex-auto items-center rounded-full">
+                    <div className="flex gap-1 flex-wrap items-center rounded-full flex-1">
                         {item.children?.map((e, i) => (
                             <div
                                 key={i}
-                                className="text-[13px] bg-theme-secondary rounded-full px-1 flex flex-auto items-center gap-1"
+                                className="text-[13px] bg-theme-secondary rounded-full px-1 flex items-center gap-1"
                             >
                                 {e.icon}
                                 {(e.render && e.render()) || (

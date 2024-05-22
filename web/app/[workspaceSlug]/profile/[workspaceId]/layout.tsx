@@ -1,5 +1,7 @@
+import RoadMap from '@/components/module/roadMap';
 import { Spinner } from '@/components/ui/loading/Spinner';
 import MainWorkspaceLayout from '@/layouts/mainWorkspaceLayout';
+import { RxAvatar } from 'react-icons/rx';
 
 export default function WorkspaceLayout({
     children,
@@ -8,9 +10,10 @@ export default function WorkspaceLayout({
 }) {
     return <MainWorkspaceLayout
         header={
-            <div className="flex items-center justify-between w-full">
-
-            </div>
+            <RoadMap roads={[{
+                title:'Profile',
+                icon:<RxAvatar />
+            }]}/>
         }
     >
         <div className="h-full">

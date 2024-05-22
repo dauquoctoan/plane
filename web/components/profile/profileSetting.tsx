@@ -1,5 +1,5 @@
 'use client';
-import { useSelector } from '@/store';
+import { authSlice, layoutSlice, useSelector } from '@/store';
 import { selectInfo } from '@/store/slices/authSlice/selectors';
 import Image from 'next/image';
 import React, { useState } from 'react';
@@ -11,9 +11,10 @@ import { useForm } from 'react-hook-form';
 import { IUser } from '@/types';
 import Input from '../ui/input/Input';
 import AutoComplete from '../ui/auto-complete';
-import { TIME_ZONE_CHOICE } from '@/constants';
+import { icons, TIME_ZONE_CHOICE } from '@/constants';
 import authService from '@/services/auth-services';
 import { useNoti } from '@/hooks';
+import { useDispatch } from 'react-redux';
 
 export interface IForm {}
 
@@ -21,6 +22,7 @@ const ProfileSetting = () => {
     const info = useSelector(selectInfo);
     const [showDelte, setshowDelte] = useState(false);
     const noti = useNoti();
+    const dispatch = useDispatch();
 
     const {
         register,
@@ -39,7 +41,7 @@ const ProfileSetting = () => {
     });
 
     return (
-        <div className="w-full p-5 flex justify-center">
+        <div className="w-full">
             <form
                 onSubmit={handleSubmit(async (data: IUser) => {
                     const result = await authService.upDateUser(data);
@@ -47,8 +49,9 @@ const ProfileSetting = () => {
                         noti?.success('Update user success');
                     } else noti?.error('Update user error');
                 })}
-                className="w-[900px]"
+                className="w-full md:w-[900px] p-5"
             >
+                
                 <div className="w-full h-[180px] relative">
                     <Image
                         src={info?.cover_image || imagesDef[0]}
@@ -70,7 +73,7 @@ const ProfileSetting = () => {
                     </div>
                     <div className="text-base">{info?.email}</div>
                 </div>
-                <div className="flex gap-1 justify-between">
+                <div className="flex-col md:flex-row flex gap-1 justify-between">
                     <Input
                         placeholder="First name"
                         label="First name *"
@@ -104,7 +107,7 @@ const ProfileSetting = () => {
                         setValue={setValue}
                     />
                 </div>
-                <div className="flex gap-1 justify-between">
+                <div className="flex flex-col md:flex-row gap-1 justify-between">
                     <AutoComplete
                         placeholder="Whats your role?"
                         label="Role*"

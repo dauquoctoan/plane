@@ -1,6 +1,6 @@
 'use client';
 import { LS_PROJECT_KEY } from '@/apiKey';
-import CreateIssue from '@/components/issue/createIssue';
+import CreateIssue from '@/components/module/createIssue';
 import LayoutSwitch from '@/components/module/layoutSwitch';
 import RoadMap from '@/components/module/roadMap';
 import Button from '@/components/ui/button';
@@ -11,12 +11,8 @@ import projectService from '@/services/project-services';
 import { issueViewSlice, useSelector } from '@/store';
 import { selectInfo } from '@/store/slices/authSlice/selectors';
 import {
-    ICycleUserProperties,
-    IData,
     IDisplayFilters,
     IParams,
-    IProject,
-    IProjectMember,
     TLayout,
 } from '@/types';
 import { useParams } from 'next/navigation';
@@ -36,7 +32,7 @@ const CycleDetail = () => {
     const { data: projects } = useSWR(
         LS_PROJECT_KEY(info?.last_workspace_id),
         () =>
-            projectService.getProjects<IProject[]>(
+            projectService.getProjects(
                 info?.last_workspace_id || '',
             ),
     );
@@ -91,7 +87,7 @@ const CycleDetail = () => {
                     }
                 />
             )}
-            <div className="flex items-center gap-4">
+            <div className="items-center gap-4 hidden md:flex">
                 {data && (
                     <LayoutSwitch
                         defaultValue={data.display_filters.layout}

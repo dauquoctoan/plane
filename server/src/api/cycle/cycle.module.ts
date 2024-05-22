@@ -14,6 +14,7 @@ import { CycleUserPropertiesController } from './controller/CycleUserProperties.
 import { CycleUserProperties } from './entitys/CycleUserProperties';
 import { CycleController } from './controller/Cycle.controller';
 import { UserService } from '../user/service/user.service';
+import { AnalyticViewService } from '../analytic/service/analytic.service';
 
 @Module({
   imports: [SequelizeModule.forFeature([Cycle, CycleIssue, CycleFavorite, User, CycleUserProperties])

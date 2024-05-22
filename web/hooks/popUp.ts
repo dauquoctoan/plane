@@ -1,15 +1,16 @@
 import React, { useEffect, useRef, useState } from "react";
 
 export interface IPosition {
-    left: number | undefined;
+    left: number| string | undefined;
     top: number | string | undefined;
     minWidth: number | undefined;
 }
 
 export interface IPositionResult extends IPosition {
-    position: 'absolute';
+    position: 'absolute'|'relative';
     visibility: 'visible' | 'hidden';
     transformOrigin?: string;
+    transform?:string;
 }
 
 export type TPlacement = 'bottomCenter' | 'bottomLeft' | 'bottomRight' | 'topCenter' | 'topLeft' | 'topRight' | 'rightCenter' | 'rightTop' | 'rightBottom' | "leftCenter" | "leftTop" | "leftBottom";
@@ -50,7 +51,7 @@ const usePopUp = ({ refPopover, isChildRen = false, isHover = false, placement =
         const spaceWrCenterHeight = wre.offsetHeight / 2;
         const spacePopCenterHeight = poe.offsetHeight / 2;
 
-        const MARGIN = space || 10;
+        const MARGIN = space || 5;
 
         var screenWidth = window.innerWidth || document.documentElement.clientWidth;
         var screenHeight = window.innerHeight || document.documentElement.clientHeight;
@@ -90,11 +91,13 @@ const usePopUp = ({ refPopover, isChildRen = false, isHover = false, placement =
                 top = isChildRen ? '100%' : isYOverFlowBT ? ytop - MARGIN : ybottom + MARGIN;
                 break;
             case 'bottomRight':
-                left = isChildRen ? margin : isYOverFlowL ? yleft : yright;
+                if(isYOverFlowL && isYOverFlowR)left=0;
+                else left = isChildRen ? margin : isYOverFlowL ? yleft : yright;
                 top = isChildRen ? '100%' : isYOverFlowBT ? ytop - MARGIN : ybottom + MARGIN;
                 break;
             case "bottomCenter":
-                left = isChildRen ? marginC : wr.left + marginC;
+                if(isYOverFlowL && isYOverFlowR)left=0;
+                else left = isChildRen ? marginC : wr.left + marginC;
                 top = isChildRen ? '100%' : isYOverFlowBT ? ytop - MARGIN : ybottom + MARGIN;
                 break;
             case 'topCenter':
@@ -254,6 +257,7 @@ const usePopUp = ({ refPopover, isChildRen = false, isHover = false, placement =
         else removeEventClick();
         return () => {
             removeEventClick();
+            document.body.style.overflowX='hidden'
         }
     }, [open])
 
@@ -282,7 +286,7 @@ const usePopUp = ({ refPopover, isChildRen = false, isHover = false, placement =
         if (mouse.current.isKeyDown) mouse.current.isDrag = true;
     }
 
-    const style: IPositionResult = { ...position, position: 'absolute', transformOrigin: `top ${placement}`, visibility: (position?.left == undefined || position?.top == undefined) ? 'hidden' : 'visible' }
+    const style:IPositionResult = { ...position, position: 'absolute', transformOrigin: `top ${placement}`, visibility: (position?.left == undefined || position?.top == undefined) ? 'hidden' : 'visible' }
 
     return {
         style,

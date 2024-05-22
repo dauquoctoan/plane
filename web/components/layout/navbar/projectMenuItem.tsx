@@ -33,7 +33,7 @@ const ProjectMenuItem: React.FC<IProjectMenuitem> = ({
                         className="cursor-pointer select-none flex-1 whitespace-nowrap overflow-hidden text-ellipsis flex items-center"
                     >
                         {renderEmoji(emoji || '')}
-                        <div className="ml-1">{text}</div>
+                        <div className="ml-1 text-sm">{text}</div>
                     </div>
                     <div className="flex items-center gap-2">
                         <div className="flex items-center text-center box-border pb-2 cursor-pointer">

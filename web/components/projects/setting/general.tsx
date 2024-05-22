@@ -54,12 +54,7 @@ const UpdateProjectForm = ({ project }: { project: IProject }) => {
         handleSubmit,
         formState: { errors },
         setValue,
-        control,
         watch,
-        resetField,
-        getValues,
-        unregister,
-        reset,
     } = useForm<IForm>({
         defaultValues: {
             network: project?.network || 0,

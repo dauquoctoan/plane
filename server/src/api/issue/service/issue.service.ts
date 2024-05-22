@@ -16,6 +16,10 @@ import { CycleIssue } from 'src/api/cycle/entitys/CycleIssue.entity';
 import { ModuleIssueService } from 'src/api/module/service/ModuleIssue.service';
 import { ModuleIssue } from 'src/api/module/entitys/ModuleIssue.entity';
 import { State } from 'src/api/state/entitys/state.entity';
+import sequelize from 'sequelize';
+import { PRIORITY } from 'src/constants/entity-constant';
+import { getQueryTime, getQueryTimeFromNowDue, getQueryTimeFromNowStart } from 'src/helper/date';
+import { TtypeDate } from 'src/types/date.types';
 
 @Injectable()
 export class IssueService extends BaseService<Issue>{
@@ -29,6 +33,293 @@ export class IssueService extends BaseService<Issue>{
 
     ) {
         super(issueRepository)
+    }
+
+    //Analytics
+
+    async overviewAnalytics(userId:string){
+        try {
+            const issueAssignedByState = this.assignedByState(userId);
+            const issuePendingByMember = this.issuePendingByMember(userId);
+            const topIssueCreated = this.topIssueCreated(userId);
+            const topIssueClosed = this.topIssueClosed(userId)
+            const chartIssueClosedByMonth = this.chartIssueClosedByMonth(userId);
+
+            return {
+                issueAssignedByState: await issueAssignedByState,
+                issuePendingByMember: await issuePendingByMember,
+                topIssueCreated: await topIssueCreated,
+                topIssueClosed: await topIssueClosed,
+                chartIssueClosedByMonth: await chartIssueClosedByMonth,
+            }
+        } catch (error) {
+            handleResultError({ message: messageFindFail(this.repository.getTableName()), messageDetail: error });
+        }
+    }
+
+    async assignedByState(userId:string){
+        try {
+            const info = await this.userService.getUser(userId);
+            return await this.repository.findAll({
+                attributes: [
+                    [sequelize.col('state.group'), 'group'],
+                    [sequelize.fn('COUNT', sequelize.col('Issue.id')), 'total']],
+                include: [
+                    {
+                        model: State,
+                        attributes: [],
+                        required: true,
+                        where:{
+                            group: ['backlog', 'started', 'unstarted']
+                        }
+                    },
+                    {
+                        model: User,
+                        as: 'assignees',
+                        attributes: [],
+                        where:{
+                            id: userId
+                        },
+                        through: { attributes: [] }
+                    }
+                ],
+                where:{
+                    workspace_id: info.last_workspace_id
+                },
+                group: ['state.group'],
+                raw: true
+            })
+              
+        } catch (error) {
+            handleResultError({ message: messageFindFail(this.repository.getTableName()), messageDetail: error });
+        }
+    }
+
+    async issuePendingByMember(userId:string){
+        try {
+            const info = await this.userService.getUser(userId)
+            return await this.repository.findAll({
+                attributes: [
+                    [sequelize.literal('`assignees`.`last_name`'), 'last_name'],
+                    [sequelize.literal('`assignees`.`first_name`'), 'first_name'],
+                    [sequelize.literal('`assignees`.`email`'), 'email'],
+                    [sequelize.literal('`assignees`.`id`'), 'id'],
+                    [sequelize.fn('COUNT', sequelize.col('Issue.id')), 'total']],
+                include: [
+                    {
+                        model: User,
+                        as: 'assignees',
+                        attributes: [],
+                        required:true,
+                        through: { attributes: [] }
+                    },
+                    {
+                        model: State,
+                        attributes: [],
+                        where:{
+                            group: ['backlog', 'unstarted', 'started']
+                        }
+                    }
+                ],
+                where:{
+                    workspace_id: info.last_workspace_id
+                },
+                group: ['assignees.id'],
+                raw: true
+            })
+              
+        } catch (error) {
+            handleResultError({ message: messageFindFail(this.repository.getTableName()), messageDetail: error });
+        }
+    }
+
+    async topIssueCreated(userId:string){
+        try {
+            const info = await this.userService.getUser(userId)
+            return await this.repository.findAll({
+                attributes: [[sequelize.literal('`creator`.`last_name`'), 'last_name'],[sequelize.literal('`creator`.`first_name`'), 'first_name'],[sequelize.literal('`creator`.`email`'),'email'],[sequelize.fn('COUNT', sequelize.col('Issue.id')), 'total']],
+                include: [
+                    {
+                        model: User,
+                        as: 'creator',
+                        attributes: [],
+                        required:true,
+                    },
+                ],
+                where:{
+                    workspace_id: info.last_workspace_id
+                },
+                group: ['creator.id'],
+                order: [['total', 'DESC']], 
+                limit: 1,
+                raw: true
+            })
+              
+        } catch (error) {
+            handleResultError({ message: messageFindFail(this.repository.getTableName()), messageDetail: error });
+        }
+    }
+
+    async topIssueClosed(userId:string){
+        try {
+            const info = await this.userService.getUser(userId)
+            return await this.repository.findAll({
+                attributes: [[sequelize.literal('`assignees`.`last_name`'), 'last_name'],[sequelize.literal('`assignees`.`first_name`'), 'first_name'],[sequelize.literal('`assignees`.`email`'), 'email'],[sequelize.literal('`assignees`.`id`'), 'id'],[sequelize.fn('COUNT', sequelize.col('Issue.id')), 'total']],
+                include: [
+                    {
+                        model: User,
+                        as: 'assignees',
+                        attributes: [],
+                        required:true,
+                        through: { attributes: [] }
+                    },
+                    {
+                        model: State,
+                        attributes: [],
+                        where:{
+                            group: ['completed']
+                        }
+                    }
+                ],
+                where:{
+                    workspace_id: info.last_workspace_id
+                },
+                group: ['assignees.id'],
+                raw: true
+            })
+              
+        } catch (error) {
+            handleResultError({ message: messageFindFail(this.repository.getTableName()), messageDetail: error });
+        }
+    }
+
+    async chartIssueClosedByMonth(userId:string){
+        try {
+            const info = await this.userService.getUser(userId)
+            return await this.repository.findAll({
+                attributes:[
+                    [sequelize.fn('MONTH', sequelize.col('start_date')), 'month'],
+                    [sequelize.fn('COUNT', sequelize.col('Issue.id')), 'total']
+                ],
+                include: [
+                    {
+                        model: State,
+                        attributes: [],
+                        where:{
+                            group: ['completed']
+                        }
+                    }
+                ],
+                where:{
+                    workspace_id: info.last_workspace_id,
+                    start_date:{
+                        [sequelize.Op.not]: null 
+                    }
+                },
+                group: ['month'],
+                raw: true
+            })
+              
+        } catch (error) {
+            handleResultError({ message: messageFindFail(this.repository.getTableName()), messageDetail: error });
+        }
+    }
+
+    //end Analytics
+
+    async assignedByPriority(userId:string , typeDate: TtypeDate){
+        try {
+            const info = await this.userService.getUser(userId)
+            const issues:any =  await this.repository.findAll({
+                attributes: ['priority',[sequelize.fn('COUNT', sequelize.col('Issue.id')), 'total']],
+                where:{
+                    workspace_id: info.last_workspace_id,
+                    ...getQueryTime(typeDate)
+                },
+                include: [
+                    {
+                        model: User,
+                        as: 'assignees',
+                        attributes: [],
+                        where:{
+                            id: userId
+                        },
+                        through: { attributes: [] }
+                    }
+                ],
+                group: ['priority'],
+                raw: true
+            })
+
+            return PRIORITY.map((priority)=>({
+                priority,
+                total: issues.find((e)=>(e?.priority == priority))?.total||0
+            }))
+              
+        } catch (error) {
+            handleResultError({ message: messageFindFail(this.repository.getTableName()), messageDetail: error });
+        }
+    }
+
+    async getOverView(userId:string, ){
+        try {
+            const info = await this.userService.getUser(userId)    
+
+            const issueAssignee = this.repository.count({
+                where: {
+                    workspace_id : info.last_workspace_id,
+                },
+                include:[
+                    {
+                        model: User,
+                        as: 'assignees',
+                        where: {
+                            id: [info.id]
+                        }
+                    }
+                ]
+                
+            })
+
+            const issueCreated = this.repository.count({
+                where: {
+                    workspace_id : info.last_workspace_id,
+                    create_by : info.id
+                },
+            })
+
+            const issueCompleted = this.repository.count({
+                where: {
+                    workspace_id : info.last_workspace_id,
+                    create_by : info.id
+                },
+                include:{
+                    model: State,
+                    where:{
+                        group: 'completed'
+                    }
+                }
+            })
+
+            const issueOverdue = this.repository.count({
+                where: {
+                    workspace_id : info.last_workspace_id,
+                    target_date: {
+                        [Op.lt]: new Date(), 
+                        [Op.not]: null 
+                    }
+                }
+            })
+
+            return {
+                issueAssignee: await issueAssignee,
+                issueCreated: await issueCreated,
+                issueCompleted: await issueCompleted,
+                issueOverdue: await issueOverdue,
+            }
+        } catch (error) {
+            handleResultError({ message: messageFindFail(this.repository.getTableName()), messageDetail: error });
+        }
     }
 
     async createIssue(issueItem: CreateIssueDto, idUser: string) {
@@ -123,17 +414,17 @@ export class IssueService extends BaseService<Issue>{
         try {
             const user = await this.userService.getUser(dataDto.userId);
             if (user.last_workspace_id) {
-                const a = {
+                return await this.repository.findAll({
                     where: {
                         workspace_id: user.last_workspace_id,
                         ...this.getQueryPriority(dataDto.priorities),
                         ...this.getQueryState(dataDto.states),
+                        ...getQueryTimeFromNowDue(dataDto.dueDate, dataDto.typeDateQuery),
+                        ...getQueryTimeFromNowStart(dataDto.startDate)
                     },
                     include: [
-                        {
-                            model: State,
-                            as: 'state'
-                        },
+                        {model: State, as: 'state'},
+                        {model: Project, as: 'project'},
                         this.getQueryAssignee(dataDto.assignees),
                         this.getQueryCreator(dataDto.createBys),
                         this.getQueryLabel(dataDto.labels),
@@ -141,8 +432,7 @@ export class IssueService extends BaseService<Issue>{
                         this.getQueryCycle(dataDto.cycle_id),
                         this.getQueryModule(dataDto.module_id)
                     ]
-                }
-                return await this.repository.findAll(a)
+                })
             }
             handleResultError({ message: messageFindFail(this.repository.getTableName()), messageDetail: 'last_workspace_id not found!' });
         } catch (error) {
@@ -194,19 +484,26 @@ export class IssueService extends BaseService<Issue>{
             }
     }
 
+    getQueryStartDate(startDate: string):any{
+        return startDate ? { 
+            start_date: {
+                [Op.between]: [startDate, new Date()],
+                [Op.not]: null
+            }
+        } : {}
+    }
+
+    getQueryTargetDate(targetDate: string):any {
+        return targetDate ? { 
+            target_date: {
+                [Op.between]: [targetDate, new Date()],
+                [Op.not]: null
+            }
+        } : {}
+    }
+
     getQueryState(states: string[]) {
         return states ? { state_id: states } : {}
-
-        // return (states && states.length > 0)? {
-        //     model:State, 
-        //     as: 'state',
-        //     where:{
-        //         id: states
-        //     }
-        // }:{
-        //     model:State, 
-        //     as: 'state',
-        // }
     }
 
     getQueryProject(projects: string[]) {

@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, Param, Patch, Post } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Patch, Post, Query } from '@nestjs/common';
 import { CycleFavoriteService } from '../service/CycleFavorite.service';
 import { CreateCycleFavoriteDto, UpdateCycleFavoriteDto } from '../dto/CycleFavorite.dto';
 import { ApiTags } from '@nestjs/swagger';
@@ -9,8 +9,8 @@ import { handleResultSuccess } from 'src/helper/handleresult';
 export class CycleFavoriteController {
     constructor(private readonly cycleFavoriteService: CycleFavoriteService) { }
     @Post()
-    create(@Body() cycleFavorite: CreateCycleFavoriteDto) {
-        return handleResultSuccess(this.cycleFavoriteService.create(cycleFavorite));
+    async create(@Body() cycleFavorite: CreateCycleFavoriteDto) {
+        return handleResultSuccess(await this.cycleFavoriteService.create(cycleFavorite));
     }
 
     @Get()
@@ -28,8 +28,11 @@ export class CycleFavoriteController {
         return handleResultSuccess(this.cycleFavoriteService.updateById(id, cycleFavorite));
     }
 
-    @Delete(':id')
-    remove(@Param('id') id: string) {
-        return handleResultSuccess(this.cycleFavoriteService.removeById(id));
+    @Delete()
+    remove(@Query('cycleId') cycleId: string, @Query('userId') userId: string) {
+        return handleResultSuccess(this.cycleFavoriteService.remove({where: {
+            user_id: userId,
+            cycle_id: cycleId
+        }}));
     }
 }

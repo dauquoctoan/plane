@@ -22,3 +22,7 @@ export function replaceSpecialCharactersEndWhiteSpace(inputString: string): stri
     var result = inputString.replace(regex, '');
     return result;
 }
+
+export function createNickNameLink(e:string){
+    return e ? e.replace(/[!@#$%&\-_?/]/g, '') : ''
+}

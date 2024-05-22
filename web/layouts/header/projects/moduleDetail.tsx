@@ -1,6 +1,6 @@
 'use client';
 import { LS_PROJECT_KEY } from '@/apiKey';
-import CreateIssue from '@/components/issue/createIssue';
+import CreateIssue from '@/components/module/createIssue';
 import LayoutSwitch from '@/components/module/layoutSwitch';
 import RoadMap from '@/components/module/roadMap';
 import Button from '@/components/ui/button';
@@ -10,7 +10,7 @@ import { useCurentProject } from '@/hooks';
 import projectService from '@/services/project-services';
 import { issueViewSlice, useSelector } from '@/store';
 import { selectInfo } from '@/store/slices/authSlice/selectors';
-import { IData, IDisplayFilters, IParams, IProject, TLayout } from '@/types';
+import { IDisplayFilters, IParams, TLayout } from '@/types';
 import { useParams } from 'next/navigation';
 import React, { useState } from 'react';
 import { PiSuitcaseSimpleBold } from 'react-icons/pi';
@@ -25,10 +25,10 @@ const ModuleDetail = () => {
     const params = useParams<IParams>();
     const dispatch = useDispatch();
 
-    const { data: projects } = useSWR<IData<IProject[]>>(
+    const { data: projects } = useSWR(
         LS_PROJECT_KEY(info?.last_workspace_id),
         () =>
-            projectService.getProjects<IData<IProject[]>>(
+            projectService.getProjects(
                 info?.last_workspace_id || '',
             ),
     );
@@ -50,6 +50,7 @@ const ModuleDetail = () => {
     },
     1000);
 
+
     return (
         <div className="flex justify-between items-center px-2">
             <div>
@@ -60,7 +61,7 @@ const ModuleDetail = () => {
                             icon: <PiSuitcaseSimpleBold />,
                         },
                         {
-                            title: 'Cycles',
+                            title: 'Module',
                         },
                     ]}
                 />
@@ -85,7 +86,7 @@ const ModuleDetail = () => {
                 />
             )}
 
-            <div className="flex items-center gap-4">
+            <div className="hidden md:flex items-center gap-4">
                 {data && (
                     <LayoutSwitch
                         defaultValue={data.display_filters.layout}

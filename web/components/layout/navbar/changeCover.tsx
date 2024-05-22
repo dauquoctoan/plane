@@ -15,7 +15,7 @@ const ChangeCover: React.FC<IChangeCover> = ({ onChange }) => {
 
     return (
         <div className="min-w-[400px] min-h-[400px]">
-            <div className="py-2 bg-theme-secondary flex mt-2 rounded px-3">
+            {/* <div className="py-2 bg-theme-secondary flex mt-2 rounded px-3">
                 {tabs.map((item, index) => (
                     <div
                         key={index}
@@ -31,8 +31,8 @@ const ChangeCover: React.FC<IChangeCover> = ({ onChange }) => {
                         {item}
                     </div>
                 ))}
-            </div>
-            {typeUpload == 0 && (
+            </div> */}
+            {/* {typeUpload == 0 && (
                 <div className="px-3 flex py-2 gap-2 justify-between">
                     <Input
                         placeholder="Search for images"
@@ -43,7 +43,7 @@ const ChangeCover: React.FC<IChangeCover> = ({ onChange }) => {
                     />
                     <Button text="Search" typeBTN="primary" type="button" />
                 </div>
-            )}
+            )} */}
             <div className="grid grid-cols-4 gap-4 max-h-[300px] overflow-auto pr-1 px-3">
                 {images.map((e, i) => (
                     <div

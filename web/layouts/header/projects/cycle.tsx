@@ -1,19 +1,24 @@
 'use client';
+import AddUpdateCycle from '@/components/projects/cycle/addUpdateCycle';
 import RoadMap from '@/components/module/roadMap';
-import AddCycle from '@/components/projects/cycle/addCycle';
 import Button from '@/components/ui/button';
 import Modal from '@/components/ui/modal';
 import { useCurentProject, useNoti } from '@/hooks';
+import { modalSlice, useSelector } from '@/store';
+import { selectDefaultValueCycle, selectOpenModalNewCycle } from '@/store/slices/modalSlice/selectors';
 import { IParams } from '@/types';
 import { useParams } from 'next/navigation';
 import React, { useEffect, useState } from 'react';
 import { PiSuitcaseSimpleBold } from 'react-icons/pi';
+import { useDispatch } from 'react-redux';
 
 const CycleHeader = () => {
-    const [showAddCycle, setShowAddCycle] = useState(false);
+    const dispatch = useDispatch();
+    const showAddCycle = useSelector(selectOpenModalNewCycle);
     const params = useParams<IParams>();
     const noti = useNoti();
     const curentProject = useCurentProject();
+    const defaultValue = useSelector(selectDefaultValueCycle) 
 
     useEffect(() => {
         if (!curentProject?.name && showAddCycle) {
@@ -39,7 +44,7 @@ const CycleHeader = () => {
             <div>
                 <Button
                     onClick={() => {
-                        setShowAddCycle(true);
+                        dispatch(modalSlice.actions.togleProjetCycle())
                     }}
                     typeBTN="primary"
                     text="Add cycle"
@@ -48,15 +53,18 @@ const CycleHeader = () => {
             {curentProject?.name && (
                 <Modal
                     handleClose={() => {
-                        setShowAddCycle(false);
+                        dispatch(modalSlice.actions.setCycle(undefined))
+                        dispatch(modalSlice.actions.togleProjetCycle())
                     }}
                     isOpen={showAddCycle}
                     content={
-                        <AddCycle
+                        <AddUpdateCycle
                             id={params.projectid}
                             name={curentProject?.name}
+                            defaultValues={defaultValue}
                             handleCloseModel={() => {
-                                setShowAddCycle(false);
+                                dispatch(modalSlice.actions.setCycle(undefined))
+                                dispatch(modalSlice.actions.togleProjetCycle());
                             }}
                         />
                     }

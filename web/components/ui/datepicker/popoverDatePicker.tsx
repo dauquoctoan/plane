@@ -140,7 +140,7 @@ const PopoverDatePiker: React.FC<IProps> = ({
         <div
             style={style}
             ref={refPopover}
-            className="z-50 absolute top-[100%] left-0 mt-1 rounded border shadow-theme-primary bg-theme-primary animate-popUp origin-top-left"
+            className="z-50 absolute top-[100%] w-max left-0 mt-1 rounded border shadow-theme-primary bg-theme-primary animate-popUp origin-top-left"
         >
             <div
                 style={{ padding: curentStyle.padding }}

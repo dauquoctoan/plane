@@ -1,11 +1,12 @@
+'use client'
 import React from 'react';
 import Select from '../ui/select/select';
 import DefaultSelectMember from './defaultSelectMember';
-import { createMembeSelectOption } from '@/helpers';
-import useSWR from 'swr';
+import {createMembeSelectOption } from '@/helpers';
 import projectService from '@/services/project-services';
-import { IData, IProjectMember, IUser } from '@/types';
+import { IProjectMember } from '@/types';
 import { MEMBER_KEY_BY_PROJECT } from '@/apiKey';
+import useSWR from 'swr';
 
 interface IProps {
     projectId?: string;

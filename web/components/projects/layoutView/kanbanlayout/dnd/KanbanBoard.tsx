@@ -6,6 +6,7 @@ import ItemDeleteIssue from './itemDeleteIssue';
 import { IIssue } from '@/types';
 import issueService from '@/services/issue-services';
 import { useNoti } from '@/hooks';
+import { usePathname } from 'next/navigation';
 
 export const sortableOptions = {
     animation: 150,
@@ -45,6 +46,8 @@ export default function KanbanBoard({ data }: { data: IBoardIssues[] }) {
         children: [],
     };
 
+    const pathName = usePathname()
+
     const [blocks, setBlocks] = useState<IBoardIssues[]>([itemDelete]);
     const refRemove = useRef<HTMLDivElement>(null);
     const [showTrash, setShowTrash] = useState(false);
@@ -75,7 +78,7 @@ export default function KanbanBoard({ data }: { data: IBoardIssues[] }) {
 
     return (
         <div>
-            <ItemDeleteIssue showTrash={showTrash} ref={refRemove} />
+            <ItemDeleteIssue noti={noti} pathname={pathName} block={blocks} showTrash={showTrash} ref={refRemove} />
             <ReactSortable
                 list={blocks}
                 setList={setBlocks}

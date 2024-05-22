@@ -31,7 +31,7 @@ const SelectState: React.FC<IProps> = ({
 }) => {
     const { data: states } = useSWR(
         () => STATES_KEY(projectId),
-        () => issueService.getState<IData<Istate[]>>(projectId || ''),
+        () => issueService.getState(projectId || ''),
     );
     return (
         <Select

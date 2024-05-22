@@ -11,13 +11,4 @@ export class AppService {
     getHello(): string {
         return 'Hello Mấy cưng!';
     }
-
-    async sendMail(){
-        // sendMail({
-        //     EmailRecipients:'dauquococ@gmail.com',
-        //     emailSender:'dqtoan0123@gmail.com',
-        //     project:'vlxx',
-        //     userNameEmailRecipients:'name vcl'
-        // });
-    }
 }

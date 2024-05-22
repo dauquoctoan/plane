@@ -65,7 +65,7 @@ const Input: React.FC<Props> = ({
         | undefined = error && error[keyForm || ''];
 
     return (
-        <div className={`relative flex flex-col ${wrClassName}`}>
+        <div className={`flex flex-col ${wrClassName}`}>
             {label && (
                 <label className="font-semibold" htmlFor={id}>
                     {label}

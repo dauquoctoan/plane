@@ -1,5 +1,5 @@
-import sequelize, { Sequelize } from 'sequelize';
-import { BelongsToMany, Column, CreatedAt, DataType, HasMany, Length, Model, Table, PrimaryKey, Is, ForeignKey, BelongsTo, Unique } from 'sequelize-typescript';
+import sequelize, { DataTypes, Sequelize } from 'sequelize';
+import { BelongsToMany, Column, CreatedAt, DataType, HasMany, Length, Model, Table, PrimaryKey, Is, ForeignKey, BelongsTo, Unique, UpdatedAt, AllowNull } from 'sequelize-typescript';
 import { APIToken } from 'src/api/api_token/entitys/APIToken.entity';
 import { Cycle } from 'src/api/cycle/entitys/Cycle.entity';
 import { CycleFavorite } from 'src/api/cycle/entitys/CycleFavorite.entity';
@@ -35,6 +35,7 @@ import { WorkspaceMember } from 'src/api/workspace/entitys/WorkspaceMember.entit
 import { WorkspaceTheme } from 'src/api/workspace/entitys/WorkspaceTheme.entity';
 import { DEFAULT_ONBOARDING } from 'src/constants/entity-constant';
 import { validEmail } from 'src/helper/regex';
+import { Timestamp } from 'typeorm';
 
 @Table({tableName:'Users'})
 export class User extends Model<User> {
@@ -207,9 +208,6 @@ export class User extends Model<User> {
     @Column({ defaultValue: false })
     is_managed: boolean;
 
-    @Column({ defaultValue: false })
-    is_password_expired: boolean;
-
     @Column({ defaultValue: true })
     is_active: boolean;
 
@@ -220,7 +218,10 @@ export class User extends Model<User> {
     is_email_verified: boolean;
 
     @Column({ defaultValue: false })
-    is_password_autoset: boolean;
+    pin: string;
+
+    @Column({type: DataType.BIGINT})
+    pin_time_expired: number;
 
     @Column({ defaultValue: false })
     is_onboarded: boolean;
@@ -279,7 +280,7 @@ export class User extends Model<User> {
     @Column({ type: DataType.JSON, defaultValue: {} })
     theme: string;
 
-    @Column({ })
+    @Column({})
     display_name: string;
 
     @Column({ defaultValue: false })

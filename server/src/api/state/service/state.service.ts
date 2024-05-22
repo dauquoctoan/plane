@@ -3,17 +3,62 @@ import { InjectModel } from '@nestjs/sequelize';
 import { State } from '../entitys/state.entity';
 import { Repository } from 'sequelize-typescript';
 import { BaseService } from 'src/api/Base.service';
-import { Op } from 'sequelize';
+import Sequelize, { Op} from 'sequelize';
+import { UserService } from 'src/api/user/service/user.service';
+import { handleResultError } from 'src/helper/handleresult';
+import { messageFindFail } from 'src/helper/message.create';
+import { Issue } from 'src/api/issue/entitys/Issue.entity';
+import { User } from 'src/api/user/entitys/User.entity';
+import sequelize from 'sequelize';
+import {getQueryTime } from 'src/helper/date';
+import { TtypeDate } from 'src/types/date.types';
 
 
 @Injectable()
 export class StateService extends BaseService<State> {
     constructor(
         @InjectModel(State)
-        private stateModel: Repository<State>,
+        private stateModal: Repository<State>,
+        private userService: UserService,
     ) {
-        super(stateModel)
+        super(stateModal)
     }
+    
+    async assignedByState(userId:string, typeDate: TtypeDate ){
+        try {
+            const info = await this.userService.getUser(userId);
+            return await this.repository.findAll({
+                attributes: ['group', [sequelize.fn('COUNT', sequelize.col('issues.id')), 'total']],
+                include: [{
+                  model: Issue,
+                  attributes: [],
+                    where:{
+                        workspace_id: info.last_workspace_id,
+                        ...getQueryTime(typeDate)
+                    },
+                    required: false, 
+                    include:[
+                        {
+                            model: User,
+                            as: 'assignees',
+                            attributes: [],
+                            required: true, 
+                            where:{
+                                id: info.id
+                            },
+                            through: { attributes: [] }
+                        }
+                  ]
+                }],
+                group: ['group'],
+                raw: true,
+              })
+              
+        } catch (error) {
+            handleResultError({ message: messageFindFail(this.repository.getTableName()), messageDetail: error });
+        }
+    }
+
 
     createAll() {
         return this.creates([

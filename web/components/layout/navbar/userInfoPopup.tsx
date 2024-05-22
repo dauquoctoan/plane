@@ -17,7 +17,9 @@ const UserInfoPopup = () => {
     return (
         <div className="text-sm">
             <div className="px-2 py-2 font-bold">{info?.email || ''}</div>
-            <ContainerLink links={[{ href: '/profile', nickname: 'setting' }, { href: '/' + info?.workspace?.slug + '/profile/' + info?.workspace?.id, nickname: 'profile-workspace' }]} />
+            <ContainerLink links={[
+                { href: '/profile', nickname: 'setting' }, 
+            ]} />
             <div className="p-1">
                 <div onClick={() => { changeRoute('/' + info?.workspace?.slug + '/profile/' + info?.workspace?.id) }} className="px-2 py-1 hover:bg-theme-secondary rounded cursor-pointer select-none flex items-center">
                     <CgProfile />
