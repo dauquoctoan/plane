@@ -14,7 +14,7 @@ const ChangeCover: React.FC<IChangeCover> = ({ onChange }) => {
     const [images, setImages] = useState(imagesDef);
 
     return (
-        <div className="min-w-[400px] min-h-[400px]">
+        <div className="min-w-[400px] h-[400px]">
             {/* <div className="py-2 bg-theme-secondary flex mt-2 rounded px-3">
                 {tabs.map((item, index) => (
                     <div
@@ -44,7 +44,7 @@ const ChangeCover: React.FC<IChangeCover> = ({ onChange }) => {
                     <Button text="Search" typeBTN="primary" type="button" />
                 </div>
             )} */}
-            <div className="grid grid-cols-4 gap-4 max-h-[300px] overflow-auto pr-1 px-3">
+            <div className="grid grid-cols-4 gap-4 h-full overflow-auto pr-1 px-3 py-3">
                 {images.map((e, i) => (
                     <div
                         onClick={() => {

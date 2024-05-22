@@ -1,5 +1,5 @@
 'use client';
-import React, { FC } from 'react';
+import React, { FC, useEffect, useState } from 'react';
 import KanbanBoard, {
     IBoardIssues,
 } from './layoutView/kanbanlayout/dnd/KanbanBoard';
@@ -88,6 +88,14 @@ const IssueBoard: FC<IProps> = ({ query = {}, layout: typeLayout }) => {
             });
         }, stateParent);
     }
+
+    const [width, setWidth] = useState(0)
+
+    useEffect(()=>{
+        setWidth(document.body.clientWidth)
+    },[])
+
+    TableConfigs[1].fixed = width > 768 ? 'left' : undefined;
     
     const Layouts: { [e: string]: any } = {
         kanban: states && issues && (

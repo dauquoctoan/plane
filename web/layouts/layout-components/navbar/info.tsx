@@ -8,10 +8,12 @@ import UserInfoPopup from '../../../components/layout/navbar/userInfoPopup';
 import { selectInfo } from '@/store/slices/authSlice/selectors';
 import { ContainerLink } from 'nextjs-progressloader';
 import MenuTools from '@/components/layout/navbar/menuTools';
+import { useDispatch } from 'react-redux';
 
 const Info = () => {
     const isCollap = useSelector(selectIsCollap);
     const info = useSelector(selectInfo);
+    const dispatch = useDispatch()
     return (
         <div className="w-full pt-4 pl-4 pr-4 flex flex-col">
             <div className="w-full flex items-center cursor-pointer">
