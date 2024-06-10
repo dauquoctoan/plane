@@ -24,7 +24,7 @@ import useSWR, { mutate } from 'swr';
 interface IForm {
     cover_image: string;
     emoji: string;
-    network: number;
+    network: number|string;
     identifier: string;
     name: string;
     description: string;
@@ -141,7 +141,7 @@ const UpdateProjectForm = ({ project }: { project: IProject }) => {
                                         : 'bg-color-error'
                                 } text-white text-[9px]`}
                             >
-                                {lsNestwork[project?.network || 0]}
+                                {lsNestwork[project?.network as any || 0]}
                             </div>
                         </div>
                     </div>
