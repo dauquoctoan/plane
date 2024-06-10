@@ -88,7 +88,7 @@ const UpdateProjectForm = ({ project }: { project: IProject }) => {
                 mutate(params.projectid, async (project: any) => {
                     const res = await projectService.updateProject<
                         IData<IProject>
-                    >(params.projectid, data);
+                    >(params.projectid, {...data, network:String(data.network)});
                     if (res) {
                         noti?.success('update project success');
                         return res;

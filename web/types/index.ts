@@ -109,7 +109,7 @@ export interface IProject extends IBaseData {
     description?: string;
     description_text?: string;
     description_html?: string;
-    network?: number;
+    network?: number|string;
     identifier?: string;
     emoji?: string;
     icon_prop?: string;
