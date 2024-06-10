@@ -72,10 +72,10 @@ const CreateLabel: React.FC<IPropsCreateLabel> = ({
                     { revalidate: true },
                 );
             })}
-            className="w-[500px]"
+            className="w-full md:w-[500px]"
         >
             <div className="font-bold text-lg">Create Label</div>
-            <div className="flex items-center gap-2">
+            <div className="flex gap-2 flex-col items-start md:items-center md:flex-row">
                 <ColorPickerField
                     name="color"
                     control={control}
