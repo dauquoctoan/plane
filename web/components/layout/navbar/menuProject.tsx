@@ -5,7 +5,7 @@ import { HiPlusSm } from 'react-icons/hi';
 import Modal from '@/components/ui/modal';
 import AddProject from './addProject';
 import projectService from '@/services/project-services';
-import { IData, IProject } from '@/types';
+import { IProject } from '@/types';
 import { selectInfo } from '@/store/slices/authSlice/selectors';
 import useSWR, { useSWRConfig } from 'swr';
 import { LS_PROJECT_KEY } from '@/apiKey/project';

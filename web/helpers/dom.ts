@@ -12,3 +12,7 @@ export const ListeningResize =(element: HTMLDivElement, callBack:(e:number)=> vo
     resizeObserver.observe(element);
 }
 
+export function checkIsMobile(){
+    return document.body.clientWidth < 768
+}
+
