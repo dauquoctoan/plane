@@ -27,7 +27,7 @@ const CreatePage = () => {
   return (
     <form
         id='create-page-form'
-        className='w-[400px]'
+        className='md:w-[400px] w-full'
         onSubmit={handleSubmit((data) => {
             mutate(
                 KEY_PROJECT_PAGE(params.projectid),

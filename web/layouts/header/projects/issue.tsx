@@ -9,7 +9,7 @@ import useSWR, { mutate } from 'swr';
 import lodash from 'lodash';
 import { useDispatch } from 'react-redux';
 import { issueViewSlice } from '@/store';
-import { icons, menuLayoutIssue } from '@/constants';
+import { menuLayoutIssue } from '@/constants';
 import RoadMap from '@/components/module/roadMap';
 import Drawer from '@/components/ui/drawer';
 
