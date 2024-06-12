@@ -19,8 +19,8 @@ const LabelSetting = ()=>{
 
     return <div className="flex flex-col gap-2">
         {
-            data?.map((e)=>{
-                return <LabelSettingItem data={e}/>
+            data?.map((e,i)=>{
+                return <LabelSettingItem key={i} data={e}/>
             })
         }
     </div>

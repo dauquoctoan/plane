@@ -52,8 +52,8 @@ const FeatureSetting = () => {
     return <div className="flex flex-col gap-2">
         
         {
-            data && features.map((e)=>{
-                return <div className="justify-between border-b py-2 px-2 flex gap-2 items-center">
+            data && features.map((e,i)=>{
+                return <div key={i} className="justify-between border-b py-2 px-2 flex gap-2 items-center">
                     <div className="flex items-center gap-2">
                         <div className="w-10 h-10 min-w-10 flex items-center justify-center rounded bg-color-special-secondary">
                             {e.icons}
