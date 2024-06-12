@@ -34,14 +34,11 @@ const Swtich: React.FC<IProps> = ({ size = 'sm', label, onChange, value }) => {
 
     const { cw, h, w, x, ch } = styleConfig[size];
 
-    useEffect(() => {
-        onChange && onChange(isChecked);
-    }, [isChecked]);
-
     return (
         <div
             className="flex items-center content-center gap-2"
             onClick={() => {
+                onChange &&  onChange(!isChecked)
                 setisChecked(!isChecked);
             }}
         >

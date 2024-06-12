@@ -73,7 +73,7 @@ function getDates(name: string, cb?: TCalBackChangeDate): IItemData[] {
 export const useDataFilter = (cb?: TCalBackChangeDate) => {
     const { data: labels } = useSWR(
         () => LABELS_BY_PROJECT_KEY('ALL'),
-        () => issueService.findLabelsByProject<IData<ILabel[]>>({}),
+        () => issueService.findLabelsByProject({}),
     );
 
     const {

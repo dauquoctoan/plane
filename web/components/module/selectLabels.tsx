@@ -26,7 +26,7 @@ const SelectLabels: React.FC<IProps> = ({
 }) => {
     const { data: labels } = useSWR(
         () => LABELS_BY_PROJECT_KEY(projectId),
-        () => issueService.findLabelsByProject<IData<ILabel[]>>({ projectId }),
+        () => issueService.findLabelsByProject({ projectId }),
     );
 
     return (

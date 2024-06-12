@@ -271,7 +271,7 @@ export interface IDisplayProperties {
 export interface IView_props{
     filters: IFilters,
     display_filters: IDisplayFilters,
-    display_properties:IDisplayProperties
+    display_properties: IDisplayProperties
 };
 
 export interface ICycle {

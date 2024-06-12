@@ -1,10 +1,8 @@
 'use client';
-import usePopUp, { IPosition, TPlacement } from '@/hooks/popUp';
+import usePopUp, { TPlacement } from '@/hooks/popUp';
 import React, {
     ReactElement,
-    useEffect,
     useRef,
-    useState,
     JSXElementConstructor,
     memo,
 } from 'react';
@@ -70,7 +68,7 @@ const Confirm: React.FC<IProps> = ({
                 onMouseDown={handleWhenMouseDown}
                 onMouseLeave={handleWhenMouseLeave}
                 ref={refPopup}
-                style={style}
+                style={{zIndex:500,...style}}
                 className={`rounded px-${pxContent} py-${pyContent} mt-[5px] shadow-theme-primary bg-theme-primary animate-modalContentPopup z-[100] ${contentClassName}`}
             >
                 {content ? (

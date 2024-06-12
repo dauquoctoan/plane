@@ -90,6 +90,14 @@ class IssueService extends BaseService {
         }
     }
 
+    async updateLabel<T>(label: Partial<ILabel>,labelId:string) {
+        try {
+            return await this.patch<T>(`label/${labelId}`, label);
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
     async updateIssueLabel<T>(labels: string[], issueId: string) {
         try {
             return await this.patch<T>('isssue-label/' + issueId, { labels });
@@ -98,9 +106,9 @@ class IssueService extends BaseService {
         }
     }
 
-    async findLabelsByProject<T>(query: { projectId?: string }) {
+    async findLabelsByProject(query: { projectId?: string }) {
         try {
-            return await this.get<T>('label', query);
+            return await this.get<ILabel[]>('label', query);
         } catch (error) {
             console.log(error)
         }
