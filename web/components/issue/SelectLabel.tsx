@@ -24,7 +24,7 @@ const SelectLabel: React.FC<ISelectLabel> = ({
     const { data: labels } = useSWR(
         () => LABELS_BY_PROJECT_KEY(projectId),
         () =>
-            issueService.findLabelsByProject<IData<ILabel[]>>({
+            issueService.findLabelsByProject({
                 projectId: projectId,
             }),
     );

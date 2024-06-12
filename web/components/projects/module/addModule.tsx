@@ -1,19 +1,14 @@
 import {
-    CYCLES_BY_PROJECT_KEY,
-    LS_PROJECT_KEY,
     MODULEs_BY_PROJECT_KEY,
 } from '@/apiKey';
 import Button from '@/components/ui/button';
 import Input from '@/components/ui/input/Input';
 import { useNoti } from '@/hooks';
 import projectService from '@/services/project-services';
-import { useSelector } from '@/store';
-import { selectInfo } from '@/store/slices/authSlice/selectors';
-import { IData, IModule, IProject } from '@/types';
-import { userInfo } from 'os';
+import { IModule } from '@/types';
 import React, { FC } from 'react';
 import { useForm } from 'react-hook-form';
-import useSWR, { mutate } from 'swr';
+import { mutate } from 'swr';
 
 export interface IProps {
     id: string;

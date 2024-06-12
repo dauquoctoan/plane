@@ -12,6 +12,7 @@ import { selectInfo } from '@/store/slices/authSlice/selectors';
 import { usePathname } from 'next/navigation';
 import { checkIsMobile, createNickNameLink } from '@/helpers';
 import { useDispatch } from 'react-redux';
+import { IProject } from '@/types';
 
 export interface LinkProps {
     href: string;
@@ -63,14 +64,14 @@ const links: CustomeLink[] = [
 ];
 
 interface IProjectTools {
-    idProject?: string;
+    Project?: IProject;
 }
 
-const ProjectTools: React.FC<IProjectTools> = ({ idProject }) => {
+const ProjectTools: React.FC<IProjectTools> = ({ Project }) => {
     const info = useSelector(selectInfo);
     const isCollap = useSelector(selectIsCollap);
     const curentLink: CustomeLink[] = info
-        ? getLink(links, idProject || '')
+        ? getLink(links, Project?.id || '')
         : [];
     const dispatch = useDispatch();
 

@@ -60,7 +60,7 @@ const MenuProject = () => {
                     {
                         data?.filter((item)=>item.is_member).map((item, index:number) =><ProjectMenuItem
                                 key={item.id}
-                                idProject={item?.id}
+                                Project={item}
                                 emoji={item.emoji}
                                 text={item?.name}
                             />)

@@ -5,22 +5,22 @@ import ProjectTools from './projectTools';
 import Avatar from '../../ui/avatar';
 import { renderEmoji } from '@/helpers/emoji';
 import { useParams } from 'next/navigation';
-import { IParams } from '@/types';
+import { IParams, IProject } from '@/types';
 
 interface IProjectMenuitem {
     text?: string;
-    idProject?: string;
+    Project?: IProject;
     emoji?: string;
 }
 
 const ProjectMenuItem: React.FC<IProjectMenuitem> = ({
     text,
-    idProject,
+    Project,
     emoji,
 }) => {
     const isCollap = useSelector(selectIsCollap);
     const params = useParams<IParams>()
-    const [isExpan, setIsExpan] = useState(params.projectid == idProject ? true : false);
+    const [isExpan, setIsExpan] = useState(params.projectid == Project?.id ? true : false);
 
     return (
         <div className={`${isCollap ? 'flex flex-col items-center' : ''}`}>
@@ -59,7 +59,7 @@ const ProjectMenuItem: React.FC<IProjectMenuitem> = ({
                     <Avatar size="lg">{text || ''}</Avatar>
                 </div>
             )}
-            {isExpan && <ProjectTools idProject={idProject} />}
+            {isExpan && <ProjectTools Project={Project} />}
         </div>
     );
 };
