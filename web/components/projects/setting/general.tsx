@@ -145,6 +145,7 @@ const UpdateProjectForm = ({ project }: { project: IProject }) => {
                             </div>
                         </div>
                     </div>
+                    
                 </div>
                 <div className="absolute bottom-[10px] right-[10px] flex gap-2 bg-white text-[11px] rounded cursor-pointer select-none">
                     <Popover
