@@ -35,6 +35,7 @@ const Menu = () => {
                 <div className="text-[11px] text-color-text-sidebar font-bold mb-3">
                     SETTINGS
                 </div>
+                <div className='md:block flex w-full overflow-x-auto no-croll'>
                 {menus.map((e, i) => {
                     return (
                         <div
@@ -60,6 +61,7 @@ const Menu = () => {
                         </div>
                     );
                 })}
+                </div>
             </div>
         </div>
     );

@@ -14,8 +14,8 @@ export default function WorkspaceLayout({
             </div>
         }
     >
-        <div className="h-full flex gap-5 p-5">
-            <div className='w-[300px]'><Menu /></div>
+        <div className="h-full flex gap-5 p-5 md:flex-row flex-col">
+            <div className='md:w-[300px] w-full'><Menu /></div>
             <div className='flex-1'>{children}</div>
         </div>
     </MainWorkspaceLayout>
