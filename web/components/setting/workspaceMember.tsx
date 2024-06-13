@@ -51,7 +51,7 @@ const WorkspaceMember = () => {
 
     return (
         <div className="w-full">
-            <div className="flex items-center justify-between w-full">
+            <div className="flex md:flex-row flex-col items-center justify-between w-full">
                 <div>Members</div>
                 <div className="flex items-center gap-3">
                     <div className="relative">

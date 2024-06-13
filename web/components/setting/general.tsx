@@ -62,7 +62,7 @@ const General = () => {
                         console.log(data);
                     })}
                 >
-                    <div className="md:flex w-full justify-between gap-4 py-10">
+                    <div className="flex md:flex-row flex-col w-full justify-between gap-4 py-10">
                         <Input
                             label="Workspace name"
                             wrClassName="flex-1"
