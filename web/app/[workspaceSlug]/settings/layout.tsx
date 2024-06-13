@@ -16,7 +16,6 @@ export default function WorkspaceLayout({
     >
         <div className="h-full flex gap-5 p-5 md:flex-row flex-col">
             <div className='md:w-[300px] w-full'><Menu /></div>
-            adss
             <div className='flex-1'>{children}</div>
         </div>
     </MainWorkspaceLayout>
