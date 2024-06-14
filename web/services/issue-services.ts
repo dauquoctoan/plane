@@ -10,9 +10,9 @@ class IssueService extends BaseService {
         super(API_BASE_URL);
     }
 
-    async getState(projectId: string) {
+    async getState(projectId: string, isUser?:boolean) {
         try {
-            return await this.get<Istate[]>('state/project/' + projectId);
+            return await this.get<Istate[]>('state/project/' + projectId + '?isUser='+isUser||'');
         } catch (error) {
             console.log(error)
         }

@@ -1,4 +1,4 @@
-import { Controller, Post, Body, Get, Param, Patch, Delete, Request as RequestNestjs, UseGuards } from '@nestjs/common';
+import { Controller, Post, Body, Get, Param, Patch, Delete, Request as RequestNestjs, UseGuards, Query } from '@nestjs/common';
 import { StateService } from '../service/state.service';
 import { CreateStateDto, UpdateStateDto } from '../dto/State.dto';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
@@ -30,8 +30,8 @@ export class StateController {
 
   @Get('project/:id')
   @UseGuards(AuthGuard)
-  async findStateByProject(@Param('id') id: string, @RequestNestjs() request: IAuthRequest) {
-    return handleResultSuccess(await this.stateService.findState(id, request.user.id));
+  async findStateByProject(@Param('id') id: string, @Query('isUser') isUser:boolean, @RequestNestjs() request: IAuthRequest) {
+    return handleResultSuccess(await this.stateService.findState(id, request.user.id, isUser));
   }
 
   @Get('default')

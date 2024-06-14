@@ -7,6 +7,7 @@ export const LS_PROJECT_KEY = (project_id: TApiKey) => {
 export const ISSUES_BY_PROJECT_ID = (project_id: TApiKey) => (project_id ? `ISSUES_BY_PROJECT_ID_${project_id}` : null);
 
 export const STATES_KEY = (project_id: TApiKey) => (project_id ? `API_STATES${project_id}` : null);
+export const STATES_PROJECT_KEY = (project_id: TApiKey) => (project_id ? `STATES_PROJECT_KEY${project_id}` : null);
 
 export const MEMBER_KEY_BY_PROJECT = (project_id: TApiKey) => (project_id ? `API_MEMBER_KEY${project_id}` : null);
 

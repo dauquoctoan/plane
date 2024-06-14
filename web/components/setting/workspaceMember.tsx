@@ -6,7 +6,7 @@ import Modal from '../ui/modal';
 import AddWorkspaceMembers from './addWorkspaceMembers';
 import useSWR, { mutate } from 'swr';
 import workspaceService from '@/services/workspace-services';
-import { IWorkspace, IWorkspaceMember } from '@/types';
+import { IWorkspaceMember } from '@/types';
 import Avatar from '../ui/avatar';
 import { IoIosCloseCircleOutline } from 'react-icons/io';
 import { MEMBER_ROLE_KEY } from '@/constants';

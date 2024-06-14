@@ -3,7 +3,7 @@ import { InjectModel } from '@nestjs/sequelize';
 import { State } from '../entitys/state.entity';
 import { Repository } from 'sequelize-typescript';
 import { BaseService } from 'src/api/Base.service';
-import Sequelize, { Op} from 'sequelize';
+import { Op} from 'sequelize';
 import { UserService } from 'src/api/user/service/user.service';
 import { handleResultError } from 'src/helper/handleresult';
 import { messageFindFail } from 'src/helper/message.create';
@@ -100,7 +100,7 @@ export class StateService extends BaseService<State> {
         ])
     }
 
-    async findState(id: string, userId: string) {
+    async findState(id: string, userId: string, isUser:boolean = false) {
         return await this.findAll({
             where: {
                 [Op.or]: [
@@ -110,7 +110,7 @@ export class StateService extends BaseService<State> {
                 [Op.and]: {
                     [Op.or]: [
                         { created_by: userId },
-                        { created_by: null },
+                        (isUser?{ created_by: null }:{}),
                     ],
                 },
             },
