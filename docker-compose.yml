@@ -12,7 +12,7 @@ services:
     volumes:
       - .:/web
       - /web/node_modules
-  api:
+  server:
     image: dqtoan0123/plane-server:latest
     
     build:
