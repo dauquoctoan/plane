@@ -114,12 +114,19 @@ export class Project extends Model<Project> {
     @BelongsTo(() => User, 'created_by')
     created_by_user: User;
 
-    @ForeignKey(() => Estimate)
-    @Column({ type: sequelize.UUID, allowNull: true })
-    estimate_id: string;
+    // @ForeignKey(() => Estimate)
+    // @Column({ type: sequelize.UUID, allowNull: true })
+    // estimate_id: string;
 
-    @BelongsTo(() => Estimate, { foreignKey: 'estimate_id' })
-    estimate: Estimate;
+    // @BelongsTo(() => Estimate, { foreignKey: 'estimate_id' })
+    // estimate: Estimate;
+
+    @HasMany(() => Estimate, {
+        onUpdate: "CASCADE",
+        onDelete: "CASCADE", 
+        foreignKey: 'project_id'
+    })
+    estimates: Estimate[];
 
     @ForeignKey(() => User)
     @Column({ type: sequelize.UUID, allowNull: true })

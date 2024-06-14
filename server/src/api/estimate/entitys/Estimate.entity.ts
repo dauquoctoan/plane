@@ -13,13 +13,17 @@ export class Estimate extends Model<Estimate> {
     @Column({ type: sequelize.UUID })
     projectId: Project;
 
-    @ForeignKey(() => Project)
+    @ForeignKey(() => Workspace)
     @Column({ type: sequelize.UUID })
-    workspaceId: Project;
+    workspaceId: Workspace;
     /**
     * ! RELATIONSHIP
     */
-    @HasMany(() => EstimatePoint)
+    @HasMany(() => EstimatePoint,{
+        onUpdate: "CASCADE",
+        onDelete: "CASCADE", 
+        foreignKey: 'estimate_id'
+    })
     estimate_points: EstimatePoint[];
 
     @BelongsTo(() => Project)

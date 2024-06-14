@@ -9,27 +9,27 @@ import { handleResultSuccess } from 'src/helper/handleresult';
 export class EstimateController {
     constructor(private readonly estimateService: EstimateService) { }
     @Post()
-    create(@Body() estimate: CreateEstimateDto) {
-        return handleResultSuccess(this.estimateService.create(estimate));
+    async create(@Body() estimate: CreateEstimateDto) {
+        return handleResultSuccess(await this.estimateService.create(estimate));
     }
 
     @Get()
-    findAll() {
-        return handleResultSuccess(this.estimateService.findAll());
+    async findAll() {
+        return handleResultSuccess(await this.estimateService.findAll());
     }
 
     @Get(':id')
-    findOne(@Param('id') id: string) {
-        return handleResultSuccess(this.estimateService.findOneById(id));
+    async findOne(@Param('id') id: string) {
+        return handleResultSuccess(await this.estimateService.findOneById(id));
     }
 
     @Patch(':id')
-    update(@Param('id') id: string, @Body() estimate: UpdateEstimateDto) {
-        return handleResultSuccess(this.estimateService.updateById(id, estimate));
+    async update(@Param('id') id: string, @Body() estimate: UpdateEstimateDto) {
+        return handleResultSuccess(await this.estimateService.updateById(id, estimate));
     }
 
     @Delete(':id')
-    remove(@Param('id') id: string) {
-        return handleResultSuccess(this.estimateService.removeById(id));
+    async remove(@Param('id') id: string) {
+        return handleResultSuccess(await this.estimateService.removeById(id));
     }
 }

@@ -22,7 +22,11 @@ export class EstimatePoint extends Model<EstimatePoint> {
     @BelongsTo(() => Estimate)
     estimate: Estimate;
 
-    @HasMany(() => Issue)
+    @HasMany(() => Issue,{
+        onUpdate: "CASCADE",
+        onDelete: "CASCADE", 
+        foreignKey: 'estimate_point_id'
+    })
     issues: Issue[];
 
     /**
