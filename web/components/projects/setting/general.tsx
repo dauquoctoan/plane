@@ -71,7 +71,7 @@ const UpdateProjectForm = ({ project }: { project: IProject }) => {
         { icon: <GiEarthAmerica />, title: 'Public', value: '1' },
     ];
 
-    const handleDeleteProjecct = async () => {
+    const handleDeleteProject = async () => {
         const res = await projectService.deleteProject(params.projectid);
         if (res) {
             changeRoute(`/${info?.workspace?.slug}/projects`);
@@ -228,7 +228,7 @@ const UpdateProjectForm = ({ project }: { project: IProject }) => {
                     title="Delete the project"
                     desc="Are you sure to delete this project ?"
                     onConfirm={() => {
-                        handleDeleteProjecct();
+                        handleDeleteProject();
                     }}
                 >
                     <Button

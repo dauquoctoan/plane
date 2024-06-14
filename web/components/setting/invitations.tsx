@@ -7,7 +7,6 @@ import React, { useState } from 'react';
 import useSWR from 'swr';
 import Avatar from '../ui/avatar';
 import Button from '../ui/button';
-import { CiCircleCheck } from 'react-icons/ci';
 import { FaRegCircleCheck } from 'react-icons/fa6';
 import { ContainerLink, changeRoute } from 'nextjs-progressloader';
 import { useNoti } from '@/hooks';
@@ -49,7 +48,7 @@ const EmptyMemberInvite = ({ info }: { info: IInfo | null | undefined }) => {
                 <div className="text-3xl font-bold text-center">
                     No pending invites
                 </div>
-                <div className="text-base font-bold mb-4">
+                <div className="text-base font-bold mb-4 text-center">
                     You can see here if someone invites you to a workspace.
                 </div>
             </div>

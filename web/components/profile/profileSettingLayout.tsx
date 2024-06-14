@@ -14,6 +14,7 @@ import Avatar from '../ui/avatar';
 import { layoutSlice, selectIsCollapProfile, useSelector } from '@/store';
 import { selectInfo } from '@/store/slices/authSlice/selectors';
 import { useDispatch } from 'react-redux';
+import { checkIsMobile } from '@/helpers';
 
 const ProfileSettingLayout = () => {
     const path = usePathname();
@@ -59,6 +60,12 @@ const ProfileSettingLayout = () => {
     const { data: workspaces } = useSWR('workspaces', () => {
         return workspaceService.getWorkspaceByUser<IWorkspace[]>();
     });
+
+    useEffect(()=>{
+        if(checkIsMobile()){
+            dispatch(layoutSlice.actions.setToggleCollapProfileSetting(true))
+        }
+    },[])
 
     return (
         <div ref={ref} className={`md:w-auto fixed md:static z-50 top-0 left-0 ${isCollap ? 'w-auto ' : 'w-full'}  bg-color-modal-overlay  h-[100vh]`}

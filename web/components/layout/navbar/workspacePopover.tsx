@@ -2,24 +2,25 @@ import React, { useState } from 'react';
 import Avatar from '../../ui/avatar';
 import { BsCheck2 } from 'react-icons/bs';
 import { HiOutlinePlusSmall } from 'react-icons/hi2';
-import { authSlice, useSelector } from '@/store';
+import { authSlice, layoutSlice, useSelector } from '@/store';
 import { selectInfo } from '@/store/slices/authSlice/selectors';
 import { ContainerLink, LinkProps, changeRoute } from 'nextjs-progressloader';
 import workspaceService from '@/services/workspace-services';
 import { IData, IProject, IWorkspace } from '@/types';
 import authService from '@/services/auth-services';
 import { VscLoading } from 'react-icons/vsc';
-import { useRouter } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import { useDispatch } from 'react-redux';
 import { useFetch } from '@/hooks/fetch';
 import useSWR from 'swr';
+import { checkIsMobile } from '@/helpers';
 
 const WorkspacePopover = () => {
     const info = useSelector(selectInfo);
     const router = useRouter();
     const dispatch = useDispatch();
     const [loading, setLoading] = useState(false);
-
+    const pathName = usePathname();
     // const { data: workspaces } = useFetch<IData<IWorkspace[]>>(
     //     workspaceService.getAllWorkSpaces as any,
     // );
@@ -42,6 +43,12 @@ const WorkspacePopover = () => {
             nickname: 'home',
         },
     ];
+
+    const colap = ()=>{
+        if(checkIsMobile()){
+            dispatch(layoutSlice.actions.setToggleCollap(true));
+        }
+    }
 
     return (
         <div className="w-[300px] text-sm">
@@ -91,16 +98,25 @@ const WorkspacePopover = () => {
             <div className="border-b border-theme-border-secondary"></div>
 
             <div className="py-2 px-3">
-                <div onClick={() => { changeRoute(`/${info?.workspace?.slug}/settings`) }} className="py-1 px-2 hover:bg-theme-secondary font-medium select-none rounded cursor-pointer">
+                <div onClick={() => { 
+                    colap()
+                    changeRoute(`/${info?.workspace?.slug}/settings`) 
+                    }} className="py-1 px-2 hover:bg-theme-secondary font-medium select-none rounded cursor-pointer">
                     Workspace Settings
                 </div>
                 <div className="py-1 px-2 hover:bg-theme-secondary font-medium select-none rounded cursor-pointer"
-                    onClick={() => { changeRoute(`/invitations`) }}
+                    onClick={() => { 
+                        colap()
+                        changeRoute(`/invitations`)
+                    }}
                 >
                     Workspace Invites
                 </div>
                 <div
-                    onClick={() => { changeRoute(`/${info?.workspace?.slug}/profile/${info?.workspace?.id}`) }}
+                    onClick={() => { 
+                        colap()
+                        changeRoute(`/${info?.workspace?.slug}/profile/${info?.workspace?.id}`) 
+                    }}
                     className="py-1 px-2 hover:bg-theme-secondary font-medium select-none rounded cursor-pointer">
                     My Profile
                 </div>
@@ -108,7 +124,13 @@ const WorkspacePopover = () => {
 
             <div className="border-b border-theme-border-secondary"></div>
 
-            <div className="py-2 px-3 text-color-error">
+            <div
+                onClick={() => {
+                    // dispatch(layoutSlice.actions.setToggleCollap())
+                    router.push(`/?next=${pathName}`);
+                    authService.logOut();
+                }}
+                className="py-2 px-3 text-color-error">
                 <div className="py-1 px-2 hover:bg-theme-secondary  font-medium select-none rounded cursor-pointer">
                     Sign out
                 </div>
