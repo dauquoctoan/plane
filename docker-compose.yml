@@ -23,4 +23,5 @@ services:
       - '3009:3000'
     volumes:
       - .:/server
+      - ./server/src/public/images:/server/src/public/images
       - /server/node_modules
