@@ -54,7 +54,6 @@ const CreateState: React.FC<IPropsCreateState> = ({
                                     description: data.description,
                                     group: data.group?.toLowerCase(),
                                 });
-
                             if (result) {
                                 handleClose();
                                 return [result, ...state];
@@ -67,7 +66,7 @@ const CreateState: React.FC<IPropsCreateState> = ({
                     { revalidate: false },
                 );
             })}
-            className="min-w-[650px] max-h-[900px] py-4"
+            className="md:min-w-[650px] md:max-h-[900px] w-full py-4"
         >
             <div className="font-bold text-xl">CreateState</div>
             <div>
