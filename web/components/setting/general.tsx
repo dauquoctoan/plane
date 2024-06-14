@@ -34,19 +34,14 @@ const General = () => {
                     </div>
                     <a
                         href={
-                            '' +
-                            process.env.NEXT_PUBLIC_HOST +
-                            process.env.NEXT_PUBLIC_PORT +
-                            '/' +
-                            info?.workspace?.name
-                        }
+                        '/' +
+                        info?.workspace?.name}
                     >
-                        {'' +
+                        {
                             process.env.NEXT_PUBLIC_HOST?.replace(
                                 'http://',
                                 '',
                             ) +
-                            process.env.NEXT_PUBLIC_PORT +
                             '/' +
                             info?.workspace?.name}
                     </a>

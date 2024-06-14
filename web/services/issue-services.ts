@@ -42,6 +42,14 @@ class IssueService extends BaseService {
         }
     }
 
+    async deleteState(stateId: string) {
+        try {
+            return await this.delete('state/'+stateId );
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
     async createIssue<T>(issue: Partial<IIssue> & IMoreForm) {
         try {
             return await this.post<T>('issue', issue);
