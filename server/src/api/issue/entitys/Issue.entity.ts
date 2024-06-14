@@ -22,6 +22,7 @@ import { PageBlock } from 'src/api/page/entitys/PageBlock.entity';
 import { Project } from 'src/api/project/entitys/Project.entity';
 import { Workspace } from 'src/api/workspace/entitys/Workspace.entity';
 import sequelize from 'sequelize';
+import { EstimatePoint } from 'src/api/estimate/entitys/EstimatePoint.entity';
 
 @Table({tableName:'Issue'})
 export class Issue extends Model<Issue> {
@@ -60,12 +61,19 @@ export class Issue extends Model<Issue> {
     @Column({ type: sequelize.UUID, allowNull: false })
     state_id: string;
 
+    @ForeignKey(() => EstimatePoint)
+    @Column({ type: sequelize.UUID, allowNull: true })
+    estimate_point_id: EstimatePoint;
+
     /**
     * ! RELATIONSHIP
     */
 
     @BelongsTo(() => User, { foreignKey: 'create_by' })
     creator: User;
+
+    @BelongsTo(() => EstimatePoint, { foreignKey: 'estimate_point_id' })
+    estimate_point: EstimatePoint;
 
     @BelongsTo(() => Project, {
         foreignKey: 'project_id',
@@ -189,11 +197,6 @@ export class Issue extends Model<Issue> {
     /**
     * ! PR
     */
-    @Is('estimate_point', (value) => {
-        if (value > 7 && value < 0) throw Error('0 <= estimate_point <= 7')
-    })
-    @Column
-    estimate_point: number;
 
     @Length({ max: 255 })
     @Column({ allowNull: false })

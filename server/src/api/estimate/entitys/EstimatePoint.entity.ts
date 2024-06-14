@@ -1,6 +1,7 @@
-import { BelongsTo, Column, DataType, ForeignKey, Is, Length, Model, Table } from 'sequelize-typescript';
+import { BelongsTo, Column, DataType, ForeignKey, HasMany, Is, Length, Model, Table } from 'sequelize-typescript';
 import { Estimate } from './Estimate.entity';
 import sequelize from 'sequelize';
+import { Issue } from 'src/api/issue/entitys/Issue.entity';
 
 @Table({tableName:'EstimatePoints'})
 export class EstimatePoint extends Model<EstimatePoint> {
@@ -11,7 +12,7 @@ export class EstimatePoint extends Model<EstimatePoint> {
     */
 
     @ForeignKey(() => Estimate)
-    @Column({ type: sequelize.UUID, allowNull: true })
+    @Column({ type: sequelize.UUID })
     estimate_id: string;
 
     /**
@@ -20,6 +21,9 @@ export class EstimatePoint extends Model<EstimatePoint> {
 
     @BelongsTo(() => Estimate)
     estimate: Estimate;
+
+    @HasMany(() => Issue)
+    issues: Issue[];
 
     /**
     * ! PR

@@ -1,20 +1,32 @@
-import { Column, DataType, HasMany, Length, Model, Table } from 'sequelize-typescript';
+import { BelongsTo, Column, DataType, ForeignKey, HasMany, Length, Model, PrimaryKey, Table } from 'sequelize-typescript';
 import { EstimatePoint } from './EstimatePoint.entity';
 import { Project } from 'src/api/project/entitys/Project.entity';
 import sequelize from 'sequelize';
+import { Workspace } from 'src/api/workspace/entitys/Workspace.entity';
 
 @Table({tableName:'Estimates'})
 export class Estimate extends Model<Estimate> {
     @Column({ type: sequelize.UUID, defaultValue: sequelize.UUIDV4, allowNull: false, primaryKey: true })
     id: string;
+
+    @ForeignKey(() => Project)
+    @Column({ type: sequelize.UUID })
+    projectId: Project;
+
+    @ForeignKey(() => Project)
+    @Column({ type: sequelize.UUID })
+    workspaceId: Project;
     /**
     * ! RELATIONSHIP
     */
     @HasMany(() => EstimatePoint)
     estimate_points: EstimatePoint[];
 
-    @HasMany(() => Project)
-    projects: Project[];
+    @BelongsTo(() => Project)
+    projects: Project;
+
+    @BelongsTo(() => Workspace)
+    workspaces: Workspace;
 
     /**
     * ! PR
