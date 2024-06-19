@@ -47,14 +47,15 @@ const AddProject: React.FC<IProps> = ({ setOpen, handleCreateProject }) => {
     });
 
     const networkOption: IOptionItem[] = [
-        { icon: <BiLockAlt />, title: 'Private', value: '0' },
-        { icon: <GiEarthAmerica />, title: 'Public', value: '1' },
+        { icon: <BiLockAlt />, title: 'Private', value: "0" },
+        { icon: <GiEarthAmerica />, title: 'Public', value: "1" },
     ];
 
     return (
         <form
             id="create-project-form"
             onSubmit={handleSubmit(async (formData) => {
+                formData.network = Number(formData.network)
                 handleCreateProject({
                     ...formData,
                     created_by: info?.id,
@@ -158,7 +159,7 @@ const AddProject: React.FC<IProps> = ({ setOpen, handleCreateProject }) => {
                     onChange={(value: any) => {
                         setValue('network', value);
                     }}
-                    defaultValue={networkOption[0].value || ''}
+                    defaultValue={networkOption[0].value || '0'}
                     options={networkOption}
                     fontSize="text-[12px]"
                 />
