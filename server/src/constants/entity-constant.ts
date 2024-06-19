@@ -33,7 +33,7 @@ export const ACCESS = [0, 1];
 * * 1 : Public
 */
 
-export const NETWORK = ['0', '1'];
+export const NETWORK = [0, 1];
 
 /** 
 * ! MEDIUM
