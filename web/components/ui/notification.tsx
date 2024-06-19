@@ -92,7 +92,7 @@ const NotificationProvider: React.FC<INotification> = ({ children }) => {
             {children}
             {createPortal(
                 <div
-                    className="w-full pointer-events-none sticky z-[999] top-0 left-[-100%] translate-x-[100%] right-0 flex flex-col items-center max-h-[100vh] overflow-y-hidden pb-7"
+                    className="w-full pointer-events-none absolute z-[999] top-0 left-[-100%] translate-x-[100%] right-0 flex flex-col items-center max-h-[100vh] overflow-y-hidden pb-7"
                     ref={refNoti}
                 ></div>,
                 document.body,
