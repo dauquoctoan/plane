@@ -30,7 +30,7 @@ export interface ILink {
 }
 
 export const END_DATE_QUERY = 'dueDate';
-export const STATE_QUERY= 'states';
+export const STATE_QUERY = 'states';
 export const TYPE_DATE_QUERY = 'typeDateQuery';
 
 export const TIME_ZONE_CHOICE = [
@@ -645,10 +645,10 @@ export const MEMBER_ROLE = ['Guest', 'Viewer', 'Member', 'Admin'];
 
 export const LS_KEY_STATE: { [key: string]: string } = {
     backlog: 'Backlog',
+    unstarted: 'Unstarted',
+    started: 'Started',
+    completed: 'Completed',
     cancelled: 'Cancelled',
-    completed: 'Done',
-    started: 'In Progress',
-    unstarted: 'Todo',
 };
 
 export const MEMBER_ROLE_KEY = {
@@ -671,10 +671,10 @@ export const optionLevel: IOptionItem[] = [
     { icon: <IoBan />, title: 'None', value: 'none' },
 ];
 
-export const optionLevelIcons:{[e:string]:ReactElement} = {
-    urgent:<RiErrorWarningLine />,
+export const optionLevelIcons: { [e: string]: ReactElement } = {
+    urgent: <RiErrorWarningLine />,
     high: <MdOutlineSignalCellularAlt />,
-    medium: <MdOutlineSignalCellularAlt2Bar/>,
+    medium: <MdOutlineSignalCellularAlt2Bar />,
     low: <MdSignalCellularAlt1Bar />,
     none: <IoBan />,
 };
@@ -716,9 +716,9 @@ export const lsTabsIssues: ILink[] = [
 export function getDeFaultTabs(workspacSlug?: string): LinkProps[] {
     return workspacSlug
         ? lsTabsIssues.map((e) => ({
-              title: e.title,
-              href: `/${workspacSlug}/workspace-views/${e.key}`,
-          }))
+            title: e.title,
+            href: `/${workspacSlug}/workspace-views/${e.key}`,
+        }))
         : [];
 }
 
@@ -752,8 +752,8 @@ export const TableConfigs: ITableConfigs[] = [
         title: 'ID',
         dataIndex: 'id',
         fixed: 'left',
-        render:(e:IIssue,record:IIssue)=>{
-            return <div>{record?.project?.identifier?.toUpperCase() + '-' + (record.sequence_id|| '')}</div>;
+        render: (e: IIssue, record: IIssue) => {
+            return <div>{record?.project?.identifier?.toUpperCase() + '-' + (record.sequence_id || '')}</div>;
         }
     },
     {
