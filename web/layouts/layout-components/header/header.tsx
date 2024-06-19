@@ -1,11 +1,7 @@
 'use client';
-import Notification from '@/components/layout/header/notification';
-import Popover from '@/components/ui/popover';
-import Tooltip from '@/components/ui/tooltip';
 import { useSelector } from '@/store';
 import { selectIsCollap } from '@/store/slices/layoutSlice/selectors';
-import React, { FC, ReactElement } from 'react';
-import { MdNotificationsNone } from 'react-icons/md';
+import React from 'react';
 
 const Header = ({
     header: HeaderContent,

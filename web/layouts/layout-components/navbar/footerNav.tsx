@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { layoutSlice, useDispatch, useSelector } from '@/store';
 import { HiMiniArrowLongLeft } from 'react-icons/hi2';
 import { selectIsCollap } from '@/store/slices/layoutSlice/selectors';
@@ -10,6 +10,12 @@ const FooterNav = () => {
     function handleToggleMenu() {
         dispatch(layoutSlice.actions.setToggleCollap());
     }
+
+    useEffect(()=>{
+        if(document.body.clientWidth<768){
+            dispatch(layoutSlice.actions.setToggleCollap(true));
+        }
+    },[])
 
     return (
         <div className="w-full h-[45px] border-t border-theme-border-primary px-4 py-2 box-border flex items-center overflow-hidden justify-between">

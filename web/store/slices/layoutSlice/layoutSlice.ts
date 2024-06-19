@@ -15,8 +15,8 @@ export const layoutSlice = createSlice({
     name: 'layout',
     initialState,
     reducers: {
-        setToggleCollap: (state) => {
-            state.isCollap = !state.isCollap;
+        setToggleCollap: (state, action: PayloadAction<boolean|undefined>)  => {
+            state.isCollap = action.payload ?? !state.isCollap;
         },
         setToggleCollapProfileSetting: (state, action: PayloadAction<boolean>) => {
             state.isCollapProfile = action.payload;

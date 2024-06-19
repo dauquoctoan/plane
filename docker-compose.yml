@@ -1,24 +1,27 @@
 version: '3.5'
 
 services:
-  api:
-    image: dqtoan0123/plane_server:latest
-    build:
-      context: ./server
-      dockerfile: dockerfile
-    ports:
-      - '3009:3000'
-    volumes:
-      - .:/server
-      - /server/node_modules
   web:
-    image: dqtoan0123/plane_web:latest
+    image: dqtoan0123/plane-web:latest
     build:
       context: ./web
       dockerfile: Dockerfile
+    container_name: docker-next
     ports:
       - '3000:3000'
     volumes:
       - .:/web
       - /web/node_modules
-  
+  server:
+    image: dqtoan0123/plane-server:latest
+    
+    build:
+      context: ./server
+      dockerfile: Dockerfile
+    container_name: docker-nest
+    ports:
+      - '3009:3000'
+    volumes:
+      - .:/server
+      - ./server/src/public/images:/server/src/public/images
+      - /server/node_modules

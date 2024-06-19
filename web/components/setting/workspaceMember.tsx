@@ -6,7 +6,7 @@ import Modal from '../ui/modal';
 import AddWorkspaceMembers from './addWorkspaceMembers';
 import useSWR, { mutate } from 'swr';
 import workspaceService from '@/services/workspace-services';
-import { IWorkspace, IWorkspaceMember } from '@/types';
+import { IWorkspaceMember } from '@/types';
 import Avatar from '../ui/avatar';
 import { IoIosCloseCircleOutline } from 'react-icons/io';
 import { MEMBER_ROLE_KEY } from '@/constants';
@@ -51,9 +51,9 @@ const WorkspaceMember = () => {
 
     return (
         <div className="w-full">
-            <div className="flex items-center justify-between w-full">
+            <div className="flex md:flex-row flex-col md:items-center justify-between w-full">
                 <div>Members</div>
-                <div className="flex items-center gap-3">
+                <div className="flex md:items-center gap-3 md:flex-row flex-col">
                     <div className="relative">
                         <input
                             className="outline-none border rounded pl-6"

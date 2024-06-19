@@ -1,5 +1,6 @@
+'use client'
 import { renderEmoji } from '@/helpers';
-import { IProject } from '@/types';
+import { IParams, IProject } from '@/types';
 import Image from 'next/image';
 import React from 'react';
 import {
@@ -18,6 +19,9 @@ import { mutate } from 'swr';
 import { LS_PROJECT_KEY } from '@/apiKey';
 import { useSelector } from 'react-redux';
 import { selectInfo } from '@/store/slices/authSlice/selectors';
+import Confirm from '../ui/confirm';
+import { changeRoute } from 'nextjs-progressloader';
+import { useParams } from 'next/navigation';
 
 interface IPropsProjectItem {
     dataItem: IProject;
@@ -26,6 +30,16 @@ interface IPropsProjectItem {
 const ProjectITem: React.FC<IPropsProjectItem> = ({ dataItem }) => {
     const noti = useNoti()
     const info = useSelector(selectInfo);
+    const params  = useParams<IParams>()
+    const handleDeleteProject = async () => {
+        const res = await projectService.deleteProject(params.projectid);
+        if (res) {
+            changeRoute(`/${info?.workspace?.slug}/projects`);
+            noti?.success('Delete project success');
+        } else {
+            noti?.error('Delete project error');
+        }
+    };
 
     return (
         <div className="rounded cursor-pointer bg-theme-secondary border shadow-theme-secondary">
@@ -82,9 +96,17 @@ const ProjectITem: React.FC<IPropsProjectItem> = ({ dataItem }) => {
                                 <div>
                                     <div className="flex hover:bg-theme-secondary items-center gap-2 cursor-pointer rounded p-1 select-none">
                                         <AiOutlineDelete />
-                                        <span className="text-sm font-medium">
-                                            Delete Project
-                                        </span>
+                                        <Confirm
+                                            title="Delete the project"
+                                            desc="Are you sure to delete this project ?"
+                                            onConfirm={() => {
+                                                handleDeleteProject();
+                                            }}
+                                        >
+                                            <span className="text-sm font-medium">
+                                                Delete Project
+                                            </span>
+                                        </Confirm>
                                     </div>
                                     <div className="flex hover:bg-theme-secondary items-center gap-2 cursor-pointer rounded p-1 select-none">
                                         <IoStarOutline />

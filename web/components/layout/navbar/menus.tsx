@@ -3,7 +3,7 @@ import { MdOutlineWindow } from 'react-icons/md';
 import { HiChartBar } from 'react-icons/hi';
 import { AiFillTags } from 'react-icons/ai';
 import { PiSuitcaseSimpleBold } from 'react-icons/pi';
-import { selectIsCollap, useSelector } from '@/store';
+import { authSlice, layoutSlice, selectIsCollap, useSelector } from '@/store';
 import {
     ContainerLink,
     ContainerLinkProps,
@@ -11,6 +11,9 @@ import {
 } from 'nextjs-progressloader';
 import { selectInfo } from '@/store/slices/authSlice/selectors';
 import { usePathname } from 'next/navigation';
+import { checkIsMobile } from '@/helpers';
+import { useDispatch } from 'react-redux';
+import AuthLayout from '@/layouts/authLayout';
 
 export interface IMenu extends IBaseMenu {
     index: number;
@@ -76,10 +79,14 @@ const MenuItem: React.FC<IMenu> = ({
     path,
 }) => {
     const pathName = usePathname();
+    const dispatch = useDispatch();
     return (
         <div
             onClick={() => {
                 changeRoute(path);
+                if(checkIsMobile()){
+                    dispatch(layoutSlice.actions.setToggleCollap(true));
+                }
             }}
             className={`mb-1 text-sm flex items-center ${text ? 'gap-2':'flex items-center justify-center'} px-4 py-2 cursor-pointer hover:bg-theme-secondary rounded ${path == (pathName) ? 'text-color-special-primary bg-color-special-secondary text-sm' : ''}`}
         >

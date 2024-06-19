@@ -10,9 +10,9 @@ class IssueService extends BaseService {
         super(API_BASE_URL);
     }
 
-    async getState(projectId: string) {
+    async getState(projectId: string, isUser?:boolean) {
         try {
-            return await this.get<Istate[]>('state/project/' + projectId);
+            return await this.get<Istate[]>('state/project/' + projectId + '?isUser='+isUser||'');
         } catch (error) {
             console.log(error)
         }
@@ -37,6 +37,14 @@ class IssueService extends BaseService {
     async createState<T>(state: Partial<Istate>) {
         try {
             return await this.post<T>('state', state);
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+    async deleteState(stateId: string) {
+        try {
+            return await this.delete('state/'+stateId );
         } catch (error) {
             console.log(error)
         }
@@ -90,6 +98,14 @@ class IssueService extends BaseService {
         }
     }
 
+    async updateLabel<T>(label: Partial<ILabel>,labelId:string) {
+        try {
+            return await this.patch<T>(`label/${labelId}`, label);
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
     async updateIssueLabel<T>(labels: string[], issueId: string) {
         try {
             return await this.patch<T>('isssue-label/' + issueId, { labels });
@@ -98,9 +114,9 @@ class IssueService extends BaseService {
         }
     }
 
-    async findLabelsByProject<T>(query: { projectId?: string }) {
+    async findLabelsByProject(query: { projectId?: string }) {
         try {
-            return await this.get<T>('label', query);
+            return await this.get<ILabel[]>('label', query);
         } catch (error) {
             console.log(error)
         }

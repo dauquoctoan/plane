@@ -65,8 +65,8 @@ const SelectPopup: React.FC<ISelectPopup> = ({
     return (
         <div
             ref={refPopUp}
-            style={style}
-            className={`bg-theme-primary border py-1 absolute rounded origin-top-left shadow-theme-primary animate-popUp z-50 w-max`}
+            style={{zIndex: 500, ...style}}
+            className={`bg-theme-primary border py-1 absolute rounded origin-top-left shadow-theme-primary animate-popUp w-max`}
         >
             {isSearch && (
                 <div className="py-2 px-2">

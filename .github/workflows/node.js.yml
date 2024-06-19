@@ -54,7 +54,7 @@
 
 ##ci/cd with docker-compose file
 
-name: Docker Build and Push
+name: Docker Build, Push, and Deploy
 
 on:
   push:
@@ -62,7 +62,7 @@ on:
       - product
 
 jobs:
-  build-and-push:
+  build-push-deploy:
     runs-on: ubuntu-latest
 
     steps:
@@ -76,4 +76,20 @@ jobs:
       run: echo "${{ secrets.DOCKERHUB_TOKEN }}" | docker login -u ${{ secrets.DOCKERHUB_USERNAME }} --password-stdin
 
     - name: Build and push images
-      run: docker-compose -f docker-compose.yml build && docker-compose -f docker-compose.yml push
+      run: |
+        docker-compose -f docker-compose.yml build && docker-compose -f docker-compose.yml push
+
+    - name: Check if images are pushed
+      run: docker manifest inspect dqtoan0123/plane-web:latest && docker manifest inspect dqtoan0123/plane-server:latest
+
+    - name: executing remote ssh commands using password
+      uses: appleboy/ssh-action@master
+      with:
+        host: ${{ secrets.HOST }}
+        username: ${{ secrets.USERNAME }}
+        password: ${{ secrets.PASSWORD }}
+        script: |
+          cd product
+          cd plane
+          docker-compose pull
+          docker-compose up -d

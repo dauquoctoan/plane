@@ -24,7 +24,7 @@ import useSWR, { mutate } from 'swr';
 interface IForm {
     cover_image: string;
     emoji: string;
-    network: number;
+    network: number|string;
     identifier: string;
     name: string;
     description: string;
@@ -71,7 +71,7 @@ const UpdateProjectForm = ({ project }: { project: IProject }) => {
         { icon: <GiEarthAmerica />, title: 'Public', value: '1' },
     ];
 
-    const handleDeleteProjecct = async () => {
+    const handleDeleteProject = async () => {
         const res = await projectService.deleteProject(params.projectid);
         if (res) {
             changeRoute(`/${info?.workspace?.slug}/projects`);
@@ -88,7 +88,7 @@ const UpdateProjectForm = ({ project }: { project: IProject }) => {
                 mutate(params.projectid, async (project: any) => {
                     const res = await projectService.updateProject<
                         IData<IProject>
-                    >(params.projectid, data);
+                    >(params.projectid, {...data, network:String(data.network)});
                     if (res) {
                         noti?.success('update project success');
                         return res;
@@ -141,10 +141,11 @@ const UpdateProjectForm = ({ project }: { project: IProject }) => {
                                         : 'bg-color-error'
                                 } text-white text-[9px]`}
                             >
-                                {lsNestwork[project?.network || 0]}
+                                {lsNestwork[project?.network as any || 0]}
                             </div>
                         </div>
                     </div>
+                    
                 </div>
                 <div className="absolute bottom-[10px] right-[10px] flex gap-2 bg-white text-[11px] rounded cursor-pointer select-none">
                     <Popover
@@ -227,7 +228,7 @@ const UpdateProjectForm = ({ project }: { project: IProject }) => {
                     title="Delete the project"
                     desc="Are you sure to delete this project ?"
                     onConfirm={() => {
-                        handleDeleteProjecct();
+                        handleDeleteProject();
                     }}
                 >
                     <Button

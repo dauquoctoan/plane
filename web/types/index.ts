@@ -109,7 +109,7 @@ export interface IProject extends IBaseData {
     description?: string;
     description_text?: string;
     description_html?: string;
-    network?: number;
+    network?: number|string;
     identifier?: string;
     emoji?: string;
     icon_prop?: string;
@@ -271,7 +271,7 @@ export interface IDisplayProperties {
 export interface IView_props{
     filters: IFilters,
     display_filters: IDisplayFilters,
-    display_properties:IDisplayProperties
+    display_properties: IDisplayProperties
 };
 
 export interface ICycle {

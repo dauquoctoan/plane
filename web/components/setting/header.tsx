@@ -21,6 +21,7 @@ const Header = () => {
                         title: menuItem == 'settings' ? '' : menuItem
                     }
                 ].filter((e) => e.title)}
+                
             />
         </div>
     )

@@ -22,6 +22,7 @@ import { Cycle } from 'src/api/cycle/entitys/Cycle.entity';
 import { Module } from 'src/api/module/entitys/Module.entity';
 import { ProjectFavorite } from 'src/api/project/entitys/projectFavorite.entity';
 import { Page } from 'src/api/page/entitys/Page.entity';
+import { Estimate } from 'src/api/estimate/entitys/Estimate.entity';
 
 @Table({tableName:'Workspaces'})
 export class Workspace extends Model<Workspace> {
@@ -58,7 +59,11 @@ export class Workspace extends Model<Workspace> {
 
     @HasMany(() => ProjectFavorite, { foreignKey: 'workspace_id' })
     project_favorites: ProjectFavorite[];
-    
+
+    @HasMany(() => Estimate, {
+        foreignKey: 'workspace_id'
+    })
+    estimates: Estimate[];
 
     @HasMany(() => Module, { foreignKey: 'workspace_id' })
     module: Module[];

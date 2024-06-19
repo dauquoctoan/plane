@@ -6,11 +6,13 @@ import { MdViewModule } from 'react-icons/md';
 import { MdOutlineViewSidebar } from 'react-icons/md';
 import { CgStack } from 'react-icons/cg';
 import { GrDocumentText } from 'react-icons/gr';
-import { selectIsCollap, useSelector } from '@/store';
+import { layoutSlice, selectIsCollap, useSelector } from '@/store';
 import { changeRoute, ContainerLink } from 'nextjs-progressloader';
 import { selectInfo } from '@/store/slices/authSlice/selectors';
 import { usePathname } from 'next/navigation';
-import { createNickNameLink } from '@/helpers';
+import { checkIsMobile, createNickNameLink } from '@/helpers';
+import { useDispatch } from 'react-redux';
+import { IProject } from '@/types';
 
 export interface LinkProps {
     href: string;
@@ -62,15 +64,16 @@ const links: CustomeLink[] = [
 ];
 
 interface IProjectTools {
-    idProject?: string;
+    Project?: IProject;
 }
 
-const ProjectTools: React.FC<IProjectTools> = ({ idProject }) => {
+const ProjectTools: React.FC<IProjectTools> = ({ Project }) => {
     const info = useSelector(selectInfo);
     const isCollap = useSelector(selectIsCollap);
     const curentLink: CustomeLink[] = info
-        ? getLink(links, idProject || '')
+        ? getLink(links, Project?.id || '')
         : [];
+    const dispatch = useDispatch();
 
     const pathName = usePathname()
 
@@ -92,6 +95,9 @@ const ProjectTools: React.FC<IProjectTools> = ({ idProject }) => {
                 <div
                     onClick={() => {
                         changeRoute(e.href);
+                        if(checkIsMobile()){
+                            dispatch(layoutSlice.actions.setToggleCollap(true));
+                        }
                     }}
                     key={i}
                     className={`flex ${pathName.includes(e.href) ? 'text-color-special-primary bg-color-special-secondary' : ''} ${isCollap ? 'justify-center' : ''

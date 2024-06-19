@@ -34,19 +34,14 @@ const General = () => {
                     </div>
                     <a
                         href={
-                            '' +
-                            process.env.NEXT_PUBLIC_HOST +
-                            process.env.NEXT_PUBLIC_PORT +
-                            '/' +
-                            info?.workspace?.name
-                        }
+                        '/' +
+                        info?.workspace?.name}
                     >
-                        {'' +
+                        {
                             process.env.NEXT_PUBLIC_HOST?.replace(
                                 'http://',
                                 '',
                             ) +
-                            process.env.NEXT_PUBLIC_PORT +
                             '/' +
                             info?.workspace?.name}
                     </a>
@@ -62,7 +57,7 @@ const General = () => {
                         console.log(data);
                     })}
                 >
-                    <div className="flex w-full justify-between gap-4 py-10">
+                    <div className="flex md:flex-row flex-col w-full justify-between gap-4 py-10">
                         <Input
                             label="Workspace name"
                             wrClassName="flex-1"

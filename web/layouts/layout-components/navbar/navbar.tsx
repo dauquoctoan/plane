@@ -11,7 +11,7 @@ const Navbar = () => {
 
     return (
         <div
-            className={`overflow-x-hidden absolute md:static z-[100] md:border-r h-[100vh] bg-theme-primary transition-all border-theme-border-primary box-border flex flex-col overflow-hidden left-0 top-0 ${
+            className={`custom-height overflow-x-hidden absolute md:static z-[100] md:border-r bg-theme-primary transition-all border-theme-border-primary box-border flex flex-col overflow-hidden left-0 top-0 ${
                 isCollap ? 'w-0 md:w-width-menu-collap border-r-0' : 'w-width-menu border-r'
             }`}
         >

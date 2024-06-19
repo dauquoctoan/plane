@@ -43,7 +43,7 @@ const TabAnimation:FC<ITabs> = ({defaultTab=1, option, onchange})=> {
                     onchange(item.value);
                     setTab({index:index, value:item.value});
                 }} className={`${index == tab.index ? "text-color-special-primary":""} 
-                    py-1 text-xs font-semibold flex items-center justify-center flex-1 cursor-pointer`}>
+                    py-1 text-xs font-semibold flex items-center justify-center flex-1 cursor-pointer text-center`}>
                     {item.name}
                 </div>
             })}
