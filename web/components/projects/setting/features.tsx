@@ -1,6 +1,6 @@
 'use client'
 
-import Swtich from "@/components/ui/swtich/swtich"
+import Switch from "@/components/ui/swtich/swtich"
 import { icons } from "@/constants"
 import { useNoti } from "@/hooks"
 import authService from "@/services/auth-services"
@@ -35,39 +35,34 @@ const FeatureSetting = () => {
         icons: icons.page
     }]
     const params = useParams<IParams>()
+    const noti = useNoti()
 
     const { data } = useSWR('project' + params.projectid, () => {
         return projectService.findOneProject<IProject>(params.projectid);
     });
 
-    console.log('data', data)
-
-    const noti = useNoti()
-    const handleUdateProject=async (value:any,key:string)=>{
-        const result = await projectService.updateProject(params.projectid, {[key]:value});
-        if(result) noti?.success('update feature success')
+    const handleUpdateProject = async (value: any, key: string) => {
+        const result = await projectService.updateProject(params.projectid, { [key]: value });
+        if (result) noti?.success('update feature success')
         else noti?.error('update feature error')
     }
-    const datas:any = data;
+    const _data: any = data;
     return <div className="flex flex-col gap-2">
-        
         {
-            data && features.map((e,i)=>{
+            data && features.map((e, i) => {
                 return <div key={i} className="justify-between border-b py-2 px-2 flex gap-2 items-center">
                     <div className="flex items-center gap-2">
                         <div className="w-10 h-10 min-w-10 flex items-center justify-center rounded bg-color-special-secondary">
                             {e.icons}
                         </div>
-                    <div>
-                        <div className="text-sm font-bold">{e.name}</div>
-                        <div className="text-xs text-color-text-sidebar">{e.desc}</div>
+                        <div>
+                            <div className="text-sm font-bold">{e.name}</div>
+                            <div className="text-xs text-color-text-sidebar">{e.desc}</div>
+                        </div>
                     </div>
-                    </div>
-                    <Swtich value={datas[e.key]} onChange={(value)=>{
-                        if(data){
-                            handleUdateProject(value, e.key)
-                        }
-                    }}/>
+                    <Switch value={_data[e.key]} onChange={(value) => {
+                        handleUpdateProject(value, e.key)
+                    }} />
                 </div>
             })
         }

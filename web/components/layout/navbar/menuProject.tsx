@@ -58,12 +58,12 @@ const MenuProject = () => {
                 )}
                 <div>
                     {
-                        data?.filter((item)=>item.is_member).map((item, index:number) =><ProjectMenuItem
-                                key={item.id}
-                                Project={item}
-                                emoji={item.emoji}
-                                text={item?.name}
-                            />)
+                        data?.filter((item) => item.is_member).map((item, index: number) => <ProjectMenuItem
+                            key={item.id}
+                            Project={item}
+                            emoji={item.emoji}
+                            text={item?.name}
+                        />)
                     }
                 </div>
             </div>

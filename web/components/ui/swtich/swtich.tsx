@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { ICurentFieldProps } from '../types';
 
-export interface IPropsSwitch  {
+export interface IPropsSwitch {
     size?: 'sm' | 'md' | 'lg' | 'xl';
     label?: string;
     onChange?: (i: boolean) => void;
@@ -19,7 +19,7 @@ interface IStyleOpeions {
 type IProps = IPropsSwitch &
     ICurentFieldProps
 
-const Swtich: React.FC<IProps> = ({ size = 'sm', label, onChange, value }) => {
+const Switch: React.FC<IProps> = ({ size = 'sm', label, onChange, value }) => {
     const [isChecked, setisChecked] = useState<boolean>(value || false);
 
     const styleConfig: { [s: string]: IStyleOpeions } = {
@@ -38,26 +38,24 @@ const Swtich: React.FC<IProps> = ({ size = 'sm', label, onChange, value }) => {
         <div
             className="flex items-center content-center gap-2"
             onClick={() => {
-                onChange &&  onChange(!isChecked)
+                onChange && onChange(!isChecked)
                 setisChecked(!isChecked);
             }}
         >
             {label && <label className="select-none text-sm">{label}</label>}
             <div
-                className={`${
-                    isChecked
+                className={`${isChecked
                         ? 'bg-color-special-primary'
                         : 'bg-theme-border-highligh'
-                } box-border ${w} ${h} rounded-full border border-theme-border-primary relative cursor-pointer`}
+                    } box-border ${w} ${h} rounded-full border border-theme-border-primary relative cursor-pointer`}
             >
                 <span
-                    className={`absolute block ${
-                        isChecked ? x : 'translate-x-[0]'
-                    } duration-100 transition-all top-[50%] translate-y-[-50%] ${ch} ${cw} rounded-full bg-theme-primary box-border`}
+                    className={`absolute block ${isChecked ? x : 'translate-x-[0]'
+                        } duration-100 transition-all top-[50%] translate-y-[-50%] ${ch} ${cw} rounded-full bg-theme-primary box-border`}
                 ></span>
             </div>
         </div>
     );
 };
 
-export default Swtich;
+export default Switch;

@@ -20,7 +20,7 @@ import { selectInfo } from '@/store/slices/authSlice/selectors';
 import moment from 'moment';
 import { NotiContext } from '@/components/ui/notification';
 import { useParams, usePathname } from 'next/navigation';
-import Swtich from '../ui/swtich/swtich';
+import Switch from '../ui/swtich/swtich';
 
 interface IProps {
     isDraft: boolean;
@@ -82,19 +82,19 @@ const CreateIssue: React.FC<IProps> = ({
         watch,
         reset,
     } = useForm<IForm>(
-    {
-        defaultValues:{
-            desc: issue?.description_html,
-            labels: issue?.labels?.map((e:any)=> e.id)||[],
-            members: issue?.assignees?.map((e:any)=>e.id)||[],
-            priority: issue?.priority,
-            name:issue?.name,
-            state:issue?.state_id,
-            project:issue?.project_id,
-            start_date: issue?.target_date,
-            target_date: issue?.target_date,
+        {
+            defaultValues: {
+                desc: issue?.description_html,
+                labels: issue?.labels?.map((e: any) => e.id) || [],
+                members: issue?.assignees?.map((e: any) => e.id) || [],
+                priority: issue?.priority,
+                name: issue?.name,
+                state: issue?.state_id,
+                project: issue?.project_id,
+                start_date: issue?.target_date,
+                target_date: issue?.target_date,
+            }
         }
-    }
     );
 
     const params = useParams<IParams>();
@@ -149,7 +149,7 @@ const CreateIssue: React.FC<IProps> = ({
                             const dataIssue = {
                                 name: data.name,
                                 description_html: data.desc,
-                                project_id: data.project || params.projectid ||projects[0].id,
+                                project_id: data.project || params.projectid || projects[0].id,
                                 priority: data.priority || 'urgent',
                                 state_id: data.state,
                                 labels: data.labels,
@@ -165,32 +165,32 @@ const CreateIssue: React.FC<IProps> = ({
                                 cycle_id: cycleId,
                                 module_id: moduleId,
                             }
-                            const issueResult = await( isUpdate ? issueService.updateIssue<IIssue>(issue?.id,dataIssue): issueService.createIssue<IIssue>(dataIssue));
+                            const issueResult = await (isUpdate ? issueService.updateIssue<IIssue>(issue?.id, dataIssue) : issueService.createIssue<IIssue>(dataIssue));
                             if (issueResult) {
-                                noti?.success(isUpdate?"Issue updated":'Issue created');
+                                noti?.success(isUpdate ? "Issue updated" : 'Issue created');
                                 closeModal();
                                 handleClearForm();
-                                if(isUpdate){
-                                    const issueNew = issues.map((e:IIssue)=>{
-                                        if(e.id == issue.id){
+                                if (isUpdate) {
+                                    const issueNew = issues.map((e: IIssue) => {
+                                        if (e.id == issue.id) {
                                             return {
                                                 ...dataIssue,
                                                 state_id: data.state,
                                                 state: {
                                                     id: data.state,
-                                                    name: states?.find((state) => state.id == data.state)?.name ||'',
+                                                    name: states?.find((state) => state.id == data.state)?.name || '',
                                                 },
                                             }
-                                        }else return e
+                                        } else return e
                                     })
                                     return issueNew
-                                }else{
+                                } else {
                                     return [...issues, {
                                         ...dataIssue,
                                         state_id: data.state,
                                         state: {
                                             id: data.state,
-                                            name: states?.find((e)=>e.id == data.state)?.name||'',
+                                            name: states?.find((e) => e.id == data.state)?.name || '',
                                         },
                                     }];
                                 }
@@ -251,7 +251,7 @@ const CreateIssue: React.FC<IProps> = ({
                     }
                     <Line />
                     <div className="md:px-6 px-0 flex items-center justify-between py-2">
-                        <Swtich
+                        <Switch
                             label="Create more"
                             onChange={(value) => {
                                 setIsMore(value);
@@ -274,7 +274,7 @@ const CreateIssue: React.FC<IProps> = ({
                             <Button
                                 form="create-issue-form"
                                 type="submit"
-                                text={isUpdate ? 'Update issue':'Add issue'}
+                                text={isUpdate ? 'Update issue' : 'Add issue'}
                                 typeBTN="primary"
                             />
                         </div>
