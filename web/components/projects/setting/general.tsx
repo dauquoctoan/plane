@@ -24,7 +24,7 @@ import useSWR, { mutate } from 'swr';
 interface IForm {
     cover_image: string;
     emoji: string;
-    network: number|string;
+    network: number | string;
     identifier: string;
     name: string;
     description: string;
@@ -88,7 +88,7 @@ const UpdateProjectForm = ({ project }: { project: IProject }) => {
                 mutate(params.projectid, async (project: any) => {
                     const res = await projectService.updateProject<
                         IData<IProject>
-                    >(params.projectid, {...data, network:String(data.network)});
+                    >(params.projectid, { ...data, network: Number(data.network) });
                     if (res) {
                         noti?.success('update project success');
                         return res;
@@ -135,17 +135,16 @@ const UpdateProjectForm = ({ project }: { project: IProject }) => {
                         <div className="flex items-center gap-2">
                             <div className="text-sm">{project?.identifier}</div>
                             <div
-                                className={`px-1 rounded ${
-                                    project?.network
-                                        ? 'bg-color-success'
-                                        : 'bg-color-error'
-                                } text-white text-[9px]`}
+                                className={`px-1 rounded ${project?.network
+                                    ? 'bg-color-success'
+                                    : 'bg-color-error'
+                                    } text-white text-[9px]`}
                             >
                                 {lsNestwork[project?.network as any || 0]}
                             </div>
                         </div>
                     </div>
-                    
+
                 </div>
                 <div className="absolute bottom-[10px] right-[10px] flex gap-2 bg-white text-[11px] rounded cursor-pointer select-none">
                     <Popover
