@@ -36,8 +36,8 @@ const StateSetting = () => {
                                 <div>{getIcons(e.group, e.color)}</div>
                                 <div className='text-sm'>{e.name}</div>
                             </div>
-                            <div onClick={async () => {
-                                if (e.project_id) {
+                            {
+                                e.project_id && <div onClick={async () => {
                                     const result = await issueService.deleteState(e.id)
                                     if (result) {
                                         noti?.success('Delete state success');
@@ -47,8 +47,8 @@ const StateSetting = () => {
                                             })
                                         })
                                     } else noti?.error('Delete state error')
-                                }
-                            }}>{icons.delete}</div>
+                                }}>{icons.delete}</div>
+                            }
                         </div>
                     })
                 }
