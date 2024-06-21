@@ -18,8 +18,10 @@ import Select, { IOptionItem } from '@/components/ui/select/select';
 import Avatar from '@/components/ui/avatar';
 import { useSelector } from '@/store';
 import { selectInfo } from '@/store/slices/authSlice/selectors';
-import { IProject } from '@/types';
+import { IProject, IWorkspaceMember } from '@/types';
 import { useNoti } from '@/hooks';
+import useSWR from 'swr';
+import workspaceService from '@/services/workspace-services';
 
 interface IProps {
     setOpen: (e: boolean) => void;
@@ -51,6 +53,7 @@ const AddProject: React.FC<IProps> = ({ setOpen, handleCreateProject }) => {
         { icon: <GiEarthAmerica />, title: 'Public', value: "1" },
     ];
 
+    const { data: members } = useSWR("workspace-member", () => workspaceService.getMemberFromWorkspace<IWorkspaceMember[]>())
     return (
         <form
             id="create-project-form"
@@ -170,15 +173,13 @@ const AddProject: React.FC<IProps> = ({ setOpen, handleCreateProject }) => {
                     placement="topLeft"
                     isSearch
                     onChange={(value: any) => {
-                        setValue('project_lead', value.value || null);
+                        setValue('project_lead', value || null);
                     }}
-                    options={[
-                        {
-                            icon: <Avatar size="sm">m</Avatar>,
-                            title: 'toandq',
-                            value: info?.id,
-                        },
-                    ]}
+                    options={members ? members.map(member => ({
+                        icon: <Avatar size='sm'>m</Avatar>,
+                        title: member.user.first_name,
+                        value: member.user.id
+                    })) : []}
                 >
                     <div className="px-2 py-1  border-theme-border-primary rounded flex items-center gap-1">
                         <BsFillPersonLinesFill />
@@ -196,7 +197,7 @@ const AddProject: React.FC<IProps> = ({ setOpen, handleCreateProject }) => {
                     text="Create Project"
                 />
             </div>
-        </form>
+        </form >
     );
 };
 

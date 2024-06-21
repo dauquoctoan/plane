@@ -46,7 +46,7 @@ export interface IProps extends ICurentFieldProps {
 
 export interface IOptionItem {
     icon?: ReactElement;
-    title: string;
+    title: string | undefined;
     value?: string | null;
 }
 
@@ -289,13 +289,12 @@ const Select: React.FC<ICurentField> = ({
                         setOpen(true);
                     }}
                     ref={refBtn}
-                    className={`${
-                        error
-                            ? 'border border-color-error'
-                            : border
+                    className={`${error
+                        ? 'border border-color-error'
+                        : border
                             ? 'border'
                             : ''
-                    } rounded hover:bg-theme-secondary cursor-pointer`}
+                        } rounded hover:bg-theme-secondary cursor-pointer`}
                 >
                     {(curentItemSelected &&
                         customeSelected &&
