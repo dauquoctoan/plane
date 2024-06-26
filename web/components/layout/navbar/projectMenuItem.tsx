@@ -9,18 +9,18 @@ import { IParams, IProject } from '@/types';
 
 interface IProjectMenuitem {
     text?: string;
-    Project?: IProject;
+    project?: IProject;
     emoji?: string;
 }
 
 const ProjectMenuItem: React.FC<IProjectMenuitem> = ({
     text,
-    Project,
+    project,
     emoji,
 }) => {
     const isCollap = useSelector(selectIsCollap);
     const params = useParams<IParams>()
-    const [isExpan, setIsExpan] = useState(params.projectid == Project?.id ? true : false);
+    const [isExpan, setIsExpan] = useState(params.projectid == project?.id ? true : false);
 
     return (
         <div className={`${isCollap ? 'flex flex-col items-center' : ''}`}>
@@ -59,7 +59,7 @@ const ProjectMenuItem: React.FC<IProjectMenuitem> = ({
                     <Avatar size="lg">{text || ''}</Avatar>
                 </div>
             )}
-            {isExpan && <ProjectTools Project={Project} />}
+            {isExpan && <ProjectTools project={project} />}
         </div>
     );
 };

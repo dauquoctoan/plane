@@ -122,7 +122,7 @@ export interface IProject extends IBaseData {
     archive_in?: number;
     close_in?: number;
     is_member?: boolean;
-    defaultShow: false;
+    default_show?: true;
 }
 
 export interface Istate extends IBaseData {

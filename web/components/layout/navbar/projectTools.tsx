@@ -31,7 +31,7 @@ const links: CustomeLink[] = [
         name: 'Issues',
         href: 'issues',
         nickname: 'ProjectToolIssues',
-        isShow: 'defaultShow'
+        isShow: 'default_show'
     },
     {
         icon: <BsCircleHalf />,
@@ -68,19 +68,19 @@ const links: CustomeLink[] = [
         name: 'Settings',
         nickname: 'ProjectToolSettings',
         href: 'settings',
-        isShow: 'defaultShow'
+        isShow: 'default_show'
     },
 ];
 
 interface IProjectTools {
-    Project?: IProject;
+    project?: IProject;
 }
 
-const ProjectTools: React.FC<IProjectTools> = ({ Project }) => {
+const ProjectTools: React.FC<IProjectTools> = ({ project }) => {
     const info = useSelector(selectInfo);
     const isCollap = useSelector(selectIsCollap);
 
-    const curentLink: (CustomeLink)[] = info ? getLink(links, Project?.id || '') : [];
+    const curentLink: (CustomeLink)[] = info ? getLink(links, project?.id || '') : [];
 
     const dispatch = useDispatch();
 
@@ -103,7 +103,7 @@ const ProjectTools: React.FC<IProjectTools> = ({ Project }) => {
         >
             <ContainerLink links={curentLink} />
             {curentLink.map((e, i) => {
-                if (Project && Project[e.isShow]) return (
+                if (project && project[e.isShow] || e.isShow == 'default_show') return (
                     <div
                         onClick={() => {
                             changeRoute(e.href);
