@@ -23,19 +23,35 @@ import { TeamController } from './controller/team.controller';
 import { WorkspaceController } from './controller/workspace.controller';
 
 @Module({
-  imports: [SequelizeModule.forFeature([
-    User,
-    Workspace,
-    Team,
-    TeamMember,
-    WorkspaceMember,
-    WorkspaceMemberInvite,
-    WorkspaceTheme,
-  ]),
-  forwardRef(() => UserModule)
+  imports: [
+    SequelizeModule.forFeature([
+      User,
+      Workspace,
+      Team,
+      TeamMember,
+      WorkspaceMember,
+      WorkspaceMemberInvite,
+      WorkspaceTheme,
+    ]),
+    forwardRef(() => UserModule),
   ],
-  providers: [UserService, TeamService, TeamMemberService, WorkspaceService, WorkspaceMemberService, WorkspaceMemberInviteService, WorkspaceThemeService],
-  controllers: [TeamController, TeamMemberController, WorkspaceController, WorkspaceMemberController, WorkspaceMemberInviteController, WorkspaceThemeController],
+  providers: [
+    UserService,
+    TeamService,
+    TeamMemberService,
+    WorkspaceService,
+    WorkspaceMemberService,
+    WorkspaceMemberInviteService,
+    WorkspaceThemeService,
+  ],
+  controllers: [
+    TeamController,
+    TeamMemberController,
+    WorkspaceController,
+    WorkspaceMemberController,
+    WorkspaceMemberInviteController,
+    WorkspaceThemeController,
+  ],
   exports: [WorkspaceService],
 })
-export class WorkspaceModule { }
+export class WorkspaceModule {}

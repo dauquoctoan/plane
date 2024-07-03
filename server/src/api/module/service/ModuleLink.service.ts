@@ -6,7 +6,9 @@ import { BaseService } from 'src/api/Base.service';
 
 @Injectable()
 export class ModuleLinkService extends BaseService<ModuleLink> {
-    constructor(@InjectModel(ModuleLink) public repository: Repository<ModuleLink>) {
-        super(repository)
-    }
+  constructor(
+    @InjectModel(ModuleLink) public repository: Repository<ModuleLink>,
+  ) {
+    super(repository);
+  }
 }

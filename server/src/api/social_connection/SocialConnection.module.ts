@@ -1,4 +1,3 @@
-
 import { SocialLoginConnectionController } from './controller/SocialLoginConnection.controller';
 import { SocialLoginConnection } from './entitys/SocialLoginConnection.entity';
 import { SocialLoginConnectionService } from './service/SocialConnection.service';
@@ -8,7 +7,6 @@ import { Module } from '@nestjs/common';
 @Module({
   imports: [SequelizeModule.forFeature([SocialLoginConnection])],
   controllers: [SocialLoginConnectionController],
-  providers: [SocialLoginConnectionService]
+  providers: [SocialLoginConnectionService],
 })
-
-export class SocialConnectionModule { }
+export class SocialConnectionModule {}

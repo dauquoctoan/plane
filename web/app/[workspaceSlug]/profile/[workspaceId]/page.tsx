@@ -1,10 +1,8 @@
-import Profile from '@/components/profile/profileViews'
-import React from 'react'
+import Profile from '@/components/profile/profileViews';
+import React from 'react';
 
 const Page = () => {
-    return (
-        <Profile />
-    )
-}
+  return <Profile />;
+};
 
-export default Page
+export default Page;

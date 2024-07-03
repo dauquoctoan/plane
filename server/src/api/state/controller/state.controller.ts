@@ -1,4 +1,15 @@
-import { Controller, Post, Body, Get, Param, Patch, Delete, Request as RequestNestjs, UseGuards, Query } from '@nestjs/common';
+import {
+  Controller,
+  Post,
+  Body,
+  Get,
+  Param,
+  Patch,
+  Delete,
+  Request as RequestNestjs,
+  UseGuards,
+  Query,
+} from '@nestjs/common';
 import { StateService } from '../service/state.service';
 import { CreateStateDto, UpdateStateDto } from '../dto/State.dto';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
@@ -10,12 +21,17 @@ import { AuthGuard } from 'src/Guards/auth.guard';
 @ApiTags('state')
 @ApiBearerAuth('access-token')
 export class StateController {
-  constructor(private readonly stateService: StateService) { }
+  constructor(private readonly stateService: StateService) {}
 
   @Post()
   @UseGuards(AuthGuard)
-  async createState(@Body() state: CreateStateDto, @RequestNestjs() request: IAuthRequest) {
-    return handleResultSuccess(await this.stateService.create({ ...state, created_by: request.user.id }));
+  async createState(
+    @Body() state: CreateStateDto,
+    @RequestNestjs() request: IAuthRequest,
+  ) {
+    return handleResultSuccess(
+      await this.stateService.create({ ...state, created_by: request.user.id }),
+    );
   }
 
   @Post('default')
@@ -25,13 +41,19 @@ export class StateController {
 
   @Get()
   async findAll() {
-    return handleResultSuccess(await this.stateService.findAll())
+    return handleResultSuccess(await this.stateService.findAll());
   }
 
   @Get('project/:id')
   @UseGuards(AuthGuard)
-  async findStateByProject(@Param('id') id: string, @Query('isUser') isUser:boolean, @RequestNestjs() request: IAuthRequest) {
-    return handleResultSuccess(await this.stateService.findState(id, request.user.id, isUser));
+  async findStateByProject(
+    @Param('id') id: string,
+    @Query('isUser') isUser: boolean,
+    @RequestNestjs() request: IAuthRequest,
+  ) {
+    return handleResultSuccess(
+      await this.stateService.findState(id, request.user.id, isUser),
+    );
   }
 
   @Get('default')
@@ -41,8 +63,13 @@ export class StateController {
   }
 
   @Patch(':id')
-  async update(@Param('id') id: string, @Body() updateWorkspaceDto: UpdateStateDto) {
-    return handleResultSuccess(await this.stateService.updateById(id, updateWorkspaceDto));
+  async update(
+    @Param('id') id: string,
+    @Body() updateWorkspaceDto: UpdateStateDto,
+  ) {
+    return handleResultSuccess(
+      await this.stateService.updateById(id, updateWorkspaceDto),
+    );
   }
 
   @Delete(':id')

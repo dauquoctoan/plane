@@ -1,3 +1,2 @@
-export class CreateTeamMemberDto { }
-export class UpdateTeamMemberDto { }
-
+export class CreateTeamMemberDto {}
+export class UpdateTeamMemberDto {}

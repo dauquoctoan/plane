@@ -1,10 +1,8 @@
-import Member from '@/components/projects/setting/member'
-import React from 'react'
+import Member from '@/components/projects/setting/member';
+import React from 'react';
 
 const page = () => {
-    return (
-        <Member />
-    )
-}
+  return <Member />;
+};
 
-export default page
+export default page;

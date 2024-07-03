@@ -6,8 +6,10 @@ import { BaseService } from 'src/api/Base.service';
 import { ModuleFavorite } from '../entitys/ModuleFavorite.entity';
 
 @Injectable()
-export class ModuleFavoriteService extends BaseService<ModuleFavorite>{
-    constructor(@InjectModel(ModuleFavorite) public repository: Repository<ModuleFavorite>) {
-        super(repository)
-    }
+export class ModuleFavoriteService extends BaseService<ModuleFavorite> {
+  constructor(
+    @InjectModel(ModuleFavorite) public repository: Repository<ModuleFavorite>,
+  ) {
+    super(repository);
+  }
 }

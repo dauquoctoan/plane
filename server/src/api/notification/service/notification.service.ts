@@ -6,7 +6,9 @@ import { BaseService } from 'src/api/Base.service';
 
 @Injectable()
 export class NotificationService extends BaseService<Notification> {
-    constructor(@InjectModel(Notification) public repository: Repository<Notification>) {
-        super(repository)
-    }
+  constructor(
+    @InjectModel(Notification) public repository: Repository<Notification>,
+  ) {
+    super(repository);
+  }
 }

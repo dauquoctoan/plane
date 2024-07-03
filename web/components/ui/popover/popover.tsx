@@ -1,5 +1,5 @@
-'use client'
-import { Popover as Popoverui, Transition } from '@headlessui/react'
+'use client';
+import { Popover as Popoverui, Transition } from '@headlessui/react';
 // import { Fragment } from 'react'
 
 export default function Popover() {
@@ -50,5 +50,5 @@ export default function Popover() {
         )} */}
       </Popoverui>
     </div>
-  )
+  );
 }

@@ -5,10 +5,10 @@ import { IssueBlocker } from '../entitys/IssueBlocker.entity';
 
 @Injectable()
 export class IssueBlockerService extends BaseService<IssueBlocker> {
-    constructor(
-        @InjectModel(IssueBlocker)
-        private issueBlocker: typeof IssueBlocker,
-    ) {
-        super(issueBlocker)
-    }
+  constructor(
+    @InjectModel(IssueBlocker)
+    private issueBlocker: typeof IssueBlocker,
+  ) {
+    super(issueBlocker);
+  }
 }

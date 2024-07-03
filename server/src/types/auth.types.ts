@@ -1,19 +1,19 @@
-import { Request } from 'express'
+import { Request } from 'express';
 
 export interface IToken {
-    payload: IPayloadUser,
-    iat: number,
-    exp: number
+  payload: IPayloadUser;
+  iat: number;
+  exp: number;
 }
 
 export interface RequestContext {
-    user?: string;
+  user?: string;
 }
 export interface IAuthRequest extends Request {
-    user?: IPayloadUser;
+  user?: IPayloadUser;
 }
 
 export interface IPayloadUser {
-    id: string;
-    email: string;
+  id: string;
+  email: string;
 }

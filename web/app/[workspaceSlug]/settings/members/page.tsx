@@ -1,12 +1,12 @@
-import WorkspaceMember from '@/components/setting/workspaceMember'
-import React from 'react'
+import WorkspaceMember from '@/components/setting/workspaceMember';
+import React from 'react';
 
 const Page = () => {
-    return (
-        <div>
-            <WorkspaceMember />
-        </div>
-    )
-}
+  return (
+    <div>
+      <WorkspaceMember />
+    </div>
+  );
+};
 
-export default Page
+export default Page;

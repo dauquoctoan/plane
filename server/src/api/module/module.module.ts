@@ -1,7 +1,7 @@
 import { Module } from '@nestjs/common';
 import { ModuleService } from './service/Module.service';
 import { SequelizeModule } from '@nestjs/sequelize';
-import { Module as ModuleEntity } from './entitys/Module.entity'
+import { Module as ModuleEntity } from './entitys/Module.entity';
 import { ModuleFavorite } from './entitys/ModuleFavorite.entity';
 import { ModuleIssue } from './entitys/ModuleIssue.entity';
 import { ModuleLink } from './entitys/ModuleLink.entity';
@@ -22,9 +22,33 @@ import { ModuleUserPropertiesService } from './service/ModuleUserProperties.serv
 import { ModuleUserPropertiesController } from './controller/ModuleUserProperties.controller';
 
 @Module({
-  imports: [SequelizeModule.forFeature([ModuleEntity, ModuleFavorite, ModuleIssue, ModuleLink, ModuleMember,User, ModuleUserProperties])],
-  providers: [ModuleService, ModuleLinkService, ModuleIssueService, ModuleFavoriteService, ModuleMemberService, UserService, ModuleUserPropertiesService],
-  controllers: [ModuleController, ModuleLinkController, ModuleIssueController, ModuleFavoriteController, ModuleMemberController, ModuleUserPropertiesController]
+  imports: [
+    SequelizeModule.forFeature([
+      ModuleEntity,
+      ModuleFavorite,
+      ModuleIssue,
+      ModuleLink,
+      ModuleMember,
+      User,
+      ModuleUserProperties,
+    ]),
+  ],
+  providers: [
+    ModuleService,
+    ModuleLinkService,
+    ModuleIssueService,
+    ModuleFavoriteService,
+    ModuleMemberService,
+    UserService,
+    ModuleUserPropertiesService,
+  ],
+  controllers: [
+    ModuleController,
+    ModuleLinkController,
+    ModuleIssueController,
+    ModuleFavoriteController,
+    ModuleMemberController,
+    ModuleUserPropertiesController,
+  ],
 })
-
-export class ModuleModule { }
+export class ModuleModule {}

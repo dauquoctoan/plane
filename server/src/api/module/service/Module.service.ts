@@ -14,69 +14,97 @@ import { State } from 'src/api/state/entitys/state.entity';
 
 @Injectable()
 export class ModuleService extends BaseService<Module> {
-    constructor(
-        @InjectModel(Module) public repository: Repository<Module>,
-        readonly userService: UserService,
-    ) {
-        super(repository)
-    }
+  constructor(
+    @InjectModel(Module) public repository: Repository<Module>,
+    readonly userService: UserService,
+  ) {
+    super(repository);
+  }
 
-    async createModule(projectId: string, userId:string, moduleData: CreateModuleDto){
-        try {
-         const user = await this.userService.findOneById(userId);
-        if(user){
-            return await this.repository.create({...moduleData, project_id:projectId, workspace_id: user.last_workspace_id})
-        }
- 
-        handleResultError({ message: messageCreateFail(this.repository.getTableName()), messageDetail: 'Invalid user' });
-        } catch (error) {
-            handleResultError({ message: messageCreateFail(this.repository.getTableName()), messageDetail: 'Invalid user' });
-        }
+  async createModule(
+    projectId: string,
+    userId: string,
+    moduleData: CreateModuleDto,
+  ) {
+    try {
+      const user = await this.userService.findOneById(userId);
+      if (user) {
+        return await this.repository.create({
+          ...moduleData,
+          project_id: projectId,
+          workspace_id: user.last_workspace_id,
+        });
+      }
+
+      handleResultError({
+        message: messageCreateFail(this.repository.getTableName()),
+        messageDetail: 'Invalid user',
+      });
+    } catch (error) {
+      handleResultError({
+        message: messageCreateFail(this.repository.getTableName()),
+        messageDetail: 'Invalid user',
+      });
     }
- 
-    async findModulesProject(projectId:string, userId:string){
-        try {
-            const user = await this.userService.findOneById(userId);
-            if(user){
-             return await this.repository.findAll({
-                 attributes: {
-                     include:[
-                         [sequelize.fn('COUNT', sequelize.col('module_issues.id')), 'total'],
-                         [sequelize.literal('COUNT(CASE WHEN `module_issues->issue->state`.`group` = "completed" THEN `module_issues->issue->state`.`id` END)'), 'done']
-                     ]
-                 },
-                 include: [
-                   {
-                     model: ModuleIssue,
-                     attributes: [],
-                     required: false, 
-                     include:[
-                         {
-                             model: Issue,
-                             attributes: [],
-                             required: false,
-                             include: [
-                                 {
-                                   model: State, 
-                                   as: 'state',
-                                   attributes: [],
-                                   required: false,
-                                 },
-                             ],
-                         },
-                     ]
-                   },
-                 ],
-                 where: {
-                   workspace_id: user.last_workspace_id,
-                   project_id: projectId
-                 },
-                 group: ['Module.id'],
-               });
-            }
-            handleResultError({ message: messageFindFail(this.repository.getTableName()), messageDetail: 'Invalid user' });
-        } catch (error) {
-            handleResultError({ message: messageFindFail(this.repository.getTableName()), messageDetail: error });
-        }
-     }
+  }
+
+  async findModulesProject(projectId: string, userId: string) {
+    try {
+      const user = await this.userService.findOneById(userId);
+      if (user) {
+        return await this.repository.findAll({
+          attributes: {
+            include: [
+              [
+                sequelize.fn('COUNT', sequelize.col('module_issues.id')),
+                'total',
+              ],
+              [
+                sequelize.literal(
+                  'COUNT(CASE WHEN `module_issues->issue->state`.`group` = "completed" THEN `module_issues->issue->state`.`id` END)',
+                ),
+                'done',
+              ],
+            ],
+          },
+          include: [
+            {
+              model: ModuleIssue,
+              attributes: [],
+              required: false,
+              include: [
+                {
+                  model: Issue,
+                  attributes: [],
+                  required: false,
+                  include: [
+                    {
+                      model: State,
+                      as: 'state',
+                      attributes: [],
+                      required: false,
+                    },
+                  ],
+                },
+              ],
+            },
+          ],
+          where: {
+            workspace_id: user.last_workspace_id,
+            project_id: projectId,
+          },
+          group: ['Module.id'],
+        });
+      }
+      handleResultError({
+        message: messageFindFail(this.repository.getTableName()),
+        messageDetail: 'Invalid user',
+      });
+    } catch (error) {
+      handleResultError({
+        message: messageFindFail(this.repository.getTableName()),
+        messageDetail: error,
+      });
+    }
+  }
 }

@@ -4,13 +4,13 @@ import ProjectLayout from '@/layouts/header/projects/layout';
 import ModuleDetail from '@/layouts/header/projects/moduleDetail';
 
 export default function WorkspaceLayout({
-    children,
+  children,
 }: {
-    children: string | JSX.Element | JSX.Element[];
+  children: string | JSX.Element | JSX.Element[];
 }) {
-    return (
-        <>
-            <ProjectLayout header={<ModuleDetail />}>{children}</ProjectLayout>
-        </>
-    );
+  return (
+    <>
+      <ProjectLayout header={<ModuleDetail />}>{children}</ProjectLayout>
+    </>
+  );
 }

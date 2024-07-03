@@ -11,17 +11,20 @@ import { CreateCycleIssueDto } from '../dto/CycleIssue.dto';
 
 @Injectable()
 export class CycleIssueService extends BaseService<CycleIssue> {
-    constructor(
-        @InjectModel(CycleIssue) public repository: Repository<CycleIssue>,
-    ) {
-        super(repository)
-    }
+  constructor(
+    @InjectModel(CycleIssue) public repository: Repository<CycleIssue>,
+  ) {
+    super(repository);
+  }
 
-    async createCycleIssue(cycleIssueData: CreateCycleIssueDto){
-        try {
-            return await this.repository.create(cycleIssueData)
-        } catch (error) {
-            handleResultError({message: messageCreateFail(this.repository.getTableName()), messageDetail: error})
-        }  
+  async createCycleIssue(cycleIssueData: CreateCycleIssueDto) {
+    try {
+      return await this.repository.create(cycleIssueData);
+    } catch (error) {
+      handleResultError({
+        message: messageCreateFail(this.repository.getTableName()),
+        messageDetail: error,
+      });
     }
+  }
 }

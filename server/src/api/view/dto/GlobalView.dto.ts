@@ -1,2 +1,2 @@
-export class UpdateGlobalViewDto { }
-export class CreateGlobalViewDto { }
+export class UpdateGlobalViewDto {}
+export class CreateGlobalViewDto {}

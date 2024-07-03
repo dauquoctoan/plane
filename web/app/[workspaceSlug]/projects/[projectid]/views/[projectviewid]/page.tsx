@@ -1,10 +1,8 @@
-import DetailProjectView from '@/components/projects/views/detailProjectView'
-import React from 'react'
+import DetailProjectView from '@/components/projects/views/detailProjectView';
+import React from 'react';
 
 const Page = () => {
-  return (
-    <DetailProjectView />
-  )
-}
+  return <DetailProjectView />;
+};
 
-export default Page
+export default Page;

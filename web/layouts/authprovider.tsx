@@ -7,28 +7,26 @@ import useSWR from 'swr';
 import { Spinner } from '@/components/ui/loading/Spinner';
 
 interface IProps {
-    children: React.ReactNode;
+  children: React.ReactNode;
 }
 
 const AuthProvider: React.FC<IProps> = ({ children }) => {
-    const dispatch = useDispatch();
-    const info = useSelector(selectInfo);
+  const dispatch = useDispatch();
+  const info = useSelector(selectInfo);
 
-    const { data, error } = useSWR('me', (url: string) =>
-        authService.getUser(),
-    );
+  const { data, error } = useSWR('me', (url: string) => authService.getUser());
 
-    useEffect(() => {
-        if (data && !error) {
-            dispatch(authSlice.actions.setInfo(data));
-        }
-    }, [data]);
-
-    if (info) {
-        return <>{children}</>;
+  useEffect(() => {
+    if (data && !error) {
+      dispatch(authSlice.actions.setInfo(data));
     }
+  }, [data]);
 
-    return <Spinner />;
+  if (info) {
+    return <>{children}</>;
+  }
+
+  return <Spinner />;
 };
 
 export default AuthProvider;

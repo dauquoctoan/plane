@@ -17,11 +17,28 @@ import { UserService } from '../user/service/user.service';
 import { AnalyticViewService } from '../analytic/service/analytic.service';
 
 @Module({
-  imports: [SequelizeModule.forFeature([Cycle, CycleIssue, CycleFavorite, User, CycleUserProperties])
-],
-  providers: [CycleService, CycleFavoriteService, CycleIssueService, UserService, CycleUserPropertiesService],
-  controllers: [CycleController, CycleFavoriteController, CycleIssueController, CycleUserPropertiesController],
-  exports:[CycleIssueService],
+  imports: [
+    SequelizeModule.forFeature([
+      Cycle,
+      CycleIssue,
+      CycleFavorite,
+      User,
+      CycleUserProperties,
+    ]),
+  ],
+  providers: [
+    CycleService,
+    CycleFavoriteService,
+    CycleIssueService,
+    UserService,
+    CycleUserPropertiesService,
+  ],
+  controllers: [
+    CycleController,
+    CycleFavoriteController,
+    CycleIssueController,
+    CycleUserPropertiesController,
+  ],
+  exports: [CycleIssueService],
 })
-
 export class CycleModule {}

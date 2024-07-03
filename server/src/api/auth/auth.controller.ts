@@ -1,4 +1,13 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, UnauthorizedException } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Patch,
+  Param,
+  Delete,
+  UnauthorizedException,
+} from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { AuthenEndPointDto, CreateAuthDto } from './dto/create-auth.dto';
 import { UpdateAuthDto } from './dto/update-auth.dto';
@@ -11,7 +20,11 @@ import { UserService } from '../user/service/user.service';
 @Controller('auth')
 @ApiTags('Auth')
 export class AuthController {
-  constructor(private readonly authService: AuthService, private jwtService: JwtService, public userService: UserService) { }
+  constructor(
+    private readonly authService: AuthService,
+    private jwtService: JwtService,
+    public userService: UserService,
+  ) {}
   @Post('sign-in')
   async authEndPoint(@Body() authenEndPointDto: AuthenEndPointDto) {
     const client = new OAuth2Client();
@@ -24,23 +37,30 @@ export class AuthController {
       if (ticket) {
         const payload = ticket.getPayload();
         // Kiểm tra người dùng tồn tại
-        const user = await this.userService.findOne({ where: { email: payload.email } });
+        const user = await this.userService.findOne({
+          where: { email: payload.email },
+        });
         // xử lý lưu người dùng khi người dùng chưa tạo
         if (!user) {
           const info = await this.userService.create({
             username: payload.email,
             email: payload.email,
-            avatar: payload.picture
+            avatar: payload.picture,
           });
-          if (info) return handleResultSuccess(this.createToken({ id: info.id || '', email: info.email || '' }));
+          if (info)
+            return handleResultSuccess(
+              this.createToken({ id: info.id || '', email: info.email || '' }),
+            );
         }
-        return handleResultSuccess(this.createToken({ id: user.id || '', email: user.email || '' }));
+        return handleResultSuccess(
+          this.createToken({ id: user.id || '', email: user.email || '' }),
+        );
       }
       throw new UnauthorizedException();
     } catch (error) {
       throw new UnauthorizedException();
     }
-  };
+  }
 
   @Post()
   create(@Body() createAuthDto: CreateAuthDto) {
@@ -49,7 +69,12 @@ export class AuthController {
 
   @Get('gen-token')
   findAll() {
-    return handleResultSuccess(this.createToken({ id: '746bf4a9-6f4a-423c-93e8-325d055d6722', email: 'dqtoan0123@gmail.com' }));
+    return handleResultSuccess(
+      this.createToken({
+        id: '746bf4a9-6f4a-423c-93e8-325d055d6722',
+        email: 'dqtoan0123@gmail.com',
+      }),
+    );
   }
 
   @Get(':id')
@@ -67,13 +92,13 @@ export class AuthController {
     return handleResultSuccess(this.authService.remove(id));
   }
 
-  createToken(payload:{
-    id:string,
-    email:string
-  }) {
+  createToken(payload: { id: string; email: string }) {
     return {
       access_token: this.jwtService.sign({ payload }),
-      refresh_token: this.jwtService.sign({ payload }, { expiresIn: process.env.REFRESH_TOKEN_EXPIRATION })
-    }
+      refresh_token: this.jwtService.sign(
+        { payload },
+        { expiresIn: process.env.REFRESH_TOKEN_EXPIRATION },
+      ),
+    };
   }
 }

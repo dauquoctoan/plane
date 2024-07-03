@@ -1,2 +1,2 @@
-export class CreateSocialLoginConnectionDto { }
-export class UpdateSocialLoginConnectionDto { }
+export class CreateSocialLoginConnectionDto {}
+export class UpdateSocialLoginConnectionDto {}

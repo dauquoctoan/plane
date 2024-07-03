@@ -6,7 +6,10 @@ import { InjectModel } from '@nestjs/sequelize';
 
 @Injectable()
 export class SocialLoginConnectionService extends BaseService<SocialLoginConnection> {
-    constructor(@InjectModel(SocialLoginConnection) public SocialConnectionModel: typeof SocialLoginConnection) {
-        super(SocialConnectionModel)
-    }
+  constructor(
+    @InjectModel(SocialLoginConnection)
+    public SocialConnectionModel: typeof SocialLoginConnection,
+  ) {
+    super(SocialConnectionModel);
+  }
 }

@@ -1,13 +1,12 @@
 export class CreateEstimatePointDto {
-    estimate: number;
-    key: number;
-    description: string;
-    value: string;
+  estimate_id?: string;
+  key?: number;
+  description?: string;
+  value?: string;
 }
 export class UpdateEstimatePointDto {
-    estimate: number;
-    key: number;
-    description: string;
-    value: string;
+  estimate: number;
+  key: number;
+  description: string;
+  value: string;
 }
-

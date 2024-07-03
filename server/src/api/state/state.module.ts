@@ -11,7 +11,6 @@ import { UserService } from '../user/service/user.service';
 @Module({
   imports: [SequelizeModule.forFeature([State, User])],
   providers: [StateService, UserService],
-  controllers: [StateController]
+  controllers: [StateController],
 })
-
-export class StateModule { }
+export class StateModule {}

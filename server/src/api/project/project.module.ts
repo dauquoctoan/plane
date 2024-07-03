@@ -26,8 +26,8 @@ import { UserService } from '../user/service/user.service';
 import { User } from '../user/entitys/User.entity';
 
 @Module({
-  imports: [SequelizeModule.forFeature(
-    [
+  imports: [
+    SequelizeModule.forFeature([
       User,
       Project,
       ProjectDeployBoard,
@@ -36,7 +36,7 @@ import { User } from '../user/entitys/User.entity';
       ProjectMember,
       ProjectMemberInvite,
       ProjectPublicMember,
-    ])
+    ]),
   ],
   providers: [
     UserService,
@@ -46,7 +46,7 @@ import { User } from '../user/entitys/User.entity';
     ProjectIdentifierService,
     ProjectMemberService,
     ProjectMemberInviteService,
-    ProjectPublicMemberService
+    ProjectPublicMemberService,
   ],
   controllers: [
     ProjectController,
@@ -55,17 +55,16 @@ import { User } from '../user/entitys/User.entity';
     ProjectIdentifierController,
     ProjectMemberController,
     ProjectMemberInviteController,
-    ProjectPublicMemberController
+    ProjectPublicMemberController,
   ],
-  exports:[ 
+  exports: [
     ProjectService,
     ProjectDeployBoardService,
     ProjectFavoriteService,
     ProjectIdentifierService,
     ProjectMemberService,
     ProjectMemberInviteService,
-    ProjectPublicMemberService
-  ]
+    ProjectPublicMemberService,
+  ],
 })
-
-export class ProjectModule { }
+export class ProjectModule {}

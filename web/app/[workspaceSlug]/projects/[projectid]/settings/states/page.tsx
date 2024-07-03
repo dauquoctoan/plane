@@ -1,10 +1,8 @@
-import StateSetting from '@/components/projects/setting/state'
-import React from 'react'
+import StateSetting from '@/components/projects/setting/state';
+import React from 'react';
 
 const page = () => {
-    return (
-        <StateSetting/>
-    )
-}
+  return <StateSetting />;
+};
 
-export default page
+export default page;

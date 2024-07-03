@@ -1,4 +1,15 @@
-import { BelongsTo, BelongsToMany, Column, DataType, ForeignKey, HasMany, Is, Length, Model, Table } from 'sequelize-typescript';
+import {
+  BelongsTo,
+  BelongsToMany,
+  Column,
+  DataType,
+  ForeignKey,
+  HasMany,
+  Is,
+  Length,
+  Model,
+  Table,
+} from 'sequelize-typescript';
 import { Label } from 'src/api/issue/entitys/Label.entity';
 import { User } from 'src/api/user/entitys/User.entity';
 import { ACCESS } from 'src/constants/entity-constant';
@@ -10,67 +21,71 @@ import { PageFavorite } from './PageFavorite.entity';
 import { Project } from 'src/api/project/entitys/Project.entity';
 import { Workspace } from 'src/api/workspace/entitys/Workspace.entity';
 
-@Table({tableName:'Pages'})
+@Table({ tableName: 'Pages' })
 export class Page extends Model<Page> {
-    @Column({ type: sequelize.UUID, defaultValue: sequelize.UUIDV4, allowNull: false, primaryKey: true })
-    id: string;
-    
-    @ForeignKey(() => User)
-    @Column({ type: sequelize.UUID })
-    owned_by: string;
+  @Column({
+    type: sequelize.UUID,
+    defaultValue: sequelize.UUIDV4,
+    allowNull: false,
+    primaryKey: true,
+  })
+  id: string;
 
-    @ForeignKey(() => Project)
-    @Column({ type: sequelize.UUID })
-    project_id: string;
+  @ForeignKey(() => User)
+  @Column({ type: sequelize.UUID })
+  owned_by: string;
 
-    @ForeignKey(() => Workspace)
-    @Column({ type: sequelize.UUID })
-    workspace_id: string;
+  @ForeignKey(() => Project)
+  @Column({ type: sequelize.UUID })
+  project_id: string;
 
-    @BelongsTo(() => Project,{foreignKey:'project_id'})
-    project: Project;
+  @ForeignKey(() => Workspace)
+  @Column({ type: sequelize.UUID })
+  workspace_id: string;
 
-    @BelongsTo(() => Workspace,{foreignKey:'workspace_id'})
-    workspace: Workspace;
+  @BelongsTo(() => Project, { foreignKey: 'project_id' })
+  project: Project;
 
-    @BelongsTo(() => User, {foreignKey:'owned_by'})
-    user: User;
+  @BelongsTo(() => Workspace, { foreignKey: 'workspace_id' })
+  workspace: Workspace;
 
-    @HasMany(() => PageBlock,{
-        onDelete: 'CASCADE',
-        onUpdate: 'CASCADE'
-    })
-    page_blocks: PageBlock[];
+  @BelongsTo(() => User, { foreignKey: 'owned_by' })
+  user: User;
 
-    @HasMany(() => PageFavorite,
-    {
-        onDelete: 'CASCADE',
-        onUpdate: 'CASCADE'
-    })
-    page_favorites: PageFavorite[];
+  @HasMany(() => PageBlock, {
+    onDelete: 'CASCADE',
+    onUpdate: 'CASCADE',
+  })
+  page_blocks: PageBlock[];
 
-    @BelongsToMany(() => Label, () => PageLabel)
-    labels: Label[];
+  @HasMany(() => PageFavorite, {
+    onDelete: 'CASCADE',
+    onUpdate: 'CASCADE',
+  })
+  page_favorites: PageFavorite[];
 
-    @Length({ max: 255 })
-    @Column({ allowNull: false })
-    name: string;
+  @BelongsToMany(() => Label, () => PageLabel)
+  labels: Label[];
 
-    @Column({ type: DataType.JSON, defaultValue: {} })
-    description: string;
+  @Length({ max: 255 })
+  @Column({ allowNull: false })
+  name: string;
 
-    @Column({ type: DataType.TEXT('long') })
-    description_html: string;
+  @Column({ type: DataType.JSON, defaultValue: {} })
+  description: string;
 
-    @Column({ type: DataType.TEXT })
-    description_stripped: string;
+  @Column({ type: DataType.TEXT('long') })
+  description_html: string;
 
-    @Is('access', (value) => {
-        if (!ACCESS.includes(value)) throw Error(INVALID_ACCESS);
-    })
-    @Column
-    access: string;
+  @Column({ type: DataType.TEXT })
+  description_stripped: string;
 
-    @Column
-    color: string;
+  @Is('access', value => {
+    if (!ACCESS.includes(value)) throw Error(INVALID_ACCESS);
+  })
+  @Column
+  access: string;
+
+  @Column
+  color: string;
 }

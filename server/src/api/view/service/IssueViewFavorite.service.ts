@@ -6,7 +6,10 @@ import { InjectModel } from '@nestjs/sequelize';
 
 @Injectable()
 export class IssueViewFavoriteService extends BaseService<IssueViewFavorite> {
-    constructor(@InjectModel(IssueViewFavorite) public repository: Repository<IssueViewFavorite>) {
-        super(repository);
-    }
+  constructor(
+    @InjectModel(IssueViewFavorite)
+    public repository: Repository<IssueViewFavorite>,
+  ) {
+    super(repository);
+  }
 }

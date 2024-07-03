@@ -1,32 +1,43 @@
-import { BelongsTo, Column, ForeignKey, Model, Table } from 'sequelize-typescript';
+import {
+  BelongsTo,
+  Column,
+  ForeignKey,
+  Model,
+  Table,
+} from 'sequelize-typescript';
 import { Issue } from 'src/api/issue/entitys/Issue.entity';
 import { Cycle } from './Cycle.entity';
 import sequelize from 'sequelize';
 
-@Table({tableName:'CycleIssues'})
+@Table({ tableName: 'CycleIssues' })
 export class CycleIssue extends Model<CycleIssue> {
-    @Column({ type: sequelize.UUID, defaultValue: sequelize.UUIDV4, allowNull: false, primaryKey: true })
-    id: string;
-    
-    /**
-    * !FK
-    */
+  @Column({
+    type: sequelize.UUID,
+    defaultValue: sequelize.UUIDV4,
+    allowNull: false,
+    primaryKey: true,
+  })
+  id: string;
 
-    @ForeignKey(() => Issue)
-    @Column({ type: sequelize.UUID, allowNull:true })
-    issue_id: string;
+  /**
+   * !FK
+   */
 
-    @ForeignKey(() => Cycle)
-    @Column({ type: sequelize.UUID })
-    cycle_id: string;
+  @ForeignKey(() => Issue)
+  @Column({ type: sequelize.UUID, allowNull: true })
+  issue_id: string;
 
-    /**
-    * ! PR
-    */
+  @ForeignKey(() => Cycle)
+  @Column({ type: sequelize.UUID })
+  cycle_id: string;
 
-    @BelongsTo(() => Issue, { foreignKey: 'issue_id'})
-    issue: Issue;
+  /**
+   * ! PR
+   */
 
-    @BelongsTo(() => Cycle, { foreignKey: 'cycle_id'})
-    cycle: Cycle;
+  @BelongsTo(() => Issue, { foreignKey: 'issue_id' })
+  issue: Issue;
+
+  @BelongsTo(() => Cycle, { foreignKey: 'cycle_id' })
+  cycle: Cycle;
 }

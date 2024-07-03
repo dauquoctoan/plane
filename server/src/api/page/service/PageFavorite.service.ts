@@ -6,7 +6,9 @@ import { InjectModel } from '@nestjs/sequelize';
 
 @Injectable()
 export class PageFavoriteService extends BaseService<PageFavorite> {
-    constructor(@InjectModel(PageFavorite) public repository: Repository<PageFavorite>) {
-        super(repository)
-    }
+  constructor(
+    @InjectModel(PageFavorite) public repository: Repository<PageFavorite>,
+  ) {
+    super(repository);
+  }
 }

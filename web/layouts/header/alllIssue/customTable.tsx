@@ -4,66 +4,63 @@ import React from 'react';
 import { useDispatch } from 'react-redux';
 
 const CustomTable = () => {
-    const lsDisable = useSelector(selectlsDisableTable);
-    const dispatch = useDispatch();
+  const lsDisable = useSelector(selectlsDisableTable);
+  const dispatch = useDispatch();
 
-    const lsTableTitle = [
-        'ID',
-        'Issue',
-        'State',
-        'Priority',
-        'Assignees',
-        'Label',
-        'Start Date',
-        'Due Date',
-        'Estimate',
-        'Created On',
-        'Updated On',
-    ];
+  const lsTableTitle = [
+    'ID',
+    'Issue',
+    'State',
+    'Priority',
+    'Assignees',
+    'Label',
+    'Start Date',
+    'Due Date',
+    'Estimate',
+    'Created On',
+    'Updated On',
+  ];
 
-    const removeIndex = (array: any[], item: any) => {
-        const newData = [...array];
-        const index = lsDisable.indexOf(item);
-        newData.splice(index, 1);
-        return newData;
-    };
+  const removeIndex = (array: any[], item: any) => {
+    const newData = [...array];
+    const index = lsDisable.indexOf(item);
+    newData.splice(index, 1);
+    return newData;
+  };
 
-    return (
-        <div className="w-fit">
-            <div className="text-sm pb-2 font-medium">Display Properties</div>
-            <div className="w-[300px] flex flex-wrap gap-2">
-                {lsTableTitle.map((e) => {
-                    return (
-                        <div
-                            onClick={() => {
-                                if (lsDisable.includes(e)) {
-                                    dispatch(
-                                        issueViewSlice.actions.setDisableTable(
-                                            removeIndex(lsDisable, e),
-                                        ),
-                                    );
-                                } else {
-                                    dispatch(
-                                        issueViewSlice.actions.setDisableTable([
-                                            ...lsDisable,
-                                            e,
-                                        ]),
-                                    );
-                                }
-                            }}
-                            className={`px-2 ${
-                                lsDisable.includes(e)
-                                    ? 'bg-color-special-secondary text-theme-text-primary'
-                                    : 'bg-color-special-primary text-theme-primary'
-                            } hover:opacity-95 py-1 rounded cursor-pointer select-none text-[12px]`}
-                        >
-                            {e}
-                        </div>
-                    );
-                })}
+  return (
+    <div className="w-fit">
+      <div className="text-sm pb-2 font-medium">Display Properties</div>
+      <div className="w-[300px] flex flex-wrap gap-2">
+        {lsTableTitle.map(e => {
+          return (
+            <div
+              onClick={() => {
+                if (lsDisable.includes(e)) {
+                  dispatch(
+                    issueViewSlice.actions.setDisableTable(
+                      removeIndex(lsDisable, e)
+                    )
+                  );
+                } else {
+                  dispatch(
+                    issueViewSlice.actions.setDisableTable([...lsDisable, e])
+                  );
+                }
+              }}
+              className={`px-2 ${
+                lsDisable.includes(e)
+                  ? 'bg-color-special-secondary text-theme-text-primary'
+                  : 'bg-color-special-primary text-theme-primary'
+              } hover:opacity-95 py-1 rounded cursor-pointer select-none text-[12px]`}
+            >
+              {e}
             </div>
-        </div>
-    );
+          );
+        })}
+      </div>
+    </div>
+  );
 };
 
 export default CustomTable;

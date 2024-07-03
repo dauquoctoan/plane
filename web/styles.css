@@ -42,9 +42,23 @@ html {
   -moz-tab-size: 4;
   /* 3 */
   -o-tab-size: 4;
-     tab-size: 4;
+  tab-size: 4;
   /* 3 */
-  font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  font-family:
+    ui-sans-serif,
+    system-ui,
+    -apple-system,
+    BlinkMacSystemFont,
+    'Segoe UI',
+    Roboto,
+    'Helvetica Neue',
+    Arial,
+    'Noto Sans',
+    sans-serif,
+    'Apple Color Emoji',
+    'Segoe UI Emoji',
+    'Segoe UI Symbol',
+    'Noto Color Emoji';
   /* 4 */
   font-feature-settings: normal;
   /* 5 */
@@ -85,7 +99,7 @@ Add the correct text decoration in Chrome, Edge, and Safari.
 
 abbr:where([title]) {
   -webkit-text-decoration: underline dotted;
-          text-decoration: underline dotted;
+  text-decoration: underline dotted;
 }
 
 /*
@@ -129,7 +143,8 @@ code,
 kbd,
 samp,
 pre {
-  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
+    'Liberation Mono', 'Courier New', monospace;
   /* 1 */
   font-size: 1em;
   /* 2 */
@@ -366,7 +381,8 @@ textarea {
 2. Set the default placeholder color to the user's configured gray 400 color.
 */
 
-input::-moz-placeholder, textarea::-moz-placeholder {
+input::-moz-placeholder,
+textarea::-moz-placeholder {
   opacity: 1;
   /* 1 */
   color: #9ca3af;
@@ -386,7 +402,7 @@ Set the default cursor for buttons.
 */
 
 button,
-[role="button"] {
+[role='button'] {
   cursor: pointer;
 }
 
@@ -434,7 +450,9 @@ video {
   display: none;
 }
 
-*, ::before, ::after {
+*,
+::before,
+::after {
   --tw-border-spacing-x: 0;
   --tw-border-spacing-y: 0;
   --tw-translate-x: 0;
@@ -833,18 +851,24 @@ video {
 
 .rotate-0 {
   --tw-rotate: 0deg;
-  transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+  transform: translate(var(--tw-translate-x), var(--tw-translate-y))
+    rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y))
+    scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
 }
 
 .rotate-180 {
   --tw-rotate: 180deg;
-  transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+  transform: translate(var(--tw-translate-x), var(--tw-translate-y))
+    rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y))
+    scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
 }
 
 .scale-100 {
   --tw-scale-x: 1;
   --tw-scale-y: 1;
-  transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+  transform: translate(var(--tw-translate-x), var(--tw-translate-y))
+    rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y))
+    scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
 }
 
 @keyframes rangeLoading {
@@ -860,12 +884,12 @@ video {
 }
 
 .animate-loadingRange {
-  animation: rangeLoading .2s ease-out;
+  animation: rangeLoading 0.2s ease-out;
 }
 
 @keyframes modalContentPopup {
   from {
-    transform: scale(.9);
+    transform: scale(0.9);
     opacity: 0;
   }
 
@@ -876,7 +900,7 @@ video {
 }
 
 .animate-modalContentPopup {
-  animation: modalContentPopup .2s;
+  animation: modalContentPopup 0.2s;
 }
 
 @keyframes overlay {
@@ -890,11 +914,12 @@ video {
 }
 
 .animate-overlay {
-  animation: overlay .3s ease-out;
+  animation: overlay 0.3s ease-out;
 }
 
 @keyframes ping {
-  75%, 100% {
+  75%,
+  100% {
     transform: scale(1.15);
     opacity: 0;
   }
@@ -911,7 +936,7 @@ video {
   }
 
   50% {
-    opacity: .8;
+    opacity: 0.8;
   }
 
   100% {
@@ -921,7 +946,7 @@ video {
 }
 
 .animate-pop-up {
-  animation: popUp .5s ease-out;
+  animation: popUp 0.5s ease-out;
 }
 
 @keyframes spin {
@@ -944,8 +969,8 @@ video {
 
 .select-none {
   -webkit-user-select: none;
-     -moz-user-select: none;
-          user-select: none;
+  -moz-user-select: none;
+  user-select: none;
 }
 
 .flex-col {
@@ -1058,7 +1083,7 @@ video {
 }
 
 .bg-\[rgba\(34\2c 197\2c 94\2c \.1\)\] {
-  background-color: rgba(34,197,94,.1);
+  background-color: rgba(34, 197, 94, 0.1);
 }
 
 .bg-blue-600 {
@@ -1108,7 +1133,7 @@ video {
 
 .decoration-slice {
   -webkit-box-decoration-break: slice;
-          box-decoration-break: slice;
+  box-decoration-break: slice;
 }
 
 .fill-blue-600 {
@@ -1248,7 +1273,7 @@ video {
 }
 
 .opacity-\[\.5\] {
-  opacity: .5;
+  opacity: 0.5;
 }
 
 .opacity-\[1\] {
@@ -1258,7 +1283,8 @@ video {
 .shadow-theme-primary {
   --tw-shadow: var(--color-theme-shadow-primary);
   --tw-shadow-colored: var(--color-theme-shadow-primary);
-  box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
+  box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000),
+    var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
   --tw-shadow-color: var(--color-theme-primary);
   --tw-shadow: var(--tw-shadow-colored);
 }
@@ -1294,7 +1320,9 @@ video {
 .hover\:scale-105:hover {
   --tw-scale-x: 1.05;
   --tw-scale-y: 1.05;
-  transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+  transform: translate(var(--tw-translate-x), var(--tw-translate-y))
+    rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y))
+    scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
 }
 
 .hover\:cursor-pointer:hover {
@@ -1319,12 +1347,14 @@ video {
 
 .group:hover .group-hover\:rotate-180 {
   --tw-rotate: 180deg;
-  transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+  transform: translate(var(--tw-translate-x), var(--tw-translate-y))
+    rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y))
+    scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
 }
 
 @keyframes modalContentPopup {
   from {
-    transform: scale(.9);
+    transform: scale(0.9);
     opacity: 0;
   }
 
@@ -1335,7 +1365,7 @@ video {
 }
 
 .group:hover .group-hover\:animate-modalContentPopup {
-  animation: modalContentPopup .2s;
+  animation: modalContentPopup 0.2s;
 }
 
 @media (max-width: 640px) {

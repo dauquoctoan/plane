@@ -16,9 +16,27 @@ import { User } from '../user/entitys/User.entity';
 import { UserService } from '../user/service/user.service';
 
 @Module({
-  imports: [SequelizeModule.forFeature([Page, PageBlock, PageFavorite, PageLabel, User])],
-  providers: [PageService, PageBlockService, PageFavoriteService, PageLabelService, UserService],
-  controllers: [PageController, PageBlockBlockController, PageFavoriteController, PageLabelController]
+  imports: [
+    SequelizeModule.forFeature([
+      Page,
+      PageBlock,
+      PageFavorite,
+      PageLabel,
+      User,
+    ]),
+  ],
+  providers: [
+    PageService,
+    PageBlockService,
+    PageFavoriteService,
+    PageLabelService,
+    UserService,
+  ],
+  controllers: [
+    PageController,
+    PageBlockBlockController,
+    PageFavoriteController,
+    PageLabelController,
+  ],
 })
-
-export class PageModule { }
+export class PageModule {}

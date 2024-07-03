@@ -7,7 +7,6 @@ import { ExporterHistoryController } from './controller/ExporterHistory.controll
 @Module({
   imports: [SequelizeModule.forFeature([ExporterHistory])],
   providers: [ExporterService],
-  controllers: [ExporterHistoryController]
+  controllers: [ExporterHistoryController],
 })
-
-export class ExporterModule { }
+export class ExporterModule {}

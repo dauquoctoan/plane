@@ -6,9 +6,9 @@ import { sendMail } from './helper/sendmail';
 @Injectable()
 @ApiTags('app')
 export class AppService {
-    constructor(private sequelize: Sequelize) { }
+  constructor(private sequelize: Sequelize) {}
 
-    getHello(): string {
-        return 'Hello Mấy cưng!';
-    }
+  getHello(): string {
+    return 'Hello Mấy cưng!';
+  }
 }

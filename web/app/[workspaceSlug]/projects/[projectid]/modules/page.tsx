@@ -4,13 +4,13 @@ import ModuleHeader from '@/layouts/header/projects/module';
 import React from 'react';
 
 const Modules = () => {
-    return (
-        <div>
-            <ProjectLayout header={<ModuleHeader />}>
-                <ModulesTable />
-            </ProjectLayout>
-        </div>
-    );
+  return (
+    <div>
+      <ProjectLayout header={<ModuleHeader />}>
+        <ModulesTable />
+      </ProjectLayout>
+    </div>
+  );
 };
 
 export default Modules;

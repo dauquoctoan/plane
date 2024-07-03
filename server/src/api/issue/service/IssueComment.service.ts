@@ -5,10 +5,10 @@ import { IssueComment } from '../entitys/IssueComment.entity';
 
 @Injectable()
 export class IssueCommentService extends BaseService<IssueComment> {
-    constructor(
-        @InjectModel(IssueComment)
-        private issueComment: typeof IssueComment,
-    ) {
-        super(issueComment)
-    }
+  constructor(
+    @InjectModel(IssueComment)
+    private issueComment: typeof IssueComment,
+  ) {
+    super(issueComment);
+  }
 }

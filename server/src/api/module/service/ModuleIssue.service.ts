@@ -9,15 +9,20 @@ import { CreateModuleIssueDto } from '../dto/ModuleIssue.dto';
 
 @Injectable()
 export class ModuleIssueService extends BaseService<ModuleIssue> {
-    constructor(@InjectModel(ModuleIssue) public repository: Repository<ModuleIssue>) {
-        super(repository)
-    }
+  constructor(
+    @InjectModel(ModuleIssue) public repository: Repository<ModuleIssue>,
+  ) {
+    super(repository);
+  }
 
-    async createModuleIssue(moduleIssueData: CreateModuleIssueDto) {
-        try {
-            return await this.repository.create(moduleIssueData)
-        } catch (error) {
-            handleResultError({ message: messageCreateFail(this.repository.getTableName()), messageDetail: error })
-        }
+  async createModuleIssue(moduleIssueData: CreateModuleIssueDto) {
+    try {
+      return await this.repository.create(moduleIssueData);
+    } catch (error) {
+      handleResultError({
+        message: messageCreateFail(this.repository.getTableName()),
+        messageDetail: error,
+      });
     }
+  }
 }

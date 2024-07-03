@@ -1,1 +1,1 @@
-export type TApiKey= number | string | undefined
+export type TApiKey = number | string | undefined;

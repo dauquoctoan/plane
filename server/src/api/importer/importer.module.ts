@@ -7,6 +7,6 @@ import { ImporterController } from './controller/importer.controller';
 @Module({
   imports: [SequelizeModule.forFeature([Importer])],
   providers: [ImporterService],
-  controllers: [ImporterController]
+  controllers: [ImporterController],
 })
-export class ImporterModule { }
+export class ImporterModule {}

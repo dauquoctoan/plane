@@ -1,10 +1,8 @@
-import Invitations from '@/components/setting/invitations'
-import React from 'react'
+import Invitations from '@/components/setting/invitations';
+import React from 'react';
 
 const Page = () => {
-    return (
-        <Invitations />
-    )
-}
+  return <Invitations />;
+};
 
-export default Page
+export default Page;

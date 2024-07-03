@@ -1,9 +1,8 @@
-import React from 'react'
+import EstimateSetting from '@/components/projects/setting/estimate';
+import React from 'react';
 
 const page = () => {
-    return (
-        <div>page</div>
-    )
-}
+  return <EstimateSetting />;
+};
 
-export default page
+export default page;

@@ -1,7 +1,7 @@
-import { PartialType } from "@nestjs/swagger";
+import { PartialType } from '@nestjs/swagger';
 
 export class CreateCycleIssueDto {
-    issue_id: string;
-    cycle_id: string;
+  issue_id: string;
+  cycle_id: string;
 }
-export class UpdateCycleIssueDto extends PartialType(CreateCycleIssueDto) { }
+export class UpdateCycleIssueDto extends PartialType(CreateCycleIssueDto) {}

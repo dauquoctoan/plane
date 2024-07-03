@@ -1,7 +1,9 @@
-import { PartialType } from "@nestjs/swagger";
+import { PartialType } from '@nestjs/swagger';
 
 export class CreateCycleFavoriteDto {
-    user: string;
-    cycle: number;
+  user: string;
+  cycle: number;
 }
-export class UpdateCycleFavoriteDto extends PartialType(CreateCycleFavoriteDto) { }
+export class UpdateCycleFavoriteDto extends PartialType(
+  CreateCycleFavoriteDto,
+) {}

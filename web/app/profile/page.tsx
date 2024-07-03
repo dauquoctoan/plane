@@ -1,10 +1,8 @@
-import ProfileSetting from '@/components/profile/profileSetting'
-import React from 'react'
+import ProfileSetting from '@/components/profile/profileSetting';
+import React from 'react';
 
 const Page = () => {
-    return (
-        <ProfileSetting />
-    )
-}
+  return <ProfileSetting />;
+};
 
-export default Page
+export default Page;

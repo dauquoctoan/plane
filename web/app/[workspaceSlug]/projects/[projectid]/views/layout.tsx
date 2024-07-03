@@ -5,19 +5,14 @@ import Header from '@/layouts/layout-components/header/header';
 import { PiSuitcaseSimpleBold } from 'react-icons/pi';
 
 export default function WorkspaceLayout({
-    children,
+  children,
 }: {
-    children: React.ReactNode;
+  children: React.ReactNode;
 }) {
-
-    return (
-        <>
-            <Header
-                header={
-                    <ViewsHeader/>
-                }
-            />
-            <div className="main">{children}</div>
-        </>
-    );
+  return (
+    <>
+      <Header header={<ViewsHeader />} />
+      <div className="main">{children}</div>
+    </>
+  );
 }

@@ -6,5 +6,5 @@ import { reduxStore } from '.';
 /* Instruments */
 
 export const Providers = (props: React.PropsWithChildren) => {
-    return <Provider store={reduxStore}>{props.children}</Provider>;
+  return <Provider store={reduxStore}>{props.children}</Provider>;
 };

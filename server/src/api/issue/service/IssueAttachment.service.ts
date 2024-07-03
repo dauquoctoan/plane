@@ -5,10 +5,10 @@ import { IssueAttachment } from '../entitys/IssueAttachment.entity';
 
 @Injectable()
 export class IssueAttachmentService extends BaseService<IssueAttachment> {
-    constructor(
-        @InjectModel(IssueAttachment)
-        private issueAttachment: typeof IssueAttachment,
-    ) {
-        super(issueAttachment)
-    }
+  constructor(
+    @InjectModel(IssueAttachment)
+    private issueAttachment: typeof IssueAttachment,
+  ) {
+    super(issueAttachment);
+  }
 }

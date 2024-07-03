@@ -6,7 +6,8 @@
     "dev": "next dev -p 3001",
     "build": "next build",
     "start": "next start -p 3001",
-    "lint": "next lint"
+    "lint": "next lint",
+    "format": "prettier --write \"**/*.{js,jsx,ts,tsx,css,scss,md}\""
   },
   "dependencies": {
     "@emotion/react": "^11.11.1",
@@ -87,6 +88,7 @@
     "eslint": "latest",
     "eslint-config-next": "latest",
     "postcss": "latest",
+    "prettier": "^3.3.2",
     "tailwindcss": "latest",
     "typescript": "latest"
   }

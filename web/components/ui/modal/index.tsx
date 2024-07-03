@@ -3,127 +3,124 @@ import { createPortal } from 'react-dom';
 import { IoMdClose } from 'react-icons/io';
 
 interface IProps {
-    content: ReactElement | string;
-    isOnClose?: boolean;
-    isOpen?: boolean;
-    handleClose?: () => void;
-    mrTop?: number;
-    isPadding?: boolean;
-    className?: string;
-    layer?: 1 | 2 | 3 | 4;
-    disableClickOverlay?: boolean;
+  content: ReactElement | string;
+  isOnClose?: boolean;
+  isOpen?: boolean;
+  handleClose?: () => void;
+  mrTop?: number;
+  isPadding?: boolean;
+  className?: string;
+  layer?: 1 | 2 | 3 | 4;
+  disableClickOverlay?: boolean;
 }
 
 const Modal: React.FC<IProps> = ({
-    content,
-    isOpen = false,
-    handleClose,
-    isOnClose,
-    mrTop,
-    isPadding = true,
-    className = '',
-    disableClickOverlay = false,
-    layer = 1,
+  content,
+  isOpen = false,
+  handleClose,
+  isOnClose,
+  mrTop,
+  isPadding = true,
+  className = '',
+  disableClickOverlay = false,
+  layer = 1,
 }) => {
-    const wrap = useRef<HTMLDivElement>(null);
-    const overlay = useRef<HTMLDivElement>(null);
-    const close = useRef<HTMLDivElement>(null);
-    const mouse = useRef({ isKeyDown: false, isDrag: false });
+  const wrap = useRef<HTMLDivElement>(null);
+  const overlay = useRef<HTMLDivElement>(null);
+  const close = useRef<HTMLDivElement>(null);
+  const mouse = useRef({ isKeyDown: false, isDrag: false });
 
-    useEffect(() => {
-        Array.from(document.getElementsByClassName('overflow-auto')).forEach(
-            (e) => {
-                if (isOpen) e.setAttribute('style', 'overflow: hidden;');
-                else e.setAttribute('style', 'overflow: auto;');
-            },
-        );
-    }, [isOpen]);
+  useEffect(() => {
+    Array.from(document.getElementsByClassName('overflow-auto')).forEach(e => {
+      if (isOpen) e.setAttribute('style', 'overflow: hidden;');
+      else e.setAttribute('style', 'overflow: auto;');
+    });
+  }, [isOpen]);
 
-    const zIndex = {
-        1: 500,
-        2: 51,
-        3: 52,
-        4: 53,
-        5: 54,
-    };
+  const zIndex = {
+    1: 500,
+    2: 51,
+    3: 52,
+    4: 53,
+    5: 54,
+  };
 
-    function handleClosePopUp() {
-        if (false) return;
-        // @ts-ignore: Unreachable code error
-        if (wrap.current)
-            wrap.current.style.animation = 'closePopUp .3s ease-out';
+  function handleClosePopUp() {
+    if (false) return;
+    // @ts-ignore: Unreachable code error
+    if (wrap.current) wrap.current.style.animation = 'closePopUp .3s ease-out';
 
-        // @ts-ignore: Unreachable code error
-        if (overlay.current)
-            overlay.current.style.animation = 'closeOverlay .3s ease-out';
+    // @ts-ignore: Unreachable code error
+    if (overlay.current)
+      overlay.current.style.animation = 'closeOverlay .3s ease-out';
 
-        // @ts-ignore: Unreachable code error
-        if (overlay.current)
-            overlay.current.style.backgroundColor = 'transparent';
+    // @ts-ignore: Unreachable code error
+    if (overlay.current) overlay.current.style.backgroundColor = 'transparent';
 
-        // @ts-ignore: Unreachable code error
-        if (wrap.current) wrap.current.style.opacity = '0';
+    // @ts-ignore: Unreachable code error
+    if (wrap.current) wrap.current.style.opacity = '0';
 
-        // @ts-ignore: Unreachable code error
-        if (wrap.current) wrap.current.style.scale = '.8';
+    // @ts-ignore: Unreachable code error
+    if (wrap.current) wrap.current.style.scale = '.8';
 
-        setTimeout(() => {
-            handleClose && handleClose();
-        }, 300);
-    }
+    setTimeout(() => {
+      handleClose && handleClose();
+    }, 300);
+  }
 
-    return (
-        <>
-            {isOpen &&
-                createPortal(
-                    <div
-                        ref={overlay}
-                        onMouseDown={() => {
-                            mouse.current.isKeyDown = true;
-                        }}
-                        onMouseOver={() => {
-                            if (mouse.current.isKeyDown)
-                                mouse.current.isDrag = true;
-                        }}
-                        onClick={(e: any) => {
-                            if (
-                                !disableClickOverlay &&
-                                e.target.getAttribute('aria-controls') ==
-                                    'close' &&
-                                !mouse.current.isDrag
-                            ) {
-                                handleClosePopUp();
-                                e.stopPropagation();
-                            }
-                            mouse.current = { isDrag: false, isKeyDown: false };
-                        }}
-                        style={{ zIndex: zIndex[layer] }}
-                        aria-controls="close"
-                        className={`box-border animate-overlay absolute overflow-hidden top-0 left-0 bottom-0 right-0 w-full h-screen bg-color-modal-overlay z-50 shadow-theme-text-primary flex justify-center transition-all`}
-                    >
-                        <div
-                            style={{ top: mrTop, ...(mrTop?{transform: 'translateY(0)'}:{}) }}
-                            ref={wrap}
-                            className={`w-[97%] md:w-max absolute top-[50%] translate-y-[-50%] scale-100 rounded bg-theme-primary ${
-                                isPadding ? 'px-6 py-4' : ''
-                            } transition-all box-border ${className}`}
-                        >
-                            {isOnClose && (
-                                <div
-                                    className="absolute right-[5px] top-[5px] cursor-pointer"
-                                    ref={close}
-                                    onClick={handleClose}
-                                >
-                                    <IoMdClose />
-                                </div>
-                            )}
-                            <div>{content}</div>
-                        </div>
-                    </div>,
-                    document.body,
-                )}
-        </>
-    );
+  return (
+    <>
+      {isOpen &&
+        createPortal(
+          <div
+            ref={overlay}
+            onMouseDown={() => {
+              mouse.current.isKeyDown = true;
+            }}
+            onMouseOver={() => {
+              if (mouse.current.isKeyDown) mouse.current.isDrag = true;
+            }}
+            onClick={(e: any) => {
+              if (
+                !disableClickOverlay &&
+                e.target.getAttribute('aria-controls') == 'close' &&
+                !mouse.current.isDrag
+              ) {
+                handleClosePopUp();
+                e.stopPropagation();
+              }
+              mouse.current = { isDrag: false, isKeyDown: false };
+            }}
+            style={{ zIndex: zIndex[layer] }}
+            aria-controls="close"
+            className={`box-border animate-overlay absolute overflow-hidden top-0 left-0 bottom-0 right-0 w-full h-screen bg-color-modal-overlay z-50 shadow-theme-text-primary flex justify-center transition-all`}
+          >
+            <div
+              style={{
+                top: mrTop,
+                ...(mrTop ? { transform: 'translateY(0)' } : {}),
+              }}
+              ref={wrap}
+              className={`w-[97%] md:w-max absolute top-[50%] translate-y-[-50%] scale-100 rounded bg-theme-primary ${
+                isPadding ? 'px-6 py-4' : ''
+              } transition-all box-border ${className}`}
+            >
+              {isOnClose && (
+                <div
+                  className="absolute right-[5px] top-[5px] cursor-pointer"
+                  ref={close}
+                  onClick={handleClose}
+                >
+                  <IoMdClose />
+                </div>
+              )}
+              <div>{content}</div>
+            </div>
+          </div>,
+          document.body
+        )}
+    </>
+  );
 };
 
 export default memo(Modal);

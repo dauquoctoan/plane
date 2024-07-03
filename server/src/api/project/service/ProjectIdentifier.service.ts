@@ -6,9 +6,10 @@ import { Repository } from 'sequelize-typescript';
 
 @Injectable()
 export class ProjectIdentifierService extends BaseService<ProjectIdentifier> {
-    constructor(
-        @InjectModel(ProjectIdentifier) public repository: Repository<ProjectIdentifier>,
-    ) {
-        super(repository);
-    }
+  constructor(
+    @InjectModel(ProjectIdentifier)
+    public repository: Repository<ProjectIdentifier>,
+  ) {
+    super(repository);
+  }
 }

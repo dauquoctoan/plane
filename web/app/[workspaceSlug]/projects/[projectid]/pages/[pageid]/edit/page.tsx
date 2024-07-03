@@ -1,10 +1,8 @@
-import EditPage from '@/components/projects/page/editPage'
-import React from 'react'
+import EditPage from '@/components/projects/page/editPage';
+import React from 'react';
 
 const Page = () => {
-  return (
-    <EditPage/>
-  )
-}
+  return <EditPage />;
+};
 
-export default Page
+export default Page;

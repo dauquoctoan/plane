@@ -14,59 +14,57 @@ import useSWR from 'swr';
 import { createNickNameLink } from '@/helpers';
 
 const TabsIssue = () => {
-    const info = useSelector(selectInfo);
-    const dispatch = useDispatch();
-    const { data: issueViews } = useSWR(
-        () => ISSUE_VIEWS_KEY,
-        () => issueService.getIssueView<IData<IIssueViews[]>>(),
-    );
+  const info = useSelector(selectInfo);
+  const dispatch = useDispatch();
+  const { data: issueViews } = useSWR(
+    () => ISSUE_VIEWS_KEY,
+    () => issueService.getIssueView<IData<IIssueViews[]>>()
+  );
 
-    const pathName = usePathname();
-    const lsLinks =
-        issueViews?.map((e) => ({
-            href: `/${info?.workspace?.slug}/workspace-views/${e.id}`,
-            nickname: createNickNameLink(`workspace-views-${e.id}`),
-        })) || [];
+  const pathName = usePathname();
+  const lsLinks =
+    issueViews?.map(e => ({
+      href: `/${info?.workspace?.slug}/workspace-views/${e.id}`,
+      nickname: createNickNameLink(`workspace-views-${e.id}`),
+    })) || [];
 
-    const customeLink: LinkProps[] = [
-        {
-            href: `/${info?.workspace?.slug}/workspace-views/assigned`,
-            nickname: createNickNameLink('workspace-views-assigned'),
-        },
-        {
-            href: `/${info?.workspace?.slug}/workspace-views/created`,
-            nickname: createNickNameLink('workspace-views-created'),
-        },
-        {
-            href: `/${info?.workspace?.slug}/workspace-views/subscribed`,
-            nickname: createNickNameLink('workspace-views-subscribed'),
-        },
-        ...lsLinks.reverse(),
-    ];
+  const customeLink: LinkProps[] = [
+    {
+      href: `/${info?.workspace?.slug}/workspace-views/assigned`,
+      nickname: createNickNameLink('workspace-views-assigned'),
+    },
+    {
+      href: `/${info?.workspace?.slug}/workspace-views/created`,
+      nickname: createNickNameLink('workspace-views-created'),
+    },
+    {
+      href: `/${info?.workspace?.slug}/workspace-views/subscribed`,
+      nickname: createNickNameLink('workspace-views-subscribed'),
+    },
+    ...lsLinks.reverse(),
+  ];
 
-    const lsTabs: ITabItem[] =
-        issueViews?.map((e: IIssueViews) => ({
-            title: e.name || '',
-            key: e.id || '',
-        })) || [];
+  const lsTabs: ITabItem[] =
+    issueViews?.map((e: IIssueViews) => ({
+      title: e.name || '',
+      key: e.id || '',
+    })) || [];
 
-    return (
-        <>
-            <ContainerLink links={customeLink} />
-            {
-                <Tab
-                    active={pathName.split('/').pop()}
-                    lsLabel={[...lsTabsIssues, ...(lsTabs || [])]}
-                    onChange={(e) => {
-                        changeRoute(
-                            `/${info?.workspace?.slug}/workspace-views/${e}`,
-                        );
-                        dispatch(issueViewSlice.actions.setIsListIssue(false));
-                    }}
-                />
-            }
-        </>
-    );
+  return (
+    <>
+      <ContainerLink links={customeLink} />
+      {
+        <Tab
+          active={pathName.split('/').pop()}
+          lsLabel={[...lsTabsIssues, ...(lsTabs || [])]}
+          onChange={e => {
+            changeRoute(`/${info?.workspace?.slug}/workspace-views/${e}`);
+            dispatch(issueViewSlice.actions.setIsListIssue(false));
+          }}
+        />
+      }
+    </>
+  );
 };
 
 export default TabsIssue;

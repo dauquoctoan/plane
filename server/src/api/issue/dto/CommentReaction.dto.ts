@@ -1,6 +1,6 @@
 export class UpdateCommentReactionDto {
-    actor: string;
-    comment: number;
-    reaction: string;
+  actor: string;
+  comment: number;
+  reaction: string;
 }
-export class CreateCommentReactionDto { }
+export class CreateCommentReactionDto {}

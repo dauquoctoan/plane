@@ -10,7 +10,7 @@ import { JwtModule } from '@nestjs/jwt';
 @Module({
   imports: [
     ConfigModule.forRoot({
-      envFilePath: '.env.production',
+      envFilePath: '.env.development',
       isGlobal: true,
       cache: true,
     }),
@@ -22,9 +22,7 @@ import { JwtModule } from '@nestjs/jwt';
       signOptions: { expiresIn: process.env.ACCESS_TOKEN_EXPIRATION || '1h' },
     }),
   ],
-  controllers: [
-    AppController,
-  ],
+  controllers: [AppController],
   providers: [AppService],
 })
-export class AppModule { }
+export class AppModule {}

@@ -19,102 +19,95 @@ import lodash from 'lodash';
 import { useDispatch } from 'react-redux';
 
 const ModuleDetail = () => {
-    const curentProject = useCurentProject();
-    const [openModal, setOpenModal] = useState(false);
-    const info = useSelector(selectInfo);
-    const params = useParams<IParams>();
-    const dispatch = useDispatch();
+  const curentProject = useCurentProject();
+  const [openModal, setOpenModal] = useState(false);
+  const info = useSelector(selectInfo);
+  const params = useParams<IParams>();
+  const dispatch = useDispatch();
 
-    const { data: projects } = useSWR(
-        LS_PROJECT_KEY(info?.last_workspace_id),
-        () =>
-            projectService.getProjects(
-                info?.last_workspace_id || '',
-            ),
+  const { data: projects } = useSWR(
+    LS_PROJECT_KEY(info?.last_workspace_id),
+    () => projectService.getProjects(info?.last_workspace_id || '')
+  );
+
+  const { data } = useSWR('module_user_properties', () => {
+    return projectService.getModuleUserProperties(
+      params.projectid,
+      params.moduleid
     );
+  });
 
-    const { data } = useSWR('module_user_properties', () => {
-        return projectService.getModuleUserProperties(
-            params.projectid,
-            params.moduleid,
-        );
+  let changeLayout = lodash.debounce(function (
+    id: string,
+    viewProps: IDisplayFilters
+  ) {
+    projectService.updateModuleUserProperties(id, {
+      display_filters: viewProps,
     });
+  }, 1000);
 
-    let changeLayout = lodash.debounce(function (
-        id: string,
-        viewProps: IDisplayFilters,
-    ) {
-        projectService.updateModuleUserProperties(id, {
-            display_filters: viewProps,
-        });
-    },
-    1000);
+  return (
+    <div className="flex justify-between items-center px-2">
+      <div>
+        <RoadMap
+          roads={[
+            {
+              title: curentProject?.name || '',
+              icon: <PiSuitcaseSimpleBold />,
+            },
+            {
+              title: 'Module',
+            },
+          ]}
+        />
+      </div>
 
+      {projects && (
+        <Modal
+          isOpen={openModal}
+          handleClose={() => {
+            setOpenModal(false);
+          }}
+          content={
+            <CreateIssue
+              projects={projects}
+              moduleId={params.moduleid}
+              handleCloseModel={() => {
+                setOpenModal(false);
+              }}
+              isDraft={false}
+            />
+          }
+        />
+      )}
 
-    return (
-        <div className="flex justify-between items-center px-2">
-            <div>
-                <RoadMap
-                    roads={[
-                        {
-                            title: curentProject?.name || '',
-                            icon: <PiSuitcaseSimpleBold />,
-                        },
-                        {
-                            title: 'Module',
-                        },
-                    ]}
-                />
-            </div>
+      <div className="hidden md:flex items-center gap-4">
+        {data && (
+          <LayoutSwitch
+            defaultValue={data.display_filters.layout}
+            menuItems={menuLayoutIssue}
+            onChange={async (e: TLayout) => {
+              dispatch(issueViewSlice.actions.setLayoutProjectView(e));
 
-            {projects && (
-                <Modal
-                    isOpen={openModal}
-                    handleClose={() => {
-                        setOpenModal(false);
-                    }}
-                    content={
-                        <CreateIssue
-                            projects={projects}
-                            moduleId={params.moduleid}
-                            handleCloseModel={() => {
-                                setOpenModal(false);
-                            }}
-                            isDraft={false}
-                        />
-                    }
-                />
-            )}
+              changeLayout(data.id, {
+                ...data.display_filters,
+                layout: e,
+              });
+            }}
+          />
+        )}
 
-            <div className="hidden md:flex items-center gap-4">
-                {data && (
-                    <LayoutSwitch
-                        defaultValue={data.display_filters.layout}
-                        menuItems={menuLayoutIssue}
-                        onChange={async (e: TLayout) => {
-                            dispatch(
-                                issueViewSlice.actions.setLayoutProjectView(e),
-                            );
-
-                            changeLayout(data.id, {
-                                ...data.display_filters,
-                                layout: e,
-                            });
-                        }}
-                    />
-                )}
-
-                <Button
-                    text="Add issue"
-                    typeBTN="primary"
-                    className="text-sm"
-                    onClick={() => {
-                        setOpenModal(true);
-                    }}
-                />
-            </div>
-        </div>
-    );
+        <Button
+          text="Add issue"
+          typeBTN="primary"
+          className="text-sm"
+          onClick={() => {
+            setOpenModal(true);
+          }}
+        />
+      </div>
+    </div>
+  );
 };
 
 export default ModuleDetail;

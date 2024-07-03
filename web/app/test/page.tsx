@@ -3,7 +3,7 @@ import Test from '@/components/test';
 import React from 'react';
 
 const Page = () => {
-    return <Test />;
+  return <Test />;
 };
 
 export default Page;

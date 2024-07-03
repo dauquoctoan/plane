@@ -23,9 +23,32 @@ import { ProjectMember } from '../project/entitys/ProjectMember.entity';
 import { ProjectMemberService } from '../project/service/ProjectMember.service';
 
 @Module({
-  imports: [SequelizeModule.forFeature([State, Issue, ProjectMember, Project, User, Label, CycleIssue, ModuleIssue, Workspace, WorkspaceMember])],
-  providers: [IssueService,StateService, UserService, ProjectMemberService, ProjectService, LabelService, CycleIssueService, WorkspaceMemberService, ModuleIssueService, WorkspaceService],
+  imports: [
+    SequelizeModule.forFeature([
+      State,
+      Issue,
+      ProjectMember,
+      Project,
+      User,
+      Label,
+      CycleIssue,
+      ModuleIssue,
+      Workspace,
+      WorkspaceMember,
+    ]),
+  ],
+  providers: [
+    IssueService,
+    StateService,
+    UserService,
+    ProjectMemberService,
+    ProjectService,
+    LabelService,
+    CycleIssueService,
+    WorkspaceMemberService,
+    ModuleIssueService,
+    WorkspaceService,
+  ],
   controllers: [SearchController],
 })
-
-export class SearchModule { }
+export class SearchModule {}

@@ -1,6 +1,12 @@
-
-
-import { Controller, Get, UseGuards, Request as RequestNest, UnauthorizedException, Patch, Body } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  UseGuards,
+  Request as RequestNest,
+  UnauthorizedException,
+  Patch,
+  Body,
+} from '@nestjs/common';
 import { UserService } from '../service/user.service';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { AuthGuard } from 'src/Guards/auth.guard';
@@ -13,21 +19,27 @@ import { IAuthRequest } from 'src/types/auth.types';
 @ApiTags('Me')
 @ApiBearerAuth('access-token')
 export class MeController {
-    constructor(
-        private readonly userService: UserService,
-    ) { }
+  constructor(private readonly userService: UserService) {}
 
-    @UseGuards(AuthGuard)
-    @Get()
-    async findAllWorkSpaceAndUserAndIssue(@RequestNest() request: IAuthRequest) {
-        const user = await this.userService.findOne({ where: { id: request.user.id }, include: [{ model: Workspace, as: 'workspace' }] });
-        if (user) return handleResultSuccess(user);
-        else throw new UnauthorizedException();
-    }
+  @UseGuards(AuthGuard)
+  @Get()
+  async findAllWorkSpaceAndUserAndIssue(@RequestNest() request: IAuthRequest) {
+    const user = await this.userService.findOne({
+      where: { id: request.user.id },
+      include: [{ model: Workspace, as: 'workspace' }],
+    });
+    if (user) return handleResultSuccess(user);
+    else throw new UnauthorizedException();
+  }
 
-    @UseGuards(AuthGuard)
-    @Patch()
-    async update(@Body() updateUserDto: UpdateUserDto, @RequestNest() request: IAuthRequest) {
-        return handleResultSuccess(await this.userService.updateById(request.user.id, updateUserDto));
-    }
+  @UseGuards(AuthGuard)
+  @Patch()
+  async update(
+    @Body() updateUserDto: UpdateUserDto,
+    @RequestNest() request: IAuthRequest,
+  ) {
+    return handleResultSuccess(
+      await this.userService.updateById(request.user.id, updateUserDto),
+    );
+  }
 }

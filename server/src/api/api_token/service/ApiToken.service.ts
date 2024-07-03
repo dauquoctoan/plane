@@ -6,7 +6,7 @@ import { Repository } from 'sequelize-typescript';
 
 @Injectable()
 export class ApiTokenService extends BaseService<APIToken> {
-    constructor(@InjectModel(APIToken) public repository: Repository<APIToken>) {
-        super(repository)
-    }
+  constructor(@InjectModel(APIToken) public repository: Repository<APIToken>) {
+    super(repository);
+  }
 }

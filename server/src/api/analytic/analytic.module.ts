@@ -17,9 +17,26 @@ import { State } from '../state/entitys/state.entity';
 import { StateService } from '../state/service/state.service';
 
 @Module({
-  imports: [SequelizeModule.forFeature([AnalyticView,State, Issue, User, Label, CycleIssue, ModuleIssue])],
-  providers: [AnalyticViewService, IssueService,StateService, UserService, LabelService, CycleIssueService, ModuleIssueService],
+  imports: [
+    SequelizeModule.forFeature([
+      AnalyticView,
+      State,
+      Issue,
+      User,
+      Label,
+      CycleIssue,
+      ModuleIssue,
+    ]),
+  ],
+  providers: [
+    AnalyticViewService,
+    IssueService,
+    StateService,
+    UserService,
+    LabelService,
+    CycleIssueService,
+    ModuleIssueService,
+  ],
   controllers: [AnalyticViewController],
 })
-
-export class AnalyticModule { }
+export class AnalyticModule {}

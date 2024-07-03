@@ -1,10 +1,8 @@
-import LabelSetting from '@/components/projects/setting/label'
-import React from 'react'
+import LabelSetting from '@/components/projects/setting/label';
+import React from 'react';
 
 const page = () => {
-    return (
-        <LabelSetting/>
-    )
-}
+  return <LabelSetting />;
+};
 
-export default page
+export default page;

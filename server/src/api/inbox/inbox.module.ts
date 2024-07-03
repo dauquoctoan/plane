@@ -10,7 +10,6 @@ import { InboxIssueService } from './service/InboxIssue.service';
 @Module({
   imports: [SequelizeModule.forFeature([Inbox, InboxIssue])],
   providers: [InboxService, InboxIssueService],
-  controllers: [InboxController, InboxIssueController]
+  controllers: [InboxController, InboxIssueController],
 })
-
-export class InboxModule { }
+export class InboxModule {}

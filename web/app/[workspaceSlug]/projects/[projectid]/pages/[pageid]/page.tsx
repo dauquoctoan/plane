@@ -1,10 +1,8 @@
-import PageDetail from '@/components/projects/page/pageDetail'
-import React from 'react'
+import PageDetail from '@/components/projects/page/pageDetail';
+import React from 'react';
 
 const Page = () => {
-  return (
-    <PageDetail/>
-  )
-}
+  return <PageDetail />;
+};
 
-export default Page
+export default Page;

@@ -1,4 +1,4 @@
-import React from 'react'
+import React from 'react';
 import Header from '@/layouts/layout-components/header/header';
 import { PiSuitcaseSimpleBold } from 'react-icons/pi';
 import { icons } from '@/constants';
@@ -9,16 +9,12 @@ import PageHeader from '@/layouts/header/projects/page';
 const Page = () => {
   return (
     <>
-        <Header
-            header={
-                <PageHeader/>
-            }
-        />
-        <div className="main">
-          <Pages/>
-        </div>
+      <Header header={<PageHeader />} />
+      <div className="main">
+        <Pages />
+      </div>
     </>
-  )
-}
+  );
+};
 
-export default Page
+export default Page;

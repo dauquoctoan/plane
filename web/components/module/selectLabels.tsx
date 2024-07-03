@@ -8,56 +8,56 @@ import { IoMdPricetags } from 'react-icons/io';
 import issueService from '@/services/issue-services';
 
 interface IProps {
-    projectId?: string;
-    beforeUpdateValue: (e: string | string[]) => Promise<any>;
-    labels: string[];
-    border?: boolean;
-    style?: React.CSSProperties;
-    showMoreText?: boolean;
+  projectId?: string;
+  beforeUpdateValue: (e: string | string[]) => Promise<any>;
+  labels: string[];
+  border?: boolean;
+  style?: React.CSSProperties;
+  showMoreText?: boolean;
 }
 
 const SelectLabels: React.FC<IProps> = ({
-    projectId,
-    beforeUpdateValue,
-    showMoreText = true,
-    labels: defaultValue,
-    border,
-    style,
+  projectId,
+  beforeUpdateValue,
+  showMoreText = true,
+  labels: defaultValue,
+  border,
+  style,
 }) => {
-    const { data: labels } = useSWR(
-        () => LABELS_BY_PROJECT_KEY(projectId),
-        () => issueService.findLabelsByProject({ projectId }),
-    );
+  const { data: labels } = useSWR(
+    () => LABELS_BY_PROJECT_KEY(projectId),
+    () => issueService.findLabelsByProject({ projectId })
+  );
 
-    return (
-        <>
-            {labels && (
-                <Select
-                    options={createIssueLabelSelectOption(labels)}
-                    isIconCheck
-                    fontSize="text-[12px]"
-                    isSearch={true}
-                    defaultValue={defaultValue}
-                    border={border}
-                    style={style}
-                    isMutiple
-                    isClear
-                    showMoreText={showMoreText}
-                    isChildren={false}
-                    beforeUpdateValue={beforeUpdateValue}
-                >
-                    <div
-                        className={`px-2 cursor-pointer select-none py-[3px] border-theme-border-primary rounded flex items-center ${
-                            showMoreText ? 'gap-1' : ''
-                        } text-[12px] w-full`}
-                    >
-                        <IoMdPricetags />
-                        <span>{showMoreText && 'label'}</span>
-                    </div>
-                </Select>
-            )}
-        </>
-    );
+  return (
+    <>
+      {labels && (
+        <Select
+          options={createIssueLabelSelectOption(labels)}
+          isIconCheck
+          fontSize="text-[12px]"
+          isSearch={true}
+          defaultValue={defaultValue}
+          border={border}
+          style={style}
+          isMutiple
+          isClear
+          showMoreText={showMoreText}
+          isChildren={false}
+          beforeUpdateValue={beforeUpdateValue}
+        >
+          <div
+            className={`px-2 cursor-pointer select-none py-[3px] border-theme-border-primary rounded flex items-center ${
+              showMoreText ? 'gap-1' : ''
+            } text-[12px] w-full`}
+          >
+            <IoMdPricetags />
+            <span>{showMoreText && 'label'}</span>
+          </div>
+        </Select>
+      )}
+    </>
+  );
 };
 
 export default SelectLabels;

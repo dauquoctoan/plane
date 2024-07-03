@@ -1,6 +1,6 @@
-import { SequelizeModuleAsyncOptions } from "@nestjs/sequelize";
+import { SequelizeModuleAsyncOptions } from '@nestjs/sequelize';
 import { ConfigService } from '@nestjs/config';
-import { Dialect } from "sequelize";
+import { Dialect } from 'sequelize';
 
 export const CONFIG_DB: SequelizeModuleAsyncOptions = {
   useFactory: async (configService: ConfigService) => ({
@@ -10,15 +10,15 @@ export const CONFIG_DB: SequelizeModuleAsyncOptions = {
     username: configService.get<string>('DB_USER_NAME') || 'root',
     password: configService.get<string>('DB_PASSWORD') || '123456',
     database: configService.get<string>('DB_NAME') || 'plane',
-    timezone: "+00:00",
+    timezone: '+00:00',
     autoLoadModels: true,
-    synchronize: false, //false : production
+    synchronize: false,
     logging: console.log,
     cache: {
-      max: 500, // Số lượng model được lưu trữ trong bộ nhớ
-      maxAge: 60000, //Thời gian sống của cache (milliseconds)
+      max: 500,
+      maxAge: 60000,
     },
-    sync: { force: true } //true : create new model
+    sync: { force: true },
   }),
-  inject: [ConfigService]
-}
+  inject: [ConfigService],
+};

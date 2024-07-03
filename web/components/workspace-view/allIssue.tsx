@@ -2,7 +2,7 @@ import React from 'react';
 import TableIssue from '../issue/tableIssue';
 
 const AllIssueWorkspaceView = () => {
-    return <TableIssue />;
+  return <TableIssue />;
 };
 
 export default AllIssueWorkspaceView;

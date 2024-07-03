@@ -12,34 +12,60 @@ import { User } from 'src/api/user/entitys/User.entity';
 
 @Injectable()
 export class ProjectViewService extends BaseService<ProjectView> {
-    constructor(@InjectModel(ProjectView) 
-        public repository: Repository<ProjectView>,
-        private readonly userService: UserService,
-    ) {
-        super(repository)
+  constructor(
+    @InjectModel(ProjectView)
+    public repository: Repository<ProjectView>,
+    private readonly userService: UserService,
+  ) {
+    super(repository);
+  }
+
+  async createProjectViews(projectView: CreateProjectViewDto) {
+    try {
+      const user = await this.userService.findOneById(projectView.created_at);
+
+      if (user.id)
+        return await this.create({
+          ...projectView,
+          workspace_id: user.last_workspace_id,
+        });
+
+      handleResultError({
+        message: messageCreateFail(this.repository.getTableName()),
+        messageDetail: 'error',
+      });
+    } catch (error) {
+      handleResultError({
+        message: messageCreateFail(this.repository.getTableName()),
+        messageDetail: error,
+      });
     }
+  }
 
-    async createProjectViews(projectView: CreateProjectViewDto){
-        try {
-            const user = await this.userService.findOneById(projectView.created_at);
+  async findAllProjectView(userId: string, projectId: string) {
+    try {
+      const user = await this.userService.findOneById(userId);
 
-            if(user.id) return await this.create({...projectView, workspace_id: user.last_workspace_id});
+      if (user.last_workspace_id && projectId)
+        return await this.findAll({
+          where: {
+            workspace_id: user.last_workspace_id,
+            project_id: projectId,
+          },
+          include: [{ model: User, as: 'creator' }],
+          order: [['createdAt', 'DESC']],
+          limit: 10,
+        });
 
-            handleResultError({message: messageCreateFail(this.repository.getTableName()), messageDetail: 'error'})
-        } catch (error) {
-            handleResultError({message: messageCreateFail(this.repository.getTableName()), messageDetail: error})
-        }    
+      handleResultError({
+        message: messageCreateFail(this.repository.getTableName()),
+        messageDetail: 'error',
+      });
+    } catch (error) {
+      handleResultError({
+        message: messageCreateFail(this.repository.getTableName()),
+        messageDetail: error,
+      });
     }
-
-    async findAllProjectView(userId:string, projectId:string){
-        try {
-            const user = await this.userService.findOneById(userId);
-
-            if(user.last_workspace_id && projectId) return await this.findAll({where:{ workspace_id:user.last_workspace_id, project_id: projectId },include:[{model: User, as:'creator'}], order: [['createdAt', 'DESC']], limit: 10});
-            
-            handleResultError({message: messageCreateFail(this.repository.getTableName()), messageDetail: 'error'})
-        } catch (error) {
-            handleResultError({message: messageCreateFail(this.repository.getTableName()), messageDetail: error})
-        }    
-    }
+  }
 }

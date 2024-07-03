@@ -1,2 +1,2 @@
-export class CreateTeamDto { }
-export class UpdateTeamDto { }
+export class CreateTeamDto {}
+export class UpdateTeamDto {}

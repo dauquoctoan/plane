@@ -1,7 +1,7 @@
-import { NotiContext } from "@/components/ui/notification"
-import { useContext } from "react"
+import { NotiContext } from '@/components/ui/notification';
+import { useContext } from 'react';
 
-export const useNoti=()=>{
-    const noti = useContext(NotiContext);
-    return noti
-}
+export const useNoti = () => {
+  const noti = useContext(NotiContext);
+  return noti;
+};

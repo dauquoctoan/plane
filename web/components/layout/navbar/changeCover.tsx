@@ -5,17 +5,17 @@ import imagesDef from '../../../constants/images.json';
 import Image from 'next/image';
 
 interface IChangeCover {
-    onChange?: (e: string) => void;
+  onChange?: (e: string) => void;
 }
 
 const ChangeCover: React.FC<IChangeCover> = ({ onChange }) => {
-    const [typeUpload, settypeUpload] = useState(0);
-    const tabs = ['Unsplash', 'Images', 'Upload'];
-    const [images, setImages] = useState(imagesDef);
+  const [typeUpload, settypeUpload] = useState(0);
+  const tabs = ['Unsplash', 'Images', 'Upload'];
+  const [images, setImages] = useState(imagesDef);
 
-    return (
-        <div className="min-w-[400px] h-[400px]">
-            {/* <div className="py-2 bg-theme-secondary flex mt-2 rounded px-3">
+  return (
+    <div className="min-w-[400px] h-[400px]">
+      {/* <div className="py-2 bg-theme-secondary flex mt-2 rounded px-3">
                 {tabs.map((item, index) => (
                     <div
                         key={index}
@@ -32,7 +32,7 @@ const ChangeCover: React.FC<IChangeCover> = ({ onChange }) => {
                     </div>
                 ))}
             </div> */}
-            {/* {typeUpload == 0 && (
+      {/* {typeUpload == 0 && (
                 <div className="px-3 flex py-2 gap-2 justify-between">
                     <Input
                         placeholder="Search for images"
@@ -44,26 +44,26 @@ const ChangeCover: React.FC<IChangeCover> = ({ onChange }) => {
                     <Button text="Search" typeBTN="primary" type="button" />
                 </div>
             )} */}
-            <div className="grid grid-cols-4 gap-4 h-full overflow-auto pr-1 px-3 py-3">
-                {images.map((e, i) => (
-                    <div
-                        onClick={() => {
-                            onChange && onChange(e);
-                        }}
-                        key={i}
-                        className="relative col-span-2 aspect-video md:col-span-1 px-3 box-border"
-                    >
-                        <Image
-                            layout="fill"
-                            src={e}
-                            alt={`Default project cover image-${i}`}
-                            className="cursor-pointer rounded absolute top-0 left-0 h-full w-full object-cover"
-                        />
-                    </div>
-                ))}
-            </div>
-        </div>
-    );
+      <div className="grid grid-cols-4 gap-4 h-full overflow-auto pr-1 px-3 py-3">
+        {images.map((e, i) => (
+          <div
+            onClick={() => {
+              onChange && onChange(e);
+            }}
+            key={i}
+            className="relative col-span-2 aspect-video md:col-span-1 px-3 box-border"
+          >
+            <Image
+              layout="fill"
+              src={e}
+              alt={`Default project cover image-${i}`}
+              className="cursor-pointer rounded absolute top-0 left-0 h-full w-full object-cover"
+            />
+          </div>
+        ))}
+      </div>
+    </div>
+  );
 };
 
 export default ChangeCover;

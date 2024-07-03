@@ -5,14 +5,14 @@ import authService from '@/services/auth-services';
 import { Counter } from '../account/counter';
 
 const Test = () => {
-    const { data, error, isLoading, isValidating } = useSWR('me', (user) =>
-        authService.getUser(),
-    );
-    return (
-        <div>
-            <Counter />
-        </div>
-    );
+  const { data, error, isLoading, isValidating } = useSWR('me', user =>
+    authService.getUser()
+  );
+  return (
+    <div>
+      <Counter />
+    </div>
+  );
 };
 
 export default memo(Test);

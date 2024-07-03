@@ -15,65 +15,69 @@ import { UserService } from 'src/api/user/service/user.service';
 @ApiBearerAuth('access-token')
 @ApiTags('Search')
 export class SearchController {
-    constructor(
-        private readonly issueService: IssueService,
-        private readonly workspaceService: WorkspaceService,
-        private readonly projectService: ProjectService,
-        private readonly userService: UserService,
+  constructor(
+    private readonly issueService: IssueService,
+    private readonly workspaceService: WorkspaceService,
+    private readonly projectService: ProjectService,
+    private readonly userService: UserService,
+  ) {}
 
-    ) { }
+  @Get()
+  @UseGuards(AuthGuard)
+  async findOverView(
+    @Request() request: IAuthRequest,
+    @Query('search') search: string,
+  ) {
+    const info = await this.userService.getUser(request.user.id);
+    const template = `%${search}%`;
 
-    @Get()
-    @UseGuards(AuthGuard)
-    async findOverView(@Request() request: IAuthRequest, @Query('search') search: string) {
-        const info = await this.userService.getUser(request.user.id)
-        const template = `%${search}%`
-        
-        const issues = this.issueService.findAll({
-            where: {
-                [Op.or]: [
-                    { name: { [Op.like]: template } },
-                    { description: { [Op.like]: template } }
-                ],
-                workspace_id: info.last_workspace_id,
-            }
-        })
+    const issues = this.issueService.findAll({
+      where: {
+        [Op.or]: [
+          { name: { [Op.like]: template } },
+          { description: { [Op.like]: template } },
+        ],
+        workspace_id: info.last_workspace_id,
+      },
+    });
 
-        const workspaces = this.workspaceService.findAll({
-            where: {
-                name: {
-                    [Op.like]: template
-                },
+    const workspaces = this.workspaceService.findAll({
+      where: {
+        name: {
+          [Op.like]: template,
+        },
+      },
+      include: [
+        {
+          model: WorkspaceMember,
+          attributes: [],
+          include: [
+            {
+              model: User,
+              attributes: [],
+              where: {
+                id: request.user.id,
+              },
             },
-            include: [
-                {
-                    model: WorkspaceMember,
-                    attributes:[],
-                    include:[{
-                        model: User,
-                        attributes:[],
-                        where:{
-                            id: request.user.id
-                        },
-                    }]
-                }
-            ]
-        })
+          ],
+        },
+      ],
+    });
 
-        const projects = this.projectService.findAll({
-            where: {
-                [Op.or]: [
-                    { name: { [Op.like]: template } },
-                    { description: { [Op.like]: template } }
-                ],
-                workspace_id: info.last_workspace_id
-            }
-        })
+    const projects = this.projectService.findAll({
+      where: {
+        [Op.or]: [
+          { name: { [Op.like]: template } },
+          { description: { [Op.like]: template } },
+        ],
+        workspace_id: info.last_workspace_id,
+      },
+    });
 
-        return handleResultSuccess({
-            issues: await issues,
-            workspaces: await workspaces,
-            projects: await projects,
-        });
-    }
+    return handleResultSuccess({
+      issues: await issues,
+      workspaces: await workspaces,
+      projects: await projects,
+    });
+  }
 }

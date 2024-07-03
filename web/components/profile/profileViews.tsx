@@ -1,9 +1,7 @@
-import React from 'react'
+import React from 'react';
 
 const ProfileView = () => {
-    return (
-        <div>Profile</div>
-    )
-}
+  return <div>Profile</div>;
+};
 
-export default ProfileView
+export default ProfileView;

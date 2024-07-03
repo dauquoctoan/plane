@@ -4,13 +4,13 @@ import ProjectLayout from '@/layouts/header/projects/layout';
 import React from 'react';
 
 const Cycles = () => {
-    return (
-        <div>
-            <ProjectLayout header={<CycleHeader />}>
-                <CyclesTable />
-            </ProjectLayout>
-        </div>
-    );
+  return (
+    <div>
+      <ProjectLayout header={<CycleHeader />}>
+        <CyclesTable />
+      </ProjectLayout>
+    </div>
+  );
 };
 
 export default Cycles;

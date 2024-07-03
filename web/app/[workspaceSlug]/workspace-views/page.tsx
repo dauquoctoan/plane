@@ -9,25 +9,29 @@ import React from 'react';
 import { AiFillTags } from 'react-icons/ai';
 
 const page = () => {
-    return (
-        <MainWorkspaceLayout
-            header={
-                <div className="flex items-center justify-between w-full">
-                    <RoadMap roads={[{
-                        title:'Views',
-                        icon: <AiFillTags />
-                    }]}/>
-                    <div className="mr-2">
-                        <CustomeLayout isList />
-                    </div>
-                </div>
-            }
-        >
-            <div className="h-full">
-                <ListTableIssue />
-            </div>
-        </MainWorkspaceLayout>
-    );
+  return (
+    <MainWorkspaceLayout
+      header={
+        <div className="flex items-center justify-between w-full">
+          <RoadMap
+            roads={[
+              {
+                title: 'Views',
+                icon: <AiFillTags />,
+              },
+            ]}
+          />
+          <div className="mr-2">
+            <CustomeLayout isList />
+          </div>
+        </div>
+      }
+    >
+      <div className="h-full">
+        <ListTableIssue />
+      </div>
+    </MainWorkspaceLayout>
+  );
 };
 
 export default page;

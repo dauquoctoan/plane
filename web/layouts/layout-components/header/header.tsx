@@ -4,21 +4,21 @@ import { selectIsCollap } from '@/store/slices/layoutSlice/selectors';
 import React from 'react';
 
 const Header = ({
-    header: HeaderContent,
+  header: HeaderContent,
 }: {
-    header: string | JSX.Element | JSX.Element[];
+  header: string | JSX.Element | JSX.Element[];
 }) => {
-    const isCollap = useSelector(selectIsCollap);
-    return (
-        <div
-            className={`${
-                isCollap ? 'header-collap' : 'header'
-            } transition-all h-[60px] sticky top-0 border-b border-theme-border-primary box-border w-[100%] bg-theme-primary z-40`}
-        >
-            <div className="items-center justify-between h-full px-3 box-border flex">
-                <div className="flex-1">{HeaderContent}</div>
-                <div className='hidden md:block'>
-                {/* <Tooltip
+  const isCollap = useSelector(selectIsCollap);
+  return (
+    <div
+      className={`${
+        isCollap ? 'header-collap' : 'header'
+      } transition-all h-[60px] sticky top-0 border-b border-theme-border-primary box-border w-[100%] bg-theme-primary z-40`}
+    >
+      <div className="items-center justify-between h-full px-3 box-border flex">
+        <div className="flex-1">{HeaderContent}</div>
+        <div className="hidden md:block">
+          {/* <Tooltip
                     title={<div className="text-sm p-1">Notification</div>}
                 >
                     <Popover
@@ -32,10 +32,10 @@ const Header = ({
                         <MdNotificationsNone />
                     </Popover>
                 </Tooltip> */}
-                </div>
-            </div>
         </div>
-    );
+      </div>
+    </div>
+  );
 };
 
 export default Header;

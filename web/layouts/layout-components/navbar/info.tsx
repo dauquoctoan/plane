@@ -11,67 +11,67 @@ import MenuTools from '@/components/layout/navbar/menuTools';
 import { useDispatch } from 'react-redux';
 
 const Info = () => {
-    const isCollap = useSelector(selectIsCollap);
-    const info = useSelector(selectInfo);
-    const dispatch = useDispatch()
-    return (
-        <div className="w-full pt-4 pl-4 pr-4 flex flex-col">
-            <div className="w-full flex items-center cursor-pointer">
-                <ContainerLink
-                    links={[
-                        {
-                            href: `/create-workspace`,
-                            nickname: 'createWorkspace',
-                        },
-                        {
-                            href: `/invitations`,
-                            nickname: 'invitations',
-                        },
-                        {
-                            href: `/${info?.workspace?.slug}/settings`,
-                            nickname: 'settings',
-                        },
-                        {
-                            href: `/${info?.workspace?.slug}/profile/${info?.workspace?.id}`,
-                            nickname: 'profile',
-                        },
-                    ]}
-                />
+  const isCollap = useSelector(selectIsCollap);
+  const info = useSelector(selectInfo);
+  const dispatch = useDispatch();
+  return (
+    <div className="w-full pt-4 pl-4 pr-4 flex flex-col">
+      <div className="w-full flex items-center cursor-pointer">
+        <ContainerLink
+          links={[
+            {
+              href: `/create-workspace`,
+              nickname: 'createWorkspace',
+            },
+            {
+              href: `/invitations`,
+              nickname: 'invitations',
+            },
+            {
+              href: `/${info?.workspace?.slug}/settings`,
+              nickname: 'settings',
+            },
+            {
+              href: `/${info?.workspace?.slug}/profile/${info?.workspace?.id}`,
+              nickname: 'profile',
+            },
+          ]}
+        />
 
-                <Popover
-                    pxContent={0}
-                    pyContent={0}
-                    wrClassName="p-1 bg-theme-secondary flex-1 rounded"
-                    content={<WorkspacePopover />}
-                >
-                    <div className="flex h-fit">
-                        <Avatar>{info?.workspace?.name || ''}</Avatar>
-                        {!isCollap && (
-                            <div className="ml-2 font-[500] whitespace-nowrap overflow-hidden text-ellipsis w-[150px]">
-                                {info?.workspace?.name}
-                            </div>
-                        )}
-                    </div>
-                </Popover>
+        <Popover
+          pxContent={0}
+          pyContent={0}
+          wrClassName="p-1 bg-theme-secondary flex-1 rounded"
+          content={<WorkspacePopover />}
+        >
+          <div className="flex h-fit">
+            <Avatar>{info?.workspace?.name || ''}</Avatar>
+            {!isCollap && (
+              <div className="ml-2 font-[500] whitespace-nowrap overflow-hidden text-ellipsis w-[150px]">
+                {info?.workspace?.name}
+              </div>
+            )}
+          </div>
+        </Popover>
 
-                {!isCollap ? (
-                    <Popover
-                        pxContent={0}
-                        pyContent={0}
-                        placement="bottomRight"
-                        content={<UserInfoPopup />}
-                    >
-                        <div className="ml-2">
-                            <Avatar>{info?.email || ''}</Avatar>
-                        </div>
-                    </Popover>
-                ) : (
-                    <></>
-                )}
+        {!isCollap ? (
+          <Popover
+            pxContent={0}
+            pyContent={0}
+            placement="bottomRight"
+            content={<UserInfoPopup />}
+          >
+            <div className="ml-2">
+              <Avatar>{info?.email || ''}</Avatar>
             </div>
-            <MenuTools />
-        </div>
-    );
+          </Popover>
+        ) : (
+          <></>
+        )}
+      </div>
+      <MenuTools />
+    </div>
+  );
 };
 
 export default Info;

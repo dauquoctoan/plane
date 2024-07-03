@@ -1,12 +1,10 @@
-import General from '@/components/setting/general'
-import { useSelector } from '@/store'
-import { selectInfo } from '@/store/slices/authSlice/selectors'
-import React from 'react'
+import General from '@/components/setting/general';
+import { useSelector } from '@/store';
+import { selectInfo } from '@/store/slices/authSlice/selectors';
+import React from 'react';
 
 const Page = () => {
-    return (
-        <General />
-    )
-}
+  return <General />;
+};
 
-export default Page
+export default Page;

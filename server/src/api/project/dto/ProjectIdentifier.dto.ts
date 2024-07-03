@@ -1,8 +1,6 @@
 export class CreateProjectIdentifierDto {
-    workspace: number;
-    projectId: number;
-    name: string;
+  workspace: number;
+  projectId: number;
+  name: string;
 }
-export class UpdateProjectIdentifierDto {
-
-}
+export class UpdateProjectIdentifierDto {}

@@ -1,39 +1,38 @@
-import { IsDefined, IsEmpty, IsNotEmpty, IsOptional } from "class-validator";
-import { QueryIssueDto } from "src/api/issue/dto/Issue.dto";
+import { IsDefined, IsEmpty, IsNotEmpty, IsOptional } from 'class-validator';
+import { QueryIssueDto } from 'src/api/issue/dto/Issue.dto';
 
-export class UpdateProjectViewDto {
-}
+export class UpdateProjectViewDto {}
 
 export class CreateProjectViewDto {
-    @IsOptional()
-    @IsNotEmpty()
-    created_at: string;
+  @IsOptional()
+  @IsNotEmpty()
+  created_at: string;
 
-    @IsOptional()
-    @IsNotEmpty()
-    workspace_id: string;
+  @IsOptional()
+  @IsNotEmpty()
+  workspace_id: string;
 
-    @IsOptional()
-    @IsNotEmpty()
-    project_id: string;
+  @IsOptional()
+  @IsNotEmpty()
+  project_id: string;
 
-    @IsDefined()
-    @IsNotEmpty()
-    name: string;
+  @IsDefined()
+  @IsNotEmpty()
+  name: string;
 
-    @IsOptional()
-    @IsNotEmpty()
-    description?: string;
-    
-    @IsOptional()
-    @IsNotEmpty()
-    query?: QueryIssueDto;
-    
-    @IsOptional()
-    @IsNotEmpty()
-    access?: number;
+  @IsOptional()
+  @IsNotEmpty()
+  description?: string;
 
-    @IsOptional()
-    @IsNotEmpty()
-    query_data?: string;
+  @IsOptional()
+  @IsNotEmpty()
+  query?: QueryIssueDto;
+
+  @IsOptional()
+  @IsNotEmpty()
+  access?: number;
+
+  @IsOptional()
+  @IsNotEmpty()
+  query_data?: string;
 }

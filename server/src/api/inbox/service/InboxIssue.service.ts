@@ -6,7 +6,9 @@ import { InboxIssue } from '../entitys/InboxIssue.entity';
 
 @Injectable()
 export class InboxIssueService extends BaseService<InboxIssue> {
-    constructor(@InjectModel(InboxIssue) public repository: Repository<InboxIssue>) {
-        super(repository)
-    }
+  constructor(
+    @InjectModel(InboxIssue) public repository: Repository<InboxIssue>,
+  ) {
+    super(repository);
+  }
 }

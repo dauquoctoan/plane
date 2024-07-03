@@ -6,7 +6,10 @@ import { ExporterHistory } from '../entitys/ExporterHistory.entity';
 
 @Injectable()
 export class ExporterService extends BaseService<ExporterHistory> {
-    constructor(@InjectModel(ExporterHistory) public repository: Repository<ExporterHistory>) {
-        super(repository);
-    }
+  constructor(
+    @InjectModel(ExporterHistory)
+    public repository: Repository<ExporterHistory>,
+  ) {
+    super(repository);
+  }
 }

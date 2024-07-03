@@ -1,33 +1,45 @@
-import { BelongsTo, Column, DataType, ForeignKey, Model, Table } from 'sequelize-typescript';
+import {
+  BelongsTo,
+  Column,
+  DataType,
+  ForeignKey,
+  Model,
+  Table,
+} from 'sequelize-typescript';
 import { Issue } from './Issue.entity';
 import sequelize from 'sequelize';
 
-@Table({tableName:'IssueAttachments'})
+@Table({ tableName: 'IssueAttachments' })
 export class IssueAttachment extends Model<IssueAttachment> {
-    @Column({ type: sequelize.UUID, defaultValue: sequelize.UUIDV4, allowNull: false, primaryKey: true })
-    id: string;
-    /**
-    * ! FK
-    */
+  @Column({
+    type: sequelize.UUID,
+    defaultValue: sequelize.UUIDV4,
+    allowNull: false,
+    primaryKey: true,
+  })
+  id: string;
+  /**
+   * ! FK
+   */
 
-    @ForeignKey(() => Issue)
-    @Column({ type: sequelize.UUID, allowNull: true })
-    issue_id: string;
+  @ForeignKey(() => Issue)
+  @Column({ type: sequelize.UUID, allowNull: true })
+  issue_id: string;
 
-    /**
-    * ! RELATIONSHIP
-    */
+  /**
+   * ! RELATIONSHIP
+   */
 
-    @BelongsTo(() => Issue)
-    issue: Issue;
+  @BelongsTo(() => Issue)
+  issue: Issue;
 
-    /**
-    * ! PR
-    */
+  /**
+   * ! PR
+   */
 
-    @Column({ defaultValue: {}, type: DataType.JSON })
-    attributes: string;
+  @Column({ defaultValue: {}, type: DataType.JSON })
+  attributes: string;
 
-    @Column({ allowNull: false })
-    asset: string;
+  @Column({ allowNull: false })
+  asset: string;
 }

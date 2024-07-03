@@ -7,7 +7,9 @@ import { InjectModel } from '@nestjs/sequelize';
 
 @Injectable()
 export class GlobalViewService extends BaseService<GlobalView> {
-    constructor(@InjectModel(GlobalView) public repository: Repository<GlobalView>) {
-        super(repository)
-    }
+  constructor(
+    @InjectModel(GlobalView) public repository: Repository<GlobalView>,
+  ) {
+    super(repository);
+  }
 }

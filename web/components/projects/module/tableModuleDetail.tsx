@@ -7,28 +7,28 @@ import projectService from '@/services/project-services';
 import useSWR from 'swr';
 
 const TableModuleDetail = () => {
-    const params = useParams<IParams>();
+  const params = useParams<IParams>();
 
-    const { data: moduleUserProperties } = useSWR(
-        'module_user_properties',
-        () => {
-            return projectService.getModuleUserProperties(
-                params.projectid,
-                params.moduleid,
-            );
-        },
-    );
+  const { data: moduleUserProperties } = useSWR(
+    'module_user_properties',
+    () => {
+      return projectService.getModuleUserProperties(
+        params.projectid,
+        params.moduleid
+      );
+    }
+  );
 
-    return (
-        <>
-            {moduleUserProperties?.display_filters.layout && (
-                <IssueBoard
-                    query={{ module_id: params.moduleid }}
-                    layout={moduleUserProperties?.display_filters.layout}
-                />
-            )}
-        </>
-    );
+  return (
+    <>
+      {moduleUserProperties?.display_filters.layout && (
+        <IssueBoard
+          query={{ module_id: params.moduleid }}
+          layout={moduleUserProperties?.display_filters.layout}
+        />
+      )}
+    </>
+  );
 };
 
 export default TableModuleDetail;

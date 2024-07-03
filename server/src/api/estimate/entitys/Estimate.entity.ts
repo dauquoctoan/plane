@@ -1,45 +1,62 @@
-import { BelongsTo, Column, DataType, ForeignKey, HasMany, Length, Model, PrimaryKey, Table } from 'sequelize-typescript';
+import {
+  BelongsTo,
+  Column,
+  DataType,
+  ForeignKey,
+  HasMany,
+  Length,
+  Model,
+  PrimaryKey,
+  Table,
+} from 'sequelize-typescript';
 import { EstimatePoint } from './EstimatePoint.entity';
 import { Project } from 'src/api/project/entitys/Project.entity';
 import sequelize from 'sequelize';
 import { Workspace } from 'src/api/workspace/entitys/Workspace.entity';
 
-@Table({tableName:'Estimates'})
+@Table({ tableName: 'Estimates' })
 export class Estimate extends Model<Estimate> {
-    @Column({ type: sequelize.UUID, defaultValue: sequelize.UUIDV4, allowNull: false, primaryKey: true })
-    id: string;
+  @Column({
+    type: sequelize.UUID,
+    defaultValue: sequelize.UUIDV4,
+    allowNull: false,
+    primaryKey: true,
+  })
+  id: string;
 
-    @ForeignKey(() => Project)
-    @Column({ type: sequelize.UUID })
-    projectId: Project;
+  @ForeignKey(() => Project)
+  @Column({ type: sequelize.UUID })
+  project_id: string;
 
-    @ForeignKey(() => Workspace)
-    @Column({ type: sequelize.UUID })
-    workspaceId: Workspace;
-    /**
-    * ! RELATIONSHIP
-    */
-    @HasMany(() => EstimatePoint,{
-        onUpdate: "CASCADE",
-        onDelete: "CASCADE", 
-        foreignKey: 'estimate_id'
-    })
-    estimate_points: EstimatePoint[];
+  @ForeignKey(() => Workspace)
+  @Column({ type: sequelize.UUID })
+  workspace_id: string;
 
-    @BelongsTo(() => Project)
-    projects: Project;
+  /**
+   * ! RELATIONSHIP
+   */
 
-    @BelongsTo(() => Workspace)
-    workspaces: Workspace;
+  @HasMany(() => EstimatePoint, {
+    onUpdate: 'CASCADE',
+    onDelete: 'CASCADE',
+    foreignKey: 'estimate_id',
+  })
+  estimate_points: EstimatePoint[];
 
-    /**
-    * ! PR
-    */
+  @BelongsTo(() => Project, { foreignKey: 'project_id' })
+  projects: Project;
 
-    @Length({ max: 255 })
-    @Column({ allowNull: false })
-    name: string;
+  @BelongsTo(() => Workspace, { foreignKey: 'workspace_id' })
+  workspaces: Workspace;
 
-    @Column({ type: DataType.TEXT })
-    description: string;
+  /**
+   * ! PR
+   */
+
+  @Length({ max: 255 })
+  @Column({ allowNull: false })
+  name: string;
+
+  @Column({ type: DataType.TEXT })
+  description: string;
 }

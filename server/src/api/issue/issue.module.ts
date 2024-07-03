@@ -53,28 +53,29 @@ import { UserService } from '../user/service/user.service';
 import { IssueController } from './controller/issue.controller';
 
 @Module({
-  imports: [SequelizeModule.forFeature([
-    Issue,
-    IssueRelation,
-    IssueSequence,
-    CommentReaction,
-    IssueActivity,
-    IssueAssignee,
-    IssueAttachment,
-    IssueBlocker,
-    IssueComment,
-    IssueLabel,
-    IssueLink,
-    IssueProperty,
-    IssueReaction,
-    IssueSubscriber,
-    IssueVote,
-    Label,
-    User,
-    CycleIssue,
-    ModuleIssue
-  ]),
-  forwardRef(() => CycleModule)
+  imports: [
+    SequelizeModule.forFeature([
+      Issue,
+      IssueRelation,
+      IssueSequence,
+      CommentReaction,
+      IssueActivity,
+      IssueAssignee,
+      IssueAttachment,
+      IssueBlocker,
+      IssueComment,
+      IssueLabel,
+      IssueLink,
+      IssueProperty,
+      IssueReaction,
+      IssueSubscriber,
+      IssueVote,
+      Label,
+      User,
+      CycleIssue,
+      ModuleIssue,
+    ]),
+    forwardRef(() => CycleModule),
   ],
   providers: [
     CommentReactionService,
@@ -95,7 +96,7 @@ import { IssueController } from './controller/issue.controller';
     LabelService,
     UserService,
     CycleIssueService,
-    ModuleIssueService
+    ModuleIssueService,
   ],
   controllers: [
     CommentReactionController,
@@ -111,8 +112,8 @@ import { IssueController } from './controller/issue.controller';
     IssueReactionController,
     IssueSubscriberController,
     IssueVoteController,
-    LabelController
+    LabelController,
   ],
   exports: [IssueService, IssueLabelService, LabelService],
 })
-export class IssueModule { }
+export class IssueModule {}

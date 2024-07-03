@@ -2,30 +2,30 @@ import { PartialType } from '@nestjs/swagger';
 import { IsNotEmpty } from 'class-validator';
 
 export class CreateStateDto {
-    @IsNotEmpty()
-    name: string;
+  @IsNotEmpty()
+  name: string;
 
-    description: string;
+  description: string;
 
-    @IsNotEmpty()
-    color: string;
+  @IsNotEmpty()
+  color: string;
 
-    slug: string;
+  slug: string;
 
-    sequence: number;
+  sequence: number;
 
-    @IsNotEmpty()
-    group: 'backlog' | 'unstarted' | 'started' | 'completed' | 'cancelled';
+  @IsNotEmpty()
+  group: 'backlog' | 'unstarted' | 'started' | 'completed' | 'cancelled';
 
-    default: boolean;
+  default: boolean;
 }
 
 export class UpdateStateDto extends PartialType(CreateStateDto) {
-    color?: string;
-    description?: string;
-    default?: boolean;
-    group?: 'backlog' | 'unstarted' | 'started' | 'completed' | 'cancelled';
-    name?: string;
-    sequence?: number;
-    slug?: string;
+  color?: string;
+  description?: string;
+  default?: boolean;
+  group?: 'backlog' | 'unstarted' | 'started' | 'completed' | 'cancelled';
+  name?: string;
+  sequence?: number;
+  slug?: string;
 }

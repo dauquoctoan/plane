@@ -7,6 +7,6 @@ import { ApiTokenController } from './controller/ApiToken.controller';
 @Module({
   imports: [SequelizeModule.forFeature([APIToken])],
   providers: [ApiTokenService],
-  controllers: [ApiTokenController]
+  controllers: [ApiTokenController],
 })
-export class ApiTokenModule { }
+export class ApiTokenModule {}

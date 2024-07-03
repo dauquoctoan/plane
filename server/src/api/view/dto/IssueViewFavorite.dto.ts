@@ -1,2 +1,2 @@
-export class UpdateIssueViewFavoriteDto { }
-export class CreateIssueViewFavoriteDto { }
+export class UpdateIssueViewFavoriteDto {}
+export class CreateIssueViewFavoriteDto {}

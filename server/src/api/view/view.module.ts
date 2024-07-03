@@ -16,9 +16,27 @@ import { ProjectViewService } from './service/ProjectView.service';
 import { ProjectViewController } from './controller/ProjectView.controller';
 
 @Module({
-  imports: [SequelizeModule.forFeature([IssueView, IssueViewFavorite, GlobalView, User, ProjectView])],
-  providers: [IssueViewService, GlobalViewService, IssueViewFavoriteService, UserService, ProjectViewService],
-  controllers: [IssueViewController, GlobalViewController, IssueViewFavoriteController, ProjectViewController]
+  imports: [
+    SequelizeModule.forFeature([
+      IssueView,
+      IssueViewFavorite,
+      GlobalView,
+      User,
+      ProjectView,
+    ]),
+  ],
+  providers: [
+    IssueViewService,
+    GlobalViewService,
+    IssueViewFavoriteService,
+    UserService,
+    ProjectViewService,
+  ],
+  controllers: [
+    IssueViewController,
+    GlobalViewController,
+    IssueViewFavoriteController,
+    ProjectViewController,
+  ],
 })
-
 export class ViewModule {}

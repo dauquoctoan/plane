@@ -4,20 +4,24 @@ import MainWorkspaceLayout from '@/layouts/mainWorkspaceLayout';
 import { RxAvatar } from 'react-icons/rx';
 
 export default function WorkspaceLayout({
-    children,
+  children,
 }: {
-    children: React.ReactNode;
+  children: React.ReactNode;
 }) {
-    return <MainWorkspaceLayout
-        header={
-            <RoadMap roads={[{
-                title:'Profile',
-                icon:<RxAvatar />
-            }]}/>
-        }
+  return (
+    <MainWorkspaceLayout
+      header={
+        <RoadMap
+          roads={[
+            {
+              title: 'Profile',
+              icon: <RxAvatar />,
+            },
+          ]}
+        />
+      }
     >
-        <div className="h-full">
-            {children}
-        </div>
+      <div className="h-full">{children}</div>
     </MainWorkspaceLayout>
+  );
 }

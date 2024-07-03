@@ -6,32 +6,30 @@ import { IFieldProps } from '../types/form';
 type Iprops = IProps & IFieldProps;
 
 const SelectField: React.FC<Iprops> = ({
-    control,
-    name,
-    rules,
-    children,
-    ...res
+  control,
+  name,
+  rules,
+  children,
+  ...res
 }) => {
-    return (
-        <Controller
-            name={name}
-            control={control}
-            rules={rules}
-            render={({ field, fieldState }) => {
-                return (
-                    <Select
-                        error={
-                            fieldState.error?.message || fieldState.error?.type
-                        }
-                        {...field}
-                        {...res}
-                    >
-                        {children}
-                    </Select>
-                );
-            }}
-        />
-    );
+  return (
+    <Controller
+      name={name}
+      control={control}
+      rules={rules}
+      render={({ field, fieldState }) => {
+        return (
+          <Select
+            error={fieldState.error?.message || fieldState.error?.type}
+            {...field}
+            {...res}
+          >
+            {children}
+          </Select>
+        );
+      }}
+    />
+  );
 };
 
 export default SelectField;

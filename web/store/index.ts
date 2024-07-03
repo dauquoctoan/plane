@@ -1,2 +1,2 @@
-export * from './reduxStore'
-export * from './slices'
+export * from './reduxStore';
+export * from './slices';

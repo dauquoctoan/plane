@@ -1,15 +1,21 @@
-import { HttpAdapterHost, NestFactory } from "@nestjs/core";
+import { HttpAdapterHost, NestFactory } from '@nestjs/core';
 import { RequestMethod, ValidationPipe } from '@nestjs/common';
-import { AllExceptionsFilter } from "src/helper/all-exceptions.filter";
+import { AllExceptionsFilter } from 'src/helper/all-exceptions.filter';
 import { ConfigService } from '@nestjs/config';
-import { SwaggerModule, DocumentBuilder, SwaggerDocumentOptions } from '@nestjs/swagger';
-import { AppModule } from "./app.module";
+import {
+  SwaggerModule,
+  DocumentBuilder,
+  SwaggerDocumentOptions,
+} from '@nestjs/swagger';
+import { AppModule } from './app.module';
 import * as session from 'express-session';
-import { join } from "path";
-import { NestExpressApplication } from "@nestjs/platform-express";
+import { join } from 'path';
+import { NestExpressApplication } from '@nestjs/platform-express';
 
 async function bootstrap() {
-  const app = await NestFactory.create<NestExpressApplication>(AppModule, { cors: true });
+  const app = await NestFactory.create<NestExpressApplication>(AppModule, {
+    cors: true,
+  });
   app.use(
     session({
       secret: 'my-secret',
@@ -39,18 +45,16 @@ async function bootstrap() {
         name: 'Authorization',
         bearerFormat: 'Bearer',
         scheme: 'Bearer',
-        type: 'http', 
-        in: 'Header'
+        type: 'http',
+        in: 'Header',
       },
-      'access-token', 
+      'access-token',
     )
     .addTag('Plane')
     .build();
 
   const options: SwaggerDocumentOptions = {
-    operationIdFactory: (
-      methodKey: string
-    ) => methodKey
+    operationIdFactory: (methodKey: string) => methodKey,
   };
 
   const document = SwaggerModule.createDocument(app, config, options);

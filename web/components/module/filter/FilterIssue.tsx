@@ -1,22 +1,12 @@
 import { IFillterIssue } from '@/types';
-import React, { FC } from 'react'
+import React, { FC } from 'react';
 
-export interface IFIlterIssue{
-    query:IFillterIssue;
+export interface IFIlterIssue {
+  query: IFillterIssue;
 }
 
-export const FilterIssue:FC<IFIlterIssue> = ({query}) => {
-  return (
-    <div>FilterIssue</div>
-  )
-}
+export const FilterIssue: FC<IFIlterIssue> = ({ query }) => {
+  return <div>FilterIssue</div>;
+};
 
-
-
-const RenderDate=()=>{
-
-}
-
-
-
-
+const RenderDate = () => {};

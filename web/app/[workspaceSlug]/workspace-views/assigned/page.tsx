@@ -2,7 +2,7 @@ import AssignerWorkspaceView from '@/components/workspace-view/assigner';
 import React from 'react';
 
 const page = () => {
-    return <AssignerWorkspaceView />;
+  return <AssignerWorkspaceView />;
 };
 
 export default page;

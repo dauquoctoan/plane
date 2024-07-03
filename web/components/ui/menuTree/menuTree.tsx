@@ -4,133 +4,120 @@ import { IoIosArrowDown } from 'react-icons/io';
 import { MdChevronLeft } from 'react-icons/md';
 
 export interface IMenuTree {
-    children?: ReactElement | string | ReactElement[];
-    data: IConfigs;
-    onClick?: (key: string) => void;
-    style?: React.CSSProperties;
+  children?: ReactElement | string | ReactElement[];
+  data: IConfigs;
+  onClick?: (key: string) => void;
+  style?: React.CSSProperties;
 }
 
 export interface IPropsMenuItem {
-    data: IConfigs;
-    onClick?: (key: string) => void;
-    style?: React.CSSProperties;
-    placement: string;
+  data: IConfigs;
+  onClick?: (key: string) => void;
+  style?: React.CSSProperties;
+  placement: string;
 }
 
 export type TPlacement =
-    | 'bottomLeft'
-    | 'bottomRight'
-    | 'topLeft'
-    | 'topRight'
-    | 'left'
-    | 'right';
+  | 'bottomLeft'
+  | 'bottomRight'
+  | 'topLeft'
+  | 'topRight'
+  | 'left'
+  | 'right';
 
 export interface IConfigs {
-    isRoot?: boolean;
-    placement?: TPlacement;
-    children?: IConfigs[];
-    title?: ReactElement | string | ReactElement[];
-    icon?: ReactElement;
-    key?: string;
-    style?: React.CSSProperties;
+  isRoot?: boolean;
+  placement?: TPlacement;
+  children?: IConfigs[];
+  title?: ReactElement | string | ReactElement[];
+  icon?: ReactElement;
+  key?: string;
+  style?: React.CSSProperties;
 }
 
 const MenuPopUp: React.FC<IPropsMenuItem> = ({
-    data,
-    onClick,
-    style,
-    placement,
+  data,
+  onClick,
+  style,
+  placement,
 }) => {
-    return (
-        <div
-            onClick={(e) => {
-                e.stopPropagation();
-            }}
-            className={
-                'absolute border bg bg-theme-primary box-border rounded w-max shadow-theme-primary animate-popUp ' +
-                placement
-            }
-        >
-            {data.children?.map((e, index) => {
-                return (
-                    <MenuTree
-                        key={index}
-                        onClick={onClick}
-                        data={e}
-                        style={style}
-                    />
-                );
-            })}
-        </div>
-    );
+  return (
+    <div
+      onClick={e => {
+        e.stopPropagation();
+      }}
+      className={
+        'absolute border bg bg-theme-primary box-border rounded w-max shadow-theme-primary animate-popUp ' +
+        placement
+      }
+    >
+      {data.children?.map((e, index) => {
+        return (
+          <MenuTree key={index} onClick={onClick} data={e} style={style} />
+        );
+      })}
+    </div>
+  );
 };
 
 const MenuTree: React.FC<IMenuTree> = ({ children, data, onClick }) => {
-    const [isOpen, setIsOpen] = useState(false);
-    const refMenuItem = useRef<HTMLDivElement>(null);
+  const [isOpen, setIsOpen] = useState(false);
+  const refMenuItem = useRef<HTMLDivElement>(null);
 
-    function handleCLick(e: any) {
-        if (refMenuItem.current?.contains(e.target as any)) setIsOpen(true);
-        else setIsOpen(false);
-    }
+  function handleCLick(e: any) {
+    if (refMenuItem.current?.contains(e.target as any)) setIsOpen(true);
+    else setIsOpen(false);
+  }
 
-    useEffect(() => {
-        document?.addEventListener('click', handleCLick);
-        return () => document?.removeEventListener('click', handleCLick);
-    }, []);
+  useEffect(() => {
+    document?.addEventListener('click', handleCLick);
+    return () => document?.removeEventListener('click', handleCLick);
+  }, []);
 
-    const placements: { [e: string]: string } = {
-        bottomLeft: 'top-[100%] mt-1 right-[0] origin-top-right',
-        left: 'top-0 mr-1 right-[100%] origin-top-right',
-        right: 'top-0 ml-1 left-[100%] origin-top-left',
-        /* ex */
-        bottomRight: 'top-[100%] mt-1 right-[0] origin-top-right',
-        topLeft: 'top-[100%] mt-1 right-[0] origin-top-right',
-        topRight: 'top-[100%] mt-1 right-[0] origin-top-right',
-    };
+  const placements: { [e: string]: string } = {
+    bottomLeft: 'top-[100%] mt-1 right-[0] origin-top-right',
+    left: 'top-0 mr-1 right-[100%] origin-top-right',
+    right: 'top-0 ml-1 left-[100%] origin-top-left',
+    /* ex */
+    bottomRight: 'top-[100%] mt-1 right-[0] origin-top-right',
+    topLeft: 'top-[100%] mt-1 right-[0] origin-top-right',
+    topRight: 'top-[100%] mt-1 right-[0] origin-top-right',
+  };
 
-    const curentPlacement = placements[data.placement || 'left'];
+  const curentPlacement = placements[data.placement || 'left'];
 
-    return (
-        <div
-            style={data.style}
-            ref={refMenuItem}
-            className={`relative rounded cursor-pointer select-none px-2 py-1 hover:bg-theme-secondary flex items-center ${
-                data.isRoot ? 'border' : ''
-            }`}
-            onClick={() => {
-                if (data.key) onClick && onClick(data.key);
-            }}
-        >
-            {children ? (
-                typeof children == 'string' ? (
-                    <div
-                        className={`w-fit flex items-center rounded px-2 py-1`}
-                    >
-                        {children}
-                        <IoIosArrowDown className="ml-1" />
-                    </div>
-                ) : (
-                    children
-                )
-            ) : (
-                <>
-                    {!data.key && <MdChevronLeft className="mr-1" />}
-                    {data.key && data.icon && (
-                        <div className="mr-1">{data.icon}</div>
-                    )}
-                    <span className="text-sm">data.title</span>
-                </>
-            )}
-            {isOpen && (
-                <MenuPopUp
-                    placement={curentPlacement}
-                    onClick={onClick}
-                    data={data}
-                />
-            )}
-        </div>
-    );
+  return (
+    <div
+      style={data.style}
+      ref={refMenuItem}
+      className={`relative rounded cursor-pointer select-none px-2 py-1 hover:bg-theme-secondary flex items-center ${
+        data.isRoot ? 'border' : ''
+      }`}
+      onClick={() => {
+        if (data.key) onClick && onClick(data.key);
+      }}
+    >
+      {children ? (
+        typeof children == 'string' ? (
+          <div className={`w-fit flex items-center rounded px-2 py-1`}>
+            {children}
+            <IoIosArrowDown className="ml-1" />
+          </div>
+        ) : (
+          children
+        )
+      ) : (
+        <>
+          {!data.key && <MdChevronLeft className="mr-1" />}
+          {data.key && data.icon && <div className="mr-1">{data.icon}</div>}
+          <span className="text-sm">data.title</span>
+        </>
+      )}
+      {isOpen && (
+        <MenuPopUp placement={curentPlacement} onClick={onClick} data={data} />
+      )}
+    </div>
+  );
 };
 
 export default MenuTree;

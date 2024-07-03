@@ -6,9 +6,10 @@ import { ProjectMemberInvite } from '../entitys/ProjectMemberInvite.entity';
 
 @Injectable()
 export class ProjectMemberInviteService extends BaseService<ProjectMemberInvite> {
-    constructor(
-        @InjectModel(ProjectMemberInvite) public repository: Repository<ProjectMemberInvite>,
-    ) {
-        super(repository);
-    }
+  constructor(
+    @InjectModel(ProjectMemberInvite)
+    public repository: Repository<ProjectMemberInvite>,
+  ) {
+    super(repository);
+  }
 }

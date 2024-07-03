@@ -7,7 +7,6 @@ import { FileAssetController } from './controller/asset.controller';
 @Module({
   imports: [SequelizeModule.forFeature([FileAsset])],
   providers: [FileAssetService],
-  controllers: [FileAssetController]
+  controllers: [FileAssetController],
 })
-
-export class AssetModule { }
+export class AssetModule {}

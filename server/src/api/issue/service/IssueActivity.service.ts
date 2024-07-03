@@ -5,10 +5,10 @@ import { IssueActivity } from '../entitys/IssueActivity.entity';
 
 @Injectable()
 export class IssueActivityService extends BaseService<IssueActivity> {
-    constructor(
-        @InjectModel(IssueActivity)
-        private issueActivity: typeof IssueActivity,
-    ) {
-        super(issueActivity)
-    }
+  constructor(
+    @InjectModel(IssueActivity)
+    private issueActivity: typeof IssueActivity,
+  ) {
+    super(issueActivity);
+  }
 }

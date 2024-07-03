@@ -1,4 +1,4 @@
-import type { Config } from 'tailwindcss'
+import type { Config } from 'tailwindcss';
 
 const config: Config = {
   content: [
@@ -10,7 +10,7 @@ const config: Config = {
   ],
   theme: {
     extend: {
-      zIndex:{
+      zIndex: {
         '100': '100',
       },
       gridTemplateColumns: {
@@ -32,19 +32,19 @@ const config: Config = {
       },
       width: {
         'width-menu': 'var(--width-menu)',
-        'width-menu-collap': 'var(--width-menu-collap)'
+        'width-menu-collap': 'var(--width-menu-collap)',
       },
       keyframes: {
         dropDown: {
-          "0%": {
+          '0%': {
             transform: 'scaleY(.95)',
           },
           '100%': {
-            transform: 'scaleY(1)'
+            transform: 'scaleY(1)',
           },
         },
         popUp: {
-          "0%": {
+          '0%': {
             transform: 'scale(.95)',
             opacity: '.8',
           },
@@ -57,15 +57,14 @@ const config: Config = {
           '0%': {
             transform: 'scale(1)',
             opacity: '1',
-
           },
-          "100%": {
+          '100%': {
             transform: 'scale(.8)',
             opacity: '0',
           },
         },
         openNoti: {
-          "0%": {
+          '0%': {
             opacity: '0',
             transform: 'translateY(-50%)',
           },
@@ -75,7 +74,7 @@ const config: Config = {
           },
         },
         closeNoti: {
-          "0%": {
+          '0%': {
             opacity: '1',
             maxHeight: '100px',
             marginTop: '8px',
@@ -93,7 +92,7 @@ const config: Config = {
           },
         },
         rangeLoading: {
-          "0%": {
+          '0%': {
             width: '0%',
             display: 'block',
           },
@@ -105,24 +104,24 @@ const config: Config = {
         ping: {
           '75%, 100%': {
             transform: 'scale(1.15)',
-            opacity: '0'
-          }
+            opacity: '0',
+          },
         },
         overlay: {
           '0%': {
-            'background-color': 'transparent'
+            'background-color': 'transparent',
           },
           '100%': {
-            'background-color': 'var(--color-modal-overlay)'
-          }
+            'background-color': 'var(--color-modal-overlay)',
+          },
         },
         closeOverlay: {
           '0%': {
-            'background-color': 'transparent'
+            'background-color': 'transparent',
           },
           '100%': {
-            'background-color': 'var(--color-modal-overlay)'
-          }
+            'background-color': 'var(--color-modal-overlay)',
+          },
         },
         modalContentPopup: {
           from: {
@@ -131,30 +130,30 @@ const config: Config = {
           },
           to: {
             transform: 'scale(1)',
-            opacity: '1'
-          }
+            opacity: '1',
+          },
         },
         fadeMenu: {
           from: {
             'max-height': '0px',
           },
           to: {
-            'max-height': '500px'
-          }
-        },
-        pingTW:{
-          "75%":{
-            transform: "scale(2)",
-            opacity: "0"
+            'max-height': '500px',
           },
-          "100%":{
-            transform: "scale(2)",
-            opacity: "0"
-          }
-        }
+        },
+        pingTW: {
+          '75%': {
+            transform: 'scale(2)',
+            opacity: '0',
+          },
+          '100%': {
+            transform: 'scale(2)',
+            opacity: '0',
+          },
+        },
       },
       animation: {
-        pingDot: "pingTW 1s cubic-bezier(0, 0, 0.2, 1) infinite",
+        pingDot: 'pingTW 1s cubic-bezier(0, 0, 0.2, 1) infinite',
         openNoti: 'openNoti .4s ease-out',
         closeNoti: 'closeNoti .4s ease-out',
         popUp: 'popUp .3s ease-out',
@@ -167,29 +166,35 @@ const config: Config = {
         fadeMenu: 'fadeMenu .1s',
       },
       colors: {
-        "theme-primary": 'var(--color-theme-primary)',
-        "color-text-sidebar": '#A3A3A3',
-        "theme-secondary": "var(--color-theme-secondary)",
-        "theme-text-primary": 'var(--color-theme-text-primary)',
-        "theme-border-primary": 'var(--color-theme-border-primary)',
-        "theme-border-secondary": 'var(--color-theme-border-secondary)',
-        "theme-border-highligh": 'var(--color-theme-border-highligh)',
-        "color-special-primary": "var(--color-special-primary)",
-        "color-special-secondary": "var(--color-special-secondary)",
-        'color-warning': "var(--color-warning)",
-        'color-error': "var(--color-error)",
-        'color-info': "var(--color-info)",
-        'color-success': "var(--color-success)",
+        'theme-primary': 'var(--color-theme-primary)',
+        'color-text-sidebar': '#A3A3A3',
+        'theme-secondary': 'var(--color-theme-secondary)',
+        'theme-text-primary': 'var(--color-theme-text-primary)',
+        'theme-border-primary': 'var(--color-theme-border-primary)',
+        'theme-border-secondary': 'var(--color-theme-border-secondary)',
+        'theme-border-highligh': 'var(--color-theme-border-highligh)',
+        'color-special-primary': 'var(--color-special-primary)',
+        'color-special-secondary': 'var(--color-special-secondary)',
+        'color-warning': 'var(--color-warning)',
+        'color-error': 'var(--color-error)',
+        'color-info': 'var(--color-info)',
+        'color-success': 'var(--color-success)',
         'color-modal-overlay': 'var(--color-modal-overlay)',
-        'table-shadow-left-primary': 'var(--color-light-table-shadow-left-primary)',
-        'table-shadow-right-primary': 'var(--color-light-table-shadow-right-primary)',
-        'shadow-left':'rgba(0, 0, 0, 0.12) 0px 4px 8px 0px, rgba(16, 24, 40, 0.12) 0px 6px 12px 0px, rgba(16, 24, 40, 0.12) 0px 1px 16px 0px',
-        'shadow-right':'rgba(0, 0, 0, 0.12) 0px 4px 8px 0px, rgba(16, 24, 40, 0.12) 0px 6px 12px 0px, rgba(16, 24, 40, 0.12) 0px 1px 16px 0px',
-        'shadow-top':'rgba(0, 0, 0, 0.12) 0px 4px 8px 0px, rgba(16, 24, 40, 0.12) 0px 6px 12px 0px, rgba(16, 24, 40, 0.12) 0px 1px 16px 0px',
-        'shadow-bottom':'rgba(0, 0, 0, 0.12) 0px 4px 8px 0px, rgba(16, 24, 40, 0.12) 0px 6px 12px 0px, rgba(16, 24, 40, 0.12) 0px 1px 16px 0px'
-      }
+        'table-shadow-left-primary':
+          'var(--color-light-table-shadow-left-primary)',
+        'table-shadow-right-primary':
+          'var(--color-light-table-shadow-right-primary)',
+        'shadow-left':
+          'rgba(0, 0, 0, 0.12) 0px 4px 8px 0px, rgba(16, 24, 40, 0.12) 0px 6px 12px 0px, rgba(16, 24, 40, 0.12) 0px 1px 16px 0px',
+        'shadow-right':
+          'rgba(0, 0, 0, 0.12) 0px 4px 8px 0px, rgba(16, 24, 40, 0.12) 0px 6px 12px 0px, rgba(16, 24, 40, 0.12) 0px 1px 16px 0px',
+        'shadow-top':
+          'rgba(0, 0, 0, 0.12) 0px 4px 8px 0px, rgba(16, 24, 40, 0.12) 0px 6px 12px 0px, rgba(16, 24, 40, 0.12) 0px 1px 16px 0px',
+        'shadow-bottom':
+          'rgba(0, 0, 0, 0.12) 0px 4px 8px 0px, rgba(16, 24, 40, 0.12) 0px 6px 12px 0px, rgba(16, 24, 40, 0.12) 0px 1px 16px 0px',
+      },
     },
   },
   plugins: [],
-}
-export default config
+};
+export default config;

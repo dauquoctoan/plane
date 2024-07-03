@@ -1,5 +1,5 @@
 export class CreatePageLabelDto {
-    label: number;
-    page: number;
+  label: number;
+  page: number;
 }
-export class UpdatePageLabelDto { }
+export class UpdatePageLabelDto {}

@@ -1,5 +1,5 @@
 export class UpdateIssuePropertyDto {
-    user: string;
-    properties: string;
+  user: string;
+  properties: string;
 }
-export class CreateIssuePropertyDto { }
+export class CreateIssuePropertyDto {}

@@ -1,33 +1,48 @@
-import { Column, Model, Table, Length, DataType, BelongsToMany, ForeignKey, BelongsTo, HasMany } from 'sequelize-typescript';
+import {
+  Column,
+  Model,
+  Table,
+  Length,
+  DataType,
+  BelongsToMany,
+  ForeignKey,
+  BelongsTo,
+  HasMany,
+} from 'sequelize-typescript';
 import { User } from 'src/api/user/entitys/User.entity';
 import { TeamMember } from './TeamMember.entity';
 import { Workspace } from './Workspace.entity';
 import sequelize from 'sequelize';
 
-@Table({tableName:'Teams'})
+@Table({ tableName: 'Teams' })
 export class Team extends Model<Team> {
-    @Column({ type: sequelize.UUID, defaultValue: sequelize.UUIDV4, allowNull: false, primaryKey: true })
-    id: string;
-    /**
-    * ! table Team
-    * @ForeignKey Workspace
-    * @BelongsToMany User[TeamMember]
-    */
-    @ForeignKey(() => Workspace)
-    @Column({ type: sequelize.UUID, allowNull: false })
-    workspace_id: string;
+  @Column({
+    type: sequelize.UUID,
+    defaultValue: sequelize.UUIDV4,
+    allowNull: false,
+    primaryKey: true,
+  })
+  id: string;
+  /**
+   * ! table Team
+   * @ForeignKey Workspace
+   * @BelongsToMany User[TeamMember]
+   */
+  @ForeignKey(() => Workspace)
+  @Column({ type: sequelize.UUID, allowNull: false })
+  workspace_id: string;
 
-    /* ================================================== */
+  /* ================================================== */
 
-    @BelongsToMany(() => User, () => TeamMember)
-    members: User[];
+  @BelongsToMany(() => User, () => TeamMember)
+  members: User[];
 
-    @BelongsTo(() => Workspace, {foreignKey:'workspace_id'})
-    workspace: Workspace;
+  @BelongsTo(() => Workspace, { foreignKey: 'workspace_id' })
+  workspace: Workspace;
 
-    @Column({ allowNull: false })
-    name: string;
+  @Column({ allowNull: false })
+  name: string;
 
-    @Column({ type: DataType.TEXT })
-    description: string;
+  @Column({ type: DataType.TEXT })
+  description: string;
 }

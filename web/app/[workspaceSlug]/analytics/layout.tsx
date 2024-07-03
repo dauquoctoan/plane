@@ -3,20 +3,24 @@ import MainWorkspaceLayout from '@/layouts/mainWorkspaceLayout';
 import { HiChartBar } from 'react-icons/hi2';
 
 export default function WorkspaceLayout({
-    children,
+  children,
 }: {
-    children: React.ReactNode;
+  children: React.ReactNode;
 }) {
-    return (
-        <MainWorkspaceLayout
-            header={
-                <RoadMap roads={[{
-                    title:'Analytics',
-                    icon:<HiChartBar />
-                }]}/>
-            }
-        >
-            {children}
-        </MainWorkspaceLayout>
-    );
+  return (
+    <MainWorkspaceLayout
+      header={
+        <RoadMap
+          roads={[
+            {
+              title: 'Analytics',
+              icon: <HiChartBar />,
+            },
+          ]}
+        />
+      }
+    >
+      {children}
+    </MainWorkspaceLayout>
+  );
 }

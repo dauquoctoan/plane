@@ -6,10 +6,10 @@ import { IssueSubscriber } from '../entitys/IssueSubscriber.entity';
 
 @Injectable()
 export class IssueSubscriberService extends BaseService<IssueSubscriber> {
-    constructor(
-        @InjectModel(IssueSubscriber)
-        private issueSubscriber: typeof IssueSubscriber,
-    ) {
-        super(issueSubscriber)
-    }
+  constructor(
+    @InjectModel(IssueSubscriber)
+    private issueSubscriber: typeof IssueSubscriber,
+  ) {
+    super(issueSubscriber);
+  }
 }

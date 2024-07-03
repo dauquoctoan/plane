@@ -5,11 +5,9 @@ import MainWorkspaceLayout from '@/layouts/mainWorkspaceLayout';
 import dynamic from 'next/dynamic';
 
 export default function WorkspaceLayout({
-    children,
+  children,
 }: {
-    children: React.ReactNode;
+  children: React.ReactNode;
 }) {
-    return <AuthProvider>
-        {children}
-    </AuthProvider>
+  return <AuthProvider>{children}</AuthProvider>;
 }

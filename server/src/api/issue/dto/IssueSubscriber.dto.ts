@@ -1,5 +1,5 @@
 export class UpdateIssueSubscriberDto {
-    issue: number;
-    subscriber: string;
+  issue: number;
+  subscriber: string;
 }
-export class CreateIssueSubscriberDto { }
+export class CreateIssueSubscriberDto {}

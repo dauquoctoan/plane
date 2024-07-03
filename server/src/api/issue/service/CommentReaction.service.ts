@@ -5,18 +5,15 @@ import { BaseService } from 'src/api/Base.service';
 
 @Injectable()
 export class CommentReactionService extends BaseService<CommentReaction> {
-    constructor(
-        @InjectModel(CommentReaction)
-        private commentReaction: typeof CommentReaction,
-    ) {
-        super(commentReaction)
-    }
+  constructor(
+    @InjectModel(CommentReaction)
+    private commentReaction: typeof CommentReaction,
+  ) {
+    super(commentReaction);
+  }
 
-    async createAction(){
-        try {
-            
-        } catch (error) {
-            
-        }
-    }
+  async createAction() {
+    try {
+    } catch (error) {}
+  }
 }
