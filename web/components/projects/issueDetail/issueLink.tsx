@@ -1,4 +1,4 @@
-import { LS_ISSUE_LINK } from '@/apiKey';
+import { SWR_KEY_LS_ISSUE_LINK } from '@/apiKey';
 import Button from '@/components/ui/button';
 import Confirm from '@/components/ui/confirm';
 import Input from '@/components/ui/input/Input';
@@ -27,7 +27,7 @@ const IssueLink = ({ issueId }: { issueId: string }) => {
     isCreate: true,
   });
 
-  const { data: issueLink } = useSWR(LS_ISSUE_LINK(issueId), () => {
+  const { data: issueLink } = useSWR(SWR_KEY_LS_ISSUE_LINK(issueId), () => {
     return issueService.findIssueLink(issueId);
   });
   const noti = useNoti();
@@ -89,8 +89,8 @@ const IssueLink = ({ issueId }: { issueId: string }) => {
                       const res = await issueService.removeIssueLink(e.id);
                       if (res) {
                         noti?.success('Delete link success');
-                        mutate(LS_ISSUE_LINK(issueId), (prevData: any) => {
-                          return prevData.filter((itemPrevData: IIsueLink) => {
+                        mutate<IIsueLink[]>(SWR_KEY_LS_ISSUE_LINK(issueId), (prevData) => {
+                          return prevData?.filter((itemPrevData) => {
                             return itemPrevData.id != e.id;
                           });
                         });
@@ -147,7 +147,7 @@ const AddLink = ({
             issue_id: issueId,
           });
 
-          mutate(LS_ISSUE_LINK(issueId), (prevData: any) => {
+          mutate(SWR_KEY_LS_ISSUE_LINK(issueId), (prevData: any) => {
             return [...prevData, res];
           });
 
@@ -159,7 +159,7 @@ const AddLink = ({
           const res = await issueService.updateIssueLink(defaultValue.id, data);
 
           if (res) {
-            mutate(LS_ISSUE_LINK(issueId), (prevData: any) => {
+            mutate(SWR_KEY_LS_ISSUE_LINK(issueId), (prevData: any) => {
               return prevData.map((itemIsuelink: IIsueLink) => {
                 if (itemIsuelink.id === defaultValue.id) {
                   return {

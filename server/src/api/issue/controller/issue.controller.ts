@@ -51,14 +51,27 @@ export class IssueController {
     );
   }
 
-  @Post('/fillter')
+  @Get()
   @UseGuards(AuthGuard)
-  async fillterIssue(
+  async findOneIssue(
+    @Query('id') issueId: string,
+    @RequestNest() request: IAuthRequest,
+  ) {
+    return handleResultSuccess(
+      await this.issueService.findOneIssue(issueId, request.user.id),
+    );
+  }
+
+
+
+  @Post('/filter')
+  @UseGuards(AuthGuard)
+  async filterIssue(
     @Body() body: QueryIssueDto,
     @RequestNest() request: IAuthRequest,
   ) {
     return handleResultSuccess(
-      await this.issueService.fillterIssue({
+      await this.issueService.filterIssue({
         ...body,
         userId: request.user.id,
       }),
@@ -76,7 +89,7 @@ export class IssueController {
   }
 
   @Delete(':id')
-  // @UseGuards(AuthGuard)
+  @UseGuards(AuthGuard)
   async delete(@Param('id') id: string) {
     return handleResultSuccess(await this.issueService.removeById(id));
   }

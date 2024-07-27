@@ -464,7 +464,7 @@ export class IssueService extends BaseService<Issue> {
     }
   }
 
-  async fillterIssue(dataDto: QueryIssueDto) {
+  async filterIssue(dataDto: QueryIssueDto) {
     try {
       const user = await this.userService.getUser(dataDto.userId);
       if (user.last_workspace_id) {
@@ -491,6 +491,31 @@ export class IssueService extends BaseService<Issue> {
       handleResultError({
         message: messageFindFail(this.repository.getTableName()),
         messageDetail: 'last_workspace_id not found!',
+      });
+    } catch (error) {
+      handleResultError({
+        message: messageFindFail(this.repository.getTableName()),
+        messageDetail: error,
+      });
+    }
+  }
+
+  async findOneIssue(issueId: string, userId:string) {
+    try {
+      return await this.repository.findOne({
+        where: {
+          id:issueId
+        },
+        include: [
+          { model: State, as: 'state' },
+          { model: Project, as: 'project' },
+          this.getQueryAssignee(null),
+          this.getQueryCreator(null),
+          this.getQueryLabel(null),
+          this.getQueryProject(null),
+          this.getQueryCycle(null),
+          this.getQueryModule(null),
+        ],
       });
     } catch (error) {
       handleResultError({

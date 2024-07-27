@@ -1,5 +1,5 @@
 'use client';
-import { STATES_KEY } from '@/apiKey';
+import { SWR_KEY_STATES } from '@/apiKey';
 import CreateState from '@/components/layout/navbar/createState';
 import Button from '@/components/ui/button';
 import Modal from '@/components/ui/modal';
@@ -7,7 +7,7 @@ import { icons } from '@/constants';
 import { getIcons } from '@/helpers';
 import { useNoti } from '@/hooks';
 import issueService from '@/services/issue-services';
-import { IParams, Istate } from '@/types';
+import { IParams, IState } from '@/types';
 import { useParams } from 'next/navigation';
 import React, { useState } from 'react';
 import useSWR, { mutate } from 'swr';
@@ -18,20 +18,22 @@ const StateSetting = () => {
   const noti = useNoti();
 
   const [isOpen, setIsOpen] = useState<boolean>(false);
-  const { data: states } = useSWR(STATES_KEY(params.projectid), () =>
+  const { data: states } = useSWR(SWR_KEY_STATES(params.projectid), () =>
     issueService.getState(params.projectid)
   );
 
   return (
     <div>
-      <Button
-        typeBTN="primary"
-        className="mb-2"
-        text="Create State"
-        onClick={() => {
-          setIsOpen(true);
-        }}
-      />
+      <div className='flex justify-end'>
+        <Button
+          typeBTN="primary"
+          className="mb-2"
+          onClick={() => {
+            setIsOpen(true);
+          }}
+        >{icons.plus}
+        </Button>
+      </div>
       <div className="flex flex-col gap-2">
         {states?.map((e, i) => {
           return (
@@ -49,8 +51,8 @@ const StateSetting = () => {
                     const result = await issueService.deleteState(e.id);
                     if (result) {
                       noti?.success('Delete state success');
-                      mutate(STATES_KEY(params.projectid), (data: any) => {
-                        return data.filter((item: Istate) => {
+                      mutate<IState[]>(SWR_KEY_STATES(params.projectid), (data) => {
+                        return data?.filter((item: IState) => {
                           return item.id != e.id;
                         });
                       });

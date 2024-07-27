@@ -1,3 +1,4 @@
+import DrawissueDetail from '@/components/projects/drawIssueDetail';
 import { Spinner } from '@/components/ui/loading/Spinner';
 import dynamic from 'next/dynamic';
 
@@ -10,5 +11,5 @@ export default function WorkspaceLayout({
 }: {
   children: React.ReactNode;
 }) {
-  return <AuthLayout>{children}</AuthLayout>;
+  return <AuthLayout><DrawissueDetail/>{children}</AuthLayout>;
 }

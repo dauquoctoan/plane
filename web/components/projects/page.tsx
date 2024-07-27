@@ -1,7 +1,7 @@
 'use client';
 import { selectInfo } from '@/store/slices/authSlice/selectors';
 import projectService from '@/services/project-services';
-import { LS_PROJECT_KEY } from '@/apiKey/project';
+import { SWR_KEY_PROJECTS } from '@/apiKey';
 import ProjectITem from './projectITem';
 import { useSelector } from '@/store';
 import React from 'react';
@@ -10,7 +10,7 @@ import useSWR from 'swr';
 const Project = () => {
   const info = useSelector(selectInfo);
 
-  const { data } = useSWR(LS_PROJECT_KEY(info?.last_workspace_id), () => {
+  const { data } = useSWR(SWR_KEY_PROJECTS(info?.last_workspace_id), () => {
     return projectService.getProjects(info?.last_workspace_id || '');
   });
 

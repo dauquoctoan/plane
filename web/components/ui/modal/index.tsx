@@ -102,7 +102,7 @@ const Modal: React.FC<IProps> = ({
               }}
               ref={wrap}
               className={`w-[97%] md:w-max absolute top-[50%] translate-y-[-50%] scale-100 rounded bg-theme-primary ${
-                isPadding ? 'px-6 py-4' : ''
+                isPadding ? 'md:px-6 md:py-4 px-2 py-1' : ''
               } transition-all box-border ${className}`}
             >
               {isOnClose && (

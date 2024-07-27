@@ -3,7 +3,7 @@ import React, { ReactElement, useEffect, useRef, useState } from 'react';
 import { IoCloseCircleOutline } from 'react-icons/io5';
 import { AiOutlineCalendar } from 'react-icons/ai';
 import PopoverDatePiker from './popoverDatePicker';
-import { ICurentFieldProps } from '../types/form';
+import { ICurrentFieldProps } from '../types/form';
 import usePopUp, { TPlacement } from '@/hooks/popUp';
 import { createPortal } from 'react-dom';
 import { useNoti } from '@/hooks';
@@ -31,7 +31,7 @@ export interface Iprops {
 
 export type formatDate = 'DD/MM/YYY' | 'YYY/DD/MM' | 'MM/DD/YYY';
 
-export type ICurentField = Iprops & ICurentFieldProps;
+export type ICurentField = Iprops & ICurrentFieldProps;
 
 export function formartDate(
   value: IItemDate | undefined,
@@ -170,7 +170,7 @@ const DatePicker: React.FC<ICurentField> = ({
       >
         <div
           ref={refBtn}
-          className={`w-full text-[12px] font-normal flex items-center py-[3px] gap-1 px-2 justify-between ${
+          className={`w-full text-[12px] font-normal flex items-center py-[3px] gap-1 px-2 justify-between whitespace-nowrap ${
             className ? className : ''
           }`}
         >

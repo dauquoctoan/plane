@@ -1,4 +1,4 @@
-import { STATES_KEY } from '@/apiKey/project';
+import { SWR_KEY_STATES } from '@/apiKey';
 import AutoComplete from '@/components/ui/auto-complete';
 import Button from '@/components/ui/button';
 import Colorpicker from '@/components/ui/colorpicker/colorpicker';
@@ -8,13 +8,13 @@ import Input from '@/components/ui/input/Input';
 import { IOptionItem } from '@/components/ui/select/select';
 import { LS_KEY_STATE } from '@/constants';
 import issueService from '@/services/issue-services';
-import { IData, Istate } from '@/types';
+import { IData, IState } from '@/types';
 import React from 'react';
 import { useForm } from 'react-hook-form';
 import useSWR, { mutate } from 'swr';
 
 interface IPropsCreateState {
-  states: Istate[];
+  states: IState[];
   projectId: string;
   handleClose: () => void;
 }
@@ -31,20 +31,20 @@ const CreateState: React.FC<IPropsCreateState> = ({
     watch,
     control,
     unregister,
-  } = useForm<Istate>();
+  } = useForm<IState>();
 
   return (
     <form
       id="create-state-form"
       onSubmit={handleSubmit(data => {
-        mutate(
-          STATES_KEY(projectId),
+        mutate<IState[]>(
+          SWR_KEY_STATES(projectId),
           async (state: any) => {
             const groupKey: string | undefined = Object.keys(LS_KEY_STATE).find(
               key => data.group?.includes(LS_KEY_STATE[key])
             );
             if (groupKey) {
-              const result = await issueService.createState<Istate>({
+              const result = await issueService.createState<IState>({
                 name: data.name,
                 color: data.color,
                 project_id: projectId,
@@ -58,7 +58,7 @@ const CreateState: React.FC<IPropsCreateState> = ({
             } else {
               alert('group không tồn tại vui lòng nhập lại');
             }
-            return [...state];
+            return state
           },
           { revalidate: false }
         );

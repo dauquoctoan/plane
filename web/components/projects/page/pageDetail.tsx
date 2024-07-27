@@ -1,5 +1,5 @@
 'use client';
-import { KEY_PROJECT_PAGE } from '@/apiKey';
+import { SWR_KEY_PROJECT_PAGE } from '@/apiKey';
 import Button from '@/components/ui/button';
 import projectService from '@/services/project-services';
 import { IPage, IParams } from '@/types';
@@ -13,7 +13,7 @@ const PageDetail = () => {
   const pathName = usePathname();
   const link = pathName + '/edit';
 
-  const { data, isLoading } = useSWR(KEY_PROJECT_PAGE(params.pageid), () => {
+  const { data, isLoading } = useSWR(SWR_KEY_PROJECT_PAGE(params.pageid), () => {
     return projectService.findOnePage(params.pageid);
   });
 

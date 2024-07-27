@@ -9,14 +9,14 @@ import useSWR, { mutate } from 'swr';
 import lodash from 'lodash';
 import { useDispatch } from 'react-redux';
 import { issueViewSlice } from '@/store';
-import { menuLayoutIssue } from '@/constants';
+import { icons, menuLayoutIssue } from '@/constants';
 import RoadMap from '@/components/module/roadMap';
 import Drawer from '@/components/ui/drawer';
 
 const IssueHeader = () => {
   const [isShowMenuNobile, setShowMenuMobile] = useState<boolean>(false);
   return (
-    <div className="flex gap-2 items-center text-sm pr-2">
+    <div className="flex gap-2 items-center text-sm pr-2 justify-between">
       <div className="flex items-center gap-2">
         <RoadMap
           roads={[
@@ -37,6 +37,7 @@ const IssueHeader = () => {
         handleClose={() => {
           setShowMenuMobile(false);
         }}
+        className='h-[49px]'
         isOpen={isShowMenuNobile}
         position="top"
         content={
@@ -49,21 +50,10 @@ const IssueHeader = () => {
         onClick={() => {
           setShowMenuMobile(true);
         }}
-        className="md:hidden flex items-center justify-center border bg-theme-secondary cursor-pointer w-5 h-5"
+        className="md:hidden rounded overflow-hidden flex items-center justify-center border bg-theme-secondary cursor-pointer w-5 h-5"
       >
-        ...
+        {icons.more}
       </div>
-      {/* <div className="md:flex hidden flex-1 justify-end overflow-x-auto items-center gap-2">
-                <div className='w-fit'>
-                    
-                </div>
-                <div className="border rounded px-3 py-1 h-fit select-none cursor-pointer">
-                    fillter
-                </div>
-                <div className="border rounded px-3 py-1 h-fit select-none cursor-pointer">
-                    display
-                </div>
-            </div> */}
     </div>
   );
 };

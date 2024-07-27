@@ -1,15 +1,21 @@
 import {
-  IFillterIssue,
+  IEstimate,
+  IEstimatePoint,
+  IfilterIssue,
   IIssue,
   IIssueViews,
   IIsueLink,
   IIsueReaction,
   ILabel,
-  Istate,
+  IState,
 } from '@/types';
 import { BaseService } from './base-service';
 import APP_CONFIG from '@/configs';
 import { IMoreForm } from '@/components/module/createIssue';
+
+
+export type TCreateEstimatePoint =  Partial<IEstimatePoint>[]
+export type TCreateEstimate =  Partial<Omit<IEstimate, 'estimate_points'> & { estimate_points: TCreateEstimatePoint }>
 
 const { API_BASE_URL } = APP_CONFIG;
 
@@ -20,7 +26,7 @@ class IssueService extends BaseService {
 
   async getState(projectId: string, isUser?: boolean) {
     try {
-      return await this.get<Istate[]>(
+      return await this.get<IState[]>(
         'state/project/' + projectId + '?isUser=' + isUser || ''
       );
     } catch (error) {
@@ -30,7 +36,7 @@ class IssueService extends BaseService {
 
   async getDefaultState() {
     try {
-      return await this.get<Istate[]>('state/default');
+      return await this.get<IState[]>('state/default');
     } catch (error) {
       console.log(error);
     }
@@ -46,7 +52,7 @@ class IssueService extends BaseService {
     }
   }
 
-  async createState<T>(state: Partial<Istate>) {
+  async createState<T>(state: Partial<IState>) {
     try {
       return await this.post<T>('state', state);
     } catch (error) {
@@ -70,9 +76,17 @@ class IssueService extends BaseService {
     }
   }
 
-  async findIssues(query?: IFillterIssue) {
+  async findIssues(query?: IfilterIssue) {
     try {
-      return await this.post<IIssue[]>(`issue/fillter`, query);
+      return await this.post<IIssue[]>(`issue/filter`, query);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  async findOneIssue(issueId: string) {
+    try {
+      return await this.get<IIssue>('issue?id='+issueId);
     } catch (error) {
       console.log(error);
     }
@@ -94,9 +108,9 @@ class IssueService extends BaseService {
     }
   }
 
-  async updateIssue<T>(idIssue?: string, issue?: Partial<IIssue>) {
+  async updateIssue(idIssue?: string, issue?: Partial<IIssue>) {
     try {
-      return await this.patch<T>(`issue/${idIssue}`, issue);
+      return await this.patch<IIssue>(`issue/${idIssue}`, issue);
     } catch (error) {
       console.log(error);
     }
@@ -228,6 +242,65 @@ class IssueService extends BaseService {
   async removeIssueLink(id: string) {
     try {
       return await this.delete('issue-link/' + id);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  // estimate
+  async findEstimateByProject(projectId: string) {
+    try {
+      return await this.get<IEstimate[]>('estimate?projectId=' + projectId);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  async findOneEstimate(estimateId: string) {
+    try {
+      return await this.get<IEstimate>('estimate/' + estimateId);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  async createEstimate(estimate: TCreateEstimate) {
+    try {
+      return await this.post<IEstimate>('estimate', estimate);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  async updateEstimateByProject(estimate: TCreateEstimate) {
+    try {
+      return await this.patch<IEstimate>('estimate', estimate);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  async removeEstimate(id: string) {
+    try {
+      return await this.delete('estimate/' + id);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  // estimate point
+
+  async updateEstimatePointById(estimatePointId: string, estimate: Partial<IEstimatePoint>) {
+    try {
+      return await this.patch<IEstimatePoint>('estimate-point/' + estimatePointId, estimate);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  async removeEstimatePointById(estimatePointId: string) {
+    try {
+      return await this.delete('estimate-point/' + estimatePointId);
     } catch (error) {
       console.log(error);
     }

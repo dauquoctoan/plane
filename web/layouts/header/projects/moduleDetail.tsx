@@ -1,5 +1,5 @@
 'use client';
-import { LS_PROJECT_KEY } from '@/apiKey';
+import { SWR_KEY_PROJECTS } from '@/apiKey';
 import CreateIssue from '@/components/module/createIssue';
 import LayoutSwitch from '@/components/module/layoutSwitch';
 import RoadMap from '@/components/module/roadMap';
@@ -26,7 +26,7 @@ const ModuleDetail = () => {
   const dispatch = useDispatch();
 
   const { data: projects } = useSWR(
-    LS_PROJECT_KEY(info?.last_workspace_id),
+    SWR_KEY_PROJECTS(info?.last_workspace_id),
     () => projectService.getProjects(info?.last_workspace_id || '')
   );
 

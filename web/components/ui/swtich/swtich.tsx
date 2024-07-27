@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { ICurentFieldProps } from '../types';
+import { ICurrentFieldProps } from '../types';
 
 export interface IPropsSwitch {
   size?: 'sm' | 'md' | 'lg' | 'xl';
@@ -16,7 +16,7 @@ interface IStyleOpeions {
   x: number | string;
 }
 
-type IProps = IPropsSwitch & ICurentFieldProps;
+type IProps = IPropsSwitch & ICurrentFieldProps;
 
 const Switch: React.FC<IProps> = ({ size = 'sm', label, onChange, value }) => {
   const [isChecked, setisChecked] = useState<boolean>(value || false);

@@ -17,7 +17,7 @@ export interface IItem {
   cb?: () => void;
 }
 
-const MoreToolls: FC<IPropsMoreTools> = ({ data }) => {
+const MoreTools: FC<IPropsMoreTools> = ({ data }) => {
   return (
     <div className="flex flex-col gap-1 text-[13px] min-w-[150px]">
       {data.map((e, i) => {
@@ -59,4 +59,4 @@ const Item: FC<IItem> = ({ icon, text, cb, render }) => {
   );
 };
 
-export default MoreToolls;
+export default MoreTools;

@@ -10,8 +10,8 @@ interface ISelectPopup extends IProps {
   isSearch: boolean;
   fontSize: FontSize;
   lsResult: IOptionItem[] | string[];
-  curentValue?: string;
-  setCurentValue?: (e: string) => void;
+  currentValue?: string;
+  setCurrentValue?: (e: string) => void;
   setResult: (e: IOptionItem[] | string[]) => void;
   refPopUp: React.RefObject<HTMLDivElement>;
   style: IPositionResult;
@@ -36,11 +36,11 @@ const SelectPopup: React.FC<ISelectPopup> = ({
   fontSize,
   isIconCheck,
   iconActive = <BsCheck2 />,
-  curentValue,
+  currentValue,
   lsResult,
   isMutiple,
   moreValue,
-  setCurentValue,
+  setCurrentValue,
   moreItem,
   options,
   refPopUp,
@@ -84,11 +84,11 @@ const SelectPopup: React.FC<ISelectPopup> = ({
             isIconCheck={isIconCheck}
             iconActive={iconActive}
             isActive={
-              curentValue
-                ? checkActive(item, isMutiple ? moreValue : curentValue)
+              currentValue
+                ? checkActive(item, isMutiple ? moreValue : currentValue)
                 : false
             }
-            setValue={setCurentValue}
+            setValue={setCurrentValue}
             key={index}
             item={item}
           />

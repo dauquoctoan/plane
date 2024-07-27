@@ -1,5 +1,5 @@
 /* Core */
-import { IStateDate } from '@/components/issue/fillterQueryIssue';
+import { IStateDate } from '@/components/issue/filterQueryIssue';
 import { IItemData, IItemSelected } from '@/components/ui/collapse/collapse';
 import { IInfo, TLayout } from '@/types';
 import { createSlice, type PayloadAction } from '@reduxjs/toolkit';
@@ -47,6 +47,7 @@ export const issueViewSlice = createSlice({
     setLayoutProjectView: (state, action: PayloadAction<TLayout>) => {
       state.layout = action.payload;
     },
+
     setDisableTable: (state, action: PayloadAction<string[]>) => {
       state.lsDisableTable = action.payload;
     },

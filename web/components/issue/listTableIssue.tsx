@@ -1,5 +1,4 @@
 'use client';
-import { ISSUE_VIEWS_KEY } from '@/apiKey';
 import issueService from '@/services/issue-services';
 import { IData, IIssueViews } from '@/types';
 import React from 'react';
@@ -10,6 +9,7 @@ import { selectInfo } from '@/store/slices/authSlice/selectors';
 import { issueViewSlice, useDispatch, useSelector } from '@/store';
 import { ContainerLink, LinkProps, changeRoute } from 'nextjs-progressloader';
 import { createNickNameLink } from '@/helpers';
+import { SWR_KEY_ISSUE_VIEWS } from '@/apiKey';
 
 function createLink(slug: string = '', id: string = '') {
   return `/${slug}/workspace-views/${id}`;
@@ -18,7 +18,7 @@ function createLink(slug: string = '', id: string = '') {
 const ListTableIssue = () => {
   const info = useSelector(selectInfo);
   const { data: issueViews } = useSWR(
-    () => ISSUE_VIEWS_KEY,
+    SWR_KEY_ISSUE_VIEWS,
     () => issueService.getIssueView<IData<IIssueViews[]>>()
   );
 

@@ -9,6 +9,10 @@ export class CreateEstimateDto {
 }
 
 export class UpdateEstimateDto {
+  id:string;
+  project_id: string;
+  workspace_id?: string;
+  estimate_points: CreateEstimatePointDto[];
   name: string;
   description: string;
 }

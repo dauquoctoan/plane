@@ -11,7 +11,7 @@ export interface IFieldProps extends IFiledReactHookForm {
   disableMessage?: boolean;
 }
 
-export interface ICurentFieldProps {
+export interface ICurrentFieldProps {
   error?: string;
   disableMessage?: boolean;
 }

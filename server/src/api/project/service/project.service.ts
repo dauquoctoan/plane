@@ -14,6 +14,7 @@ import { CreateProjectDto } from '../dto/project.dto';
 import { ProjectMemberService } from './ProjectMember.service';
 import { CreateProjectMemberDto } from '../dto/ProjectMember.dto';
 import { ProjectFavorite } from '../entitys/projectFavorite.entity';
+import { Estimate } from 'src/api/estimate/entitys/Estimate.entity';
 
 @Injectable()
 export class ProjectService extends BaseService<Project> {
@@ -43,9 +44,29 @@ export class ProjectService extends BaseService<Project> {
                 ),
                 'is_member',
               ],
+              [
+                Sequelize.literal(
+                    `(SELECT 1 FROM ProjectFavorites WHERE
+                      ProjectFavorites.project_id = Project.id AND
+                      ProjectFavorites.user_id = '${userId}' 
+                    )
+                  `,
+                ),
+                'is_favorite',
+              ],
             ],
           },
-          include: [{ model: User, as: 'created_by_user' }],
+          include: [
+            { model: User, as: 'created_by_user' },
+            {
+              model: ProjectFavorite,
+              // attributes: [],
+              // required: false,
+              as: 'project_favorite'
+            },
+          ],
+          //raw: true,
+          // group: ['Project.id', 'project_favorites.user_id'],
           order: [['createdAt', 'DESC']],
         });
       }

@@ -1,11 +1,11 @@
-import DatepickerTable from '@/components/module/datepickerTable';
+import DatePickerTable from '@/components/module/datePickerTable';
 import SelectLabels from '@/components/module/selectLabels';
 import SelectMember from '@/components/module/selectMember';
 import SelectState from '@/components/module/selectState';
 import Select, { IOptionItem } from '@/components/ui/select/select';
 import { ITableConfigs } from '@/components/ui/table';
 import issueService from '@/services/issue-services';
-import { IIssue, IUser, Istate, ILabel } from '@/types';
+import { IIssue, IUser, IState, ILabel } from '@/types';
 import { LinkProps } from 'next/link';
 import { eventEmitter } from 'nextjs-progressloader';
 import { CiViewList } from 'react-icons/ci';
@@ -23,6 +23,7 @@ import { RiErrorWarningLine } from 'react-icons/ri';
 import moment from 'moment';
 import { IconType } from 'react-icons';
 import { ReactElement } from 'react';
+import SelectEstimate from '@/components/module/selectEstimate';
 
 export interface ILink {
   title: string;
@@ -772,7 +773,7 @@ export const TableConfigs: ITableConfigs[] = [
   {
     title: 'State',
     dataIndex: 'state_id',
-    render: (stateId, item: Istate) => (
+    render: (stateId, item: IState) => (
       <SelectState
         projectId={item.project_id}
         stateId={stateId?.toString()}
@@ -787,7 +788,7 @@ export const TableConfigs: ITableConfigs[] = [
   {
     title: 'Priority',
     dataIndex: 'priority',
-    render: (priority, item: Istate) => {
+    render: (priority, item: IState) => {
       return (
         <Select
           options={optionLevel}
@@ -843,7 +844,7 @@ export const TableConfigs: ITableConfigs[] = [
     dataIndex: 'start_date',
     render(value: string, item: IIssue) {
       return (
-        <DatepickerTable
+        <DatePickerTable
           defaultDate={value}
           name="Start Date"
           beforeUpdateValue={e => {
@@ -861,7 +862,7 @@ export const TableConfigs: ITableConfigs[] = [
     dataIndex: 'target_date',
     render(value: string, item: IIssue) {
       return (
-        <DatepickerTable
+        <DatePickerTable
           defaultDate={value}
           name="Due Date"
           beforeUpdateValue={e => {
@@ -876,7 +877,20 @@ export const TableConfigs: ITableConfigs[] = [
   {
     title: 'Estimate',
     width: 200,
-    dataIndex: 'estimate_point',
+    dataIndex: 'estimate_point_id',
+    render(estimate_point_id: string, item: IIssue) {
+      return (
+        <SelectEstimate
+          estimates={estimate_point_id || ''}
+          estimateId={item.project?.estimate_id || ''}
+          beforeUpdateValue={(change) => {
+            return issueService.updateIssue(item.id, {
+              estimate_point_id: change as string
+            });
+          }}
+        />
+      );
+    },
   },
   {
     title: 'Created On',

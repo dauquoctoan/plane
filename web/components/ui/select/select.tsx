@@ -1,7 +1,7 @@
 'use client';
 
-import React, { ReactElement, memo, useEffect, useRef, useState } from 'react';
-import { ICurentFieldProps } from '../types/form';
+import React, { ReactElement, useEffect, useRef, useState } from 'react';
+import { ICurrentFieldProps } from '../types/form';
 import SelectPopup from './selectPopup';
 import usePopUp from '@/hooks/popUp';
 import { createPortal } from 'react-dom';
@@ -9,6 +9,7 @@ import { useNoti } from '@/hooks';
 import ItemSelect from './itemSelect';
 import Tooltip from '../tooltip';
 import { mutate } from 'swr';
+import { IState } from '@/types';
 
 export type FontSize =
   | 'text-sm'
@@ -17,7 +18,7 @@ export type FontSize =
   | 'text-2xl'
   | 'text-[12px]';
 
-export interface IProps extends ICurentFieldProps {
+export interface IProps extends ICurrentFieldProps {
   children?: ReactElement | string;
   options?: IOptionItem[] | string[];
   border?: boolean;
@@ -27,7 +28,7 @@ export interface IProps extends ICurentFieldProps {
   placement?: 'bottomLeft' | 'bottomRight' | 'topLeft' | 'topRight';
   onChange?: (value: string | string[]) => void;
   isSearch?: boolean;
-  customeSelected?: (res: Item, loading?: boolean) => ReactElement | string;
+  customSelected?: (res: Item, loading?: boolean) => ReactElement | string;
   isClear?: boolean;
   className?: string;
   disableTooltip?: boolean;
@@ -51,17 +52,16 @@ export interface IOptionItem {
 }
 
 export type Item = IOptionItem | string;
+export type ICurrentField = IProps & ICurrentFieldProps;
 
-export type ICurentField = IProps & ICurentFieldProps;
-
-function getCurentItem(lsResult: Item[], value: string): Item | undefined {
+function getCurrentItem(lsResult: Item[], value: string): Item | undefined {
   return lsResult.find(item => {
     if (typeof item == 'string') return item === value;
     else return item.value === value;
   });
 }
 
-const Select: React.FC<ICurentField> = ({
+const Select: React.FC<ICurrentField> = ({
   children,
   disableMessage,
   error,
@@ -79,7 +79,7 @@ const Select: React.FC<ICurentField> = ({
   isSearch = false,
   border = true,
   isClear,
-  customeSelected,
+  customSelected,
   keyUpdate,
   showMoreText = true,
   beforeUpdateValue,
@@ -88,7 +88,7 @@ const Select: React.FC<ICurentField> = ({
   style: cssStyle,
   disableTooltip = false,
 }) => {
-  const [curentValue, setCurentValue] = useState<string>(
+  const [currentValue, setCurrentValue] = useState<string>(
     defaultValue
       ? typeof defaultValue === 'string'
         ? defaultValue
@@ -115,16 +115,16 @@ const Select: React.FC<ICurentField> = ({
   async function confirm(value: string | string[]) {
     if (beforeUpdateValue) {
       if (keyUpdate) {
-        mutate(
+        mutate<IState[]>(
           keyUpdate,
-          async (state: any) => {
+          async (state) => {
             const result = await beforeUpdateValue(value);
             if (result) {
               noti?.success(msgUpdateValueSuccess || 'Update success');
-              return [result, ...state];
+              return [result, ...(state||[])];
             } else {
               noti?.error(msgUpdateValueFail || 'Update error!');
-              return [...state];
+              return state;
             }
           },
           { revalidate: false }
@@ -160,7 +160,7 @@ const Select: React.FC<ICurentField> = ({
         if (isSetData || !beforeUpdateValue) {
           setMoreValue(newData);
           handleOnChange(newData);
-          newData.length > 0 ? setCurentValue(newData[0]) : setCurentValue('');
+          newData.length > 0 ? setCurrentValue(newData[0]) : setCurrentValue('');
         }
       } else {
         let isSetData;
@@ -172,22 +172,22 @@ const Select: React.FC<ICurentField> = ({
 
         if (isSetData || !beforeUpdateValue) {
           setMoreValue(newData);
-          setCurentValue(value);
+          setCurrentValue(value);
           handleOnChange(newData);
         }
       }
     } else {
-      if (value !== curentValue && beforeUpdateValue) {
+      if (value !== currentValue && beforeUpdateValue) {
         const result = await confirm(value);
         handleOnChange(value);
         if (!result) return;
       }
-      setCurentValue(value);
+      setCurrentValue(value);
       handleOnChange(value);
     }
   };
 
-  async function handeClearField() {
+  async function handleClearField() {
     if (beforeUpdateValue) {
       setLoading(true);
       let result = await beforeUpdateValue(isMutiple ? [] : '');
@@ -198,7 +198,7 @@ const Select: React.FC<ICurentField> = ({
         return;
       }
     }
-    setCurentValue('');
+    setCurrentValue('');
     isMutiple && setMoreValue([]);
   }
 
@@ -213,7 +213,7 @@ const Select: React.FC<ICurentField> = ({
 
   useEffect(() => {
     defaultValue &&
-      setCurentValue(
+      setCurrentValue(
         typeof defaultValue == 'string' ? defaultValue : defaultValue[0]
       );
   }, []);
@@ -227,21 +227,21 @@ const Select: React.FC<ICurentField> = ({
   useEffect(() => {
     if (isMutiple) {
       if (typeof value == 'object' && value.length !== moreValue.length) {
-        setCurentValue(value[0] || '');
+        setCurrentValue(value[0] || '');
         setMoreValue(value);
       }
     } else {
       if (
         value !== undefined &&
-        value !== curentValue &&
+        value !== currentValue &&
         typeof value === 'string'
       ) {
-        setCurentValue(value);
+        setCurrentValue(value);
       }
     }
   }, [value]);
 
-  const curentItemSelected = getCurentItem(options || [], curentValue);
+  const currentItemSelected = getCurrentItem(options || [], currentValue);
 
   const isOpen = open && (lsResult.length > 0 || isSearch);
 
@@ -264,7 +264,7 @@ const Select: React.FC<ICurentField> = ({
             {itemSelected().map((e, i) => {
               return (
                 <div key={i} className="ml-1 group/item group-first/pr:ml-0">
-                  {typeof e == 'string' ? e : e.title}
+                  {typeof e == 'string' ? e : e?.title}
                   <span className="group-last/item:hidden">,</span>
                 </div>
               );
@@ -282,22 +282,22 @@ const Select: React.FC<ICurentField> = ({
             error ? 'border border-color-error' : border ? 'border' : ''
           } rounded hover:bg-theme-secondary cursor-pointer`}
         >
-          {(curentItemSelected &&
-            customeSelected &&
-            customeSelected(curentItemSelected, loading)) ||
-            (curentItemSelected && (
+          {(currentItemSelected &&
+            customSelected &&
+            customSelected(currentItemSelected, loading)) ||
+            (currentItemSelected && (
               <ItemSelect
                 updateValue={handleBeforeUpdate}
                 fontSize={fontSize}
-                setValue={setCurentValue}
+                setValue={setCurrentValue}
                 className={className}
                 isClear={isClear}
                 refClear={refClear}
                 moreValue={moreValue}
                 loading={loading}
                 showMoreText={showMoreText}
-                handleClear={handeClearField}
-                item={curentItemSelected}
+                handleClear={handleClearField}
+                item={currentItemSelected}
               />
             )) ||
             children || (
@@ -328,11 +328,11 @@ const Select: React.FC<ICurentField> = ({
             isIconCheck={isIconCheck}
             placement={placement}
             className={className}
-            curentValue={curentValue}
+            currentValue={currentValue}
             defaultValue={defaultValue}
-            customeSelected={customeSelected}
+            customSelected={customSelected}
             disableMessage={disableMessage}
-            setCurentValue={setCurentValue}
+            setCurrentValue={setCurrentValue}
           />,
           document.body
         )}

@@ -4,7 +4,7 @@ import React, { ReactElement, useEffect, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
 import Popover, { IItemData } from './popOver';
 import { IoCloseCircleOutline } from 'react-icons/io5';
-import { ICurentFieldProps } from '../types';
+import { ICurrentFieldProps } from '../types';
 import { forEach } from 'lodash';
 import { reducer } from '@/store/rootReducer';
 
@@ -55,7 +55,7 @@ export interface IFN {
   getValue: any;
 }
 
-export type IProps = ICurentFieldProps & ITreeSelect;
+export type IProps = ICurrentFieldProps & ITreeSelect;
 
 function getValues(itemSelected: IItemSelected) {
   return Object.keys(itemSelected).map(e => {

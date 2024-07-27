@@ -4,17 +4,17 @@ import issueService from '@/services/issue-services';
 import projectService from '@/services/project-services';
 import { modalSlice, useSelector } from '@/store';
 import { selectInfo } from '@/store/slices/authSlice/selectors';
-import { IInfo, IIssue, ILabel, IParams, IProject, Istate } from '@/types';
+import { IInfo, IIssue, ILabel, IParams, IProject, IState } from '@/types';
 import { useParams, usePathname } from 'next/navigation';
 import React, { Dispatch, FC, useEffect, useRef, useState } from 'react';
 import { IoIosLink, IoIosMore } from 'react-icons/io';
 import { HiPlusSm } from 'react-icons/hi';
 import useSWR, { mutate } from 'swr';
-import MoreToolls from '../../../module/moreToolls';
+import MoreTools from '../../../module/moreTools';
 import SelectState from '@/components/module/selectState';
 import SelectMember from '@/components/module/selectMember';
 import SelectLabels from '@/components/module/selectLabels';
-import DatepickerTable from '@/components/module/datepickerTable';
+import DatePickerTable from '@/components/module/datePickerTable';
 import moment from 'moment';
 import {
   MdModeEditOutline,
@@ -30,13 +30,13 @@ import { INotiConext } from '@/components/ui/notification';
 import { getConfigMoreIssue } from '@/helpers';
 
 interface IListBoard {
-  states: Istate[];
+  states: IState[];
   issues: IIssue[];
 }
 
 const ListBoard: FC<IListBoard> = ({ states, issues }) => {
   const dataConvert: { [e: string]: { name: string; chilren: IIssue[] } } =
-    states.reduce((prevData, item: Istate) => {
+    states.reduce((prevData, item: IState) => {
       return {
         ...prevData,
         [item.id]: {
@@ -55,7 +55,7 @@ const ListBoard: FC<IListBoard> = ({ states, issues }) => {
   });
 
   const { data: project } = useSWR(params.projectid, () => {
-    return projectService.findOneProject<IProject>(params.projectid);
+    return projectService.findOneProject(params.projectid);
   });
   const noti = useNoti();
   return (
@@ -123,7 +123,7 @@ const ListBoard: FC<IListBoard> = ({ states, issues }) => {
                         }}
                       />
 
-                      <DatepickerTable
+                      <DatePickerTable
                         defaultDate={item.start_date}
                         name="Start Date"
                         style={{ width: 'fit-content' }}
@@ -134,7 +134,7 @@ const ListBoard: FC<IListBoard> = ({ states, issues }) => {
                         }}
                       />
 
-                      <DatepickerTable
+                      <DatePickerTable
                         defaultDate={item.target_date}
                         name="Due Date"
                         style={{ width: 'fit-content' }}
@@ -147,7 +147,7 @@ const ListBoard: FC<IListBoard> = ({ states, issues }) => {
 
                       <Popover
                         content={
-                          <MoreToolls
+                          <MoreTools
                             data={getConfigMoreIssue(
                               item,
                               pathName,
@@ -216,9 +216,9 @@ const MoreIssue = ({
     stateId: string,
     stateName: string
   ) => {
-    mutate(
+    mutate<IIssue[]>(
       pathName,
-      async (issue: any) => {
+      async (issue) => {
         const issueResult = await issueService.createIssue({
           name: name,
           state_id: stateId,
@@ -240,7 +240,7 @@ const MoreIssue = ({
               name: stateName,
             },
           };
-          return [...issue, itemConvert];
+          return [...(issue||[]), itemConvert];
         } else {
           noti?.error('An error occurred, please try again later');
           return issue;

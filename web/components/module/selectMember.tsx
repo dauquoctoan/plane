@@ -5,7 +5,7 @@ import DefaultSelectMember from './defaultSelectMember';
 import { createMembeSelectOption } from '@/helpers';
 import projectService from '@/services/project-services';
 import { IProjectMember } from '@/types';
-import { MEMBER_KEY_BY_PROJECT } from '@/apiKey';
+import { SWR_KEY_MEMBER_BY_PROJECT } from '@/apiKey';
 import useSWR from 'swr';
 
 interface IProps {
@@ -32,7 +32,7 @@ const SelectMember: React.FC<IProps> = ({
   isOptionItem,
 }) => {
   const { data: members } = useSWR(
-    () => MEMBER_KEY_BY_PROJECT(projectId),
+    () => SWR_KEY_MEMBER_BY_PROJECT(projectId),
     () =>
       projectService.getMemberByProject<IProjectMember[]>({
         projectId: projectId || '',

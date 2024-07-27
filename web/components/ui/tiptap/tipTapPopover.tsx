@@ -10,7 +10,7 @@ import TextAlign from '@tiptap/extension-text-align';
 import TextStyle from '@tiptap/extension-text-style';
 import { Extension } from '@tiptap/react';
 import Placeholder from '@tiptap/extension-placeholder';
-import { ICurentFieldProps } from '../types';
+import { ICurrentFieldProps } from '../types';
 import MenuPopover from './menuPopover';
 import Underline from '@tiptap/extension-underline';
 import Code from '@tiptap/extension-code';
@@ -40,7 +40,6 @@ import {
 import { icons } from '@/constants';
 import APP_CONFIG from '@/configs';
 import uploadService from '@/services/uploadservice';
-import { GrBottomCorner } from 'react-icons/gr';
 
 export const FontSize = Extension.create({
   name: 'fontSize',
@@ -85,10 +84,10 @@ export interface ITipTap {
 }
 
 type IProps = ITipTap &
-  ICurentFieldProps &
+  ICurrentFieldProps &
   Omit<EditorContentProps, 'editor' | 'ref' | 'editor'>;
 
-export default function TiptapPopover(props: IProps) {
+export default function TipTapPopover(props: IProps) {
   const [loading, setLoading] = useState(false);
   const refInput = useRef<HTMLInputElement>(null);
   const {
@@ -200,7 +199,6 @@ export default function TiptapPopover(props: IProps) {
 
   const uploadFile = async (files: any) => {
     const formData = new FormData();
-
     formData.append('image', files);
 
     try {

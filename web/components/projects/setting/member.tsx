@@ -1,5 +1,5 @@
 'use client';
-import { LS_PROJECT_KEY, MEMBER_KEY_BY_PROJECT } from '@/apiKey';
+import { SWR_KEY_PROJECTS, SWR_KEY_MEMBER_BY_PROJECT } from '@/apiKey';
 import SelectMemberTable from '@/components/module/selectMember';
 import Avatar from '@/components/ui/avatar';
 import Line from '@/components/ui/line';
@@ -16,15 +16,15 @@ const Member = () => {
   const params = useParams<IParams>();
 
   const { data: members } = useSWR(
-    () => MEMBER_KEY_BY_PROJECT(params.projectid),
+    () => SWR_KEY_MEMBER_BY_PROJECT(params.projectid),
     () =>
       projectService.getMemberByProject<IProjectMember[]>({
         projectId: params.projectid || '',
       })
   );
 
-  const { data: project } = useSWR<IData<IProject>>(params.projectid, () => {
-    return projectService.findOneProject<IProject>(params.projectid);
+  const { data: project } = useSWR(params.projectid, () => {
+    return projectService.findOneProject(params.projectid);
   });
 
   return (

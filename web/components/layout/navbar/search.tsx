@@ -19,7 +19,7 @@ const defaultIssue: IItem[] = [
   {
     type: 'issue',
     name: 'Create new issue',
-    icons: icons.pluss,
+    icons: icons.plus,
   },
 ];
 
@@ -27,7 +27,7 @@ const defaultProject: IItem[] = [
   {
     type: 'project',
     name: 'Create new project',
-    icons: icons.pluss,
+    icons: icons.plus,
   },
 ];
 
@@ -35,7 +35,7 @@ const defaultCycle: IItem[] = [
   {
     type: 'cycle',
     name: 'Create new cycle',
-    icons: icons.pluss,
+    icons: icons.plus,
   },
 ];
 
@@ -43,7 +43,7 @@ const defaultModule: IItem[] = [
   {
     type: 'module',
     name: 'Create new module',
-    icons: icons.pluss,
+    icons: icons.plus,
   },
 ];
 
@@ -58,7 +58,7 @@ const defaultWorkSpace: IItem[] = [
 const defaultAccount: IItem[] = [
   {
     name: 'Create new workspace',
-    icons: icons.pluss,
+    icons: icons.plus,
   },
   {
     name: 'Change interface theme...',

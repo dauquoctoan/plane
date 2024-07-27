@@ -1,4 +1,3 @@
-import { IconType } from 'react-icons';
 import { AiOutlineSetting } from 'react-icons/ai';
 import { BsCircleHalf, BsTable, BsWindowStack } from 'react-icons/bs';
 import { CgStack } from 'react-icons/cg';
@@ -6,6 +5,7 @@ import { GrDocumentText } from 'react-icons/gr';
 import { IoIosLink, IoIosMore, IoMdMenu } from 'react-icons/io';
 import {
   MdModeEditOutline,
+  MdOutlineCheckCircle,
   MdOutlineContentCopy,
   MdOutlineCreateNewFolder,
   MdOutlineDeleteOutline,
@@ -18,6 +18,8 @@ import { ImNewTab } from 'react-icons/im';
 import { TbFilterPin } from 'react-icons/tb';
 import { IoText } from 'react-icons/io5';
 import { CiImageOn } from 'react-icons/ci';
+import { LiaSyncAltSolid } from 'react-icons/lia';
+import { HiPlusSm } from 'react-icons/hi';
 
 export type TKeyIcons =
   | 'issue'
@@ -30,24 +32,29 @@ export type TKeyIcons =
   | 'search'
   | 'project'
   | 'newFolder'
-  | 'pluss'
+  | 'plus'
   | 'workspace'
   | 'copyLink'
   | 'delete'
   | 'newTab'
   | 'view'
   | 'menu'
-  | 'makeCoppy'
+  | 'makeCopy'
   | 'more'
   | 'text'
   | 'table'
-  | 'image';
+  | 'image'
+  | 'sync'
+  | 'plusSquare'
+  | 'check'
 
 type MyObject = {
   [key in TKeyIcons]: React.ReactElement;
 };
 
 export const icons: MyObject = {
+  check: <MdOutlineCheckCircle />,
+  sync: <LiaSyncAltSolid />,
   issue: <CgStack />,
   cycle: <BsCircleHalf />,
   module: <MdViewModule />,
@@ -57,7 +64,8 @@ export const icons: MyObject = {
   search: <TfiSearch />,
   project: <PiSuitcaseSimpleBold />,
   newFolder: <MdOutlineCreateNewFolder />,
-  pluss: <PiPlusSquare />,
+  plusSquare: <PiPlusSquare />,
+  plus: <HiPlusSm />,
   workspace: <BsWindowStack />,
   edit: <MdModeEditOutline />,
   copyLink: <IoIosLink />,
@@ -65,7 +73,7 @@ export const icons: MyObject = {
   newTab: <ImNewTab />,
   view: <TbFilterPin />,
   menu: <IoMdMenu />,
-  makeCoppy: <MdOutlineContentCopy />,
+  makeCopy: <MdOutlineContentCopy />,
   more: <IoIosMore />,
   text: <IoText />,
   table: <BsTable />,

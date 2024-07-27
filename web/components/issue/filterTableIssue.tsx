@@ -2,7 +2,7 @@
 import { useDataFilter } from '@/hooks';
 import React from 'react';
 import { IItemData, IItemSelected } from '../ui/collapse/collapse';
-import { ItemSelected } from './fillterQueryIssue';
+import { ItemSelected } from './filterQueryIssue';
 import { filterSelected } from '../module/createViewIssue';
 
 function _filter(datas: IItemData[], key: string[]): IItemSelected {
@@ -50,9 +50,9 @@ const FilterTableIssue = ({
     []
   );
 
-  const itemSlected = _filter(data, lsKey);
+  const itemSelected = _filter(data, lsKey);
 
-  return <ItemSelected dataSelected={filterSelected(data, itemSlected)} />;
+  return <ItemSelected dataSelected={filterSelected(data, itemSelected)} />;
 };
 
 export default FilterTableIssue;

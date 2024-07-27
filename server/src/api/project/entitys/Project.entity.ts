@@ -9,6 +9,7 @@ import {
   Length,
   Model,
   Table,
+  Unique,
 } from 'sequelize-typescript';
 import { Notification } from 'src/api/notification/entitys/Notification.entity';
 import { Estimate } from 'src/api/estimate/entitys/Estimate.entity';
@@ -71,7 +72,7 @@ export class Project extends Model<Project> {
   })
   project_favorite: ProjectFavorite[];
 
-  @HasMany(() => ProjectFavorite, {
+  @HasMany(() => Page, {
     onUpdate: 'CASCADE',
     onDelete: 'CASCADE',
     foreignKey: 'project_id',

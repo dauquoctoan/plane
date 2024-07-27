@@ -4,7 +4,7 @@ import '../styles/icons.css';
 import '../styles/loading.css';
 import { Providers } from '@/store/providers';
 import { Inter } from 'next/font/google';
-import SWRProvider from '@/components/commont/swr-provider';
+import SWRProvider from '@/components/common/swr-provider';
 import ProgressLoader from '@/components/ui/ProgressLoader';
 
 const inter = Inter({ subsets: ['vietnamese'] });

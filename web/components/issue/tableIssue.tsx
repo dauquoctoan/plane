@@ -1,6 +1,6 @@
 'use client';
 import issueService from '@/services/issue-services';
-import { IFillterIssue } from '@/types';
+import { IfilterIssue } from '@/types';
 import React, { useEffect, useState } from 'react';
 import useSWR from 'swr';
 import Table from '../ui/table/table';
@@ -10,7 +10,7 @@ import { useSelector } from '@/store';
 import { selectlsDisableTable } from '@/store/slices/issueView/selectors';
 import { usePathname } from 'next/navigation';
 
-const IssueTableFilter: React.FC<IFillterIssue> = ({ ...res }) => {
+const IssueTableFilter: React.FC<IfilterIssue> = ({ ...res }) => {
   const lsDisable = useSelector(selectlsDisableTable);
   const pathName = usePathname();
 

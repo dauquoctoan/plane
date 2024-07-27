@@ -2,7 +2,6 @@ import {
   ICycle,
   ICycleFavorite,
   ICycleUserProperties,
-  IIssue,
   IIssueViews,
   IModule,
   IModuleUserProperties,
@@ -10,11 +9,9 @@ import {
   IProject,
   IProjectMember,
   IProjectViews,
-  IWorkspace,
 } from '@/types';
 import { BaseService } from './base-service';
 import APP_CONFIG from '@/configs';
-import Page from '@/app/[workspaceSlug]/page';
 
 const { API_BASE_URL } = APP_CONFIG;
 
@@ -143,17 +140,17 @@ class ProjectService extends BaseService {
     }
   }
 
-  async findOneProject<T>(projectId: string) {
+  async findOneProject(projectId: string) {
     try {
-      return await this.get<T>('project/by-id/' + projectId);
+      return await this.get<IProject>('project/by-id/' + projectId);
     } catch (error) {
       console.log(error);
     }
   }
 
-  async updateProject<T>(projectId: string, data: IProject) {
+  async updateProject(projectId: string, data: IProject) {
     try {
-      return await this.patch<T>('project/' + projectId, data);
+      return await this.patch<IProject>('project/' + projectId, data);
     } catch (error) {
       console.log(error);
     }
@@ -296,6 +293,24 @@ class ProjectService extends BaseService {
   async findOnePage(PageId: string) {
     try {
       return await this.get<IPage>('page/' + PageId);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  //Project favorite
+
+  async addProjectFavorite(projectId: string) {
+    try {
+      return await this.post<boolean>('project-favorite/' + projectId);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  async removeProjectFavorite(projectId: string) {
+    try {
+      return await this.delete('project-favorite/' + projectId);
     } catch (error) {
       console.log(error);
     }

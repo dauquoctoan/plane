@@ -1,6 +1,6 @@
 'use client';
 
-import { LABELS_BY_PROJECT_KEY } from '@/apiKey';
+import { SWR_KEY_LABELS_BY_PROJECT } from '@/apiKey';
 import CreateLabel from '@/components/issue/createLabel';
 import Button from '@/components/ui/button';
 import Input from '@/components/ui/input/Input';
@@ -18,7 +18,7 @@ const LabelSetting = () => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
 
   const { data: labels } = useSWR(
-    LABELS_BY_PROJECT_KEY(params.projectid),
+    SWR_KEY_LABELS_BY_PROJECT(params.projectid),
     () => {
       return issueService.findLabelsByProject({ projectId: params.projectid });
     }
@@ -26,14 +26,16 @@ const LabelSetting = () => {
 
   return (
     <div className="flex flex-col gap-2">
-      <Button
-        typeBTN="primary"
-        className="mb-2"
-        text="Create Label"
-        onClick={() => {
-          setIsOpen(true);
-        }}
-      />
+      <div className='flex justify-end'>
+        <Button
+          typeBTN="primary"
+          className="mb-2"
+          onClick={() => {
+            setIsOpen(true);
+          }}
+        >{icons.plus}</Button>
+      </div>
+
       {labels?.map((e, i) => <LabelSettingItem key={i} data={e} />)}
       <Modal
         isOpen={isOpen}
@@ -58,17 +60,18 @@ const LabelSettingItem = ({ data }: { data: ILabel }) => {
   const noti = useNoti();
 
   return (
-    <div className="border h-11 rounded-md px-2 py-1 flex items-center gap-2 w-full justify-between">
-      <div className="flex items-center gap-2 justify-center">
+    <div className="border h-9 rounded-md px-2 flex items-center gap-2 w-full justify-between">
+      <div className="flex text-sm items-center gap-2 justify-center">
         <div
           style={{ background: data.color }}
-          className="w-3 h-3 rounded-full"
+          className="w-3 h-3 rounded-full text-sm"
         ></div>
         {!isEddit ? (
-          <div>{data.name}</div>
+          <div className='text-sm'>{data.name}</div>
         ) : (
           <Input
             autoFocus
+            className='text-sm'
             style={{ border: 'none' }}
             onKeyDown={async (e: any) => {
               if (e.keyCode == 13) {

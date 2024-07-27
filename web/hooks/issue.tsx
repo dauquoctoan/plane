@@ -1,6 +1,5 @@
-import { LABELS_BY_PROJECT_KEY, MEMBER_KEY_BY_WORKSPACE } from '@/apiKey';
+import { SWR_KEY_LABELS_BY_PROJECT, SWR_KEY_MEMBER_BY_WORKSPACE } from '@/apiKey';
 import { IItemData } from '@/components/ui/collapse/collapse';
-import DatePicker from '@/components/ui/datepicker/datePicker';
 import { optionLevel } from '@/constants/issue';
 import {
   convertDataOptions,
@@ -9,7 +8,7 @@ import {
 } from '@/helpers';
 import issueService from '@/services/issue-services';
 import projectService from '@/services/project-services';
-import { IData, ILabel, IProjectMember, IUser, Istate } from '@/types';
+import { IData, ILabel, IProjectMember, IUser, IState } from '@/types';
 import useSWR from 'swr';
 
 export type TCalBackChangeDate = (
@@ -72,7 +71,7 @@ function getDates(name: string, cb?: TCalBackChangeDate): IItemData[] {
 
 export const useDataFilter = (cb?: TCalBackChangeDate) => {
   const { data: labels } = useSWR(
-    () => LABELS_BY_PROJECT_KEY('ALL'),
+    () => SWR_KEY_LABELS_BY_PROJECT('ALL'),
     () => issueService.findLabelsByProject({})
   );
 
@@ -83,7 +82,7 @@ export const useDataFilter = (cb?: TCalBackChangeDate) => {
   } = useSWR('DEFAULT_STATE', a => issueService.getDefaultState());
 
   const { data: members } = useSWR(
-    () => MEMBER_KEY_BY_WORKSPACE,
+    SWR_KEY_MEMBER_BY_WORKSPACE,
     () =>
       projectService.getMemberByProject<IProjectMember[]>({
         projectId: '',

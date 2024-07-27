@@ -66,12 +66,25 @@ const Drawer: React.FC<IProps> = ({
 
   function handleClosePopUp() {
     if (false) return;
-    //@ts-ignore: Unreachable code error
-    if (wrap.current) wrap.current.style.width = 0;
+  
+    if (wrap.current) {
+      if(position === 'bottom'|| position =='top'){
+          //@ts-ignore: Unreachable code error
+        wrap.current.style.animationDuration = 0.1;
+          //@ts-ignore: Unreachable code error
+        wrap.current.style.height = 0;
+          //@ts-ignore: Unreachable code error
+        wrap.current.style.padding = 0;
+        
+      }else{
+          //@ts-ignore: Unreachable code error
+        wrap.current.style.width = 0;
+      }
+    }
 
     setTimeout(() => {
       handleClose && handleClose();
-    }, 300);
+    }, 600);
   }
 
   return (
@@ -104,7 +117,7 @@ const Drawer: React.FC<IProps> = ({
             <div
               style={{ boxShadow: boxShadowColor[position] }}
               ref={wrap}
-              className={`absolute ${styles[position]} bg-theme-primary transition-all duration-[.8] ease-out box-border ${className}`}
+              className={`absolute overflow-hidden ${styles[position]} bg-theme-primary transition-all duration-[.8] ease-out box-border ${className}`}
             >
               {content}
             </div>

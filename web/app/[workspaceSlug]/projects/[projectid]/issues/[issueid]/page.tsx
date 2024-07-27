@@ -1,7 +1,8 @@
+import IssueDetail from '@/components/projects/issueDetail/issueDetail';
 import React from 'react';
 
 const Page = () => {
-  return <div>detail issue</div>;
+  return <IssueDetail/>;
 };
 
 export default Page;

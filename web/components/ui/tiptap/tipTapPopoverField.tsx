@@ -1,6 +1,6 @@
 import React from 'react';
 import { Controller } from 'react-hook-form';
-import TiptapPopover, { ITipTap } from './tiptapPopover';
+import TipTapPopover, { ITipTap } from './tipTapPopover';
 import { IFieldProps } from '../types';
 import { EditorContentProps } from '@tiptap/react';
 
@@ -8,7 +8,7 @@ type Iprops = ITipTap &
   IFieldProps &
   Omit<EditorContentProps, 'editor' | 'ref' | 'editor'>;
 
-const TiptapPopoverField: React.FC<Iprops> = ({
+const TipTapPopoverField: React.FC<Iprops> = ({
   name,
   control,
   rules,
@@ -21,7 +21,7 @@ const TiptapPopoverField: React.FC<Iprops> = ({
       control={control}
       rules={rules}
       render={({ field, fieldState }) => (
-        <TiptapPopover
+        <TipTapPopover
           error={fieldState.error?.message || fieldState.error?.type}
           {...field}
           {...res}
@@ -31,4 +31,4 @@ const TiptapPopoverField: React.FC<Iprops> = ({
   );
 };
 
-export default TiptapPopoverField;
+export default TipTapPopoverField;

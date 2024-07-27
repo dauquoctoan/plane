@@ -1,7 +1,7 @@
 'use client';
-import { KEY_PROJECT_PAGE } from '@/apiKey';
+import { SWR_KEY_PROJECT_PAGE } from '@/apiKey';
 import Button from '@/components/ui/button';
-import TiptapPopover from '@/components/ui/tiptap/tiptapPopover';
+import TipTapPopover from '@/components/ui/tiptap/tipTapPopover';
 import projectService from '@/services/project-services';
 import { IPage, IParams } from '@/types';
 import { useParams, usePathname } from 'next/navigation';
@@ -19,13 +19,13 @@ const EditPage: FC<IEditPage> = () => {
   const refItmer = useRef<any>();
   const link = pathName.replace('/edit', '');
 
-  const { data } = useSWR(KEY_PROJECT_PAGE(params.pageid), () => {
+  const { data } = useSWR(SWR_KEY_PROJECT_PAGE(params.pageid), () => {
     return projectService.findOnePage(params.pageid);
   });
 
   async function updatePage(data: Partial<IPage>) {
     try {
-      const result = await projectService.updatePages({
+      await projectService.updatePages({
         ...data,
         id: params.pageid,
       });
@@ -39,7 +39,7 @@ const EditPage: FC<IEditPage> = () => {
   return (
     <div>
       <ContainerLink links={[{ href: link }]} />
-      <TiptapPopover
+      <TipTapPopover
         prefixHeader={
           <div className="flex gap-2 items-center">
             {isLoadingSave && <IoSync className="animate-spin" />}
@@ -53,7 +53,7 @@ const EditPage: FC<IEditPage> = () => {
           </div>
         }
         defaultValue={data?.description_html}
-        onChange={e => {
+        onChange={(e) => {
           setIsLoading(true);
           clearTimeout(refItmer.current);
           refItmer.current = setTimeout(() => {

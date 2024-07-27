@@ -3,17 +3,18 @@ import { useForm } from 'react-hook-form';
 import Input from '../ui/input/Input';
 import Button from '../ui/button';
 import issueService from '@/services/issue-services';
-import FillterQueryIssue, {
+import FilterQueryIssue, {
   IStateDate,
   ItemSelected,
-} from '../issue/fillterQueryIssue';
+} from '../issue/filterQueryIssue';
 import { TCalBackChangeDate, useDataFilter, useNoti } from '@/hooks';
 import { mutate } from 'swr';
-import { ISSUE_VIEWS_KEY, KEY_PROJECT_VIEW } from '@/apiKey';
+import { SWR_KEY_ISSUE_VIEWS, SWR_KEY_PROJECT_VIEW } from '@/apiKey';
 import moment from 'moment';
 import { IItemData, IItemSelected } from '../ui/collapse/collapse';
 import { selectInfo } from '@/store/slices/authSlice/selectors';
 import { useSelector } from '@/store';
+import { IIssueViews } from '@/types';
 
 interface ICreateForm {
   title: string;
@@ -160,8 +161,8 @@ const CreateViewIssue = ({
 
         const query = handleCheckDataBeforeSubmit(customeDate, dataSelected);
 
-        mutate(
-          projectId ? KEY_PROJECT_VIEW(projectId) : ISSUE_VIEWS_KEY,
+        mutate<IIssueViews[]>(
+          projectId ? SWR_KEY_PROJECT_VIEW(projectId) : SWR_KEY_ISSUE_VIEWS,
           async (issueView: any) => {
             setLoading(true);
             const result = await issueService.createIssueView({
@@ -235,11 +236,11 @@ const CreateViewIssue = ({
           </div>
         </div>
         <div className="w-full md:w-[400px]">
-          <FillterQueryIssue
-            setItemSelected={setItemSelected}
-            itemSelected={itemSelected}
-            data={data}
-          />
+        <FilterQueryIssue
+          setItemSelected={setItemSelected}
+          itemSelected={itemSelected}
+          data={data}
+        />
         </div>
       </div>
       <div className="flex items-center justify-end gap-2 pt-2">

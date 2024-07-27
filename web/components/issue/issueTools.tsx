@@ -1,6 +1,6 @@
 import React, { ReactElement } from 'react';
 import { IOptionItem } from '@/components/ui/select/select';
-import { IData, IProjectMember, IUser, Istate } from '@/types';
+import { IData, IProjectMember, IUser, IState } from '@/types';
 import { HiPlusSmall } from 'react-icons/hi2';
 import DatePickerField from '@/components/ui/datepicker/datePickerField';
 import { IOpenModal } from '../module/createIssue';
@@ -11,12 +11,12 @@ import { convertDataOptions, createMembeSelectOption } from '@/helpers';
 import { optionLevel } from '@/constants/issue';
 import DefaultSelectMember from '../module/defaultSelectMember';
 import useSWR from 'swr';
-import { MEMBER_KEY_BY_PROJECT } from '@/apiKey';
+import { SWR_KEY_MEMBER_BY_PROJECT } from '@/apiKey';
 import projectService from '@/services/project-services';
 
 interface IIssueTools extends IFiledReactHookForm {
   setIsOpen: (a: IOpenModal) => void;
-  states?: Istate[];
+  states?: IState[];
   projectId: string | undefined;
 }
 
@@ -30,7 +30,7 @@ const IssueTools: React.FC<IIssueTools> = ({
     states && convertDataOptions(states);
 
   const { data: members } = useSWR(
-    () => MEMBER_KEY_BY_PROJECT(projectId),
+    () => SWR_KEY_MEMBER_BY_PROJECT(projectId),
     () =>
       projectService.getMemberByProject<IProjectMember[]>({
         projectId: projectId || '',
@@ -61,7 +61,7 @@ const IssueTools: React.FC<IIssueTools> = ({
               <span className="ml-1">Create New State</span>
             </div>
           }
-          customeSelected={(e: any) => {
+          customSelected={(e: any) => {
             return (
               <div className="px-2 py-[3px] select-none flex items-center text-[12px]">
                 {e?.icon}
@@ -81,7 +81,7 @@ const IssueTools: React.FC<IIssueTools> = ({
         defaultValue={optionLevel[0].value || ''}
         isIconCheck
         fontSize="text-[12px]"
-        customeSelected={(e: any) => {
+        customSelected={(e: any) => {
           return (
             <div className="px-2 py-[3px] select-none flex items-center text-[12px]">
               {e?.icon}

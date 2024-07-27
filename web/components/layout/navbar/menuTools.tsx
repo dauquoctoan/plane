@@ -2,14 +2,13 @@ import React, { useState } from 'react';
 import { TfiSearch } from 'react-icons/tfi';
 import { BsChevronCompactDown } from 'react-icons/bs';
 import { HiOutlinePencilSquare } from 'react-icons/hi2';
-import Popover from '@/components/ui/popover';
 import { modalSlice, selectIsCollap, useSelector } from '@/store';
 import Modal from '@/components/ui/modal';
 import CreateIssue from '../../module/createIssue';
 import useSWR from 'swr';
 import projectService from '@/services/project-services';
 import { selectInfo } from '@/store/slices/authSlice/selectors';
-import { LS_PROJECT_KEY } from '@/apiKey/project';
+import { SWR_KEY_PROJECTS } from '@/apiKey';
 import { useNoti } from '@/hooks';
 import Search from './search';
 import {
@@ -17,7 +16,7 @@ import {
   selectOpenModalNewIssue,
 } from '@/store/slices/modalSlice/selectors';
 import { useDispatch } from 'react-redux';
-import { selectIitemIssueSelected } from '@/store/slices/drawerSlice/selectors';
+import Popover from '@/components/ui/popover';
 
 interface IStateModal {
   isShow: boolean;
@@ -46,8 +45,8 @@ const DrafIssue = () => {
 
 const MenuTools = () => {
   const info = useSelector(selectInfo);
-  const noti = useNoti();
-  const isCollap = useSelector(selectIsCollap);
+  const notification = useNoti();
+  const isCollapse = useSelector(selectIsCollap);
   const [disableOverlay, setDisableOverlay] = useState(false);
   const dispatch = useDispatch();
   const [isOpenSearch, setOpenSearch] = useState(false);
@@ -55,7 +54,7 @@ const MenuTools = () => {
   const issue = useSelector(selectDefaultValueIssue);
 
   const { data: projects } = useSWR(
-    LS_PROJECT_KEY(info?.last_workspace_id),
+    SWR_KEY_PROJECTS(info?.last_workspace_id),
     () => projectService.getProjects(info?.last_workspace_id || '')
   );
 
@@ -64,7 +63,7 @@ const MenuTools = () => {
       if (projects && projects.length > 0) {
         dispatch(modalSlice.actions.togleNewIssue(payload));
       } else {
-        noti?.warning(
+        notification?.warning(
           'Your work does not contain any projects, please create a project to implement this feature.'
         );
       }
@@ -75,33 +74,34 @@ const MenuTools = () => {
 
   return (
     <>
-      {isCollap ? (
+      {isCollapse ? (
         <div className={`flex py-3 cursor-pointer flex-col gap-2 box-border`}>
           <Popover
-            onClick={() => {
-              handleCheckValidCreateIssue({
-                isDraft: false,
-                isShow: true,
-              });
-            }}
             isHover
+            placement='bottomLeft'
             content={
               <div
-                onClick={() => {
+                onClick={(e) => {
                   handleCheckValidCreateIssue({
                     isDraft: true,
                     isShow: true,
                   });
                 }}
-                className="text-sm flex items-center cursor-pointer select-none py-2 bg-theme-primary"
+                className="text-sm flex w-fit items-center cursor-pointer select-none py-2 bg-theme-primary"
               >
                 <HiOutlinePencilSquare />
                 <span className="ml-1">Last Drafted Issue</span>
               </div>
             }
-            className="relative group flex items-center justify-center w-10 h-10 hover:bg-theme-secondary rounded"
           >
-            <HiOutlinePencilSquare />
+            <div onClick={(e) => {
+              handleCheckValidCreateIssue({
+                isDraft: false,
+                isShow: true,
+              });
+            }} className="flex items-center justify-center w-10 h-10 hover:bg-theme-secondary rounded">
+              <HiOutlinePencilSquare />
+            </div>
           </Popover>
           <div
             onClick={() => {

@@ -7,7 +7,7 @@ import { IBoardIssues } from './KanbanBoard';
 import issueService from '@/services/issue-services';
 import { useNoti } from '@/hooks';
 import { useParams, usePathname } from 'next/navigation';
-import { IParams } from '@/types';
+import { IIssue, IParams } from '@/types';
 import { useSelector } from '@/store';
 import { selectInfo } from '@/store/slices/authSlice/selectors';
 import { mutate } from 'swr';
@@ -52,9 +52,9 @@ const MoreItem: FC<IProps> = ({ block }) => {
             onKeyDown={async e => {
               if (e.keyCode == 13) {
                 if (title) {
-                  mutate(
+                  mutate<IIssue[]>(
                     pathName,
-                    async (issue: any) => {
+                    async (issue) => {
                       const issueResult = await issueService.createIssue({
                         name: title,
                         state_id: block.id,
@@ -69,7 +69,7 @@ const MoreItem: FC<IProps> = ({ block }) => {
                         noti?.success('Issue created');
                         handleClose();
                         return [
-                          ...issue,
+                          ...(issue||[]),
                           {
                             ...issueResult,
                             state_id: block.id,

@@ -7,11 +7,12 @@
     "build": "next build",
     "start": "next start -p 3001",
     "lint": "next lint",
-    "format": "prettier --write \"**/*.{js,jsx,ts,tsx,css,scss,md}\""
+    "format": "prettier --write \"**/*.{js,jsx,ts,tsx,css,scss,md}\"",
+    "checker": "eslint . --ext .js,.jsx,.ts,.tsx"
   },
   "dependencies": {
     "@emotion/react": "^11.11.1",
-    "@headlessui/react": "^1.7.18",
+    "@headlessui/react": "^2.1.2",
     "@nivo/bar": "^0.86.0",
     "@nivo/core": "^0.86.0",
     "@nivo/line": "^0.86.0",
@@ -85,8 +86,9 @@
     "@types/react": "latest",
     "@types/react-dom": "latest",
     "autoprefixer": "latest",
-    "eslint": "latest",
+    "eslint": "^8.57.0",
     "eslint-config-next": "latest",
+    "eslint-plugin-spellcheck": "^0.0.20",
     "postcss": "latest",
     "prettier": "^3.3.2",
     "tailwindcss": "latest",

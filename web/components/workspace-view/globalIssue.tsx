@@ -2,7 +2,7 @@
 import React from 'react';
 import TableIssue from '../issue/tableIssue';
 import useSWR from 'swr';
-import { ISSUE_VIEW_KEY } from '@/apiKey';
+import { SWR_KEY_ISSUE_VIEW } from '@/apiKey';
 import issueService from '@/services/issue-services';
 import { IData, IIssueViews, IParams } from '@/types';
 import { useParams } from 'next/navigation';
@@ -11,7 +11,7 @@ const GlobalIssueWorkspaceView = () => {
   const params = useParams<IParams>();
 
   const { data: issueView } = useSWR(
-    () => ISSUE_VIEW_KEY(params.issueViewId),
+    () => SWR_KEY_ISSUE_VIEW(params.issueViewId),
     () => issueService.findIssueViewById<IData<IIssueViews>>(params.issueViewId)
   );
 

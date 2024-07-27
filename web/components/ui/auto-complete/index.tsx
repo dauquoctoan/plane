@@ -86,7 +86,7 @@ const AutoComplete: React.FC<IProps> = ({
     <div className={`flex flex-col ${wrClassName}`}>
       <div>
         {label && (
-          <label className="font-semibold" htmlFor={id}>
+          <label className="font-semibold whitespace-nowrap" htmlFor={id}>
             {label}
           </label>
         )}

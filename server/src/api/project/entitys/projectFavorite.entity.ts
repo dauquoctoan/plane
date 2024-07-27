@@ -5,6 +5,7 @@ import {
   ForeignKey,
   Model,
   Table,
+  Unique,
 } from 'sequelize-typescript';
 import { User } from 'src/api/user/entitys/User.entity';
 import { Workspace } from 'src/api/workspace/entitys/Workspace.entity';
@@ -21,7 +22,7 @@ export class ProjectFavorite extends Model<ProjectFavorite> {
   id: string;
 
   @ForeignKey(() => User)
-  @Column({ type: sequelize.UUID })
+  @Column({ type: sequelize.UUID, unique: 'project_favorite' })
   user_id: string;
 
   @ForeignKey(() => Workspace)
@@ -29,7 +30,7 @@ export class ProjectFavorite extends Model<ProjectFavorite> {
   workspace_id: string;
 
   @ForeignKey(() => Project)
-  @Column({ type: sequelize.UUID })
+  @Column({type: sequelize.UUID, unique: 'project_favorite' })
   project_id: string;
 
   @BelongsTo(() => Project, 'project_id')

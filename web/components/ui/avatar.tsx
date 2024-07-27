@@ -10,14 +10,14 @@ const Avatar: React.FC<IProps> = ({
   size = 'lg',
   type = 'square',
 }) => {
-  const styleCofnigs = {
+  const styleConfigs = {
     sm: 'w-[19px] h-[19px] text-[12px]',
-    md: 'w-[22px] h-[22px] text-sm',
+    md: 'w-[22px] h-[22px] text-[12px]',
     lg: 'w-[35px] h-[35px] text-sm',
     xl: 'w-[60px] h-[60px] text-sm',
   };
 
-  const currentStyle = styleCofnigs[size];
+  const currentStyle = styleConfigs[size];
 
   return (
     <div

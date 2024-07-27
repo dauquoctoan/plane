@@ -1,4 +1,4 @@
-import { IInfo, IIssue, Istate } from '@/types';
+import { IInfo, IIssue, IState } from '@/types';
 import { Dispatch, ReactElement } from 'react';
 import { IoIosCheckmarkCircleOutline } from 'react-icons/io';
 import { CiCircleMore } from 'react-icons/ci';
@@ -30,7 +30,7 @@ export function getIcons(group: string = '', color = 'red'): ReactElement {
   }
 }
 
-export function convertDataOptions(data: Istate[] | undefined) {
+export function convertDataOptions(data: IState[] | undefined) {
   return (
     data?.map(e => ({
       title: e.name || '',
@@ -79,7 +79,7 @@ export const getConfigMoreIssue = (
     },
     {
       text: 'Make a copy',
-      icon: icons.makeCoppy,
+      icon: icons.makeCopy,
       cb: () => {
         dispatch(
           modalSlice.actions.setIssue({
@@ -98,8 +98,8 @@ export const getConfigMoreIssue = (
       cb: async () => {
         const result = await issueService.deleteIssue(itemIssue.id || '');
         if (result) {
-          mutate(pathName, (issues: any) => {
-            return issues.filter((e: IIssue) => e.id != itemIssue.id);
+          mutate<IIssue[]>(pathName, (issues) => {
+            return issues?.filter((e: IIssue) => e.id != itemIssue.id);
           });
           noti?.success('Delete issue success');
         } else noti?.success('Delete issue error !');

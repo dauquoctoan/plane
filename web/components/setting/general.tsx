@@ -47,7 +47,7 @@ const General = () => {
             console.log(data);
           })}
         >
-          <div className="flex md:flex-row flex-col w-full justify-between gap-4 py-10">
+          <div className="flex md:flex-row flex-col w-full justify-between gap-4 py-10 flex-wrap">
             <Input
               label="Workspace name"
               wrClassName="flex-1"
@@ -62,7 +62,7 @@ const General = () => {
 
             <AutoComplete
               label="Company size"
-              wrClassName="flex-1"
+              wrClassName="flex-1 min-width-[200px]"
               placeholder="Select organization size"
               nameForm="Workspace size"
               keyForm="size"

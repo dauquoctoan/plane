@@ -30,12 +30,11 @@ const WorkspaceMember = () => {
     : workspaceMember;
 
   const removeMembers = async (id: string) => {
-    mutate('workspace-member', async (data: any) => {
+    mutate<IWorkspaceMember[]>('workspace-member', async (data) => {
       const res = await workspaceService.removeMemberFromWorkspace(id);
-
       if (res) {
         noti?.success('Remove Member success');
-        return data.filter((e: IWorkspaceMember) => e.user.id !== id);
+        return data?.filter((e) => e.user.id !== id);
       } else {
         noti?.error('Remove Member error');
         return data;

@@ -1,5 +1,5 @@
 'use client';
-import { MODULEs_BY_PROJECT_KEY } from '@/apiKey';
+import { SWR_KEY_MODULES_BY_PROJECT } from '@/apiKey';
 import CycleProgess from '@/components/ui/cycleProgess';
 import projectService from '@/services/project-services';
 import { modalSlice, useSelector } from '@/store';
@@ -16,7 +16,7 @@ import { createNickNameLink } from '@/helpers';
 import EmptyProjects from '@/components/module/emptyProjects';
 import { useDispatch } from 'react-redux';
 import Popover from '@/components/ui/popover';
-import MoreToolls from '@/components/module/moreToolls';
+import MoreToolls from '@/components/module/moreTools';
 import { icons } from '@/constants';
 import { useNoti } from '@/hooks';
 import APP_CONFIG from '@/configs';
@@ -28,7 +28,7 @@ const ModulesTable = () => {
   const dispatch = useDispatch();
 
   const { data: modules, isLoading } = useSWR<IData<IModule[]>>(
-    MODULEs_BY_PROJECT_KEY(params.projectid),
+    SWR_KEY_MODULES_BY_PROJECT(params.projectid),
     () => {
       return projectService.findAllModulesByProject<IData<IModule[]>>(
         params.projectid
@@ -141,11 +141,11 @@ const ModulesItem = ({ data }: { data: IModule }) => {
                     );
                     if (result) {
                       noti?.success('Delete module success');
-                      mutate(
-                        MODULEs_BY_PROJECT_KEY(params.projectid),
-                        (e: any) => {
-                          return e.filter(
-                            (itemModule: IModule) => itemModule.id != data.id
+                      mutate<IModule[]>(
+                        SWR_KEY_MODULES_BY_PROJECT(params.projectid),
+                        (e) => {
+                          return e?.filter(
+                            (itemModule) => itemModule.id != data.id
                           );
                         }
                       );

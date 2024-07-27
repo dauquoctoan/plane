@@ -1,9 +1,8 @@
 import React from 'react';
 import Select, { IOptionItem } from '../ui/select/select';
-import { STATES_KEY } from '@/apiKey';
+import { SWR_KEY_STATES } from '@/apiKey';
 import issueService from '@/services/issue-services';
 import useSWR from 'swr';
-import { IData, Istate } from '@/types';
 import { convertDataOptions } from '@/helpers';
 
 interface IProps {
@@ -30,7 +29,7 @@ const SelectState: React.FC<IProps> = ({
   beforeUpdateValue,
 }) => {
   const { data: states } = useSWR(
-    () => STATES_KEY(projectId),
+    () => SWR_KEY_STATES(projectId),
     () => issueService.getState(projectId || '')
   );
   return (

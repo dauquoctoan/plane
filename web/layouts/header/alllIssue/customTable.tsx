@@ -1,6 +1,6 @@
 import { issueViewSlice, useSelector } from '@/store';
 import { selectlsDisableTable } from '@/store/slices/issueView/selectors';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 
 const CustomTable = () => {
@@ -21,6 +21,10 @@ const CustomTable = () => {
     'Updated On',
   ];
 
+  function setLocalStorage(properties:string[]){
+    localStorage.setItem('display-table', JSON.stringify({properties: properties}))
+  }
+
   const removeIndex = (array: any[], item: any) => {
     const newData = [...array];
     const index = lsDisable.indexOf(item);
@@ -37,17 +41,19 @@ const CustomTable = () => {
             <div
               onClick={() => {
                 if (lsDisable.includes(e)) {
+                  setLocalStorage(removeIndex(lsDisable, e))
                   dispatch(
                     issueViewSlice.actions.setDisableTable(
                       removeIndex(lsDisable, e)
                     )
                   );
                 } else {
+                  setLocalStorage([...lsDisable, e])
                   dispatch(
                     issueViewSlice.actions.setDisableTable([...lsDisable, e])
                   );
                 }
-              }}
+              }}                                                                                                                                                            
               className={`px-2 ${
                 lsDisable.includes(e)
                   ? 'bg-color-special-secondary text-theme-text-primary'

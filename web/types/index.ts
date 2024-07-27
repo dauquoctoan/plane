@@ -14,6 +14,7 @@ export type IParams = {
   moduleid: string;
   projectviewid: string;
   pageid: string;
+  issueid:string;
 };
 export interface IResult<T> {
   code: 0 | 1;
@@ -102,6 +103,7 @@ export interface IProject extends IBaseData {
   default_assignee?: string;
   project_lead?: string;
   workspace_id?: string;
+  is_favorite?: boolean; 
   name?: string;
   description?: string;
   description_text?: string;
@@ -122,7 +124,7 @@ export interface IProject extends IBaseData {
   default_show?: true;
 }
 
-export interface Istate extends IBaseData {
+export interface IState extends IBaseData {
   id: string;
   project_id?: string;
   project_detail?: IProject;
@@ -142,7 +144,8 @@ export interface IIssue extends IBaseData {
   workspace_id?: string;
   parent?: number;
   state_id?: string;
-  estimate_point?: number;
+  estimate_point?: IEstimate;
+  estimate_point_id?: string;
   name?: string;
   description?: string;
   description_html?: string;
@@ -155,7 +158,7 @@ export interface IIssue extends IBaseData {
   completed_at?: string;
   archived_at?: string;
   is_draft?: boolean;
-  state: Istate;
+  state: IState;
   assignees?: IUser[] | string[];
   labels?: ILabel[] | string[];
   project?: IProject;
@@ -171,7 +174,7 @@ export interface ILabel extends IBaseData {
   color: string;
 }
 
-export interface IFillterIssue {
+export interface IfilterIssue {
   cycle_id?: string;
   projects?: string[];
   userId?: string;
@@ -194,7 +197,7 @@ export interface IIssueViews {
   id?: string;
   name: string;
   description?: string;
-  query?: IFillterIssue;
+  query?: IfilterIssue;
   access?: number;
   query_data?: string;
   project_id?: string;
@@ -204,7 +207,7 @@ export interface IProjectViews {
   id?: string;
   name: string;
   description?: string;
-  query?: IFillterIssue;
+  query?: IfilterIssue;
   access?: number;
   query_data?: string;
   project_id?: string;
@@ -383,7 +386,7 @@ export interface ICycleUserProperties {
   cycle_id: string;
   user_id: string;
   project_id: string;
-  filters: IFillterIssue;
+  filters: IfilterIssue;
   display_filters: IDisplayFilters;
   display_properties: IDisplayProperties;
   user: IUser;
@@ -396,7 +399,7 @@ export interface IModuleUserProperties {
   module_id: string;
   user_id: string;
   project_id: string;
-  filters: IFillterIssue;
+  filters: IfilterIssue;
   display_filters: IDisplayFilters;
   display_properties: IDisplayProperties;
   user: IUser;
@@ -406,8 +409,8 @@ export interface IModuleUserProperties {
 
 export interface IEstimate {
   id: string;
-  projectId: string;
-  workspaceId: string;
+  project_id: string;
+  workspace_id: string;
   estimate_points: IEstimatePoint[];
   projects: IProject;
   workspaces: IWorkspace;

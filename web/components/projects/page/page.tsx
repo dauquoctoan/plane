@@ -1,5 +1,5 @@
 'use client';
-import { KEY_PROJECT_PAGE } from '@/apiKey';
+import { SWR_KEY_PROJECT_PAGE } from '@/apiKey';
 import EmptyProjects from '@/components/module/emptyProjects';
 import { createNickNameLink } from '@/helpers';
 import projectService from '@/services/project-services';
@@ -16,7 +16,7 @@ const Pages = () => {
   const pathName = usePathname();
   const dispatch = useDispatch();
 
-  const { data: pages } = useSWR(KEY_PROJECT_PAGE(params.projectid), () => {
+  const { data: pages } = useSWR(SWR_KEY_PROJECT_PAGE(params.projectid), () => {
     return projectService.getPages(params.projectid);
   });
   console.log(pages);

@@ -39,7 +39,7 @@ const IssueDragItem: FC<IProps> = ({
           </div>
         </div>
         <div
-          className="font-bold text-sm bg-theme-primary mb-2"
+          className="font-bold text-sm bg-theme-primary mb-2 cursor-pointer"
           onClick={() => {
             data.data &&
               dispatch(drawerViewSlice.actions.setIssueSlected(data.data));

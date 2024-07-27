@@ -2,7 +2,7 @@
 import { ContainerLink, LinkProps, changeRoute } from 'nextjs-progressloader';
 import { selectInfo } from '@/store/slices/authSlice/selectors';
 import { issueViewSlice, useSelector } from '@/store';
-import { ISSUE_VIEWS_KEY } from '@/apiKey';
+import { SWR_KEY_ISSUE_VIEWS } from '@/apiKey';
 import issueService from '@/services/issue-services';
 import { IData, IIssueViews } from '@/types';
 import { lsTabsIssues } from '@/constants';
@@ -17,7 +17,7 @@ const TabsIssue = () => {
   const info = useSelector(selectInfo);
   const dispatch = useDispatch();
   const { data: issueViews } = useSWR(
-    () => ISSUE_VIEWS_KEY,
+    () => SWR_KEY_ISSUE_VIEWS,
     () => issueService.getIssueView<IData<IIssueViews[]>>()
   );
 

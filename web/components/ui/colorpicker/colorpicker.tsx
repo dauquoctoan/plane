@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { CgColorPicker } from 'react-icons/cg';
 import { FiChevronDown } from 'react-icons/fi';
-import { ICurentFieldProps } from '../types';
+import { ICurrentFieldProps } from '../types';
 
-export interface IPropsColorPicker extends ICurentFieldProps {
+export interface IPropsColorPicker extends ICurrentFieldProps {
   className?: string;
   onChange?: (res: string) => void;
   value?: string;

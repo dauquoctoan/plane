@@ -1,4 +1,4 @@
-import { LS_PROJECT_KEY } from '@/apiKey';
+import { SWR_KEY_PROJECTS } from '@/apiKey';
 import APP_CONFIG from '@/configs';
 import { BaseService } from '@/services/base-service';
 import projectService from '@/services/project-services';
@@ -36,7 +36,7 @@ export const useCurentProject = () => {
   const info = useSelector(selectInfo);
   const params = useParams<IParams>();
   const { data: projects } = useSWR(
-    LS_PROJECT_KEY(info?.last_workspace_id),
+    SWR_KEY_PROJECTS(info?.last_workspace_id),
     () => {
       return projectService.getProjects(info?.last_workspace_id || '');
     }
@@ -60,5 +60,4 @@ const useDebounce = (value: string, delay: number) => {
 
   return debouncedValue;
 };
-
 export default useDebounce;

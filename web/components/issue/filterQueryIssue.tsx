@@ -4,7 +4,7 @@ import Collapse from '../ui/collapse/collapse';
 import { IItemSelected } from '../ui/treeSelect/treeSelect';
 import { IItemData } from '../ui/treeSelect/popOver';
 
-export interface IFillterQueryIssue {
+export interface IFilterQueryIssue {
   data: IItemData[];
   setItemSelected: React.Dispatch<React.SetStateAction<IItemSelected>>;
   itemSelected: IItemSelected;
@@ -24,7 +24,7 @@ interface IItemQuerySelected {
   setItemSelected: React.Dispatch<React.SetStateAction<IItemSelected>>;
 }
 
-const FillterQueryIssue: React.FC<IFillterQueryIssue> = ({
+const FilterQueryIssue: React.FC<IFilterQueryIssue> = ({
   data,
   setItemSelected,
   itemSelected,
@@ -153,4 +153,4 @@ export const ItemSelected = ({
   );
 };
 
-export default FillterQueryIssue;
+export default FilterQueryIssue;

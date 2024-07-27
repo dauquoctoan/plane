@@ -1,4 +1,4 @@
-import { MODULEs_BY_PROJECT_KEY } from '@/apiKey';
+import { SWR_KEY_MODULES_BY_PROJECT } from '@/apiKey';
 import Button from '@/components/ui/button';
 import Input from '@/components/ui/input/Input';
 import { useNoti } from '@/hooks';
@@ -36,10 +36,10 @@ const AddModule: FC<IProps> = ({
   return (
     <form
       onSubmit={handleSubmit(async data => {
-        mutate(
-          MODULEs_BY_PROJECT_KEY(id),
-          async (modules: any) => {
-            const resutl = await (defaultValue?.id
+        mutate<IModule[]>(
+          SWR_KEY_MODULES_BY_PROJECT(id),
+          async (modules) => {
+            const result = await (defaultValue?.id
               ? projectService.updateModule(defaultValue.id, {
                   name: data.name,
                   description: data.description,
@@ -49,25 +49,25 @@ const AddModule: FC<IProps> = ({
                   description: data.description,
                 }));
 
-            if (resutl) {
+            if (result) {
               noti?.success(
                 'Module ' + defaultValue?.id ? 'updated' : 'created'
               );
               handleCloseModel();
               return defaultValue?.id
-                ? modules.map((itemModule: IModule) => {
+                ? modules?.map((itemModule: IModule) => {
                     if (defaultValue.id == itemModule.id)
                       return {
                         ...defaultValue,
-                        name: data.name,
-                        description: data.description,
+                        name: data.name || '',
+                        description: data.description||'',
                       };
                     else return itemModule;
                   })
-                : [...modules, resutl];
+                : [...(modules||[]), result];
             } else {
               noti?.error('An error occurred, please try again later');
-              return modules && [...modules];
+              return modules;
             }
           },
           { revalidate: false }

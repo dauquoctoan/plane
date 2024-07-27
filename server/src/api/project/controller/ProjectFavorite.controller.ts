@@ -68,9 +68,15 @@ export class ProjectFavoriteController {
   }
 
   @Delete(':id')
-  async removeProjectFavorite(@Param('id') id?: string) {
+  @UseGuards(AuthGuard)
+  remove(@Param('id') projectId: string, @RequestNestjs() request: IAuthRequest) {
     return handleResultSuccess(
-      await this.projectFavoriteService.removeById(id),
+      this.projectFavoriteService.remove({
+        where: {
+          user_id: request.user.id,
+          project_id: projectId,
+        },
+      }),
     );
   }
 }

@@ -4,15 +4,15 @@ import KanbanBoard, {
   IBoardIssues,
 } from './layoutView/kanbanlayout/dnd/KanbanBoard';
 import { useParams, usePathname } from 'next/navigation';
-import { IIssue, IParams, IProjectMember, Istate, TLayout } from '@/types';
+import { IIssue, IParams, IProjectMember, IState, TLayout } from '@/types';
 import useSWR from 'swr';
-import { STATES_KEY } from '@/apiKey';
+import { SWR_KEY_STATES } from '@/apiKey';
 import issueService from '@/services/issue-services';
 import { getIcons } from '@/helpers';
 import Drawer from '../ui/drawer';
 import { drawerViewSlice, useSelector } from '@/store';
 import {
-  selectIitemIssueSelected,
+  selectItemIssueSelected,
   selectShowDrawer,
 } from '@/store/slices/drawerSlice/selectors';
 import { useDispatch } from 'react-redux';
@@ -35,10 +35,6 @@ export interface IProps {
 const IssueBoard: FC<IProps> = ({ query = {}, layout: typeLayout }) => {
   const params = useParams<IParams>();
   const pathName = usePathname();
-  const showDrawer = useSelector(selectShowDrawer);
-  const dispatch = useDispatch();
-  const itemIssueSlected = useSelector(selectIitemIssueSelected);
-
   const { data: projectMember } = useSWR('PROJECT_VIEW', () => {
     return projectService.getProjectViewByMember<IProjectMember>({
       projectId: params.projectid,
@@ -55,11 +51,11 @@ const IssueBoard: FC<IProps> = ({ query = {}, layout: typeLayout }) => {
   });
 
   const { data: states } = useSWR(
-    () => STATES_KEY(params.projectid),
+    () => SWR_KEY_STATES(params.projectid),
     () => issueService.getState(params.projectid)
   );
 
-  function getDataBoard(states: Istate[], issues: IIssue[]): IBoardIssues[] {
+  function getDataBoard(states: IState[], issues: IIssue[]): IBoardIssues[] {
     const stateParent: IBoardIssues[] = states.map(e => {
       return {
         id: e.id,
@@ -108,13 +104,6 @@ const IssueBoard: FC<IProps> = ({ query = {}, layout: typeLayout }) => {
 
   return (
     <div className="relative w-full">
-      <Drawer
-        isOpen={itemIssueSlected && showDrawer}
-        handleClose={() => {
-          dispatch(drawerViewSlice.actions.closeDrawer());
-        }}
-        content={<IssueDetail issue={itemIssueSlected} />}
-      />
       {projectMember && Layouts[layout || typeLayout]}
     </div>
   );

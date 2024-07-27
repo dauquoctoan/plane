@@ -5,22 +5,22 @@ import { useForm } from 'react-hook-form';
 import Button from '@/components/ui/button';
 import Line from '@/components/ui/line';
 import IssueTools from '../issue/issueTools';
-import { IData, IIssue, ILabel, IParams, IProject, Istate } from '@/types';
+import { IData, IIssue, ILabel, IParams, IProject, IState } from '@/types';
 import { IOptionItem } from '@/components/ui/select/select';
 import Modal from '@/components/ui/modal';
 import CreateState from '../layout/navbar/createState';
 import CreateLabel from '../issue/createLabel';
-import TiptapPopoverField from '@/components/ui/tiptap/tiptapPopoverField';
 import SelectField from '@/components/ui/select/selectField';
 import issueService from '@/services/issue-services';
 import useSWR, { mutate } from 'swr';
-import { STATES_KEY } from '@/apiKey/project';
+import { SWR_KEY_STATES } from '@/apiKey';
 import { useSelector } from '@/store';
 import { selectInfo } from '@/store/slices/authSlice/selectors';
 import moment from 'moment';
 import { NotiContext } from '@/components/ui/notification';
 import { useParams, usePathname } from 'next/navigation';
 import Switch from '../ui/swtich/swtich';
+import TipTapPopoverField from '../ui/tiptap/tipTapPopoverField';
 
 interface IProps {
   isDraft: boolean;
@@ -98,7 +98,7 @@ const CreateIssue: React.FC<IProps> = ({
   const params = useParams<IParams>();
 
   const { data: states } = useSWR(
-    () => STATES_KEY(watch('project') || projects[0].id),
+    () => SWR_KEY_STATES(watch('project') || projects[0].id),
     () => issueService.getState(watch('project'))
   );
 
@@ -141,9 +141,9 @@ const CreateIssue: React.FC<IProps> = ({
       <form
         id="create-issue-form"
         onSubmit={handleSubmit(async data => {
-          mutate(
+          mutate<IIssue[]>(
             pathName,
-            async (issues: any) => {
+            async (issues) => {
               const dataIssue = {
                 name: data.name,
                 description_html: data.desc,
@@ -164,14 +164,14 @@ const CreateIssue: React.FC<IProps> = ({
                 module_id: moduleId,
               };
               const issueResult = await (isUpdate
-                ? issueService.updateIssue<IIssue>(issue?.id, dataIssue)
+                ? issueService.updateIssue(issue?.id, dataIssue)
                 : issueService.createIssue<IIssue>(dataIssue));
               if (issueResult) {
                 noti?.success(isUpdate ? 'Issue updated' : 'Issue created');
                 closeModal();
                 handleClearForm();
                 if (isUpdate) {
-                  const issueNew = issues.map((e: IIssue) => {
+                  const issueNew = issues?.map((e: IIssue) => {
                     if (e.id == issue.id) {
                       return {
                         ...dataIssue,
@@ -188,16 +188,17 @@ const CreateIssue: React.FC<IProps> = ({
                   return issueNew;
                 } else {
                   return [
-                    ...issues,
+                    ...(issues || []),
                     {
                       ...dataIssue,
                       state_id: data.state,
+                      project: projects.find((e)=>{return e.id == (watch('project') || projects[0].id)}),
                       state: {
                         id: data.state,
                         name: states?.find(e => e.id == data.state)?.name || '',
                       },
                     },
-                  ];
+                  ]
                 }
               } else {
                 noti?.error('An error occurred, please try again later');
@@ -219,7 +220,7 @@ const CreateIssue: React.FC<IProps> = ({
               params.projectid || (projectOptions[0].value as string)
             }
             fontSize="text-sm"
-            customeSelected={res => (
+            customSelected={res => (
               <div className="flex items-center px-2">
                 <GiNotebook className="mr-1" />
                 {typeof res === 'object' && res?.title}
@@ -238,7 +239,7 @@ const CreateIssue: React.FC<IProps> = ({
             validator={{ required: true }}
             setValue={setValue}
           />
-          <TiptapPopoverField
+          <TipTapPopoverField
             watch={watch}
             control={control}
             errors={errors}
@@ -258,7 +259,7 @@ const CreateIssue: React.FC<IProps> = ({
           <div className="md:px-6 px-0 flex items-center justify-between py-2">
             <Switch
               label="Create more"
-              onChange={value => {
+              onChange={(value:boolean) => {
                 setIsMore(value);
               }}
             />

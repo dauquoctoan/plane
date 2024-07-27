@@ -23,7 +23,6 @@ export abstract class BaseService<T extends Model> {
     try {
       return await this.repository.create(removeKeyNull(entity));
     } catch (error) {
-      console.log(error);
       handleResultError({
         message: messageCreateFail(this.repository.getTableName()),
         messageDetail: error,

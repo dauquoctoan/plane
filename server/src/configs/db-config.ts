@@ -12,7 +12,7 @@ export const CONFIG_DB: SequelizeModuleAsyncOptions = {
     database: configService.get<string>('DB_NAME') || 'plane',
     timezone: '+00:00',
     autoLoadModels: true,
-    synchronize: false,
+    synchronize: false, //false product
     logging: console.log,
     cache: {
       max: 500,

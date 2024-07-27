@@ -1,5 +1,5 @@
 'use client';
-import { KEY_PROJECT_VIEW_DETAIL } from '@/apiKey';
+import { SWR_KEY_PROJECT_VIEW_DETAIL } from '@/apiKey';
 import Table from '@/components/ui/table/table';
 import { TableConfigs } from '@/constants';
 import issueService from '@/services/issue-services';
@@ -13,7 +13,7 @@ const DetailProjectView = () => {
   const params = useParams<IParams>();
   const pathName = usePathname();
 
-  const { data } = useSWR(KEY_PROJECT_VIEW_DETAIL(params.projectviewid), () => {
+  const { data } = useSWR(SWR_KEY_PROJECT_VIEW_DETAIL(params.projectviewid), () => {
     return projectService.findOneProjectView(params.projectviewid);
   });
 

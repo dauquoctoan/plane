@@ -8,7 +8,7 @@ type Iprops = IPropsSwitch &
   IFieldProps &
   Omit<EditorContentProps, 'editor' | 'ref'>;
 
-const TiptapPopoverField: React.FC<Iprops> = ({
+const TipTapPopoverField: React.FC<Iprops> = ({
   name,
   control,
   rules,
@@ -33,4 +33,4 @@ const TiptapPopoverField: React.FC<Iprops> = ({
   );
 };
 
-export default TiptapPopoverField;
+export default TipTapPopoverField;

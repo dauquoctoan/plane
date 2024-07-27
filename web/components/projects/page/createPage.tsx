@@ -1,11 +1,11 @@
 'use client';
-import { KEY_PROJECT_PAGE, STATES_KEY } from '@/apiKey';
+import { SWR_KEY_PROJECT_PAGE, SWR_KEY_STATES } from '@/apiKey';
 import Button from '@/components/ui/button';
 import Input from '@/components/ui/input/Input';
 import { useNoti } from '@/hooks';
 import projectService from '@/services/project-services';
 import { modalSlice } from '@/store';
-import { IPage, IParams } from '@/types';
+import { IIssue, IPage, IParams, IProject } from '@/types';
 import { useParams } from 'next/navigation';
 import React from 'react';
 import { useForm } from 'react-hook-form';
@@ -28,22 +28,24 @@ const CreatePage = () => {
     <form
       id="create-page-form"
       className="md:w-[400px] w-full"
-      onSubmit={handleSubmit(data => {
-        mutate(
-          KEY_PROJECT_PAGE(params.projectid),
-          async (issues: any) => {
-            const result = await projectService.createPage({
-              ...data,
-              project_id: params.projectid,
-            });
+      onSubmit={handleSubmit((data) => {
+        mutate<IPage[]>(
+          SWR_KEY_PROJECT_PAGE(params.projectid),
+          async (issues) => {
+            if(data){
+              const result = await projectService.createPage({
+                ...data,
+                project_id: params.projectid || '',
+              });
 
-            if (result) {
-              noti?.success('Create page success');
-              dispatch(modalSlice.actions.togleNewPage());
-              return [...issues, result];
-            } else noti?.error('Create page error!');
-          },
-          { revalidate: false }
+              if (result && data) {
+                noti?.success('Create page success');
+                dispatch(modalSlice.actions.togleNewPage());
+                return [...(issues||[]), result];
+              } else noti?.error('Create page error!');
+            }
+            return issues
+          }
         );
       })}
     >

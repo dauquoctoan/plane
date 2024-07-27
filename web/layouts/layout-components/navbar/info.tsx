@@ -2,18 +2,16 @@ import React from 'react';
 import Avatar from '../../../components/ui/avatar';
 import { useSelector } from '@/store';
 import { selectIsCollap } from '@/store/slices/layoutSlice/selectors';
-import Popover from '@/components/ui/popover';
 import WorkspacePopover from '../../../components/layout/navbar/workspacePopover';
 import UserInfoPopup from '../../../components/layout/navbar/userInfoPopup';
 import { selectInfo } from '@/store/slices/authSlice/selectors';
 import { ContainerLink } from 'nextjs-progressloader';
 import MenuTools from '@/components/layout/navbar/menuTools';
-import { useDispatch } from 'react-redux';
+import Popover from '@/components/ui/popover';
 
 const Info = () => {
-  const isCollap = useSelector(selectIsCollap);
+  const isCollapse = useSelector(selectIsCollap);
   const info = useSelector(selectInfo);
-  const dispatch = useDispatch();
   return (
     <div className="w-full pt-4 pl-4 pr-4 flex flex-col">
       <div className="w-full flex items-center cursor-pointer">
@@ -39,25 +37,22 @@ const Info = () => {
         />
 
         <Popover
-          pxContent={0}
-          pyContent={0}
           wrClassName="p-1 bg-theme-secondary flex-1 rounded"
+          placement='bottomLeft'
           content={<WorkspacePopover />}
         >
-          <div className="flex h-fit">
-            <Avatar>{info?.workspace?.name || ''}</Avatar>
-            {!isCollap && (
-              <div className="ml-2 font-[500] whitespace-nowrap overflow-hidden text-ellipsis w-[150px]">
-                {info?.workspace?.name}
-              </div>
-            )}
-          </div>
+            <div className="flex h-fit gap-2">
+              <Avatar>{info?.workspace?.name || ''}</Avatar>
+              {!isCollapse && (
+                <div className="font-[500] flex items-center whitespace-nowrap overflow-hidden text-ellipsis w-[150px]">
+                  {info?.workspace?.name}
+                </div>
+              )}
+            </div>
         </Popover>
 
-        {!isCollap ? (
+        {!isCollapse ? (
           <Popover
-            pxContent={0}
-            pyContent={0}
             placement="bottomRight"
             content={<UserInfoPopup />}
           >

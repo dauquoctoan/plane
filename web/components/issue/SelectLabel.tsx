@@ -5,8 +5,8 @@ import { IoMdPricetags } from 'react-icons/io';
 import { HiPlusSmall } from 'react-icons/hi2';
 import { IOpenModal } from '../module/createIssue';
 import useSWR from 'swr';
-import { LABELS_BY_PROJECT_KEY } from '@/apiKey/project';
-import { IData, ILabel, Istate } from '@/types';
+import { SWR_KEY_LABELS_BY_PROJECT } from '@/apiKey';
+import { IData, ILabel, IState } from '@/types';
 import issueService from '@/services/issue-services';
 import { IOptionItem } from '@/components/ui/select/select';
 import { createIssueLabelSelectOption } from '@/helpers';
@@ -22,7 +22,7 @@ const SelectLabel: React.FC<ISelectLabel> = ({
   setIsOpen,
 }) => {
   const { data: labels } = useSWR(
-    () => LABELS_BY_PROJECT_KEY(projectId),
+    () => SWR_KEY_LABELS_BY_PROJECT(projectId),
     () =>
       issueService.findLabelsByProject({
         projectId: projectId,

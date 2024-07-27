@@ -24,6 +24,7 @@ interface IProps
     HTMLButtonElement
   > {
   typeBTN?: typeButton;
+  children?: React.ReactElement | string;
   disable?: boolean;
   text?: string;
   className?: string;
@@ -44,6 +45,7 @@ const Button: React.FC<IProps> = ({
   wrClassName,
   loading = false,
   suffix,
+  children,
   ...rest
 }) => {
   const color: IColor = {
@@ -123,6 +125,7 @@ const Button: React.FC<IProps> = ({
         {...rest}
       >
         {text}
+        {children}
         {suffix}
         {loading && <VscLoading className="animate-spin" />}
       </button>

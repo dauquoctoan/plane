@@ -1,4 +1,4 @@
-import { CYCLES_BY_PROJECT_KEY } from '@/apiKey';
+import { SWR_KEY_CYCLES_BY_PROJECT } from '@/apiKey';
 import Button from '@/components/ui/button';
 import DatePickerField from '@/components/ui/datepicker/datePickerField';
 import Input from '@/components/ui/input/Input';
@@ -39,23 +39,23 @@ const AddUpdateCycle: FC<IProps> = ({
   return (
     <form
       onSubmit={handleSubmit(async data => {
-        const resutl = await (defaultValues?.id
+        const result = await (defaultValues?.id
           ? projectService.upDateCycle(defaultValues?.id, data)
           : projectService.createCycle(id, data));
 
-        const isActive = resutl?.start_date && resutl?.end_date;
+        const isActive = result?.start_date && result?.end_date;
 
         if (isActive) {
-          mutate(CYCLES_BY_PROJECT_KEY(id + 'active'), async (cycles: any) => {
-            return resutl ? [...cycles, resutl] : [...cycles];
+          mutate<ICycle[]>(SWR_KEY_CYCLES_BY_PROJECT(id + 'active'), async (cycles) => {
+            return result ? [...(cycles || []), result] : cycles;
           });
         }
 
-        mutate(CYCLES_BY_PROJECT_KEY(id + 'all'), async (cycles: any) => {
-          return resutl ? [...cycles, resutl] : [...cycles];
+        mutate(SWR_KEY_CYCLES_BY_PROJECT(id + 'all'), async (cycles: any) => {
+          return result ? [...cycles, result] : [...cycles];
         });
 
-        if (resutl) {
+        if (result) {
           noti?.success('Issue created');
           handleCloseModel();
         } else {

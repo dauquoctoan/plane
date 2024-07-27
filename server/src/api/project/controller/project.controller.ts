@@ -35,31 +35,6 @@ export class ProjectController {
     );
   }
 
-  @UseGuards(AuthGuard)
-  @Get('test')
-  async findAllProject(@RequestNestjs() request: IAuthRequest) {
-    return handleResultSuccess(
-      await this.projectService.findAll({
-        where: { workspace_id: '40adc8af-0ea6-4501-b6b5-4187e4663430' },
-        attributes: {
-          include: [
-            [
-              Sequelize.literal(
-                `(SELECT 1 FROM ProjectMembers WHERE
-                      ProjectMembers.id = Project.id AND
-                      ProjectMembers.member = '${request.user.id}' 
-                    )
-                  `,
-              ),
-              'is_member',
-            ],
-          ],
-        },
-        include: [{ model: User, as: 'created_by_user' }],
-      }),
-    );
-  }
-
   @Get('by-id/:id')
   async findOneProject(
     @Param('id') id: string,
@@ -70,7 +45,7 @@ export class ProjectController {
 
   @UseGuards(AuthGuard)
   @Get('by-user/:id')
-  async findWorkSpaceByUserId(@RequestNestjs() request: IAuthRequest) {
+  async findProjectByUser(@RequestNestjs() request: IAuthRequest) {
     return handleResultSuccess(
       await this.projectService.getProjectByUserId(request.user.id),
     );

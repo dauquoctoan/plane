@@ -1,7 +1,7 @@
 import React from 'react';
 import { Controller } from 'react-hook-form';
 import Colorpicker, { IPropsColorPicker } from './colorpicker';
-import { ICurentFieldProps, IFieldProps } from '../types';
+import { ICurrentFieldProps, IFieldProps } from '../types';
 
 type IProps = IPropsColorPicker & IFieldProps;
 

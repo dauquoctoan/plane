@@ -1,8 +1,8 @@
-import { IFillterIssue } from '@/types';
+import { IfilterIssue } from '@/types';
 import React, { FC } from 'react';
 
 export interface IFIlterIssue {
-  query: IFillterIssue;
+  query: IfilterIssue;
 }
 
 export const FilterIssue: FC<IFIlterIssue> = ({ query }) => {

@@ -1,5 +1,5 @@
 import {
-  COOKIE_TIME_EXPRIRES,
+  COOKIE_TIME_EXPIRES,
   KEY_COOKIE_AUTH_ACCESS_TOKEN,
   KEY_COOKIE_AUTH_REFRESH_TOKEN,
 } from '@/constants/services-constants';
@@ -8,7 +8,9 @@ import axios from 'axios';
 import Cookie from 'js-cookie';
 import qs from 'qs';
 import queryString from 'query-string';
-import { IQuery } from './base-services';
+export interface IQuery {
+  [k: string]: string;
+}
 
 export class BaseService {
   protected headers: any = {};
@@ -23,7 +25,7 @@ export class BaseService {
 
   setAccessToken(token: string = '') {
     return Cookie.set(KEY_COOKIE_AUTH_ACCESS_TOKEN, token, {
-      expires: COOKIE_TIME_EXPRIRES,
+      expires: COOKIE_TIME_EXPIRES,
     });
   }
 
@@ -33,7 +35,7 @@ export class BaseService {
 
   setRefreshToken(token: string = '') {
     return Cookie.set(KEY_COOKIE_AUTH_REFRESH_TOKEN, token, {
-      expires: COOKIE_TIME_EXPRIRES,
+      expires: COOKIE_TIME_EXPIRES,
     });
   }
 

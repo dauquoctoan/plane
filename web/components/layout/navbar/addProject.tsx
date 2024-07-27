@@ -19,9 +19,10 @@ import Avatar from '@/components/ui/avatar';
 import { useSelector } from '@/store';
 import { selectInfo } from '@/store/slices/authSlice/selectors';
 import { IProject, IWorkspaceMember } from '@/types';
-import { useNoti } from '@/hooks';
 import useSWR from 'swr';
 import workspaceService from '@/services/workspace-services';
+import { checkIsMobile } from '@/helpers';
+import Modal from '@/components/ui/modal';
 
 interface IProps {
   setOpen: (e: boolean) => void;
@@ -30,6 +31,7 @@ interface IProps {
 
 const AddProject: React.FC<IProps> = ({ setOpen, handleCreateProject }) => {
   const info = useSelector(selectInfo);
+  const [state, setState] = useState(false)
   const {
     register,
     handleSubmit,
@@ -79,7 +81,7 @@ const AddProject: React.FC<IProps> = ({ setOpen, handleCreateProject }) => {
         />
         <div className="absolute bottom-0 translate-y-[40%] left-2 bg-red">
           <Popover
-            placement="bottomCenter"
+            placement="bottomLeft"
             pxContent={0}
             pyContent={0}
             content={
@@ -96,21 +98,32 @@ const AddProject: React.FC<IProps> = ({ setOpen, handleCreateProject }) => {
             </div>
           </Popover>
         </div>
-        <div className="absolute right-0 bottom-0 rounded border border-theme-border-primary bg-theme-secondary cursor-pointer select-none mb-2 mr-2">
-          <Popover
-            placement="bottomRight"
-            pxContent={0}
-            pyContent={0}
-            content={
-              <ChangeCover
+        <div onClick={()=>{checkIsMobile() && setState(true)}} className="absolute right-0 bottom-0 rounded border border-theme-border-primary bg-theme-secondary cursor-pointer select-none mb-2 mr-2">
+          {
+            checkIsMobile() ? <>
+              <Modal isOpen={state} handleClose={()=>{setState(false)}} content={<ChangeCover
                 onChange={e => {
                   setValue('cover_image', e);
                 }}
-              />
-            }
-          >
-            <div className="px-2 py-1">Change Cover</div>
-          </Popover>
+              />} />
+              <div className="px-2 py-1">Change Cover</div>
+            </> :
+              <Popover
+                placement="bottomLeft"
+                pxContent={0}
+                pyContent={0}
+                content={
+                  <ChangeCover
+                    onChange={e => {
+                      setValue('cover_image', e);
+                      setState(false);
+                    }}
+                  />
+                }
+              >
+                <div className="px-2 py-1">Change Cover</div>
+              </Popover>
+          }
         </div>
       </div>
 
@@ -180,10 +193,10 @@ const AddProject: React.FC<IProps> = ({ setOpen, handleCreateProject }) => {
           options={
             members
               ? members.map(member => ({
-                  icon: <Avatar size="sm">m</Avatar>,
-                  title: member.user.first_name,
-                  value: member.user.id,
-                }))
+                icon: <Avatar size="sm">m</Avatar>,
+                title: member.user.first_name,
+                value: member.user.id,
+              }))
               : []
           }
         >

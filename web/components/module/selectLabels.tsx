@@ -1,9 +1,9 @@
-import { LABELS_BY_PROJECT_KEY } from '@/apiKey';
+'use client'
+import { SWR_KEY_LABELS_BY_PROJECT } from '@/apiKey';
 import React from 'react';
 import useSWR from 'swr';
 import Select from '../ui/select/select';
 import { createIssueLabelSelectOption } from '@/helpers';
-import { IData, ILabel } from '@/types';
 import { IoMdPricetags } from 'react-icons/io';
 import issueService from '@/services/issue-services';
 
@@ -25,7 +25,7 @@ const SelectLabels: React.FC<IProps> = ({
   style,
 }) => {
   const { data: labels } = useSWR(
-    () => LABELS_BY_PROJECT_KEY(projectId),
+    () => SWR_KEY_LABELS_BY_PROJECT(projectId),
     () => issueService.findLabelsByProject({ projectId })
   );
 

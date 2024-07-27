@@ -75,7 +75,7 @@ export const ItemSelect: React.FC<IItemSelect> = ({
               setValue && setValue('');
               handleClear && handleClear();
             }}
-            className={`cursor-pointer ${fontSize ? fontSize : ''}`}
+            className={`cursor-pointer close ${fontSize ? fontSize : ''}`}
           />
         </div>
       )}

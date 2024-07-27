@@ -33,8 +33,8 @@ interface IForm {
 const Setting = () => {
   const params = useParams<IParams>();
 
-  const { data: project } = useSWR<IData<IProject>>(params.projectid, () => {
-    return projectService.findOneProject<IProject>(params.projectid);
+  const { data: project } = useSWR(params.projectid, () => {
+    return projectService.findOneProject(params.projectid);
   });
 
   return (
@@ -85,8 +85,8 @@ const UpdateProjectForm = ({ project }: { project: IProject }) => {
     <form
       id="create-issue-form"
       onSubmit={handleSubmit(async (data: IProject) => {
-        mutate(params.projectid, async (project: any) => {
-          const res = await projectService.updateProject<IData<IProject>>(
+        mutate<IProject>(params.projectid, async (project) => {
+          const res = await projectService.updateProject(
             params.projectid,
             { ...data, network: Number(data.network) }
           );

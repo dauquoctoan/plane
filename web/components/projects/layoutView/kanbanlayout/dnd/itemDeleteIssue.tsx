@@ -35,8 +35,8 @@ const ItemDeleteIssue = React.forwardRef((props: IPorps, ref: any) => {
           if (data[0].id) {
             const result = await issueService.deleteIssue(data[0].id || '');
             if (result) {
-              mutate(props.pathname, (e: any) => {
-                return e.filter((e: IIssue) => {
+              mutate<IIssue[]>(props.pathname, (e) => {
+                return e?.filter((e: IIssue) => {
                   return e.id !== data[0].id;
                 });
               });

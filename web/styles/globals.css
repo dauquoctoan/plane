@@ -186,7 +186,7 @@ body {
 }
 
 .height-table-body {
-  height: calc(100vh - 60px - 47px - 42px);
+  height: calc(100vh - 60px - 47px - 50px);
 }
 
 .height-table-calender {

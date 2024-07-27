@@ -1,10 +1,9 @@
 'use client';
 
-import { LS_PROJECT_KEY } from '@/apiKey';
+import { SWR_KEY_PROJECTS } from '@/apiKey';
 import Switch from '@/components/ui/swtich/swtich';
 import { icons } from '@/constants';
 import { useNoti } from '@/hooks';
-import authService from '@/services/auth-services';
 import projectService from '@/services/project-services';
 import { useSelector } from '@/store';
 import { selectInfo } from '@/store/slices/authSlice/selectors';
@@ -43,8 +42,8 @@ const FeatureSetting = () => {
   const params = useParams<IParams>();
   const noti = useNoti();
 
-  const { data } = useSWR('project' + params.projectid, () => {
-    return projectService.findOneProject<IProject>(params.projectid);
+  const { data } = useSWR(params.projectid, () => {
+    return projectService.findOneProject(params.projectid);
   });
 
   const handleUpdateProject = async (value: any, key: string) => {
@@ -53,13 +52,15 @@ const FeatureSetting = () => {
     });
 
     if (result) {
-      noti?.success('update feature success');
-      mutate(LS_PROJECT_KEY(info?.last_workspace_id), (project: any) => {
-        return [...project, { ...result, [key]: value }];
+      noti?.success('Update feature success');
+      mutate<IProject[]>(SWR_KEY_PROJECTS(info?.last_workspace_id), (project) => {
+        return [...(project||[]), { ...result, [key]: value }];
       });
-      mutate('project' + params.projectid, (project: any) => {
-        return { ...project, [key]: value };
+      
+      mutate<IProject[]>(params.projectid, (project: any) => {
+        return { ...(project||[]), [key]: value };
       });
+
     } else noti?.error('update feature error');
   };
   const _data: any = data;
@@ -85,7 +86,7 @@ const FeatureSetting = () => {
               </div>
               <Switch
                 value={_data[e.key]}
-                onChange={value => {
+                onChange={(value: boolean) => {
                   handleUpdateProject(value, e.key);
                 }}
               />

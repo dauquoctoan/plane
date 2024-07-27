@@ -1,6 +1,5 @@
 'use client';
 import React, { FC, useEffect, useState } from 'react';
-import Popover from '../ui/popover/popover';
 import { useSelector } from '@/store';
 import { selectInfo } from '@/store/slices/authSlice/selectors';
 import moment from 'moment';
@@ -10,12 +9,12 @@ import Select, { IOptionItem } from '../ui/select/select';
 import TabAnimation from '../ui/tabAnimation';
 import { END_DATE_QUERY, STATE_QUERY, TYPE_DATE_QUERY } from '@/constants';
 import issueService from '@/services/issue-services';
-import { Istate } from '@/types';
+import { IState } from '@/types';
 import AssignedByState from './AssignedByState';
 import AssignedToYou from './AssignedToYou';
 import AssignedByPriority from './AssignedByPriority';
 
-export interface IIssueConsum {
+export interface IIssueConsumer {
   title: string;
   isTab?: boolean;
   Content: FC<IContent>;
@@ -27,7 +26,7 @@ export interface IIssueConsum {
 export interface IContent {
   date: string;
   option: string;
-  state: Istate[];
+  state: IState[];
   type?: 'assignees' | 'createBys' | 'state' | 'priority';
 }
 
@@ -55,9 +54,6 @@ const Dashboard = () => {
           🌤️ {moment().format('MMMM Do YYYY, h:mm:ss a')}
         </span>
       </div>
-      <div>
-        <Popover />
-      </div>
       <div className="mt-5 border rounded flex xl:flex-col h-fit">
         <div className="grid grid-cols-2 flex-1">
           <div className="h-48 p-3 box-border border-r">
@@ -79,15 +75,15 @@ const Dashboard = () => {
         </div>
       </div>
       <div className="grid md:grid-cols-2 gap-4 grid-cols-1">
-        <IssueConsum isTab title="Assigned to you" Content={AssignedToYou} />
-        <IssueConsum
+        <IssueConsumer isTab title="Assigned to you" Content={AssignedToYou} />
+        <IssueConsumer
           isTab
           title="Created by you"
           type="createBys"
           Content={AssignedToYou}
         />
-        <IssueConsum title="Assigned by state" Content={AssignedByState} />
-        <IssueConsum
+        <IssueConsumer title="Assigned by state" Content={AssignedByState} />
+        <IssueConsumer
           title="Assigned by priority"
           Content={AssignedByPriority}
         />
@@ -96,7 +92,7 @@ const Dashboard = () => {
   );
 };
 
-const IssueConsum: FC<IIssueConsum> = ({
+const IssueConsumer: FC<IIssueConsumer> = ({
   type,
   title,
   isTab = false,

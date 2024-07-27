@@ -1,4 +1,4 @@
-import { LABELS_BY_PROJECT_KEY } from '@/apiKey/project';
+import { SWR_KEY_LABELS_BY_PROJECT } from '@/apiKey';
 import Button from '@/components/ui/button';
 import ColorPickerField from '@/components/ui/colorpicker/colorpickerField';
 import Input from '@/components/ui/input/Input';
@@ -39,9 +39,9 @@ const CreateLabel: React.FC<IPropsCreateLabel> = ({
       id="create-label-form"
       name="create-label-form"
       onSubmit={handleSubmit(async data => {
-        mutate(
-          LABELS_BY_PROJECT_KEY(projectId),
-          async (state: any) => {
+        mutate<ILabel[]>(
+          SWR_KEY_LABELS_BY_PROJECT(projectId),
+          async (state) => {
             const result = await issueService.createLabel<ILabel>({
               color: data.color,
               name: data.name,
@@ -56,7 +56,7 @@ const CreateLabel: React.FC<IPropsCreateLabel> = ({
                 handleClose();
               }, 200);
 
-              return [result, ...state];
+              return state ? [result, ...state] : [result];
             } else {
               setTimeout(() => {
                 handleClose();
@@ -64,7 +64,7 @@ const CreateLabel: React.FC<IPropsCreateLabel> = ({
 
               noti?.error('An error occurred, please try again later');
 
-              return [...state];
+              return state;
             }
           },
           { revalidate: true }

@@ -1,7 +1,7 @@
 'use client';
-import { KEY_PROJECT_VIEW } from '@/apiKey';
+import { SWR_KEY_PROJECT_VIEW } from '@/apiKey';
 import EmptyProjects from '@/components/module/emptyProjects';
-import MoreToolls from '@/components/module/moreToolls';
+import MoreToolls from '@/components/module/moreTools';
 import Popover from '@/components/ui/popover';
 import APP_CONFIG from '@/configs';
 import { icons } from '@/constants';
@@ -10,7 +10,7 @@ import { useNoti } from '@/hooks';
 import issueService from '@/services/issue-services';
 import projectService from '@/services/project-services';
 import { modalSlice } from '@/store';
-import { IIssueViews, IParams } from '@/types';
+import { IIssueViews, IParams, IProjectViews } from '@/types';
 import Link from 'next/link';
 import { useParams, usePathname, useRouter } from 'next/navigation';
 import { changeRoute, ContainerLink } from 'nextjs-progressloader';
@@ -25,7 +25,7 @@ const ProjectView = () => {
   const pathName = usePathname();
   const dispatch = useDispatch();
 
-  const { data: views } = useSWR(KEY_PROJECT_VIEW(params.projectid), () => {
+  const { data: views } = useSWR(SWR_KEY_PROJECT_VIEW(params.projectid), () => {
     return projectService.getProjectView(params.projectid);
   });
 
@@ -111,10 +111,10 @@ const ProjectView = () => {
                                 );
                               if (result) {
                                 noti?.success('Delete project view success');
-                                mutate(
-                                  KEY_PROJECT_VIEW(params.projectid),
-                                  (data: any) => {
-                                    return data.filter(
+                                mutate<IIssueViews[]>(
+                                  SWR_KEY_PROJECT_VIEW(params.projectid),
+                                  (data) => {
+                                    return data?.filter(
                                       (itemView: IIssueViews) =>
                                         itemView.id != item.id
                                     );

@@ -1,5 +1,5 @@
 'use client';
-import { CYCLES_BY_PROJECT_KEY, KEY_PROJECT_VIEW } from '@/apiKey';
+import { SWR_KEY_CYCLES_BY_PROJECT, SWR_KEY_PROJECT_VIEW } from '@/apiKey';
 import CycleProgess from '@/components/ui/cycleProgess';
 import Tab from '@/components/ui/tab';
 import projectService from '@/services/project-services';
@@ -17,7 +17,7 @@ import useSWR, { mutate } from 'swr';
 import DatePicker from '@/components/ui/datepicker/datePicker';
 import { useNoti } from '@/hooks';
 import { createNickNameLink } from '@/helpers';
-import MoreToolls from '@/components/module/moreToolls';
+import MoreToolls from '@/components/module/moreTools';
 import Popover from '@/components/ui/popover';
 import { icons } from '@/constants';
 import Link from 'next/link';
@@ -31,7 +31,7 @@ const CyclesTable = () => {
   const info = useSelector(selectInfo);
   const dispatch = useDispatch();
   const { data: cycles } = useSWR(
-    CYCLES_BY_PROJECT_KEY(params.projectid + tab),
+    SWR_KEY_CYCLES_BY_PROJECT(params.projectid + tab),
     () => {
       return projectService.findAllCyclesByProject<ICycle[]>(
         params.projectid,
@@ -114,7 +114,7 @@ const CycleItem = ({ data, tab }: { data: ICycle; tab: string }) => {
             isChildren={false}
             defaultDate={data.start_date}
             formatDate="MM/DD/YYY"
-            beforeUpdateValue={e => {
+            beforeUpdateValue={(e:any) => {
               return projectService.upDateCycle(data.id, {
                 start_date: e || (null as any),
               });
@@ -126,7 +126,7 @@ const CycleItem = ({ data, tab }: { data: ICycle; tab: string }) => {
             isChildren={false}
             formatDate="MM/DD/YYY"
             defaultDate={data.end_date}
-            beforeUpdateValue={e => {
+            beforeUpdateValue={(e:any) => {
               return projectService.upDateCycle(data.id, {
                 end_date: e || (null as any),
               });
@@ -155,10 +155,10 @@ const CycleItem = ({ data, tab }: { data: ICycle; tab: string }) => {
                 }));
 
             if (result) {
-              mutate(
-                CYCLES_BY_PROJECT_KEY(params.projectid + tab),
-                (cycles: any) => {
-                  return cycles.map((item: ICycle) => {
+              mutate<ICycle[]>(
+                SWR_KEY_CYCLES_BY_PROJECT(params.projectid + tab),
+                (cycles) => {
+                  return cycles?.map((item: ICycle) => {
                     return { ...item, is_favorite: data.is_favorite ? 0 : 1 };
                   });
                 }
@@ -216,11 +216,11 @@ const CycleItem = ({ data, tab }: { data: ICycle; tab: string }) => {
                   );
                   if (result) {
                     noti?.success('Delete cycle success');
-                    mutate(
-                      CYCLES_BY_PROJECT_KEY(params.projectid + tab),
-                      (e: any) => {
-                        return e.filter(
-                          (itemCycle: ICycle) => itemCycle.id != data.id
+                    mutate<ICycle[]>(
+                      SWR_KEY_CYCLES_BY_PROJECT(params.projectid + tab),
+                      (e) => {
+                        return e?.filter(
+                          (itemCycle) => itemCycle.id != data.id
                         );
                       }
                     );

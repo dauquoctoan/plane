@@ -11,7 +11,7 @@ interface IProps {
   placement?: TPlacement;
 }
 
-const DatepickerTable: React.FC<IProps> = ({
+const DatePickerTable: React.FC<IProps> = ({
   name,
   beforeUpdateValue,
   defaultDate,
@@ -34,4 +34,4 @@ const DatepickerTable: React.FC<IProps> = ({
   );
 };
 
-export default memo(DatepickerTable);
+export default memo(DatePickerTable);

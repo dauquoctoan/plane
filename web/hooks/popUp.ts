@@ -1,4 +1,6 @@
-import React, { useEffect, useRef, useState } from 'react';
+import { debounce } from 'lodash';
+import React, { MouseEvent, useEffect, useRef, useState } from 'react';
+import useDebounce from './fetch';
 
 export interface IPosition {
   left: number | string | undefined;
@@ -87,15 +89,15 @@ const usePopUp = ({
     const marginCH = spaceWrCenterHeight - spacePopCenterHeight;
     const marginC = spaceWrCenter - spacePopCenter;
 
-    const ytop = wr.top - poe.offsetHeight;
-    const ybottom = wr.top + wr.height;
-    const yleft = wr.left;
-    const yright = wr.left + wre.offsetWidth - poe.offsetWidth;
+    const yTop = wr.top - poe.offsetHeight;
+    const yBottom = wr.top + wr.height;
+    const yLeft = wr.left;
+    const yRight = wr.left + wre.offsetWidth - poe.offsetWidth;
 
-    const xright = wr.left + wre.offsetWidth;
-    const xleft = wr.left - poe.offsetWidth;
-    const xtop = wr.top;
-    const xbottom = wr.top + wre.offsetHeight - poe.offsetHeight;
+    const xRight = wr.left + wre.offsetWidth;
+    const xLeft = wr.left - poe.offsetWidth;
+    const xTop = wr.top;
+    const xBottom = wr.top + wre.offsetHeight - poe.offsetHeight;
 
     const isYOverFlowT = wr.top - poe.offsetHeight < mrOverlay ? true : false;
     const isYOverFlowBT =
@@ -117,70 +119,68 @@ const usePopUp = ({
 
     switch (placement) {
       case 'bottomLeft':
-        left = isChildRen ? 0 : isYOverFlowR ? yright : yleft;
+        left = isChildRen ? 0 : isYOverFlowR ? yRight : yLeft;
         top = isChildRen
           ? '100%'
           : isYOverFlowBT
-            ? ytop - MARGIN
-            : ybottom + MARGIN;
+            ? yTop - MARGIN
+            : yBottom + MARGIN;
         break;
       case 'bottomRight':
-        if (isYOverFlowL && isYOverFlowR) left = 0;
-        else left = isChildRen ? margin : isYOverFlowL ? yleft : yright;
+        left = isChildRen ? margin : isYOverFlowL ? yLeft : yRight;
         top = isChildRen
           ? '100%'
           : isYOverFlowBT
-            ? ytop - MARGIN
-            : ybottom + MARGIN;
+            ? yTop - MARGIN
+            : yBottom + MARGIN;
         break;
       case 'bottomCenter':
-        if (isYOverFlowL && isYOverFlowR) left = 0;
-        else left = isChildRen ? marginC : wr.left + marginC;
+        left = isChildRen ? marginC : wr.left + marginC;
         top = isChildRen
           ? '100%'
           : isYOverFlowBT
-            ? ytop - MARGIN
-            : ybottom + MARGIN;
+            ? yTop - MARGIN
+            : yBottom + MARGIN;
         break;
       case 'topCenter':
         left = isChildRen ? marginC : wr.left + marginC;
-        top = isChildRen ? '100%' : isYOverFlowT ? ybottom : ytop - MARGIN;
+        top = isChildRen ? '100%' : isYOverFlowT ? yBottom : yTop - MARGIN;
         break;
       case 'topRight':
-        left = isChildRen ? margin : isYOverFlowL ? yleft : yright;
-        top = isChildRen ? '100%' : isYOverFlowT ? ybottom : ytop - MARGIN;
+        left = isChildRen ? margin : isYOverFlowL ? yLeft : yRight;
+        top = isChildRen ? '100%' : isYOverFlowT ? yBottom : yTop - MARGIN;
         break;
       case 'topLeft':
-        left = isChildRen ? margin : isYOverFlowR ? yright : yleft;
-        top = isChildRen ? '100%' : isYOverFlowT ? ybottom : ytop - MARGIN;
+        left = isChildRen ? margin : isYOverFlowR ? yRight : yLeft;
+        top = isChildRen ? '100%' : isYOverFlowT ? yBottom : yTop - MARGIN;
         break;
       case 'leftTop':
-        left = isChildRen ? margin : isXOverFlowL ? xright : xleft;
-        top = isChildRen ? '100%' : isXOverFlowBT ? xbottom : xtop;
+        left = isChildRen ? margin : isXOverFlowL ? xRight : xLeft;
+        top = isChildRen ? '100%' : isXOverFlowBT ? xBottom : xTop;
         break;
       case 'leftCenter':
-        left = isChildRen ? margin : isXOverFlowL ? xright : xleft;
+        left = isChildRen ? margin : isXOverFlowL ? xRight : xLeft;
         top = isChildRen ? '100%' : wre.offsetTop + marginCH;
         break;
       case 'leftBottom':
-        left = isChildRen ? margin : isXOverFlowL ? xright : xleft;
-        top = isChildRen ? '100%' : isXOverFlowT ? xtop : xbottom;
+        left = isChildRen ? margin : isXOverFlowL ? xRight : xLeft;
+        top = isChildRen ? '100%' : isXOverFlowT ? xTop : xBottom;
         break;
       case 'rightTop':
-        left = isChildRen ? margin : isXOverFlowR ? xleft : xright;
-        top = isChildRen ? '100%' : isXOverFlowBT ? xbottom : xtop;
+        left = isChildRen ? margin : isXOverFlowR ? xLeft : xRight;
+        top = isChildRen ? '100%' : isXOverFlowBT ? xBottom : xTop;
         break;
       case 'rightCenter':
-        left = isChildRen ? margin : isXOverFlowR ? xleft : xright;
+        left = isChildRen ? margin : isXOverFlowR ? xLeft : xRight;
         top = isChildRen ? '100%' : wre.offsetTop + marginCH;
         break;
       case 'rightBottom':
         left = isChildRen
           ? margin
           : isXOverFlowR
-            ? xleft - MARGIN
-            : xright + MARGIN;
-        top = isChildRen ? '100%' : isXOverFlowT ? xtop : xbottom;
+            ? xLeft - MARGIN
+            : xRight + MARGIN;
+        top = isChildRen ? '100%' : isXOverFlowT ? xTop : xBottom;
         break;
     }
 
@@ -221,7 +221,7 @@ const usePopUp = ({
       !refPopup.current?.contains(e.target) &&
       !mouse.current.isDrag &&
       !e?.target?.clear &&
-      e.target.tagName != 'svg'
+      !e?.target?.classList.contains('close')
     ) {
       handleClosePopUp();
     }
@@ -252,16 +252,16 @@ const usePopUp = ({
   }, [refPopover.current, refPopup.current, open]);
 
   useEffect(() => {
-    function handleClikOpenPopUp(e: any) {
+    function handleClickOpenPopUp(e: any) {
       if (!refDisable?.current?.contains(e.target)) setOpen(true);
     }
 
     if (isHover) addEventMouse();
-    else refPopover?.current?.addEventListener('click', handleClikOpenPopUp);
+    else refPopover?.current?.addEventListener('click', handleClickOpenPopUp);
 
     return () => {
       if (isHover) removeEventMouse();
-      else refPopover?.current?.addEventListener('click', handleClikOpenPopUp);
+      else refPopover?.current?.addEventListener('click', handleClickOpenPopUp);
     };
   }, []);
 
@@ -310,6 +310,17 @@ const usePopUp = ({
   function handleWhenMouseLeave() {
     if (mouse.current.isKeyDown) mouse.current.isDrag = true;
   }
+
+  useEffect(() => {
+    const handleScroll = () => {
+        refPopover.current && refPopup.current && setPosition(getPosiTion(refPopover.current, refPopup.current));
+    };
+    if (open) document.addEventListener('scroll', handleScroll, true);
+    else document.removeEventListener('scroll', handleScroll, true);
+    return () => {
+      document.removeEventListener('scroll', handleScroll, true);
+    };
+  }, [open]);
 
   const style: IPositionResult = {
     ...position,

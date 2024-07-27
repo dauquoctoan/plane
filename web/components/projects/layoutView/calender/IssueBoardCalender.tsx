@@ -11,13 +11,13 @@ import useSWR, { mutate } from 'swr';
 import { useParams, usePathname } from 'next/navigation';
 import { useNoti } from '@/hooks';
 import issueService from '@/services/issue-services';
-import { STATES_KEY } from '@/apiKey';
+import { SWR_KEY_STATES } from '@/apiKey';
 import { IIssue, IParams, IProject } from '@/types';
-import { useSelector } from '@/store';
+import { drawerViewSlice, useSelector } from '@/store';
 import { selectInfo } from '@/store/slices/authSlice/selectors';
 import projectService from '@/services/project-services';
 import moment from 'moment';
-import MoreToolls from '@/components/module/moreToolls';
+import MoreToolls from '@/components/module/moreTools';
 import { IoIosMore } from 'react-icons/io';
 import Popover from '@/components/ui/popover';
 import { getConfigMoreIssue } from '@/helpers';
@@ -141,7 +141,7 @@ const IssueBoardCalendar: React.FC<IProps> = ({ data }) => {
   }
 
   const { data: project } = useSWR(params.projectid, () => {
-    return projectService.findOneProject<IProject>(params.projectid);
+    return projectService.findOneProject(params.projectid);
   });
 
   interface IItemConvertDate {
@@ -259,7 +259,13 @@ const IssueBoardCalendar: React.FC<IProps> = ({ data }) => {
                                   className="border  items-center cursor-pointer rounded px-2 py-1 text-xs flex gap-2"
                                   key={issue.id}
                                 >
-                                  <div className="flex-1 text-ellipsis overflow-hidden">
+                                  <div
+                                  onClick={()=>{
+                                    issue &&
+                                    dispatch(drawerViewSlice.actions.setIssueSlected(issue));
+                                    dispatch(drawerViewSlice.actions.openDrawer());
+                                  }}  
+                                   className="flex-1 text-ellipsis overflow-hidden">
                                     {issue.name}
                                   </div>
                                   <Popover
@@ -311,7 +317,7 @@ const AddMoreIssue: FC<IPropsAddMore> = ({ sequence, date }) => {
   const ref = useRef<HTMLDivElement>(null);
   const noti = useNoti();
 
-  const { data: states } = useSWR(STATES_KEY(params.projectid), () => {
+  const { data: states } = useSWR(SWR_KEY_STATES(params.projectid), () => {
     return issueService.getState(params.projectid);
   });
 
@@ -328,9 +334,9 @@ const AddMoreIssue: FC<IPropsAddMore> = ({ sequence, date }) => {
   }, [open]);
 
   const handleCreateIssue = async (name: string) => {
-    mutate(
+    mutate<IIssue[]>(
       pathName,
-      async (issue: any) => {
+      async (issue) => {
         const issueResult = await issueService.createIssue({
           name: name,
           state_id: states && states[0].id,
@@ -356,7 +362,7 @@ const AddMoreIssue: FC<IPropsAddMore> = ({ sequence, date }) => {
             },
           };
 
-          return [...issue, itemConvert];
+          return [...(issue||[]), itemConvert];
         } else {
           noti?.error('An error occurred, please try again later');
           return issue;
@@ -394,7 +400,7 @@ const AddMoreIssue: FC<IPropsAddMore> = ({ sequence, date }) => {
           className="w-full h-auto"
         >
           <div className="rounded overflow-hidden text-ellipsis invisible flex group-hover:visible py-1rounded text-color-special-primary hover:border-color-special-primary w-full cursor-pointer select-none items-center gap-2 border px-2 py-1 text-xs">
-            {icons.pluss}
+            {icons.plusSquare}
             <div>New issue</div>
           </div>
         </div>

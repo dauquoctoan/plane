@@ -4,13 +4,13 @@ import { IIssue } from '@/types';
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 
 export interface IDrawerSlice {
-  issueSlected?: IIssue;
+  issueSelected?: IIssue;
   showDrawer: boolean;
 }
 
 const initialState: IDrawerSlice = {
   showDrawer: false,
-  issueSlected: undefined,
+  issueSelected: undefined,
 };
 
 export const drawerViewSlice = createSlice({
@@ -22,10 +22,10 @@ export const drawerViewSlice = createSlice({
     },
     closeDrawer: state => {
       state.showDrawer = false;
-      state.issueSlected = undefined;
+      state.issueSelected = undefined;
     },
     setIssueSlected: (state, action: PayloadAction<IIssue>) => {
-      state.issueSlected = action.payload;
+      state.issueSelected = action.payload;
     },
   },
 });
