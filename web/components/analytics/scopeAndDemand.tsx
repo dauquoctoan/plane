@@ -39,7 +39,8 @@ const ScopeAndDemand = () => {
       urlImage: '/empty_graph.svg',
       desc: 'Close issues to view analysis of the same in the form of a graph.',
     },
-  };  const months = [
+  };
+  const months = [
     'Jan',
     'Feb',
     'Mar',
@@ -52,11 +53,13 @@ const ScopeAndDemand = () => {
     'Oct',
     'Nov',
     'Dec',
-  ];  const sateColors: { [e: string]: string } = {
+  ];
+  const sateColors: { [e: string]: string } = {
     backlog: '#A3A3A3',
     started: '#F59E0B',
     unstarted: '#3A3A3A',
-  };  const dataChart = months.map((e, i) => {
+  };
+  const dataChart = months.map((e, i) => {
     const item =
       data?.chartIssueClosedByMonth && data?.chartIssueClosedByMonth.length > 0
         ? data?.chartIssueClosedByMonth.find(
@@ -68,7 +71,8 @@ const ScopeAndDemand = () => {
       x: e,
       y: item?.total || 0,
     };
-  });  const TotalOpenTasks =
+  });
+  const TotalOpenTasks =
     data?.issueAssignedByState.reduce((prev, cur) => {
       return prev + cur.total;
     }, 0) || 0;
@@ -137,8 +141,8 @@ const ScopeAndDemand = () => {
                           <text
                             x="0"
                             y="21"
-                            text-anchor="middle"
-                            font-size="9"
+                            textAnchor="middle"
+                            fontSize="9"
                             fill="#ffffff"
                           >
                             {props.value[0]}
@@ -349,7 +353,8 @@ const ProgessBarChartItem: FC<IProgessBarChartItem> = ({
       </div>
     </div>
   );
-};const DefaultNoData = ({ data }: { data: IEmpyProps }) => {
+};
+const DefaultNoData = ({ data }: { data: IEmpyProps }) => {
   return (
     <div className="w-full h-full justify-center flex flex-col items-center gap-3">
       <img width={70} src={data.urlImage} />

@@ -30,7 +30,7 @@ const RoadMap: FC<IProps> = ({ roads }) => {
       <div className="flex gap-2 items-center">
         {roads.map((e, i) => {
           return (
-            <>
+            <React.Fragment key={i}> 
               <div className="flex gap-1 items-center text-sm">
                 {e?.icon}
                 {e.title}
@@ -38,7 +38,7 @@ const RoadMap: FC<IProps> = ({ roads }) => {
               {i != roads.length - 1 && (
                 <MdOutlineKeyboardArrowRight className="text-sm" />
               )}
-            </>
+            </React.Fragment>
           );
         })}
       </div>
