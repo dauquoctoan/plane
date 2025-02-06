@@ -66,8 +66,8 @@ const ScopeAndDemand = () => {
     const item =
       data?.chartIssueClosedByMonth && data?.chartIssueClosedByMonth.length > 0
         ? data?.chartIssueClosedByMonth.find(
-            chartItem => chartItem.month == i + 1
-          )
+          chartItem => chartItem.month == i + 1
+        )
         : { total: 0 };
     return {
       x: e,
@@ -114,69 +114,69 @@ const ScopeAndDemand = () => {
           <div className="flex-1">
             {data?.issuePendingByMember &&
             data?.issuePendingByMember?.length > 0 ? (
-              <ResponsiveBar
-                data={
-                  data?.issuePendingByMember.map(e => {
-                    return {
-                      id: e.id,
-                      label: e.first_name + ' ' + e.last_name,
-                      value: e.total,
-                    };
-                  }) || []
-                }
-                keys={['value']}
-                indexBy="label"
-                margin={{ top: 50, right: 60, bottom: 50, left: 60 }}
-                padding={0.3}
-                colors={{ scheme: 'nivo' }}
-                borderColor={{ from: 'color', modifiers: [['darker', 1.6]] }}
-                axisTop={null}
-                axisRight={null}
-                axisBottom={{
-                  tickSize: 5,
-                  tickPadding: 5,
-                  tickRotation: 0,
-                  legend: '',
-                  renderTick: props => {
-                    return (
-                      <g transform={`translate(${props.x},${props.y})`}>
-                        <circle cy="18" r="8" fill="#374151"></circle>
-                        <text
-                          x="0"
-                          y="21"
-                          text-anchor="middle"
-                          font-size="9"
-                          fill="#ffffff"
-                        >
-                          {props.value[0]}
-                        </text>
-                      </g>
-                    );
-                  },
-                  legendPosition: 'middle',
-                  legendOffset: 32,
-                }}
-                axisLeft={{
-                  tickSize: 5,
-                  tickPadding: 5,
-                  tickRotation: 0,
-                  legend: 'fruit count',
-                  legendPosition: 'middle',
-                  legendOffset: -40,
-                  tickValues: Math.max(
-                    ...(data?.issuePendingByMember
-                      ? data?.issuePendingByMember.map(obj => obj.total)
-                      : [])
-                  ),
-                }}
-                labelSkipWidth={12}
-                labelSkipHeight={12}
-                labelTextColor={{ from: 'color', modifiers: [['darker', 1.6]] }}
-                animate={true}
-              />
-            ) : (
-              <DefaultNoData data={empTyData.pendingIssue} />
-            )}
+                <ResponsiveBar
+                  data={
+                    data?.issuePendingByMember.map(e => {
+                      return {
+                        id: e.id,
+                        label: e.first_name + ' ' + e.last_name,
+                        value: e.total,
+                      };
+                    }) || []
+                  }
+                  keys={['value']}
+                  indexBy="label"
+                  margin={{ top: 50, right: 60, bottom: 50, left: 60 }}
+                  padding={0.3}
+                  colors={{ scheme: 'nivo' }}
+                  borderColor={{ from: 'color', modifiers: [['darker', 1.6]] }}
+                  axisTop={null}
+                  axisRight={null}
+                  axisBottom={{
+                    tickSize: 5,
+                    tickPadding: 5,
+                    tickRotation: 0,
+                    legend: '',
+                    renderTick: props => {
+                      return (
+                        <g transform={`translate(${props.x},${props.y})`}>
+                          <circle cy="18" r="8" fill="#374151"></circle>
+                          <text
+                            x="0"
+                            y="21"
+                            text-anchor="middle"
+                            font-size="9"
+                            fill="#ffffff"
+                          >
+                            {props.value[0]}
+                          </text>
+                        </g>
+                      );
+                    },
+                    legendPosition: 'middle',
+                    legendOffset: 32,
+                  }}
+                  axisLeft={{
+                    tickSize: 5,
+                    tickPadding: 5,
+                    tickRotation: 0,
+                    legend: 'fruit count',
+                    legendPosition: 'middle',
+                    legendOffset: -40,
+                    tickValues: Math.max(
+                      ...(data?.issuePendingByMember
+                        ? data?.issuePendingByMember.map(obj => obj.total)
+                        : [])
+                    ),
+                  }}
+                  labelSkipWidth={12}
+                  labelSkipHeight={12}
+                  labelTextColor={{ from: 'color', modifiers: [['darker', 1.6]] }}
+                  animate={true}
+                />
+              ) : (
+                <DefaultNoData data={empTyData.pendingIssue} />
+              )}
           </div>
         </div>
       </div>

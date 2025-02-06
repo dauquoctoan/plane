@@ -29,19 +29,19 @@ interface IMenuConfig {
 
 const EstimateSetting = () => {
   const params = useParams<IParams>();
-  const noti = useNoti()
+  const noti = useNoti();
   const [open, setOpen] = useState<IState>({
     data: undefined,
     isOpen: false
   });
 
   const { data } = useSWR(SWR_KEY_ESTIMATES(params.projectid), () => {
-    return issueService.findEstimateByProject(params.projectid)
-  })
+    return issueService.findEstimateByProject(params.projectid);
+  });
 
   const { data: project } = useSWR(params.projectid, () => {
-    return projectService.findOneProject(params.projectid)
-  })
+    return projectService.findOneProject(params.projectid);
+  });
 
   const menuConfigs: IMenuConfig[] = [
     {
@@ -52,22 +52,22 @@ const EstimateSetting = () => {
           title="Delete the"
           desc="Are you sure to delete this item?"
           onConfirm={async () => {
-          const result = await issueService.removeEstimate(estimate.id);
-          if (result) {
-            noti?.success('Delete estimate success')
-            mutate<IEstimate[]>(SWR_KEY_ESTIMATES(params.projectid), (estimates) => {
-              return estimates?.filter((e: IEstimate) => {
-                return e.id !== estimate.id
-              })
-            })
-          }
-        }}>
+            const result = await issueService.removeEstimate(estimate.id);
+            if (result) {
+              noti?.success('Delete estimate success');
+              mutate<IEstimate[]>(SWR_KEY_ESTIMATES(params.projectid), (estimates) => {
+                return estimates?.filter((e: IEstimate) => {
+                  return e.id !== estimate.id;
+                });
+              });
+            }
+          }}>
           <div
             className='w-full rounded cursor-pointer select-none px-2 py-1 hover:bg-theme-secondary text-xs flex items-center gap-2'>
             {icons.delete}
             <div className='text-xs'>Delete estimate</div>
           </div>
-        </Confirm>
+        </Confirm>;
       },
       click: async () => { }
     },
@@ -75,23 +75,23 @@ const EstimateSetting = () => {
       name: "Edit estimate",
       icons: icons.edit,
       click: (estimate) => {
-        setOpen({ data: estimate, isOpen: true })
+        setOpen({ data: estimate, isOpen: true });
       }
     },
     {
       name: 'Set default',
       icons: icons.check,
       click: async (estimate) => {
-        const result = await projectService.updateProject(params.projectid, { estimate_id: estimate.id })
+        const result = await projectService.updateProject(params.projectid, { estimate_id: estimate.id });
         if (result) {
-          noti?.success('Set default estimate success')
+          noti?.success('Set default estimate success');
           mutate<IProject>(params.projectid, (project) => {
-            return { ...project, estimate_id: estimate.id }
-          })
-        } else noti?.success('Set default estimate success')
+            return { ...project, estimate_id: estimate.id };
+          });
+        } else noti?.success('Set default estimate success');
       }
     }
-  ]
+  ];
 
   return (
     <div>
@@ -127,20 +127,20 @@ const EstimateSetting = () => {
                           e.render && e.render(estimate) || <div
                             key={e.name}
                             onClick={() => {
-                              e.click(estimate)
+                              e.click(estimate);
                             }}
                             className='w-full rounded cursor-pointer select-none px-2 py-1 hover:bg-theme-secondary text-xs flex items-center gap-2'>
                             {e.icons}
                             <div className='text-xs'>{e.name}</div>
                           </div>
                         }
-                      </>
+                      </>;
                     })
                   }
                 </div>}>
                   <div className='w-3 h-3 rounded bg-theme-secondary text-theme-text-primary'>{icons.more}</div>
                 </Popover>
-              </div>
+              </div>;
             })
           }
         </div>
@@ -151,13 +151,12 @@ const EstimateSetting = () => {
           setOpen({ data: undefined, isOpen: false });
         }}
         content={<CreateEstimates defaultEstimate={open.data} setOpen={(e: boolean) => {
-          setOpen({ data: undefined, isOpen: e })
+          setOpen({ data: undefined, isOpen: e });
         }} />}
       />
     </div>
   );
 };
-
 
 const CreateEstimates = ({
   setOpen,
@@ -168,7 +167,7 @@ const CreateEstimates = ({
 }) => {
   const params = useParams<IParams>();
   const [loading, setLoading] = useState(false);
-  const typeForm = defaultEstimate ? 'Edit' : 'Create'
+  const typeForm = defaultEstimate ? 'Edit' : 'Create';
   const notification = useNoti();
   const estimate_points = defaultEstimate?.estimate_points;
   const [countPoints, setCountPoints] = useState<number>(estimate_points?.length ?? 10);
@@ -197,10 +196,10 @@ const CreateEstimates = ({
             return {
               value: estimatePoints[key as keyof Omit<TCreateEstimate, 'name' | 'description'>] as string,
               key: ((estimate_points?.length || 0) + index)
-            }
+            };
           })
-        }
-        const result = await (defaultEstimate ? issueService.updateEstimateByProject({ ...estimate, id: defaultEstimate.id }) : issueService.createEstimate(estimate))
+        };
+        const result = await (defaultEstimate ? issueService.updateEstimateByProject({ ...estimate, id: defaultEstimate.id }) : issueService.createEstimate(estimate));
         if (result) {
           notification?.success(`${typeForm} Estimate success`);
           setOpen(false);
@@ -209,19 +208,19 @@ const CreateEstimates = ({
               if (defaultEstimate) {
                 return data.map((estimateItem: IEstimate) => {
                   if (defaultEstimate && estimateItem.id === defaultEstimate.id) {
-                    estimateItem.name = result.name
-                    estimateItem.description = result.description
-                    estimateItem.estimate_points = [...estimateItem.estimate_points, ...result.estimate_points]
+                    estimateItem.name = result.name;
+                    estimateItem.description = result.description;
+                    estimateItem.estimate_points = [...estimateItem.estimate_points, ...result.estimate_points];
                   }
                   return estimateItem;
-                })
+                });
               };
 
               return [...data, result];
-            })
+            });
           }
         }
-        else notification?.error(`${typeForm} Estimate error`)
+        else notification?.error(`${typeForm} Estimate error`);
       })}
       className="md:min-w-[700px] w-full hover-scroll max-h-[90vh] mb-2 overflow-y-auto relative"
     >
@@ -262,19 +261,19 @@ const CreateEstimates = ({
                   onChange={estimate_points && estimate_points[i]?.id ? async (e) => {
                     if (estimate_points && estimate_points[i]?.id) {
                       setLoading(true);
-                      const result = await issueService.updateEstimatePointById(estimate_points[i]?.id as string, { value: e.target.value })
+                      const result = await issueService.updateEstimatePointById(estimate_points[i]?.id as string, { value: e.target.value });
                       if (result) {
                         mutate<IEstimate[]>(SWR_KEY_ESTIMATES(params.projectid), (data: any) => {
                           return data.map((estimate: IEstimate) => {
                             if (estimate.id === defaultEstimate.id) {
                               estimate.estimate_points = estimate.estimate_points.map((esPoint) => {
-                                if (esPoint.id == estimate_points[i]?.id) esPoint.value = e.target.value
-                                return esPoint
-                              })
+                                if (esPoint.id == estimate_points[i]?.id) esPoint.value = e.target.value;
+                                return esPoint;
+                              });
                             }
                             return estimate;
-                          })
-                        })
+                          });
+                        });
                       }
                       setLoading(false);
                     }
@@ -290,24 +289,24 @@ const CreateEstimates = ({
                       setLoading(true);
                       const result = await issueService.removeEstimatePointById(estimate_points[i]?.id || "");
                       if (result) {
-                        notification?.success('Delete estimate point success')
+                        notification?.success('Delete estimate point success');
                         //remove estimate point
                         mutate<IEstimate[]>(SWR_KEY_ESTIMATES(params.projectid), (data: any) => {
                           return data.map((e: IEstimate) => {
                             if (e.id === defaultEstimate.id) {
                               e.estimate_points = e.estimate_points.filter((e) => {
-                                return e.id != estimate_points[i]?.id
-                              })
+                                return e.id != estimate_points[i]?.id;
+                              });
                             }
                             return e;
-                          })
-                        })
+                          });
+                        });
                       }
-                      else notification?.error('Delete estimate point error')
+                      else notification?.error('Delete estimate point error');
                       setLoading(false);
                     }
-                    unregister(String(i + 1) as any)
-                    setCountPoints((countPoints - 1) < 1 ? 1 : (countPoints - 1))
+                    unregister(String(i + 1) as any);
+                    setCountPoints((countPoints - 1) < 1 ? 1 : (countPoints - 1));
                   }}>
                   {icons.delete}
                 </div>

@@ -1,4 +1,4 @@
-'use client'
+'use client';
 import {
   drawerViewSlice,
   useDispatch,
@@ -74,7 +74,7 @@ const IssueDetail: FC<IIssueDetail> = ({ issue }) => {
       const result = await issueService.createReaction<IIsueReaction>(reaction);
       if (result && info) return [...(prevData || []), { ...result, user: info }];
       else noti?.error('Reaction error');
-      return prevData
+      return prevData;
     });
   };
 
@@ -228,15 +228,15 @@ const IssueDetail: FC<IIssueDetail> = ({ issue }) => {
   return (
     <div className="p-2 h-screen flex flex-col">
       <div className="w-full flex justify-between py-3">
-         <div className="flex items-center gap-2">
+        <div className="flex items-center gap-2">
           <ContainerLink links={[{href: `/${info?.workspace?.slug}/projects/${param.projectid}/issues/${dataItem?.id}`, nickname:createNickNameLink(dataItem?.id || '')}]}/>
-         {
-          issue &&
+          {
+            issue &&
           <MdOutlineOpenInFull onClick={()=>{
             changeRoute(`/${info?.workspace?.slug}/projects/${param.projectid}/issues/${dataItem?.id}`);
             setTimeout(()=>{
               dispatch(drawerViewSlice.actions.closeDrawer());
-            },100)
+            },100);
           }} className="cursor-pointer" /> }
         </div>
         <div className="flex items-center gap-2">

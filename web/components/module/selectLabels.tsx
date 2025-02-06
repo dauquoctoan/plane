@@ -1,4 +1,4 @@
-'use client'
+'use client';
 import { SWR_KEY_LABELS_BY_PROJECT } from '@/apiKey';
 import React from 'react';
 import useSWR from 'swr';

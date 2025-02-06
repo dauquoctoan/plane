@@ -93,7 +93,7 @@ export const useDataFilter = (cb?: TCalBackChangeDate) => {
     {
       title: 'State',
       value: 'states',
-      children: convertDataOptions(states) as IItemData[],
+      children: convertDataOptions(states),
     },
     {
       title: 'Priority',

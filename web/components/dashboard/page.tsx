@@ -35,11 +35,11 @@ const Dashboard = () => {
   const dayAndNight =
     moment().hours() <= 12 && moment().hours() >= 0
       ? {
-          text: 'Good morning',
-        }
+        text: 'Good morning',
+      }
       : {
-          text: 'Good afternoon',
-        };
+        text: 'Good afternoon',
+      };
 
   const { data: overView, isLoading } = useSWR('overview', () =>
     overviewService.getDashboardOverview()

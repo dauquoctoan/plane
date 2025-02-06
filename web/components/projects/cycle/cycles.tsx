@@ -146,13 +146,13 @@ const CycleItem = ({ data, tab }: { data: ICycle; tab: string }) => {
           onClick={async () => {
             const result = await (data.is_favorite
               ? projectService.deleteCyclesFavorite({
-                  user_id: info?.id || '',
-                  cycle_id: data?.id || '',
-                })
+                user_id: info?.id || '',
+                cycle_id: data?.id || '',
+              })
               : projectService.createCyclesFavorite({
-                  user_id: info?.id || '',
-                  cycle_id: data?.id || '',
-                }));
+                user_id: info?.id || '',
+                cycle_id: data?.id || '',
+              }));
 
             if (result) {
               mutate<ICycle[]>(

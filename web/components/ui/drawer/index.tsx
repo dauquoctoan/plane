@@ -69,15 +69,15 @@ const Drawer: React.FC<IProps> = ({
   
     if (wrap.current) {
       if(position === 'bottom'|| position =='top'){
-          //@ts-ignore: Unreachable code error
+        //@ts-ignore: Unreachable code error
         wrap.current.style.animationDuration = 0.1;
-          //@ts-ignore: Unreachable code error
+        //@ts-ignore: Unreachable code error
         wrap.current.style.height = 0;
-          //@ts-ignore: Unreachable code error
+        //@ts-ignore: Unreachable code error
         wrap.current.style.padding = 0;
         
       }else{
-          //@ts-ignore: Unreachable code error
+        //@ts-ignore: Unreachable code error
         wrap.current.style.width = 0;
       }
     }

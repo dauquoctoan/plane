@@ -53,7 +53,7 @@ const ProjectMenuItem: React.FC<IProjectMenuitem> = ({
                 setIsExpan(!isExpan);
               }}
               className={`text-xl cursor-pointer ${isExpan && 'rotate-180'
-                } transition-all`}
+              } transition-all`}
             />
           </div>
         </div>

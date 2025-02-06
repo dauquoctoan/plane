@@ -236,11 +236,11 @@ const CreateViewIssue = ({
           </div>
         </div>
         <div className="w-full md:w-[400px]">
-        <FilterQueryIssue
-          setItemSelected={setItemSelected}
-          itemSelected={itemSelected}
-          data={data}
-        />
+          <FilterQueryIssue
+            setItemSelected={setItemSelected}
+            itemSelected={itemSelected}
+            data={data}
+          />
         </div>
       </div>
       <div className="flex items-center justify-end gap-2 pt-2">

@@ -1,4 +1,4 @@
-'use client'
+'use client';
 import React from 'react';
 import useSWR from 'swr';
 import Select, { IOptionItem } from '../ui/select/select';
@@ -27,33 +27,33 @@ const SelectEstimate: React.FC<IProps> = ({
     () => issueService.findOneEstimate(estimateId)
   );
 
-    const options:IOptionItem[] = estimates?.estimate_points.map((e)=>{
-        return{
-            title: e.value,
-            value: e.id,
-        }
-    }) || []
+  const options:IOptionItem[] = estimates?.estimate_points.map((e)=>{
+    return{
+      title: e.value,
+      value: e.id,
+    };
+  }) || [];
 
   return (
     <Select
-        options={options}
-        isIconCheck
-        fontSize="text-[12px]"
-        defaultValue={defaultValue}
-        border={border}
-        style={style}
-        isClear
-        showMoreText={showMoreText}
-        isChildren={false}
-        beforeUpdateValue={beforeUpdateValue}
+      options={options}
+      isIconCheck
+      fontSize="text-[12px]"
+      defaultValue={defaultValue}
+      border={border}
+      style={style}
+      isClear
+      showMoreText={showMoreText}
+      isChildren={false}
+      beforeUpdateValue={beforeUpdateValue}
     >
-        <div
+      <div
         className={`px-2 cursor-pointer select-none py-[3px] border-theme-border-primary rounded flex items-center ${
-            showMoreText ? 'gap-1' : ''
+          showMoreText ? 'gap-1' : ''
         } text-[12px] w-full`}
-        >
+      >
         <span>{showMoreText && 'Estimate'}</span>
-        </div>
+      </div>
     </Select>
   );
 };

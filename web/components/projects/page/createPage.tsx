@@ -44,7 +44,7 @@ const CreatePage = () => {
                 return [...(issues||[]), result];
               } else noti?.error('Create page error!');
             }
-            return issues
+            return issues;
           }
         );
       })}

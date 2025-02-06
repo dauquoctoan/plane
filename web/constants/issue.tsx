@@ -7,11 +7,9 @@ import { ITableConfigs } from '@/components/ui/table';
 import issueService from '@/services/issue-services';
 import { IIssue, IUser, IState, ILabel } from '@/types';
 import { LinkProps } from 'next/link';
-import { eventEmitter } from 'nextjs-progressloader';
 import { CiViewList } from 'react-icons/ci';
 import { IoBan } from 'react-icons/io5';
 import { LiaThListSolid } from 'react-icons/lia';
-import { LuGanttChartSquare } from 'react-icons/lu';
 import {
   MdCalendarMonth,
   MdOutlineSignalCellularAlt,
@@ -21,7 +19,6 @@ import {
 } from 'react-icons/md';
 import { RiErrorWarningLine } from 'react-icons/ri';
 import moment from 'moment';
-import { IconType } from 'react-icons';
 import { ReactElement } from 'react';
 import SelectEstimate from '@/components/module/selectEstimate';
 
@@ -753,12 +750,13 @@ export const TableConfigs: ITableConfigs[] = [
     title: 'ID',
     dataIndex: 'id',
     fixed: 'left',
-    render: (e: IIssue, record: IIssue) => {
+    render: (_, record: IIssue) => {
+      const id = record?.project?.identifier?.toUpperCase() +
+      '-' +
+      (record.sequence_id || '')
       return (
-        <div>
-          {record?.project?.identifier?.toUpperCase() +
-            '-' +
-            (record.sequence_id || '')}
+        <div title={id} className='nowrap w-full overflow-hidden text-ellipsis'>
+          {id}
         </div>
       );
     },
@@ -767,7 +765,7 @@ export const TableConfigs: ITableConfigs[] = [
     title: 'Issue',
     dataIndex: 'name',
     fixed: 'left',
-    width: 200,
+    width: 300,
     shadow: 'left',
   },
   {

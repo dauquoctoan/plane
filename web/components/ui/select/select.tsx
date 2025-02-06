@@ -301,8 +301,8 @@ const Select: React.FC<ICurrentField> = ({
               />
             )) ||
             children || (
-              <div className="w-[70px] h-[24px] rounded bg-theme-primary cursor-default"></div>
-            )}
+            <div className="w-[70px] h-[24px] rounded bg-theme-primary cursor-default"></div>
+          )}
         </div>
       </Tooltip>
       {!disableMessage && error && (

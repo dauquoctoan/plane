@@ -8,7 +8,8 @@
     "start": "next start -p 3001",
     "lint": "next lint",
     "format": "prettier --write \"**/*.{js,jsx,ts,tsx,css,scss,md}\"",
-    "checker": "eslint . --ext .js,.jsx,.ts,.tsx"
+    "checker": "eslint . --ext .js,.jsx,.ts,.tsx",
+    "lint-fix": "npm run lint -- --fix"
   },
   "dependencies": {
     "@emotion/react": "^11.11.1",
@@ -86,7 +87,7 @@
     "@types/react": "latest",
     "@types/react-dom": "latest",
     "autoprefixer": "latest",
-    "eslint": "^8.57.0",
+    "eslint": "^8.57.1",
     "eslint-config-next": "latest",
     "eslint-plugin-spellcheck": "^0.0.20",
     "postcss": "latest",

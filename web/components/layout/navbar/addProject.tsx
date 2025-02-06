@@ -31,7 +31,7 @@ interface IProps {
 
 const AddProject: React.FC<IProps> = ({ setOpen, handleCreateProject }) => {
   const info = useSelector(selectInfo);
-  const [state, setState] = useState(false)
+  const [state, setState] = useState(false);
   const {
     register,
     handleSubmit,
@@ -98,10 +98,10 @@ const AddProject: React.FC<IProps> = ({ setOpen, handleCreateProject }) => {
             </div>
           </Popover>
         </div>
-        <div onClick={()=>{checkIsMobile() && setState(true)}} className="absolute right-0 bottom-0 rounded border border-theme-border-primary bg-theme-secondary cursor-pointer select-none mb-2 mr-2">
+        <div onClick={()=>{checkIsMobile() && setState(true);}} className="absolute right-0 bottom-0 rounded border border-theme-border-primary bg-theme-secondary cursor-pointer select-none mb-2 mr-2">
           {
             checkIsMobile() ? <>
-              <Modal isOpen={state} handleClose={()=>{setState(false)}} content={<ChangeCover
+              <Modal isOpen={state} handleClose={()=>{setState(false);}} content={<ChangeCover
                 onChange={e => {
                   setValue('cover_image', e);
                 }}

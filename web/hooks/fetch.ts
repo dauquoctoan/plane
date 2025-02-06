@@ -4,7 +4,7 @@ import { BaseService } from '@/services/base-service';
 import projectService from '@/services/project-services';
 import { useSelector } from '@/store';
 import { selectInfo } from '@/store/slices/authSlice/selectors';
-import { IData, IParams, IProject } from '@/types';
+import { IData, IParams } from '@/types';
 import { useParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import useSWR from 'swr';

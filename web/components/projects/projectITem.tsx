@@ -22,7 +22,6 @@ import { changeRoute } from 'nextjs-progressloader';
 import { useParams } from 'next/navigation';
 import { SWR_KEY_PROJECTS } from '@/apiKey';
 
-
 interface IPropsProjectItem {
   dataItem: IProject;
 }
@@ -86,7 +85,7 @@ const ProjectITem: React.FC<IPropsProjectItem> = ({ dataItem }) => {
           <div className="flex items-center gap-2 select-none text-lg">
             <BiSolidEditAlt onClick={
               ()=>{
-                changeRoute(`/${info?.workspace?.slug}/projects/${dataItem.id}/settings`)
+                changeRoute(`/${info?.workspace?.slug}/projects/${dataItem.id}/settings`);
               }
             } className="hover:scale-110" />
             <Popover
@@ -112,7 +111,7 @@ interface IProjectMenuPopover {
 export const ProjectMenuPopover: FC<IProjectMenuPopover> = ({ dataItem }) => {
   const noti = useNoti();
   const info = useSelector(selectInfo);
-  const typeF = dataItem.is_favorite ? 'Remove' : 'Add'
+  const typeF = dataItem.is_favorite ? 'Remove' : 'Add';
 
   const handleDeleteProject = async () => {
     const res = await projectService.deleteProject(dataItem.id || '');
@@ -120,9 +119,9 @@ export const ProjectMenuPopover: FC<IProjectMenuPopover> = ({ dataItem }) => {
       changeRoute(`/${info?.workspace?.slug}/projects`);
       mutate<IProject[]>(SWR_KEY_PROJECTS(info?.last_workspace_id), (data) => {
         return data?.filter((e) => {
-          return e.id != dataItem.id
-        })
-      })
+          return e.id != dataItem.id;
+        });
+      });
       noti?.success('Delete project success');
     } else {
       noti?.error('Delete project error');
@@ -146,17 +145,17 @@ export const ProjectMenuPopover: FC<IProjectMenuPopover> = ({ dataItem }) => {
     </div>
     <div
       onClick={async () => {
-        const result = await (dataItem.is_favorite ? projectService.removeProjectFavorite(dataItem.id || ''):projectService.addProjectFavorite(dataItem.id || ''))
+        const result = await (dataItem.is_favorite ? projectService.removeProjectFavorite(dataItem.id || ''):projectService.addProjectFavorite(dataItem.id || ''));
         if (result) {
           mutate<IProject[]>(SWR_KEY_PROJECTS(info?.last_workspace_id),(projects)=>{
             return projects?.map((e)=>{
-              if(e.id === dataItem.id) e.is_favorite = !e.is_favorite 
-              return e
-            })
-          })
-          noti?.success(typeF + ' favorite success')
+              if(e.id === dataItem.id) e.is_favorite = !e.is_favorite; 
+              return e;
+            });
+          });
+          noti?.success(typeF + ' favorite success');
         } else {
-          noti?.error(typeF + ' favorite error')
+          noti?.error(typeF + ' favorite error');
         }
       }}
       className="flex hover:bg-theme-secondary items-center gap-2 cursor-pointer rounded p-1 select-none">
@@ -171,9 +170,9 @@ export const ProjectMenuPopover: FC<IProjectMenuPopover> = ({ dataItem }) => {
           navigator.clipboard.writeText(
             `${process.env.NEXT_PUBLIC_HOST}/${info?.workspace?.slug}/projects/${dataItem.id}/settings`
           );
-          noti?.success('Copy link success')
+          noti?.success('Copy link success');
         } catch (error) {
-          noti?.error('Copy link error')
+          noti?.error('Copy link error');
         }
 
       }}
@@ -183,7 +182,7 @@ export const ProjectMenuPopover: FC<IProjectMenuPopover> = ({ dataItem }) => {
         Coppy project link
       </span>
     </div>
-  </div>
-}
+  </div>;
+};
 
 export default ProjectITem;

@@ -16,12 +16,14 @@ export type IParams = {
   pageid: string;
   issueid:string;
 };
+
 export interface IResult<T> {
   code: 0 | 1;
   data: T;
   message: string;
   statusCode: number;
 }
+
 export interface LinkProps {
   href: string;
   nickname?: string;

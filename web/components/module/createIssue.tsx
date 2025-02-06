@@ -192,13 +192,13 @@ const CreateIssue: React.FC<IProps> = ({
                     {
                       ...dataIssue,
                       state_id: data.state,
-                      project: projects.find((e)=>{return e.id == (watch('project') || projects[0].id)}),
+                      project: projects.find((e)=>{return e.id == (watch('project') || projects[0].id);}),
                       state: {
                         id: data.state,
                         name: states?.find(e => e.id == data.state)?.name || '',
                       },
                     },
-                  ]
+                  ];
                 }
               } else {
                 noti?.error('An error occurred, please try again later');

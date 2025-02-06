@@ -41,13 +41,13 @@ const AddModule: FC<IProps> = ({
           async (modules) => {
             const result = await (defaultValue?.id
               ? projectService.updateModule(defaultValue.id, {
-                  name: data.name,
-                  description: data.description,
-                })
+                name: data.name,
+                description: data.description,
+              })
               : projectService.createModule(id, {
-                  name: data.name,
-                  description: data.description,
-                }));
+                name: data.name,
+                description: data.description,
+              }));
 
             if (result) {
               noti?.success(
@@ -56,14 +56,14 @@ const AddModule: FC<IProps> = ({
               handleCloseModel();
               return defaultValue?.id
                 ? modules?.map((itemModule: IModule) => {
-                    if (defaultValue.id == itemModule.id)
-                      return {
-                        ...defaultValue,
-                        name: data.name || '',
-                        description: data.description||'',
-                      };
-                    else return itemModule;
-                  })
+                  if (defaultValue.id == itemModule.id)
+                    return {
+                      ...defaultValue,
+                      name: data.name || '',
+                      description: data.description||'',
+                    };
+                  else return itemModule;
+                })
                 : [...(modules||[]), result];
             } else {
               noti?.error('An error occurred, please try again later');

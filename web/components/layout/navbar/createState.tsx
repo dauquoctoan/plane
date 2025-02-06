@@ -58,7 +58,7 @@ const CreateState: React.FC<IPropsCreateState> = ({
             } else {
               alert('group không tồn tại vui lòng nhập lại');
             }
-            return state
+            return state;
           },
           { revalidate: false }
         );

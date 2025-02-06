@@ -25,8 +25,8 @@ const WorkspaceMember = () => {
 
   const filters = searchMember
     ? workspaceMember?.filter(e =>
-        createName(e.user.first_name, e.user.last_name).includes(searchMember)
-      )
+      createName(e.user.first_name, e.user.last_name).includes(searchMember)
+    )
     : workspaceMember;
 
   const removeMembers = async (id: string) => {

@@ -17,16 +17,16 @@ function sliceProject(data: IProject[]): ISliceProject {
   const dataResult: ISliceProject = {
     project: [],
     projectFavorite: []
-  }
+  };
   data?.forEach((e) => {
     if (!e.is_member) return;
     if (e.is_favorite) {
-      dataResult.projectFavorite.push(e)
+      dataResult.projectFavorite.push(e);
     } else {
-      dataResult.project.push(e)
+      dataResult.project.push(e);
     }
-  })
-  return dataResult
+  });
+  return dataResult;
 }
 
 const MenuProject = () => {
@@ -51,7 +51,7 @@ const MenuProject = () => {
       return [...project];
     });
   }
-  const { project, projectFavorite } = sliceProject(data || [])
+  const { project, projectFavorite } = sliceProject(data || []);
 
   return (
     <>
@@ -63,7 +63,7 @@ const MenuProject = () => {
             setOpen(true);
           }}
           className={`cursor-pointer text-lg ${open ? 'rotate-45' : ''
-            } transition-all`}
+          } transition-all`}
         />
       </div>} data={project} isCollap={isCollap} open={open} setOpen={setOpen} />
       <Modal
@@ -99,16 +99,16 @@ const MenuProjectItem = ({ isCollap, tittle, setOpen, open, data }: IMenuProject
       )}
       <div>
         {data.map((item) => (
-            <ProjectMenuItem
-              key={item.id}
-              project={item}
-              emoji={item.emoji}
-              text={item?.name}
-            />
-          ))}
+          <ProjectMenuItem
+            key={item.id}
+            project={item}
+            emoji={item.emoji}
+            text={item?.name}
+          />
+        ))}
       </div>
     </div>
-  )
-}
+  );
+};
 
 export default memo(MenuProject);

@@ -21,10 +21,10 @@ const AssignedToYou: FC<IContent> = React.memo(
           optionKey !== STATE_QUERY
             ? optionValue
             : state
-                .filter(e => {
-                  return optionValue.includes(e.group || '');
-                })
-                .map(e => e.id),
+              .filter(e => {
+                return optionValue.includes(e.group || '');
+              })
+              .map(e => e.id),
         [type]: [info?.id || ''],
       });
     });

@@ -260,12 +260,12 @@ const IssueBoardCalendar: React.FC<IProps> = ({ data }) => {
                                   key={issue.id}
                                 >
                                   <div
-                                  onClick={()=>{
-                                    issue &&
+                                    onClick={()=>{
+                                      issue &&
                                     dispatch(drawerViewSlice.actions.setIssueSlected(issue));
-                                    dispatch(drawerViewSlice.actions.openDrawer());
-                                  }}  
-                                   className="flex-1 text-ellipsis overflow-hidden">
+                                      dispatch(drawerViewSlice.actions.openDrawer());
+                                    }}  
+                                    className="flex-1 text-ellipsis overflow-hidden">
                                     {issue.name}
                                   </div>
                                   <Popover

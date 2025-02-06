@@ -39,12 +39,12 @@ export function formartDate(
 ): string | undefined {
   if (!value) return value;
   switch (type) {
-    case 'DD/MM/YYY':
-      return `${value.date}/${value.month + 1}/${value.year}`;
-    case 'MM/DD/YYY':
-      return `${value.month + 1}/${value.date}/${value.year}`;
-    case 'YYY/DD/MM':
-      return `${value.year}/${value.date}/${value.month + 1}`;
+  case 'DD/MM/YYY':
+    return `${value.date}/${value.month + 1}/${value.year}`;
+  case 'MM/DD/YYY':
+    return `${value.month + 1}/${value.date}/${value.year}`;
+  case 'YYY/DD/MM':
+    return `${value.year}/${value.date}/${value.month + 1}`;
   }
 }
 

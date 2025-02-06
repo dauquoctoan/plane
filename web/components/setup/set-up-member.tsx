@@ -45,16 +45,16 @@ function createKey(index: string) {
 
 function getRole(role: string) {
   switch (role) {
-    case 'Guest':
-      return 5;
-    case 'Member':
-      return 10;
-    case 'Admin':
-      return 15;
-    case 'Owner':
-      return 20;
-    default:
-      return 10;
+  case 'Guest':
+    return 5;
+  case 'Member':
+    return 10;
+  case 'Admin':
+    return 15;
+  case 'Owner':
+    return 20;
+  default:
+    return 10;
   }
 }
 
