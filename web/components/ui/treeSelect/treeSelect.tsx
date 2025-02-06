@@ -5,8 +5,6 @@ import { createPortal } from 'react-dom';
 import Popover, { IItemData } from './popOver';
 import { IoCloseCircleOutline } from 'react-icons/io5';
 import { ICurrentFieldProps } from '../types';
-import { forEach } from 'lodash';
-import { reducer } from '@/store/rootReducer';
 
 export interface ITreeSelect {
   placeMent?: TPlacement;
@@ -90,7 +88,6 @@ function convertDataToArr(data: IItemData[]) {
 
 const TreeSelect: React.FC<IProps> = ({
   isHover = false,
-  placeMent = 'left',
   isChldrent = false,
   children,
   isMutiple = false,
@@ -111,7 +108,9 @@ const TreeSelect: React.FC<IProps> = ({
       filter: _filter,
       getValue: getValues,
     },
-  };  const { filter, getValue } = fn[typeData];  const [itemSelected, setItemSelected] = useState<IItemSelected>(
+  };
+  const { filter, getValue } = fn[typeData];
+  const [itemSelected, setItemSelected] = useState<IItemSelected>(
     filter(data, defaultValue || [])
   );
 
@@ -150,7 +149,8 @@ const TreeSelect: React.FC<IProps> = ({
   }
 
   const refPopover = useRef<HTMLDivElement>(null);
-  const refPopup = useRef<HTMLDivElement>(null);  const {
+  const refPopup = useRef<HTMLDivElement>(null);
+  const {
     open,
     handleClose,
     handleWhenMouseLeave,

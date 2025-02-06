@@ -97,7 +97,8 @@ const lsFormSetUpStep: IItemFormSetUp[] = [
       if (curent <= 3 && curent >= 0) return curent;
       else return state;
     });
-  }, [step]);  const prevStep = () => {
+  }, [step]);
+  const prevStep = () => {
     setLoading(true);
 
     setTimeout(() => {
@@ -109,7 +110,8 @@ const lsFormSetUpStep: IItemFormSetUp[] = [
       if (curent <= 3 && curent >= 0) return curent;
       else return step;
     });
-  };  const {
+  };
+  const {
     subTitle,
     title,
     component: FormMain,

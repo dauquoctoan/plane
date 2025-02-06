@@ -11,6 +11,10 @@
       { "blankLine": "never", "prev": "const", "next": "const" },
       { "blankLine": "never", "prev": "let", "next": "let" },
       { "blankLine": "never", "prev": "var", "next": "var" }
+    ],
+    "no-unused-vars": [
+      "error",
+      { "vars": "all", "args": "after-used", "ignoreRestSiblings": true }
     ]
   }
 }
