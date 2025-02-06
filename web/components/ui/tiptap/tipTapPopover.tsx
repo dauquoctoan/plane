@@ -62,6 +62,7 @@ export const FontSize = Extension.create({
               if (!attributes.fontSize) {
                 return {};
               }
+
               return {
                 style: `font-size: ${attributes.fontSize}`,
               };
@@ -195,9 +196,7 @@ export default function TipTapPopover(props: IProps) {
         </div>
       ),
     },
-  ];
-
-  const uploadFile = async (files: any) => {
+  ];  const uploadFile = async (files: any) => {
     const formData = new FormData();
     formData.append('image', files);
 

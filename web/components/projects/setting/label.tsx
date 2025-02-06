@@ -15,9 +15,7 @@ import useSWR from 'swr';
 
 const LabelSetting = () => {
   const params = useParams<IParams>();
-  const [isOpen, setIsOpen] = useState<boolean>(false);
-
-  const { data: labels } = useSWR(
+  const [isOpen, setIsOpen] = useState<boolean>(false);  const { data: labels } = useSWR(
     SWR_KEY_LABELS_BY_PROJECT(params.projectid),
     () => {
       return issueService.findLabelsByProject({ projectId: params.projectid });
@@ -53,9 +51,7 @@ const LabelSetting = () => {
       />
     </div>
   );
-};
-
-const LabelSettingItem = ({ data }: { data: ILabel }) => {
+};const LabelSettingItem = ({ data }: { data: ILabel }) => {
   const [isEddit, setIsEdit] = useState(false);
   const noti = useNoti();
 

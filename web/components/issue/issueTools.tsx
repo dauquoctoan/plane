@@ -27,17 +27,14 @@ const IssueTools: React.FC<IIssueTools> = ({
   projectId,
 }) => {
   const optionsState: IOptionItem[] | undefined =
-    states && convertDataOptions(states);
-
-  const { data: members } = useSWR(
+    states && convertDataOptions(states);  const { data: members } = useSWR(
     () => SWR_KEY_MEMBER_BY_PROJECT(projectId),
     () =>
       projectService.getMemberByProject<IProjectMember[]>({
         projectId: projectId || '',
       })
-  );
+  );  const optionsMember: IOptionItem[] = createMembeSelectOption(members);
 
-  const optionsMember: IOptionItem[] = createMembeSelectOption(members);
   return (
     <div className="mb-5 flex flex-wrap md:flex-nowrap items-center justify-between gap-2">
       {optionsState && optionsState?.length > 0 ? (

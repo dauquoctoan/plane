@@ -54,6 +54,7 @@ const AddModule: FC<IProps> = ({
                 'Module ' + defaultValue?.id ? 'updated' : 'created'
               );
               handleCloseModel();
+
               return defaultValue?.id
                 ? modules?.map((itemModule: IModule) => {
                   if (defaultValue.id == itemModule.id)
@@ -67,6 +68,7 @@ const AddModule: FC<IProps> = ({
                 : [...(modules||[]), result];
             } else {
               noti?.error('An error occurred, please try again later');
+
               return modules;
             }
           },

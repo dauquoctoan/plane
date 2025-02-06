@@ -38,9 +38,7 @@ const ProfileSettingLayout = () => {
       href: '/profile/preferences/theme',
       nickname: 'preferencesSettingTheme',
     },
-  ];
-
-  const more = [
+  ];  const more = [
     {
       icons: <BiSolidPlusSquare />,
       text: 'Create workspace',
@@ -51,13 +49,9 @@ const ProfileSettingLayout = () => {
       text: 'Invitations',
       href: '/invitations',
     },
-  ];
-
-  const info = useSelector(selectInfo);
+  ];  const info = useSelector(selectInfo);
   const isCollap = useSelector(selectIsCollapProfile);
-  const dispatch = useDispatch();
-
-  const { data: workspaces } = useSWR('workspaces', () => {
+  const dispatch = useDispatch();  const { data: workspaces } = useSWR('workspaces', () => {
     return workspaceService.getWorkspaceByUser<IWorkspace[]>();
   });
 

@@ -11,9 +11,7 @@ import { TIME_ZONE_CHOICE } from '@/constants/issue';
 import { IPropsComponent } from './type';
 
 const Profile: React.FC<IPropsComponent> = ({ nextStep }) => {
-  const info = useSelector(selectInfo);
-
-  const {
+  const info = useSelector(selectInfo);  const {
     register,
     handleSubmit,
     formState: { errors },

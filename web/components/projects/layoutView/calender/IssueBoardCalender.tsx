@@ -28,9 +28,7 @@ interface IProps {
   data?: IIssue[];
 }
 
-const FORMAT_DATE = 'MM/DD/YYY';
-
-const IssueBoardCalendar: React.FC<IProps> = ({ data }) => {
+const FORMAT_DATE = 'MM/DD/YYY';const IssueBoardCalendar: React.FC<IProps> = ({ data }) => {
   const [curentValue, setCurentValue] = useState<IItemDate | undefined>(
     undefined
   );
@@ -55,9 +53,7 @@ const IssueBoardCalendar: React.FC<IProps> = ({ data }) => {
     'Novemeber',
     'Decemeber',
   ];
-  const params = useParams<IParams>();
-
-  const day = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+  const params = useParams<IParams>();  const day = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
 
   function getDate(month: number, year: number) {
     const firstDay = new Date(year, month, 1);
@@ -91,6 +87,7 @@ const IssueBoardCalendar: React.FC<IProps> = ({ data }) => {
         });
         prevDate--;
       }
+
       return arr;
     }
 
@@ -107,6 +104,7 @@ const IssueBoardCalendar: React.FC<IProps> = ({ data }) => {
         });
         curentDay++;
       }
+
       return arr;
     }
 
@@ -123,12 +121,14 @@ const IssueBoardCalendar: React.FC<IProps> = ({ data }) => {
     if (monthUpdate < 0) {
       setMonth(11);
       setYear(year - 1);
+
       return 0;
     }
 
     if (monthUpdate > 11) {
       setMonth(1);
       setYear(year + 1);
+
       return 0;
     }
 
@@ -156,6 +156,7 @@ const IssueBoardCalendar: React.FC<IProps> = ({ data }) => {
       if (keyDate) {
         sum[keyDate] = sum[keyDate] || [];
         sum[keyDate].push(item);
+
         return sum;
       } else return sum;
     }, {}) || {};
@@ -315,9 +316,7 @@ const AddMoreIssue: FC<IPropsAddMore> = ({ sequence, date }) => {
   const pathName = usePathname();
   const params = useParams<IParams>();
   const ref = useRef<HTMLDivElement>(null);
-  const noti = useNoti();
-
-  const { data: states } = useSWR(SWR_KEY_STATES(params.projectid), () => {
+  const noti = useNoti();  const { data: states } = useSWR(SWR_KEY_STATES(params.projectid), () => {
     return issueService.getState(params.projectid);
   });
 
@@ -365,6 +364,7 @@ const AddMoreIssue: FC<IPropsAddMore> = ({ sequence, date }) => {
           return [...(issue||[]), itemConvert];
         } else {
           noti?.error('An error occurred, please try again later');
+
           return issue;
         }
       },

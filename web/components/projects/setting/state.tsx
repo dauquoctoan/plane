@@ -13,11 +13,7 @@ import React, { useState } from 'react';
 import useSWR, { mutate } from 'swr';
 
 const StateSetting = () => {
-  const params = useParams<IParams>();
-
-  const noti = useNoti();
-
-  const [isOpen, setIsOpen] = useState<boolean>(false);
+  const params = useParams<IParams>();  const noti = useNoti();  const [isOpen, setIsOpen] = useState<boolean>(false);
   const { data: states } = useSWR(SWR_KEY_STATES(params.projectid), () =>
     issueService.getState(params.projectid)
   );

@@ -12,9 +12,7 @@ const AssignedToYou: FC<IContent> = React.memo(
   ({ date, option, state, type = 'assignees' }) => {
     const [dateKey, dateValue] = date.split(':');
     const [optionKey, optionValue] = option.split(':');
-    const info = useSelector(selectInfo);
-
-    const { data } = useSWR(date + option + type, () => {
+    const info = useSelector(selectInfo);    const { data } = useSWR(date + option + type, () => {
       return issueService.findIssues({
         [dateKey]: dateValue,
         [optionKey]:

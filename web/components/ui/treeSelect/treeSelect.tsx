@@ -62,6 +62,7 @@ function getValues(itemSelected: IItemSelected) {
     return itemSelected[e].value;
   });
 }
+
 function _filter(datas: IItemData[], key: string | string[]): IItemSelected {
   return datas.reduce((data: IItemSelected, item) => {
     let newData: IItemSelected = { ...data };
@@ -110,11 +111,7 @@ const TreeSelect: React.FC<IProps> = ({
       filter: _filter,
       getValue: getValues,
     },
-  };
-
-  const { filter, getValue } = fn[typeData];
-
-  const [itemSelected, setItemSelected] = useState<IItemSelected>(
+  };  const { filter, getValue } = fn[typeData];  const [itemSelected, setItemSelected] = useState<IItemSelected>(
     filter(data, defaultValue || [])
   );
 
@@ -153,9 +150,7 @@ const TreeSelect: React.FC<IProps> = ({
   }
 
   const refPopover = useRef<HTMLDivElement>(null);
-  const refPopup = useRef<HTMLDivElement>(null);
-
-  const {
+  const refPopup = useRef<HTMLDivElement>(null);  const {
     open,
     handleClose,
     handleWhenMouseLeave,

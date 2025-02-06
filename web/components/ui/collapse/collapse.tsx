@@ -32,15 +32,14 @@ export interface IItemCollapse {
 
 const Checked = ({ isChecked }: { isChecked: boolean }) => {
   return <>{isChecked ? <IoIosCheckbox /> : <IoIosCheckboxOutline />}</>;
-};
-
-const ItemCollapse: React.FC<IItemCollapse> = ({
+};const ItemCollapse: React.FC<IItemCollapse> = ({
   item,
   handleSelect,
   itemSelected,
   parentKey,
 }) => {
   const [open, setOpen] = useState(true);
+
   return (
     <div
       className={`${
@@ -107,9 +106,7 @@ const ItemCollapse: React.FC<IItemCollapse> = ({
       )}
     </div>
   );
-};
-
-const Collapse: React.FC<ICollapse> = ({
+};const Collapse: React.FC<ICollapse> = ({
   data,
   handleSelect,
   itemSelected,

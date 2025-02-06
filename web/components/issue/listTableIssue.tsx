@@ -20,15 +20,11 @@ const ListTableIssue = () => {
   const { data: issueViews } = useSWR(
     SWR_KEY_ISSUE_VIEWS,
     () => issueService.getIssueView<IData<IIssueViews[]>>()
-  );
-
-  const lsLinks =
+  );  const lsLinks =
     issueViews?.map(e => ({
       href: `/${info?.workspace?.slug}/workspace-views/${e.id}`,
       nickname: createNickNameLink(`workspace-views-${e.id}`),
-    })) || [];
-
-  const customeLink: LinkProps[] = [
+    })) || [];  const customeLink: LinkProps[] = [
     {
       href: `/${info?.workspace?.slug}/workspace-views/assigned`,
       nickname: createNickNameLink('workspace-views-assigned'),
@@ -70,10 +66,9 @@ const ListTableIssue = () => {
         })}
     </div>
   );
-};
-
-const ItemTab = ({ name, href }: { name: string; href: string }) => {
+};const ItemTab = ({ name, href }: { name: string; href: string }) => {
   const dispatch = useDispatch();
+
   return (
     <div
       className="px-4 hover:bg-theme-secondary cursor-pointer py-3 border-t border-theme-border-secondary text-sm font-medium flex gap-2 items-center"

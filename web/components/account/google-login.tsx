@@ -233,9 +233,7 @@ const GoogleLoginButtonitem: FC<IGoogleLoginButton> = () => {
       </div>
     </form>
   );
-};
-
-const GoogleLoginButton = () => {
+};const GoogleLoginButton = () => {
   return (
     <Suspense>
       <GoogleLoginButtonitem />

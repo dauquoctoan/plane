@@ -14,9 +14,7 @@ import useSWR from 'swr';
 const Pages = () => {
   const params = useParams<IParams>();
   const pathName = usePathname();
-  const dispatch = useDispatch();
-
-  const { data: pages } = useSWR(SWR_KEY_PROJECT_PAGE(params.projectid), () => {
+  const dispatch = useDispatch();  const { data: pages } = useSWR(SWR_KEY_PROJECT_PAGE(params.projectid), () => {
     return projectService.getPages(params.projectid);
   });
   console.log(pages);

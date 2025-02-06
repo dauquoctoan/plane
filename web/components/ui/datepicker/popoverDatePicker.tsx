@@ -77,6 +77,7 @@ const PopoverDatePiker: React.FC<IProps> = ({
         });
         prevDate--;
       }
+
       return arr;
     }
 
@@ -93,6 +94,7 @@ const PopoverDatePiker: React.FC<IProps> = ({
         });
         curentDay++;
       }
+
       return arr;
     }
 
@@ -132,9 +134,7 @@ const PopoverDatePiker: React.FC<IProps> = ({
       tittleFontWeith: 500,
       padding: '',
     },
-  };
-
-  const curentStyle = styles[size];
+  };  const curentStyle = styles[size];
 
   return (
     <div

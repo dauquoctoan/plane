@@ -80,9 +80,7 @@ const lsFormSetUpStep: IItemFormSetUp[] = [
     title: 'Invite people to collaborate',
     component: Member,
   },
-];
-
-const Setup = () => {
+];const Setup = () => {
   const info = useSelector(selectInfo);
   const [step, setStep] = useState<number>(getStepDefault(info || {}));
   const [Loading, setLoading] = useState(false);
@@ -99,9 +97,7 @@ const Setup = () => {
       if (curent <= 3 && curent >= 0) return curent;
       else return state;
     });
-  }, [step]);
-
-  const prevStep = () => {
+  }, [step]);  const prevStep = () => {
     setLoading(true);
 
     setTimeout(() => {
@@ -113,9 +109,7 @@ const Setup = () => {
       if (curent <= 3 && curent >= 0) return curent;
       else return step;
     });
-  };
-
-  const {
+  };  const {
     subTitle,
     title,
     component: FormMain,

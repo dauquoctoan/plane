@@ -23,9 +23,7 @@ const ProjectView = () => {
   const params = useParams<IParams>();
   const noti = useNoti();
   const pathName = usePathname();
-  const dispatch = useDispatch();
-
-  const { data: views } = useSWR(SWR_KEY_PROJECT_VIEW(params.projectid), () => {
+  const dispatch = useDispatch();  const { data: views } = useSWR(SWR_KEY_PROJECT_VIEW(params.projectid), () => {
     return projectService.getProjectView(params.projectid);
   });
 
@@ -37,6 +35,7 @@ const ProjectView = () => {
         <>
           {views?.map(item => {
             const link = pathName + '/' + item.id;
+
             return (
               <div
                 key={item.id}

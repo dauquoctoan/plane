@@ -10,6 +10,7 @@ interface IEmojiIconPicker {
 const EmojiIconPicker: React.FC<IEmojiIconPicker> = ({ onChange }) => {
   const [isEmoji, setisEmoji] = useState(true);
   const ls = isEmoji ? emojis : icons.material_rounded;
+
   return (
     <div className="pb-3">
       <div className="flex gap-2 text-sm px-2 py-2 cursor-pointer select-none">

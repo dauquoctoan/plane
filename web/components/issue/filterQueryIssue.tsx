@@ -46,6 +46,7 @@ const FilterQueryIssue: React.FC<IFilterQueryIssue> = ({
           return [...data, item];
         }
       }
+
       return data;
     }, []);
   }
@@ -66,6 +67,7 @@ const FilterQueryIssue: React.FC<IFilterQueryIssue> = ({
     return data.sort((a, b) => {
       if (a.children && b.children)
         return a.children?.length > b.children?.length ? -1 : 1;
+
       return 1;
     });
   }

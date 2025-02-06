@@ -37,9 +37,7 @@ const Invitations = () => {
       )}
     </div>
   );
-};
-
-const EmptyMemberInvite = ({ info }: { info: IInfo | null | undefined }) => {
+};const EmptyMemberInvite = ({ info }: { info: IInfo | null | undefined }) => {
   return (
     <div className="w-auto h-auto">
       <div className="mt-20">
@@ -59,9 +57,7 @@ const EmptyMemberInvite = ({ info }: { info: IInfo | null | undefined }) => {
       </div>
     </div>
   );
-};
-
-const SelectToJoin = ({
+};const SelectToJoin = ({
   member,
   info,
 }: {
@@ -69,9 +65,7 @@ const SelectToJoin = ({
   info: IInfo | null | undefined;
 }) => {
   const [index, setIndex] = useState<string[]>([]);
-  const noti = useNoti();
-
-  const handleJoinWorkspaceInWeb = async () => {
+  const noti = useNoti();  const handleJoinWorkspaceInWeb = async () => {
     const result = await workspaceService.joinWorkspaceInWeb({
       data: index,
     });

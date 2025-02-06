@@ -47,38 +47,27 @@ const IssueDetail: FC<IIssueDetail> = ({ issue }) => {
   const param = useParams<IParams>();
   const { data: issueDetail } = useSWR(issue ? null :  param.issueid, () => {
     return issueService.findOneIssue(param?.issueid || '');
-  });
-
-  const dataItem = issue || issueDetail;
-
-  const { data: reactions } = useSWR(SWR_KEY_LS_ISSUE_REACTIONS(issue?.id || param.issueid), () => {
+  });  const dataItem = issue || issueDetail;  const { data: reactions } = useSWR(SWR_KEY_LS_ISSUE_REACTIONS(issue?.id || param.issueid), () => {
     return issueService.findReaction<IIsueReaction[]>(issue?.id || param.issueid);
-  });
-
-  const info = useSelector(selectInfo);
+  });  const info = useSelector(selectInfo);
   const noti = useNoti();
   const dispatch = useDispatch();
   const [isSaving, setIsSaving] = useState(false);
-  const pathName = usePathname();
-
-  const handleUpdateIssue = lodash.debounce(
+  const pathName = usePathname();  const handleUpdateIssue = lodash.debounce(
     async (issueUpdate: Partial<IIssue>) => {
       await issueService.updateIssue(issue?.id, issueUpdate);
       setIsSaving(false);
     },
     2000
-  );
-
-  const handleCreateReaction = (reaction: Partial<IIsueReaction>) => {
+  );  const handleCreateReaction = (reaction: Partial<IIsueReaction>) => {
     mutate<IIsueReaction[]>(SWR_KEY_LS_ISSUE_REACTIONS(dataItem?.id), async (prevData) => {
       const result = await issueService.createReaction<IIsueReaction>(reaction);
       if (result && info) return [...(prevData || []), { ...result, user: info }];
       else noti?.error('Reaction error');
+
       return prevData;
     });
-  };
-
-  const handleRemoveReaction = async (id?: string) => {
+  };  const handleRemoveReaction = async (id?: string) => {
     if (id) {
       const result = await issueService.removeReaction(id);
       if (result) {
@@ -89,10 +78,9 @@ const IssueDetail: FC<IIssueDetail> = ({ issue }) => {
         });
       }
     }
-  };
-
-  const convert = reactions?.reduce((value: { [e: string]: number }, item) => {
+  };  const convert = reactions?.reduce((value: { [e: string]: number }, item) => {
     value[item.reaction || ''] = (value[item.reaction || ''] || 0) + 1;
+
     return value;
   }, {});
 
@@ -138,6 +126,7 @@ const IssueDetail: FC<IIssueDetail> = ({ issue }) => {
           assigness={
             dataItem?.assignees?.map(e => {
               const user = e as IUser;
+
               return user.id;
             }) as string[]
           }

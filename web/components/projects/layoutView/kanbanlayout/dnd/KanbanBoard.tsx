@@ -44,11 +44,7 @@ export default function KanbanBoard({ data }: { data: IBoardIssues[] }) {
     title: '',
     type: 'delete',
     children: [],
-  };
-
-  const pathName = usePathname();
-
-  const [blocks, setBlocks] = useState<IBoardIssues[]>([itemDelete]);
+  };  const pathName = usePathname();  const [blocks, setBlocks] = useState<IBoardIssues[]>([itemDelete]);
   const refRemove = useRef<HTMLDivElement>(null);
   const [showTrash, setShowTrash] = useState(false);
   const noti = useNoti();
@@ -136,6 +132,7 @@ function Container({
             refRemove && refRemove.current?.classList.add('shadow-2xl');
             refRemove && refRemove.current?.classList.add('shadow-red-500');
           }
+
           return 1;
         }}
         onEnd={evt => {
@@ -147,12 +144,14 @@ function Container({
         list={block.children}
         onStart={evt => {
           setShowTrash && setShowTrash(true);
+
           return 1;
         }}
         setList={currentList => {
           setBlocks(sourceList => {
             const tempList = [...sourceList];
             tempList[blockIndex[0]].children = currentList;
+
             return tempList;
           });
         }}

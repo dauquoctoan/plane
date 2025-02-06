@@ -8,9 +8,7 @@ import { IData, IIssueViews, IParams } from '@/types';
 import { useParams } from 'next/navigation';
 
 const GlobalIssueWorkspaceView = () => {
-  const params = useParams<IParams>();
-
-  const { data: issueView } = useSWR(
+  const params = useParams<IParams>();  const { data: issueView } = useSWR(
     () => SWR_KEY_ISSUE_VIEW(params.issueViewId),
     () => issueService.findIssueViewById<IData<IIssueViews>>(params.issueViewId)
   );

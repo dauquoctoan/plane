@@ -39,11 +39,10 @@ const Dashboard = () => {
       }
       : {
         text: 'Good afternoon',
-      };
-
-  const { data: overView, isLoading } = useSWR('overview', () =>
+      };  const { data: overView, isLoading } = useSWR('overview', () =>
     overviewService.getDashboardOverview()
   );
+
   return (
     <div className="w-full h-auto">
       <div>
@@ -90,9 +89,7 @@ const Dashboard = () => {
       </div>
     </div>
   );
-};
-
-const IssueConsumer: FC<IIssueConsumer> = ({
+};const IssueConsumer: FC<IIssueConsumer> = ({
   type,
   title,
   isTab = false,
@@ -106,25 +103,17 @@ const IssueConsumer: FC<IIssueConsumer> = ({
     { value: END_DATE_QUERY + ':week', title: 'Due this week' },
     { value: END_DATE_QUERY + ':month', title: 'Due this month' },
     { value: END_DATE_QUERY + ':year', title: 'Due this year' },
-  ];
-
-  const tabs = [
+  ];  const tabs = [
     { value: TYPE_DATE_QUERY + ':gte', name: 'Upcoming' },
     { value: TYPE_DATE_QUERY + ':lte', name: 'Overdue' },
     { value: STATE_QUERY + ':completed', name: 'Maked completed' },
-  ];
-
-  const tabAllTime = [
+  ];  const tabAllTime = [
     { value: STATE_QUERY + ':backlog;unstarted;started', name: 'Pending' },
     { value: STATE_QUERY + ':completed', name: 'Maked completed' },
-  ];
-
-  const [query, setQuery] = useState({
+  ];  const [query, setQuery] = useState({
     date: selects[defaultDate].value,
     option: tabs[defaultTab].value,
-  });
-
-  const curentTab = query.date != selects[0].value ? tabs : tabAllTime;
+  });  const curentTab = query.date != selects[0].value ? tabs : tabAllTime;
 
   useEffect(() => {
     if (query.date == selects[0].value) {

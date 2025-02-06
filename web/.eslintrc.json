@@ -3,6 +3,14 @@
   "rules": {
     "no-multiple-empty-lines": ["error", { "max": 1 }],
     "semi": ["error", "always"],
-    "indent": ["error", 2]
+    "indent": ["error", 2],
+    "padding-line-between-statements": [
+      "error",
+      { "blankLine": "always", "prev": "function", "next": "*" },
+      { "blankLine": "always", "prev": "*", "next": "return" },
+      { "blankLine": "never", "prev": "const", "next": "const" },
+      { "blankLine": "never", "prev": "let", "next": "let" },
+      { "blankLine": "never", "prev": "var", "next": "var" }
+    ]
   }
 }

@@ -52,9 +52,11 @@ const ProjectITem: React.FC<IPropsProjectItem> = ({ dataItem }) => {
                   });
                   if (res) {
                     noti?.success('join project success');
+
                     return data?.filter((e: any) => e.id != dataItem.id);
                   } else {
                     noti?.error('join project error');
+
                     return data;
                   }
                 }
@@ -111,9 +113,7 @@ interface IProjectMenuPopover {
 export const ProjectMenuPopover: FC<IProjectMenuPopover> = ({ dataItem }) => {
   const noti = useNoti();
   const info = useSelector(selectInfo);
-  const typeF = dataItem.is_favorite ? 'Remove' : 'Add';
-
-  const handleDeleteProject = async () => {
+  const typeF = dataItem.is_favorite ? 'Remove' : 'Add';  const handleDeleteProject = async () => {
     const res = await projectService.deleteProject(dataItem.id || '');
     if (res) {
       changeRoute(`/${info?.workspace?.slug}/projects`);
@@ -149,7 +149,8 @@ export const ProjectMenuPopover: FC<IProjectMenuPopover> = ({ dataItem }) => {
         if (result) {
           mutate<IProject[]>(SWR_KEY_PROJECTS(info?.last_workspace_id),(projects)=>{
             return projects?.map((e)=>{
-              if(e.id === dataItem.id) e.is_favorite = !e.is_favorite; 
+              if(e.id === dataItem.id) e.is_favorite = !e.is_favorite;
+ 
               return e;
             });
           });

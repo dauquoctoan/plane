@@ -13,8 +13,10 @@ const AllIssueWorkspaceView = () => {
   
   function getLocalStorage():string[]{
     const properties = localStorage?.getItem('display-table') || null;
+
     return JSON.parse(properties || '{}')?.properties;
   }
+
   return <TableIssue />;
 };
 

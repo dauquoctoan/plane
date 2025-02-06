@@ -58,9 +58,7 @@ const MenuPopUp: React.FC<IPropsMenuItem> = ({
       })}
     </div>
   );
-};
-
-const MenuTree: React.FC<IMenuTree> = ({ children, data, onClick }) => {
+};const MenuTree: React.FC<IMenuTree> = ({ children, data, onClick }) => {
   const [isOpen, setIsOpen] = useState(false);
   const refMenuItem = useRef<HTMLDivElement>(null);
 
@@ -71,6 +69,7 @@ const MenuTree: React.FC<IMenuTree> = ({ children, data, onClick }) => {
 
   useEffect(() => {
     document?.addEventListener('click', handleCLick);
+
     return () => document?.removeEventListener('click', handleCLick);
   }, []);
 
@@ -82,9 +81,7 @@ const MenuTree: React.FC<IMenuTree> = ({ children, data, onClick }) => {
     bottomRight: 'top-[100%] mt-1 right-[0] origin-top-right',
     topLeft: 'top-[100%] mt-1 right-[0] origin-top-right',
     topRight: 'top-[100%] mt-1 right-[0] origin-top-right',
-  };
-
-  const curentPlacement = placements[data.placement || 'left'];
+  };  const curentPlacement = placements[data.placement || 'left'];
 
   return (
     <div

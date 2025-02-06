@@ -27,9 +27,7 @@ const SelectLabel: React.FC<ISelectLabel> = ({
       issueService.findLabelsByProject({
         projectId: projectId,
       })
-  );
-
-  const options: IOptionItem[] | undefined =
+  );  const options: IOptionItem[] | undefined =
     createIssueLabelSelectOption(labels);
 
   return (

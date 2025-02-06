@@ -12,17 +12,11 @@ import { usePathname } from 'next/navigation';
 
 const IssueTableFilter: React.FC<IfilterIssue> = ({ ...res }) => {
   const lsDisable = useSelector(selectlsDisableTable);
-  const pathName = usePathname();
-
-  const { data: issue } = useSWR(pathName, e => {
+  const pathName = usePathname();  const { data: issue } = useSWR(pathName, e => {
     return issueService.findIssues({ ...res });
-  });
-
-  const { data } = useSWR(pathName, e => {
+  });  const { data } = useSWR(pathName, e => {
     return issueService.findIssues({ ...res });
-  });
-
-  const [width, setWidth] = useState(0);
+  });  const [width, setWidth] = useState(0);
 
   useEffect(() => {
     setWidth(document.body.clientWidth);

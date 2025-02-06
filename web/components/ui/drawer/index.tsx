@@ -31,16 +31,12 @@ const Drawer: React.FC<IProps> = ({
 }) => {
   const wrap = useRef<HTMLDivElement>(null);
   const overlay = useRef<HTMLDivElement>(null);
-  const mouse = useRef({ isKeyDown: false, isDrag: false });
-
-  const styles = {
+  const mouse = useRef({ isKeyDown: false, isDrag: false });  const styles = {
     top: 'top-0 w-[100vw] border-b',
     left: 'left-0 h-[100vh] border-r',
     right: 'right-0 h-[100vh] border-l',
     bottom: 'bottom-0 w-[100vw] border-t',
-  };
-
-  const boxShadowColor = {
+  };  const boxShadowColor = {
     top: 'rgba(0, 0, 0, 0.12) 0px 4px 8px 0px, rgba(16, 24, 40, 0.12) 0px 6px 12px 0px, rgba(16, 24, 40, 0.12) 0px 1px 16px 0px',
     left: 'rgba(0, 0, 0, 0.12) 0px 4px 8px 0px, rgba(16, 24, 40, 0.12) 0px 6px 12px 0px, rgba(16, 24, 40, 0.12) 0px 1px 16px 0px',
     right:

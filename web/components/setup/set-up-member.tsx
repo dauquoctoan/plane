@@ -63,6 +63,7 @@ function createLsUUID(count: number) {
   for (let i = 0; i < count; i++) {
     lsArray.push(uuidv4());
   }
+
   return lsArray;
 }
 
@@ -123,9 +124,7 @@ const InvitePeopleItem: React.FC<Iprops> = ({
       />
     </div>
   );
-};
-
-const Member: React.FC<IPropsComponent> = ({
+};const Member: React.FC<IPropsComponent> = ({
   textSubmit = 'Submit',
   defaultCountMemners = 2,
   isLabels = true,
@@ -167,6 +166,7 @@ const Member: React.FC<IPropsComponent> = ({
           setLoading(true);
           const lsMember: IWorkspaceMemberInvite[] = lsKeys.map((e, i) => {
             const { email, role } = createKey(e);
+
             return {
               email: data[email],
               role: getRole(data[role]),

@@ -21,41 +21,31 @@ const defaultIssue: IItem[] = [
     name: 'Create new issue',
     icons: icons.plus,
   },
-];
-
-const defaultProject: IItem[] = [
+];const defaultProject: IItem[] = [
   {
     type: 'project',
     name: 'Create new project',
     icons: icons.plus,
   },
-];
-
-const defaultCycle: IItem[] = [
+];const defaultCycle: IItem[] = [
   {
     type: 'cycle',
     name: 'Create new cycle',
     icons: icons.plus,
   },
-];
-
-const defaultModule: IItem[] = [
+];const defaultModule: IItem[] = [
   {
     type: 'module',
     name: 'Create new module',
     icons: icons.plus,
   },
-];
-
-const defaultWorkSpace: IItem[] = [
+];const defaultWorkSpace: IItem[] = [
   {
     type: 'workspace',
     name: 'Search settings...',
     icons: icons.setting,
   },
-];
-
-const defaultAccount: IItem[] = [
+];const defaultAccount: IItem[] = [
   {
     name: 'Create new workspace',
     icons: icons.plus,
@@ -64,22 +54,14 @@ const defaultAccount: IItem[] = [
     name: 'Change interface theme...',
     icons: icons.setting,
   },
-];
-
-const defaultHelp: IItem[] = [
+];const defaultHelp: IItem[] = [
   { name: 'Open Plane documentation', icons: <GoRocket /> },
   { name: 'Open keyboard shortcuts', icons: <MdOutlineTextSnippet /> },
-];
-
-const Search = () => {
+];const Search = () => {
   const [search, setSearch] = useState('');
-  const param = useParams<IParams>();
-
-  const { data } = useSWR(useDebounce(search, 1000) || null, () =>
+  const param = useParams<IParams>();  const { data } = useSWR(useDebounce(search, 1000) || null, () =>
     overviewService.search(search)
-  );
-
-  const defaultDataSearch: { [e: string]: IItem[] } = {
+  );  const defaultDataSearch: { [e: string]: IItem[] } = {
     Issue: [
       ...(data?.issues.map(
         (e): IItem => ({ name: e.name || '', type: 'issue' })

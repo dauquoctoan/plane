@@ -39,18 +39,12 @@ const IssueBoard: FC<IProps> = ({ query = {}, layout: typeLayout }) => {
     return projectService.getProjectViewByMember<IProjectMember>({
       projectId: params.projectid,
     });
-  });
-
-  const layout = useSelector(selectLayoutProjectView);
-
-  const { data: issues } = useSWR(pathName, () => {
+  });  const layout = useSelector(selectLayoutProjectView);  const { data: issues } = useSWR(pathName, () => {
     return issueService.findIssues({
       projects: [params.projectid],
       ...query,
     });
-  });
-
-  const { data: states } = useSWR(
+  });  const { data: states } = useSWR(
     () => SWR_KEY_STATES(params.projectid),
     () => issueService.getState(params.projectid)
   );
@@ -68,6 +62,7 @@ const IssueBoard: FC<IProps> = ({ query = {}, layout: typeLayout }) => {
 
     return issues.reduce((data: IBoardIssues[], item: IIssue) => {
       const newState = [...data];
+
       return newState.map(e => {
         const newStateItem = { ...e };
         if (e.id === item.state_id) {
@@ -78,8 +73,10 @@ const IssueBoard: FC<IProps> = ({ query = {}, layout: typeLayout }) => {
               type: 'item',
               data: item,
             });
+
           return newStateItem;
         }
+
         return e;
       });
     }, stateParent);

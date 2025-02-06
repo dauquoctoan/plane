@@ -96,9 +96,7 @@ export const PRIORITY_GRAPH_GRADIENTS = [
 const AssignedByPriority: FC<IContent> = ({ date }) => {
   const { data } = useSWR('assigned-by-priority' + date, () => {
     return overviewService.getAssignedByPriority(date.split(':')[1] as any);
-  });
-
-  const total =
+  });  const total =
     data?.reduce((pre: number, cur) => {
       return pre + Number(cur.total || 0);
     }, 0) || 0;

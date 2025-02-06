@@ -11,13 +11,9 @@ import useSWR from 'swr';
 
 const DetailProjectView = () => {
   const params = useParams<IParams>();
-  const pathName = usePathname();
-
-  const { data } = useSWR(SWR_KEY_PROJECT_VIEW_DETAIL(params.projectviewid), () => {
+  const pathName = usePathname();  const { data } = useSWR(SWR_KEY_PROJECT_VIEW_DETAIL(params.projectviewid), () => {
     return projectService.findOneProjectView(params.projectviewid);
-  });
-
-  const { data: issues } = useSWR(data && pathName, () => {
+  });  const { data: issues } = useSWR(data && pathName, () => {
     return issueService.findIssues({ ...data?.query });
   });
 

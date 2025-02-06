@@ -33,6 +33,7 @@ const ItemTreeSlect = ({
   selected: IItemSelected;
 }) => {
   const [show, setShow] = useState(false);
+
   return (
     <div className="select-none text-sm mb-1">
       <div className="flex gap-1 items-center">
@@ -80,9 +81,7 @@ const ItemTreeSlect = ({
       )}
     </div>
   );
-};
-
-const Popover = forwardRef(function popOver(
+};const Popover = forwardRef(function popOver(
   props: IPopOver,
   ref: Ref<HTMLDivElement>
 ) {

@@ -67,9 +67,7 @@ const Login = () => {
         nickname: createNickNameLink(info?.workspace?.slug),
       },
     ]
-    : null;
-
-  const links = nextLink || workspaceLink || [];
+    : null;  const links = nextLink || workspaceLink || [];
 
   return (
     <ContainerLink

@@ -71,9 +71,7 @@ const CreateIssue: React.FC<IProps> = ({
   const [isOpen, setIsOpen] = useState<IOpenModal>({
     value: false,
     index: 0,
-  });
-
-  const {
+  });  const {
     register: registerParent,
     handleSubmit,
     formState: { errors },
@@ -93,11 +91,7 @@ const CreateIssue: React.FC<IProps> = ({
       start_date: issue?.target_date,
       target_date: issue?.target_date,
     },
-  });
-
-  const params = useParams<IParams>();
-
-  const { data: states } = useSWR(
+  });  const params = useParams<IParams>();  const { data: states } = useSWR(
     () => SWR_KEY_STATES(watch('project') || projects[0].id),
     () => issueService.getState(watch('project'))
   );
@@ -131,9 +125,7 @@ const CreateIssue: React.FC<IProps> = ({
   const projectOptions: IOptionItem[] | undefined = projects?.map(e => ({
     title: e.name || '',
     value: e.id?.toString(),
-  }));
-
-  const CurentModal = LsModals[isOpen.index];
+  }));  const CurentModal = LsModals[isOpen.index];
   const isUpdate = issue?.id;
 
   return (
@@ -185,6 +177,7 @@ const CreateIssue: React.FC<IProps> = ({
                       };
                     } else return e;
                   });
+
                   return issueNew;
                 } else {
                   return [

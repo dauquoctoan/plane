@@ -7,6 +7,7 @@ export interface IProps {
 
 const CycleProgess: FC<IProps> = ({ percent = 0 }) => {
   const ofset = 116 - 116 * (percent / 100);
+
   return (
     <div className="relative">
       <svg

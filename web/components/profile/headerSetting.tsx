@@ -6,6 +6,7 @@ import { useDispatch } from 'react-redux';
 
 const HeaderSetting = () => {
   const dispatch = useDispatch();
+
   return (
     <div className="bg-theme-primary z-40 sticky md:hidden p-4 top-0 left-0 h-60px border-b">
       <div

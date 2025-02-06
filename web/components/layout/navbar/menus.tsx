@@ -47,9 +47,7 @@ const menus: IBaseMenu[] = [
     text: 'All Issues',
     path: '/workspace-views/all-issues',
   },
-];
-
-const links: ContainerLinkProps['links'] = [
+];const links: ContainerLinkProps['links'] = [
   {
     href: '',
     nickname: 'dashboard',
@@ -70,11 +68,10 @@ const links: ContainerLinkProps['links'] = [
     href: '/workspace-views',
     nickname: 'workspace-views',
   },
-];
-
-const MenuItem: React.FC<IMenu> = ({ icon, text, index, path }) => {
+];const MenuItem: React.FC<IMenu> = ({ icon, text, index, path }) => {
   const pathName = usePathname();
   const dispatch = useDispatch();
+
   return (
     <div
       onClick={() => {

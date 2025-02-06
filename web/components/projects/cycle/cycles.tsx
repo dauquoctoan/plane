@@ -78,15 +78,14 @@ const CyclesTable = () => {
       )}
     </div>
   );
-};
-
-const CycleItem = ({ data, tab }: { data: ICycle; tab: string }) => {
+};const CycleItem = ({ data, tab }: { data: ICycle; tab: string }) => {
   const params = useParams<IParams>();
   const dispatch = useDispatch();
   const info = useSelector(selectInfo);
   const pathName = usePathname();
   const noti = useNoti();
   const link = pathName + '/' + data.id;
+
   return (
     <div
       className="border-b gap-2 border-theme-border-secondary px-3 flex items-center text-sm cursor-pointer hover:bg-theme-secondary group select-none"

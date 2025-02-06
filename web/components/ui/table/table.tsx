@@ -84,9 +84,7 @@ const Table: React.FC<IProps> = ({
           };
       },
       { right: 0, total: 0 }
-    );
-
-    let left = 0;
+    );    let left = 0;
     let right = redu.right;
     const space = width - redu.total;
 
@@ -134,6 +132,7 @@ const Table: React.FC<IProps> = ({
 
       if (e.fixed === 'left') left = left + (e.width || DEFAULT_WIDTH);
     });
+
     return lsHeader;
   }
 

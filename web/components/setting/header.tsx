@@ -5,9 +5,7 @@ import { PiSuitcaseSimpleBold } from 'react-icons/pi';
 import { usePathname } from 'next/navigation';
 
 const Header = () => {
-  const path = usePathname();
-
-  const menuItem = path.split('/').pop() || '';
+  const path = usePathname();  const menuItem = path.split('/').pop() || '';
 
   return (
     <div>

@@ -25,14 +25,10 @@ const IssueLink = ({ issueId }: { issueId: string }) => {
   const [openModal, setOpenModal] = useState<IState>({
     isOpen: false,
     isCreate: true,
-  });
-
-  const { data: issueLink } = useSWR(SWR_KEY_LS_ISSUE_LINK(issueId), () => {
+  });  const { data: issueLink } = useSWR(SWR_KEY_LS_ISSUE_LINK(issueId), () => {
     return issueService.findIssueLink(issueId);
   });
-  const noti = useNoti();
-
-  const [curentItem, setcurentItem] = useState<IIsueLink>();
+  const noti = useNoti();  const [curentItem, setcurentItem] = useState<IIsueLink>();
 
   return (
     <div className="w-full py-4">
@@ -113,9 +109,7 @@ const IssueLink = ({ issueId }: { issueId: string }) => {
       </div>
     </div>
   );
-};
-
-const AddLink = ({
+};const AddLink = ({
   issueId,
   setOpenModal,
   defaultValue,
@@ -134,9 +128,7 @@ const AddLink = ({
       url: defaultValue?.url || '',
       title: defaultValue?.title || '',
     },
-  });
-
-  const noti = useNoti();
+  });  const noti = useNoti();
 
   return (
     <form

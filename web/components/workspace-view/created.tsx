@@ -6,6 +6,7 @@ import TableIssue from '../issue/tableIssue';
 
 const CreatedWrkspaceView = () => {
   const info = useSelector(selectInfo);
+
   return <TableIssue createBys={[info?.id || '']} />;
 };
 

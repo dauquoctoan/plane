@@ -12,9 +12,7 @@ interface IMenuItem {
 }
 const Menu = () => {
   const pathName = usePathname();
-  const info = useSelector(selectInfo);
-
-  const menus: IMenuItem[] = [
+  const info = useSelector(selectInfo);  const menus: IMenuItem[] = [
     { href: 'settings', nickname: 'General' },
     { href: 'members', nickname: 'members' },
     { href: 'billing', nickname: 'billing' },

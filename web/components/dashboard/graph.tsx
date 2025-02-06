@@ -6,6 +6,7 @@ const Graph = () => {
     for (let i = 0; i < 25 * 7; i++) {
       lsItem.push(<div key={i} className="w-4 h-4 rounded bg-gray-100"></div>);
     }
+
     return lsItem;
   }
 

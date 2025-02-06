@@ -69,6 +69,7 @@ const AutoComplete: React.FC<IProps> = ({
   useEffect(() => {
     if (defaultValue && setValue) setValue(keyForm || '', defaultValue);
     document.addEventListener('click', handleWhenClickBlur);
+
     return () => {
       document.removeEventListener('click', handleWhenClickBlur);
     };

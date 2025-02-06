@@ -73,6 +73,7 @@ function handleCheckDataBeforeSubmit(
 function handleRemoveChildItem(lsItemSelected: IItemSelected, value: string) {
   const newData = { ...lsItemSelected };
   if (newData[value]) delete newData[value];
+
   return newData;
 }
 
@@ -83,6 +84,7 @@ function handleRemoveParentItem(lsItemSelected: IItemSelected, value: string) {
       delete newData[e];
     }
   });
+
   return newData;
 }
 
@@ -121,9 +123,7 @@ const CreateViewIssue = ({
   const info = useSelector(selectInfo);
   const noti = useNoti();
   const [customeDate, setCustomeDate] = useState<IStateDate>({});
-  const [itemSelected, setItemSelected] = useState<IItemSelected>({});
-
-  const setDate: TCalBackChangeDate = (type, name, date) => {
+  const [itemSelected, setItemSelected] = useState<IItemSelected>({});  const setDate: TCalBackChangeDate = (type, name, date) => {
     setCustomeDate({
       ...customeDate,
       [name]: {
@@ -131,13 +131,7 @@ const CreateViewIssue = ({
         [type]: date,
       },
     });
-  };
-
-  const { data } = useDataFilter(setDate);
-
-  const dataSelected = filterSelected(data, itemSelected);
-
-  const {
+  };  const { data } = useDataFilter(setDate);  const dataSelected = filterSelected(data, itemSelected);  const {
     register,
     handleSubmit,
     formState: { errors },
@@ -175,6 +169,7 @@ const CreateViewIssue = ({
             if (result) {
               noti?.success('Create views issue success');
               setIsOpenCreateIssue(false);
+
               return [
                 {
                   ...result,
@@ -187,6 +182,7 @@ const CreateViewIssue = ({
             } else {
               noti?.error('Create views issue error');
             }
+
             return [...issueView];
           },
           { revalidate: false }

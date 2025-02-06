@@ -33,17 +33,11 @@ const EstimateSetting = () => {
   const [open, setOpen] = useState<IState>({
     data: undefined,
     isOpen: false
-  });
-
-  const { data } = useSWR(SWR_KEY_ESTIMATES(params.projectid), () => {
+  });  const { data } = useSWR(SWR_KEY_ESTIMATES(params.projectid), () => {
     return issueService.findEstimateByProject(params.projectid);
-  });
-
-  const { data: project } = useSWR(params.projectid, () => {
+  });  const { data: project } = useSWR(params.projectid, () => {
     return projectService.findOneProject(params.projectid);
-  });
-
-  const menuConfigs: IMenuConfig[] = [
+  });  const menuConfigs: IMenuConfig[] = [
     {
       name: 'Delete estimate',
       icons: icons.delete,
@@ -156,9 +150,7 @@ const EstimateSetting = () => {
       />
     </div>
   );
-};
-
-const CreateEstimates = ({
+};const CreateEstimates = ({
   setOpen,
   defaultEstimate
 }: {
@@ -212,6 +204,7 @@ const CreateEstimates = ({
                     estimateItem.description = result.description;
                     estimateItem.estimate_points = [...estimateItem.estimate_points, ...result.estimate_points];
                   }
+
                   return estimateItem;
                 });
               };
@@ -268,9 +261,11 @@ const CreateEstimates = ({
                             if (estimate.id === defaultEstimate.id) {
                               estimate.estimate_points = estimate.estimate_points.map((esPoint) => {
                                 if (esPoint.id == estimate_points[i]?.id) esPoint.value = e.target.value;
+
                                 return esPoint;
                               });
                             }
+
                             return estimate;
                           });
                         });
@@ -298,6 +293,7 @@ const CreateEstimates = ({
                                 return e.id != estimate_points[i]?.id;
                               });
                             }
+
                             return e;
                           });
                         });

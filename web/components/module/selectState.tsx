@@ -32,6 +32,7 @@ const SelectState: React.FC<IProps> = ({
     () => SWR_KEY_STATES(projectId),
     () => issueService.getState(projectId || '')
   );
+
   return (
     <Select
       defaultValue={stateId}

@@ -57,9 +57,7 @@ const IssueDragItem: FC<IProps> = ({
               stateId={data.data?.state_id}
               onChange={id => {
                 const newData = [...blocks];
-                const item = newData[indexs[0]].children?.splice(indexs[1], 1);
-
-                const index = newData.findIndex(e => {
+                const item = newData[indexs[0]].children?.splice(indexs[1], 1);                const index = newData.findIndex(e => {
                   return e.id === id;
                 });
 
@@ -73,6 +71,7 @@ const IssueDragItem: FC<IProps> = ({
               }}
               beforeUpdateValue={id => {
                 prevState.current = id as string;
+
                 return issueService.updateIssue(data.id as string, {
                   state_id: id as string,
                 });

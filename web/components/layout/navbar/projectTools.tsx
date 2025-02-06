@@ -76,15 +76,9 @@ interface IProjectTools {
 
 const ProjectTools: React.FC<IProjectTools> = ({ project }) => {
   const info = useSelector(selectInfo);
-  const isCollap = useSelector(selectIsCollap);
-
-  const curentLink: CustomeLink[] = info
+  const isCollap = useSelector(selectIsCollap);  const curentLink: CustomeLink[] = info
     ? getLink(links, project?.id || '')
-    : [];
-
-  const dispatch = useDispatch();
-
-  const pathName = usePathname();
+    : [];  const dispatch = useDispatch();  const pathName = usePathname();
 
   function getLink(links: CustomeLink[], id: string) {
     return links.map(e => {

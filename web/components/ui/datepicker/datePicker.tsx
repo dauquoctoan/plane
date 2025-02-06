@@ -50,6 +50,7 @@ export function formartDate(
 
 export function convertStringToDateObj(value: string): IItemDate {
   const curentDate = new Date(value);
+
   return {
     date: curentDate.getDate(),
     month: curentDate.getMonth(),
@@ -78,15 +79,9 @@ const DatePicker: React.FC<ICurentField> = ({
   const [curentValue, setCurentValue] = useState<IItemDate | undefined>(
     ((value || defaultDate) && convertStringToDateObj(value || defaultDate)) ||
       undefined
-  );
-
-  const noti = useNoti();
-
-  const refBtn = useRef<HTMLDivElement>(null);
+  );  const noti = useNoti();  const refBtn = useRef<HTMLDivElement>(null);
   const refPopUp = useRef<HTMLDivElement>(null);
-  const refClear = useRef<HTMLDivElement>(null);
-
-  const { open, setOpen, style, handleClose } = usePopUp({
+  const refClear = useRef<HTMLDivElement>(null);  const { open, setOpen, style, handleClose } = usePopUp({
     refPopover: refBtn,
     refPopup: refPopUp,
     placement: placement,
@@ -100,12 +95,14 @@ const DatePicker: React.FC<ICurentField> = ({
     if (monthUpdate < 0) {
       setMonth(11);
       setYear(year - 1);
+
       return 0;
     }
 
     if (monthUpdate > 11) {
       setMonth(1);
       setYear(year + 1);
+
       return 0;
     }
 
@@ -154,6 +151,7 @@ const DatePicker: React.FC<ICurentField> = ({
       result = await beforeUpdateValue(formartDate(newValue, formatDate));
       if (!result) {
         noti?.error('An error occurred, please try again');
+
         return;
       }
       noti?.success('Update issue success');

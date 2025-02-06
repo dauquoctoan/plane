@@ -19,28 +19,20 @@ const WorkspacePopover = () => {
   const router = useRouter();
   const dispatch = useDispatch();
   const [loading, setLoading] = useState(false);
-  const pathName = usePathname();
-
-  const { data: workspaces } = useSWR('workspaces', () => {
+  const pathName = usePathname();  const { data: workspaces } = useSWR('workspaces', () => {
     return workspaceService.getWorkspaceByUser<IWorkspace[]>();
-  });
-
-  const handleChangeWorkspace = async (id: string) => {
+  });  const handleChangeWorkspace = async (id: string) => {
     setLoading(true);
     await authService.upDateUser({ last_workspace_id: id });
     dispatch(authSlice.actions.clearInfo());
     setLoading(false);
     changeRoute('/');
-  };
-
-  const links: LinkProps[] = [
+  };  const links: LinkProps[] = [
     {
       href: '/',
       nickname: 'home',
     },
-  ];
-
-  const collapse = () => {
+  ];  const collapse = () => {
     if (checkIsMobile()) {
       dispatch(layoutSlice.actions.setToggleCollap(true));
     }

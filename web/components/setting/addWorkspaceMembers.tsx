@@ -8,6 +8,7 @@ const AddWorkspaceMembers = ({
   setIsOpen: (a: boolean) => void;
 }) => {
   const noti = useNoti();
+
   return (
     <div className="w-full">
       <div className="mb-2">

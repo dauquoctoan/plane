@@ -67,9 +67,7 @@ export const STATE_GROUP_GRAPH_GRADIENTS = [
 const AssignedByState: FC<IContent> = ({ date, option, type = 'state' }) => {
   const { data } = useSWR('assigned-by-state' + date, () => {
     return overviewService.getAssignedByState(date.split(':')[1] as any);
-  });
-
-  const color: {
+  });  const color: {
     [e: string]: {
       color: string;
       label: string;
@@ -95,9 +93,7 @@ const AssignedByState: FC<IContent> = ({ date, option, type = 'state' }) => {
       color: 'rgb(128, 131, 141)',
       label: 'Unstarted',
     },
-  };
-
-  const dataConvert: MayHaveLabel[] =
+  };  const dataConvert: MayHaveLabel[] =
     data?.map((e, i) => {
       return {
         id: e.group,
@@ -105,9 +101,7 @@ const AssignedByState: FC<IContent> = ({ date, option, type = 'state' }) => {
         value: e.total,
         color: color[e.group].color,
       };
-    }) || [];
-
-  const total =
+    }) || [];  const total =
     data?.reduce((pre: number, cur) => {
       return pre + Number(cur.total || 0);
     }, 0) || 0;

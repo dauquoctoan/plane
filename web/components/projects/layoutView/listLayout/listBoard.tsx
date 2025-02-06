@@ -58,6 +58,7 @@ const ListBoard: FC<IListBoard> = ({ states, issues }) => {
     return projectService.findOneProject(params.projectid);
   });
   const noti = useNoti();
+
   return (
     <div className="w-full">
       {Object.keys(dataConvert).map((key, index) => {
@@ -177,9 +178,7 @@ const ListBoard: FC<IListBoard> = ({ states, issues }) => {
       })}
     </div>
   );
-};
-
-const MoreIssue = ({
+};const MoreIssue = ({
   stateId,
   name,
   identifier,
@@ -240,9 +239,11 @@ const MoreIssue = ({
               name: stateName,
             },
           };
+
           return [...(issue||[]), itemConvert];
         } else {
           noti?.error('An error occurred, please try again later');
+
           return issue;
         }
       },

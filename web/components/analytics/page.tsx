@@ -9,6 +9,7 @@ const Analytics = () => {
     { title: 'Scope and Demand', component: <ScopeAndDemand /> },
     { title: 'Custom Analytics', component: <CustomAnalytics /> },
   ];
+
   return (
     <div className="w-full">
       {/* <div className="w-full flex gap-2 py-2 px-3">

@@ -21,22 +21,20 @@ const WorkspaceMember = () => {
   const { data: workspaceMember } = useSWR('workspace-member', () => {
     return workspaceService.getMemberFromWorkspace<IWorkspaceMember[]>();
   });
-  const info = useSelector(selectInfo);
-
-  const filters = searchMember
+  const info = useSelector(selectInfo);  const filters = searchMember
     ? workspaceMember?.filter(e =>
       createName(e.user.first_name, e.user.last_name).includes(searchMember)
     )
-    : workspaceMember;
-
-  const removeMembers = async (id: string) => {
+    : workspaceMember;  const removeMembers = async (id: string) => {
     mutate<IWorkspaceMember[]>('workspace-member', async (data) => {
       const res = await workspaceService.removeMemberFromWorkspace(id);
       if (res) {
         noti?.success('Remove Member success');
+
         return data?.filter((e) => e.user.id !== id);
       } else {
         noti?.error('Remove Member error');
+
         return data;
       }
     });

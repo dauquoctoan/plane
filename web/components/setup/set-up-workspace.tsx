@@ -19,9 +19,7 @@ import { useRouter } from 'next/navigation';
 const Workspace: React.FC<IPropsComponent> = ({ nextStep, prevStep }) => {
   const info = useSelector(selectInfo);
   const dispatch = useDispatch();
-  const router = useRouter();
-
-  const {
+  const router = useRouter();  const {
     register,
     handleSubmit,
     formState: { errors },

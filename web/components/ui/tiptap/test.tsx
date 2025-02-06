@@ -6,9 +6,7 @@ export default function Test() {
   const editor = useEditor({
     extensions: [StarterKit],
     content: '',
-  });
-
-  const [isEditable, setIsEditable] = React.useState(true);
+  });  const [isEditable, setIsEditable] = React.useState(true);
 
   useEffect(() => {
     if (editor) {

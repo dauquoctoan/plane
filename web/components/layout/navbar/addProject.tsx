@@ -48,16 +48,13 @@ const AddProject: React.FC<IProps> = ({ setOpen, handleCreateProject }) => {
       network: 0,
       project_lead: null,
     } as any,
-  });
-
-  const networkOption: IOptionItem[] = [
+  });  const networkOption: IOptionItem[] = [
     { icon: <BiLockAlt />, title: 'Private', value: '0' },
     { icon: <GiEarthAmerica />, title: 'Public', value: '1' },
-  ];
-
-  const { data: members } = useSWR('workspace-member', () =>
+  ];  const { data: members } = useSWR('workspace-member', () =>
     workspaceService.getMemberFromWorkspace<IWorkspaceMember[]>()
   );
+
   return (
     <form
       id="create-project-form"

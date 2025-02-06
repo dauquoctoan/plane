@@ -26,6 +26,7 @@ function sliceProject(data: IProject[]): ISliceProject {
       dataResult.project.push(e);
     }
   });
+
   return dataResult;
 }
 
@@ -34,9 +35,7 @@ const MenuProject = () => {
   const { mutate } = useSWRConfig();
   const isCollap = useSelector(selectIsCollap);
   const info = useSelector(selectInfo);
-  const [open, setOpen] = useState(false);
-
-  const { data } = useSWR(SWR_KEY_PROJECTS(info?.last_workspace_id), () =>
+  const [open, setOpen] = useState(false);  const { data } = useSWR(SWR_KEY_PROJECTS(info?.last_workspace_id), () =>
     projectService.getProjects(info?.last_workspace_id || '')
   );
 
@@ -46,11 +45,14 @@ const MenuProject = () => {
       if (result) {
         setOpen(false);
         noti?.success('Create project success');
+
         return [...project, { ...result, is_member: true }];
       }
+
       return [...project];
     });
   }
+
   const { project, projectFavorite } = sliceProject(data || []);
 
   return (

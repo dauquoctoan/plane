@@ -19,9 +19,7 @@ interface IStyleOpeions {
 type IProps = IPropsSwitch & ICurrentFieldProps;
 
 const Switch: React.FC<IProps> = ({ size = 'sm', label, onChange, value }) => {
-  const [isChecked, setisChecked] = useState<boolean>(value || false);
-
-  const styleConfig: { [s: string]: IStyleOpeions } = {
+  const [isChecked, setisChecked] = useState<boolean>(value || false);  const styleConfig: { [s: string]: IStyleOpeions } = {
     sm: {
       w: 'w-[40px]',
       h: 'h-[20px]',
@@ -29,9 +27,7 @@ const Switch: React.FC<IProps> = ({ size = 'sm', label, onChange, value }) => {
       ch: 'h-[17px]',
       x: 'translate-x-[21px]',
     },
-  };
-
-  const { cw, h, w, x, ch } = styleConfig[size];
+  };  const { cw, h, w, x, ch } = styleConfig[size];
 
   return (
     <div

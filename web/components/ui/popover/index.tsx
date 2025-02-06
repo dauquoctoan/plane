@@ -49,9 +49,7 @@ const Popover: React.FC<IProps> = ({
 }) => {
   const refPopover = useRef<HTMLDivElement>(null);
   const refPopup = useRef<HTMLDivElement>(null);
-  const refDisable = useRef<HTMLDivElement>(null);
-
-  const { style, open, handleWhenMouseDown, handleWhenMouseLeave } = usePopUp({
+  const refDisable = useRef<HTMLDivElement>(null);  const { style, open, handleWhenMouseDown, handleWhenMouseLeave } = usePopUp({
     refPopover,
     refPopup,
     placement,

@@ -15,9 +15,7 @@ import { mutate } from 'swr';
 const CreatePage = () => {
   const dispatch = useDispatch();
   const params = useParams<IParams>();
-  const noti = useNoti();
-
-  const {
+  const noti = useNoti();  const {
     register: registerParent,
     handleSubmit,
     formState: { errors },
@@ -41,9 +39,11 @@ const CreatePage = () => {
               if (result && data) {
                 noti?.success('Create page success');
                 dispatch(modalSlice.actions.togleNewPage());
+
                 return [...(issues||[]), result];
               } else noti?.error('Create page error!');
             }
+
             return issues;
           }
         );

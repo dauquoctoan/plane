@@ -11,9 +11,7 @@ export interface ITabs {
 
 const TabAnimation: FC<ITabs> = ({ defaultTab = 1, option, onchange }) => {
   const box = useRef<HTMLDivElement>(null);
-  const active = useRef<HTMLDivElement>(null);
-
-  const [tab, setTab] = useState<{ index: number; value: string }>({
+  const active = useRef<HTMLDivElement>(null);  const [tab, setTab] = useState<{ index: number; value: string }>({
     index: defaultTab,
     value: option[defaultTab].value,
   });

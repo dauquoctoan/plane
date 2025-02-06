@@ -100,13 +100,9 @@ const Select: React.FC<ICurrentField> = ({
   const refBtn = useRef<HTMLDivElement>(null);
   const refPopUp = useRef<HTMLDivElement>(null);
   const refClear = useRef<HTMLDivElement>(null);
-  const noti = useNoti();
-
-  const [moreValue, setMoreValue] = useState<string[]>(
+  const noti = useNoti();  const [moreValue, setMoreValue] = useState<string[]>(
     typeof defaultValue == 'object' ? defaultValue : []
-  );
-
-  const { open, setOpen, style, handleClose } = usePopUp({
+  );  const { open, setOpen, style, handleClose } = usePopUp({
     refPopover: refBtn,
     refPopup: refPopUp,
     refDisable: refClear,
@@ -121,9 +117,11 @@ const Select: React.FC<ICurrentField> = ({
             const result = await beforeUpdateValue(value);
             if (result) {
               noti?.success(msgUpdateValueSuccess || 'Update success');
+
               return [result, ...(state||[])];
             } else {
               noti?.error(msgUpdateValueFail || 'Update error!');
+
               return state;
             }
           },
@@ -139,6 +137,7 @@ const Select: React.FC<ICurrentField> = ({
         } else {
           noti?.error(msgUpdateValueFail || 'Update error!');
         }
+
         return result;
       }
     }
@@ -195,6 +194,7 @@ const Select: React.FC<ICurrentField> = ({
       if (result) noti?.success('Update success');
       else {
         noti?.error('Update error!');
+
         return;
       }
     }
@@ -241,11 +241,7 @@ const Select: React.FC<ICurrentField> = ({
     }
   }, [value]);
 
-  const currentItemSelected = getCurrentItem(options || [], currentValue);
-
-  const isOpen = open && (lsResult.length > 0 || isSearch);
-
-  const itemSelected = () => {
+  const currentItemSelected = getCurrentItem(options || [], currentValue);  const isOpen = open && (lsResult.length > 0 || isSearch);  const itemSelected = () => {
     return lsResult.filter(e => {
       if (typeof e === 'string') {
         return moreValue.includes(e);

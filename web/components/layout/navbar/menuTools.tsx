@@ -25,6 +25,7 @@ interface IStateModal {
 
 const DrafIssue = () => {
   const dispatch = useDispatch();
+
   return (
     <div
       onClick={() => {
@@ -41,9 +42,7 @@ const DrafIssue = () => {
       </div>
     </div>
   );
-};
-
-const MenuTools = () => {
+};const MenuTools = () => {
   const info = useSelector(selectInfo);
   const notification = useNoti();
   const isCollapse = useSelector(selectIsCollap);
@@ -51,9 +50,7 @@ const MenuTools = () => {
   const dispatch = useDispatch();
   const [isOpenSearch, setOpenSearch] = useState(false);
   const showModalIssue = useSelector(selectOpenModalNewIssue);
-  const issue = useSelector(selectDefaultValueIssue);
-
-  const { data: projects } = useSWR(
+  const issue = useSelector(selectDefaultValueIssue);  const { data: projects } = useSWR(
     SWR_KEY_PROJECTS(info?.last_workspace_id),
     () => projectService.getProjects(info?.last_workspace_id || '')
   );

@@ -161,6 +161,7 @@ const TableMenus = ({ editor, tab, index, setOpenTab }: ITabMenus) => {
                 type="button"
                 onClick={() => {
                   setOpenTab(-1);
+
                   return item.command();
                 }}
                 className={cn(

@@ -2,9 +2,7 @@ import { EditorState, Plugin, PluginKey } from '@tiptap/pm/state';
 import { Decoration, DecorationSet, EditorView } from '@tiptap/pm/view';
 // import fileService from "services/file.service";
 
-const uploadKey = new PluginKey('upload-image');
-
-const UploadImagesPlugin = () =>
+const uploadKey = new PluginKey('upload-image');const UploadImagesPlugin = () =>
   new Plugin({
     key: uploadKey,
     state: {
@@ -16,9 +14,7 @@ const UploadImagesPlugin = () =>
         // See if the transaction adds or removes any placeholders
         const action = tr.getMeta(uploadKey);
         if (action && action.add) {
-          const { id, pos, src } = action.add;
-
-          const placeholder = document.createElement('div');
+          const { id, pos, src } = action.add;          const placeholder = document.createElement('div');
           placeholder.setAttribute('class', 'img-placeholder');
           const image = document.createElement('img');
           image.setAttribute(
@@ -36,6 +32,7 @@ const UploadImagesPlugin = () =>
             set.find(undefined, undefined, spec => spec.id == action.remove.id)
           );
         }
+
         return set;
       },
     },
@@ -55,6 +52,7 @@ function findPlaceholder(state: EditorState, id: {}) {
     undefined,
     (spec: { id: number | undefined }) => spec.id == id
   );
+
   return found.length ? found[0].from : null;
 }
 
@@ -69,9 +67,7 @@ export async function startImageUpload(
     return;
   }
 
-  const id = {};
-
-  const tr = view.state.tr;
+  const id = {};  const tr = view.state.tr;
   if (!tr.selection.empty) tr.deleteSelection();
 
   const reader = new FileReader();
@@ -96,9 +92,7 @@ export async function startImageUpload(
   pos = findPlaceholder(view.state, id);
 
   if (pos == null) return;
-  const imageSrc = typeof src === 'object' ? reader.result : src;
-
-  const node = schema.nodes.image.create({ src: imageSrc });
+  const imageSrc = typeof src === 'object' ? reader.result : src;  const node = schema.nodes.image.create({ src: imageSrc });
   const transaction = view.state.tr
     .replaceWith(pos, pos, node)
     .setMeta(uploadKey, { remove: { id } });
@@ -129,6 +123,7 @@ const UploadImageHandler = (
     });
   } catch (error) {
     console.log(error);
+
     return Promise.reject(error);
   }
 };

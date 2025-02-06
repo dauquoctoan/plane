@@ -68,6 +68,7 @@ const MoreItem: FC<IProps> = ({ block }) => {
                       if (issueResult) {
                         noti?.success('Issue created');
                         handleClose();
+
                         return [
                           ...(issue||[]),
                           {
@@ -83,6 +84,7 @@ const MoreItem: FC<IProps> = ({ block }) => {
                         noti?.error(
                           'An error occurred, please try again later'
                         );
+
                         return issue && [...issue];
                       }
                     },
