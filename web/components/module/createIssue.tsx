@@ -71,7 +71,8 @@ const CreateIssue: React.FC<IProps> = ({
   const [isOpen, setIsOpen] = useState<IOpenModal>({
     value: false,
     index: 0,
-  });  const {
+  });
+  const {
     register: registerParent,
     handleSubmit,
     formState: { errors },
@@ -91,7 +92,9 @@ const CreateIssue: React.FC<IProps> = ({
       start_date: issue?.target_date,
       target_date: issue?.target_date,
     },
-  });  const params = useParams<IParams>();  const { data: states } = useSWR(
+  });
+  const params = useParams<IParams>();
+  const { data: states } = useSWR(
     () => SWR_KEY_STATES(watch('project') || projects[0].id),
     () => issueService.getState(watch('project'))
   );
@@ -103,7 +106,7 @@ const CreateIssue: React.FC<IProps> = ({
 
   useEffect(() => {
     if (states && states.length > 0) {
-      reset(values => ({
+      reset((values) => ({
         ...values,
         state: states[0].id.toString(),
       }));
@@ -111,7 +114,7 @@ const CreateIssue: React.FC<IProps> = ({
   }, [states]);
 
   function handleClearForm() {
-    reset(values => ({
+    reset((values) => ({
       ...values,
       state: (states && states[0].id.toString()) || '',
       priority: 'urgent',
@@ -122,17 +125,18 @@ const CreateIssue: React.FC<IProps> = ({
     }));
   }
 
-  const projectOptions: IOptionItem[] | undefined = projects?.map(e => ({
+  const projectOptions: IOptionItem[] | undefined = projects?.map((e) => ({
     title: e.name || '',
     value: e.id?.toString(),
-  }));  const CurentModal = LsModals[isOpen.index];
+  }));
+  const CurentModal = LsModals[isOpen.index];
   const isUpdate = issue?.id;
 
   return (
     <div>
       <form
         id="create-issue-form"
-        onSubmit={handleSubmit(async data => {
+        onSubmit={handleSubmit(async (data) => {
           mutate<IIssue[]>(
             pathName,
             async (issues) => {
@@ -171,7 +175,7 @@ const CreateIssue: React.FC<IProps> = ({
                         state: {
                           id: data.state,
                           name:
-                            states?.find(state => state.id == data.state)
+                            states?.find((state) => state.id == data.state)
                               ?.name || '',
                         },
                       };
@@ -185,10 +189,13 @@ const CreateIssue: React.FC<IProps> = ({
                     {
                       ...dataIssue,
                       state_id: data.state,
-                      project: projects.find((e)=>{return e.id == (watch('project') || projects[0].id);}),
+                      project: projects.find((e) => {
+                        return e.id == (watch('project') || projects[0].id);
+                      }),
                       state: {
                         id: data.state,
-                        name: states?.find(e => e.id == data.state)?.name || '',
+                        name:
+                          states?.find((e) => e.id == data.state)?.name || '',
                       },
                     },
                   ];
@@ -213,7 +220,7 @@ const CreateIssue: React.FC<IProps> = ({
               params.projectid || (projectOptions[0].value as string)
             }
             fontSize="text-sm"
-            customSelected={res => (
+            customSelected={(res) => (
               <div className="flex items-center px-2">
                 <GiNotebook className="mr-1" />
                 {typeof res === 'object' && res?.title}
@@ -252,7 +259,7 @@ const CreateIssue: React.FC<IProps> = ({
           <div className="md:px-6 px-0 flex items-center justify-between py-2">
             <Switch
               label="Create more"
-              onChange={(value:boolean) => {
+              onChange={(value: boolean) => {
                 setIsMore(value);
               }}
             />

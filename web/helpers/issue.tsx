@@ -32,7 +32,7 @@ export function getIcons(group: string = '', color = 'red'): ReactElement {
 
 export function convertDataOptions(data: IState[] | undefined) {
   return (
-    data?.map(e => ({
+    data?.map((e) => ({
       title: e.name || '',
       value: e?.id.toString(),
       icon: getIcons(e.group, e.color),

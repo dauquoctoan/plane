@@ -45,21 +45,21 @@ export const modalSlice = createSlice({
   initialState,
   reducers: {
     //View
-    togleProjectViews: state => {
+    togleProjectViews: (state) => {
       state.newProjectView = !state.newProjectView;
     },
     setViews: (state, action: PayloadAction<IIssueViews | undefined>) => {
       state.defaultViews = action.payload;
     },
     //Cycle
-    togleProjetCycle: state => {
+    togleProjetCycle: (state) => {
       state.newCycle = !state.newCycle;
     },
     setCycle: (state, action: PayloadAction<ICycle | undefined>) => {
       state.defaultValueCycle = action.payload;
     },
     //module
-    togleProjetModule: state => {
+    togleProjetModule: (state) => {
       state.newModule = !state.newModule;
     },
     setModule: (state, action: PayloadAction<IModule | undefined>) => {
@@ -76,7 +76,7 @@ export const modalSlice = createSlice({
       state.defaultIssue = action.payload;
     },
     //page
-    togleNewPage: state => {
+    togleNewPage: (state) => {
       state.newPage = !state.newPage;
     },
   },

@@ -45,16 +45,16 @@ function createKey(index: string) {
 
 function getRole(role: string) {
   switch (role) {
-  case 'Guest':
-    return 5;
-  case 'Member':
-    return 10;
-  case 'Admin':
-    return 15;
-  case 'Owner':
-    return 20;
-  default:
-    return 10;
+    case 'Guest':
+      return 5;
+    case 'Member':
+      return 10;
+    case 'Admin':
+      return 15;
+    case 'Owner':
+      return 20;
+    default:
+      return 10;
   }
 }
 
@@ -124,7 +124,8 @@ const InvitePeopleItem: React.FC<Iprops> = ({
       />
     </div>
   );
-};const Member: React.FC<IPropsComponent> = ({
+};
+const Member: React.FC<IPropsComponent> = ({
   textSubmit = 'Submit',
   defaultCountMemners = 2,
   isLabels = true,
@@ -161,7 +162,7 @@ const InvitePeopleItem: React.FC<Iprops> = ({
 
   return (
     <form
-      onSubmit={handleSubmit(async data => {
+      onSubmit={handleSubmit(async (data) => {
         if (info?.workspace?.id && info.id && lsKeys.length > 0) {
           setLoading(true);
           const lsMember: IWorkspaceMemberInvite[] = lsKeys.map((e, i) => {

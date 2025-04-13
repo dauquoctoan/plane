@@ -42,7 +42,7 @@ export const useCurentProject = () => {
     }
   );
 
-  return projects?.find(e => e.id == params.projectid);
+  return projects?.find((e) => e.id == params.projectid);
 };
 
 const useDebounce = (value: string, delay: number) => {

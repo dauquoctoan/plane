@@ -22,7 +22,8 @@ const ProfileSetting = () => {
   const info = useSelector(selectInfo);
   const [showDelte, setshowDelte] = useState(false);
   const noti = useNoti();
-  const dispatch = useDispatch();  const {
+  const dispatch = useDispatch();
+  const {
     register,
     handleSubmit,
     formState: { errors },

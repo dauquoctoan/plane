@@ -134,7 +134,8 @@ const PopoverDatePiker: React.FC<IProps> = ({
       tittleFontWeith: 500,
       padding: '',
     },
-  };  const curentStyle = styles[size];
+  };
+  const curentStyle = styles[size];
 
   return (
     <div

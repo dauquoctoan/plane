@@ -32,7 +32,7 @@ function handleRemoveChild(lsItemSelected: IItemSelected, value: string) {
 
 function handleRemoveParent(lsItemSelected: IItemSelected, value: string) {
   const newData = { ...lsItemSelected };
-  Object.keys(lsItemSelected).forEach(e => {
+  Object.keys(lsItemSelected).forEach((e) => {
     if (newData[e].parentKey === value) {
       delete newData[e];
     }
@@ -86,7 +86,7 @@ export const issueViewSlice = createSlice({
       state.customDate = action.payload;
     },
 
-    clear: state => {
+    clear: (state) => {
       state.customDate = {};
       state.itemSelected = {};
       state.lsItemConvert = [];

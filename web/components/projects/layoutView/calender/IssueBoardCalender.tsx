@@ -28,7 +28,8 @@ interface IProps {
   data?: IIssue[];
 }
 
-const FORMAT_DATE = 'MM/DD/YYY';const IssueBoardCalendar: React.FC<IProps> = ({ data }) => {
+const FORMAT_DATE = 'MM/DD/YYY';
+const IssueBoardCalendar: React.FC<IProps> = ({ data }) => {
   const [curentValue, setCurentValue] = useState<IItemDate | undefined>(
     undefined
   );
@@ -53,7 +54,8 @@ const FORMAT_DATE = 'MM/DD/YYY';const IssueBoardCalendar: React.FC<IProps> = ({
     'Novemeber',
     'Decemeber',
   ];
-  const params = useParams<IParams>();  const day = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+  const params = useParams<IParams>();
+  const day = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
 
   function getDate(month: number, year: number) {
     const firstDay = new Date(year, month, 1);
@@ -254,19 +256,26 @@ const FORMAT_DATE = 'MM/DD/YYY';const IssueBoardCalendar: React.FC<IProps> = ({
                           />
                           {dataConvert &&
                             dataConvert[keyDate] &&
-                            dataConvert[keyDate].map(issue => {
+                            dataConvert[keyDate].map((issue) => {
                               return (
                                 <div
                                   className="border  items-center cursor-pointer rounded px-2 py-1 text-xs flex gap-2"
                                   key={issue.id}
                                 >
                                   <div
-                                    onClick={()=>{
+                                    onClick={() => {
                                       issue &&
-                                    dispatch(drawerViewSlice.actions.setIssueSlected(issue));
-                                      dispatch(drawerViewSlice.actions.openDrawer());
-                                    }}  
-                                    className="flex-1 text-ellipsis overflow-hidden">
+                                        dispatch(
+                                          drawerViewSlice.actions.setIssueSlected(
+                                            issue
+                                          )
+                                        );
+                                      dispatch(
+                                        drawerViewSlice.actions.openDrawer()
+                                      );
+                                    }}
+                                    className="flex-1 text-ellipsis overflow-hidden"
+                                  >
                                     {issue.name}
                                   </div>
                                   <Popover
@@ -316,7 +325,8 @@ const AddMoreIssue: FC<IPropsAddMore> = ({ sequence, date }) => {
   const pathName = usePathname();
   const params = useParams<IParams>();
   const ref = useRef<HTMLDivElement>(null);
-  const noti = useNoti();  const { data: states } = useSWR(SWR_KEY_STATES(params.projectid), () => {
+  const noti = useNoti();
+  const { data: states } = useSWR(SWR_KEY_STATES(params.projectid), () => {
     return issueService.getState(params.projectid);
   });
 
@@ -361,7 +371,7 @@ const AddMoreIssue: FC<IPropsAddMore> = ({ sequence, date }) => {
             },
           };
 
-          return [...(issue||[]), itemConvert];
+          return [...(issue || []), itemConvert];
         } else {
           noti?.error('An error occurred, please try again later');
 

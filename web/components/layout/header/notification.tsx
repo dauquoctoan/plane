@@ -30,7 +30,7 @@ const Notification = () => {
               key: 'sdf',
             },
           ]}
-          onChange={e => {
+          onChange={(e) => {
             console.log(e);
           }}
         />

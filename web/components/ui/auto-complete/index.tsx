@@ -98,7 +98,7 @@ const AutoComplete: React.FC<IProps> = ({
             {...rest}
             {...(register && register(keyForm || '', validator))}
             datatype={uuid}
-            onKeyDown={e => {
+            onKeyDown={(e) => {
               const length = lsResult.length;
               if (length > 0) {
                 if (40 == e.keyCode)

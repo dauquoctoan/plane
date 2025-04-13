@@ -31,10 +31,12 @@ const Modal: React.FC<IProps> = ({
   const mouse = useRef({ isKeyDown: false, isDrag: false });
 
   useEffect(() => {
-    Array.from(document.getElementsByClassName('overflow-auto')).forEach(e => {
-      if (isOpen) e.setAttribute('style', 'overflow: hidden;');
-      else e.setAttribute('style', 'overflow: auto;');
-    });
+    Array.from(document.getElementsByClassName('overflow-auto')).forEach(
+      (e) => {
+        if (isOpen) e.setAttribute('style', 'overflow: hidden;');
+        else e.setAttribute('style', 'overflow: auto;');
+      }
+    );
   }, [isOpen]);
 
   const zIndex = {

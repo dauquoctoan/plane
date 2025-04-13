@@ -11,12 +11,15 @@ import useSWR, { useSWRConfig } from 'swr';
 import { SWR_KEY_PROJECTS } from '@/apiKey';
 import { useNoti } from '@/hooks';
 
-interface ISliceProject { project: IProject[], projectFavorite: IProject[] }
+interface ISliceProject {
+  project: IProject[];
+  projectFavorite: IProject[];
+}
 
 function sliceProject(data: IProject[]): ISliceProject {
   const dataResult: ISliceProject = {
     project: [],
-    projectFavorite: []
+    projectFavorite: [],
   };
   data?.forEach((e) => {
     if (!e.is_member) return;
@@ -35,7 +38,8 @@ const MenuProject = () => {
   const { mutate } = useSWRConfig();
   const isCollap = useSelector(selectIsCollap);
   const info = useSelector(selectInfo);
-  const [open, setOpen] = useState(false);  const { data } = useSWR(SWR_KEY_PROJECTS(info?.last_workspace_id), () =>
+  const [open, setOpen] = useState(false);
+  const { data } = useSWR(SWR_KEY_PROJECTS(info?.last_workspace_id), () =>
     projectService.getProjects(info?.last_workspace_id || '')
   );
 
@@ -57,17 +61,42 @@ const MenuProject = () => {
 
   return (
     <>
-      {projectFavorite.length > 0 && <MenuProjectItem tittle={<p className='font-bold text-sm text-color-text-sidebar pr-2'>Favorite <span className='text-[11px]'>{`(${projectFavorite.length})`}</span></p>} data={projectFavorite} isCollap={isCollap} open={open} setOpen={setOpen} />}
-      <MenuProjectItem tittle={<div className="font-bold text-sm flex items-center justify-between pr-2">
-        <div>Project <span className='text-[11px]'>{`(${project.length})`}</span></div>
-        <HiPlusSm
-          onClick={() => {
-            setOpen(true);
-          }}
-          className={`cursor-pointer text-lg ${open ? 'rotate-45' : ''
-          } transition-all`}
+      {projectFavorite.length > 0 && (
+        <MenuProjectItem
+          tittle={
+            <p className="font-bold text-sm text-color-text-sidebar pr-2">
+              Favorite{' '}
+              <span className="text-[11px]">{`(${projectFavorite.length})`}</span>
+            </p>
+          }
+          data={projectFavorite}
+          isCollap={isCollap}
+          open={open}
+          setOpen={setOpen}
         />
-      </div>} data={project} isCollap={isCollap} open={open} setOpen={setOpen} />
+      )}
+      <MenuProjectItem
+        tittle={
+          <div className="font-bold text-sm flex items-center justify-between pr-2">
+            <div>
+              Project{' '}
+              <span className="text-[11px]">{`(${project.length})`}</span>
+            </div>
+            <HiPlusSm
+              onClick={() => {
+                setOpen(true);
+              }}
+              className={`cursor-pointer text-lg ${
+                open ? 'rotate-45' : ''
+              } transition-all`}
+            />
+          </div>
+        }
+        data={project}
+        isCollap={isCollap}
+        open={open}
+        setOpen={setOpen}
+      />
       <Modal
         isPadding={false}
         isOpen={open}
@@ -90,15 +119,19 @@ interface IMenuProjectItem {
   data: IProject[];
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
   open: boolean;
-  tittle: ReactElement
+  tittle: ReactElement;
 }
 
-const MenuProjectItem = ({ isCollap, tittle, setOpen, open, data }: IMenuProjectItem) => {
+const MenuProjectItem = ({
+  isCollap,
+  tittle,
+  setOpen,
+  open,
+  data,
+}: IMenuProjectItem) => {
   return (
     <div className="px-2 py-2">
-      {!isCollap && (
-        <>{ tittle }</>
-      )}
+      {!isCollap && <>{tittle}</>}
       <div>
         {data.map((item) => (
           <ProjectMenuItem

@@ -31,7 +31,8 @@ interface IForm {
 }
 
 const Setting = () => {
-  const params = useParams<IParams>();  const { data: project } = useSWR(params.projectid, () => {
+  const params = useParams<IParams>();
+  const { data: project } = useSWR(params.projectid, () => {
     return projectService.findOneProject(params.projectid);
   });
 
@@ -40,10 +41,12 @@ const Setting = () => {
       {project && <UpdateProjectForm project={project} />}
     </div>
   );
-};const UpdateProjectForm = ({ project }: { project: IProject }) => {
+};
+const UpdateProjectForm = ({ project }: { project: IProject }) => {
   const params = useParams<IParams>();
   const info = useSelector(selectInfo);
-  const lsNestwork = ['Private', 'Public'];  const {
+  const lsNestwork = ['Private', 'Public'];
+  const {
     register: registerParent,
     handleSubmit,
     formState: { errors },
@@ -56,10 +59,13 @@ const Setting = () => {
       name: project?.name || '',
       description: project?.description || '',
     },
-  });  const noti = useNoti();  const networkOption: IOptionItem[] = [
+  });
+  const noti = useNoti();
+  const networkOption: IOptionItem[] = [
     { icon: <BiLockAlt />, title: 'Private', value: '0' },
     { icon: <GiEarthAmerica />, title: 'Public', value: '1' },
-  ];  const handleDeleteProject = async () => {
+  ];
+  const handleDeleteProject = async () => {
     const res = await projectService.deleteProject(params.projectid);
     if (res) {
       changeRoute(`/${info?.workspace?.slug}/projects`);
@@ -74,10 +80,10 @@ const Setting = () => {
       id="create-issue-form"
       onSubmit={handleSubmit(async (data: IProject) => {
         mutate<IProject>(params.projectid, async (project) => {
-          const res = await projectService.updateProject(
-            params.projectid,
-            { ...data, network: Number(data.network) }
-          );
+          const res = await projectService.updateProject(params.projectid, {
+            ...data,
+            network: Number(data.network),
+          });
           if (res) {
             noti?.success('update project success');
 
@@ -107,7 +113,7 @@ const Setting = () => {
               pyContent={0}
               content={
                 <EmojiIconPicker
-                  onChange={e => {
+                  onChange={(e) => {
                     setValue('emoji', e as string);
                   }}
                 />
@@ -140,7 +146,7 @@ const Setting = () => {
             pyContent={0}
             content={
               <ChangeCover
-                onChange={e => {
+                onChange={(e) => {
                   setValue('cover_image', e);
                 }}
               />
@@ -159,7 +165,7 @@ const Setting = () => {
           wrClassName="mb-4"
           keyForm="name"
           error={errors}
-          onChangeCB={e => {
+          onChangeCB={(e) => {
             setValue(
               'identifier',
               replaceSpecialCharactersEndWhiteSpace(

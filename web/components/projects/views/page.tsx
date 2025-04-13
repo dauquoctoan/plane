@@ -23,7 +23,8 @@ const ProjectView = () => {
   const params = useParams<IParams>();
   const noti = useNoti();
   const pathName = usePathname();
-  const dispatch = useDispatch();  const { data: views } = useSWR(SWR_KEY_PROJECT_VIEW(params.projectid), () => {
+  const dispatch = useDispatch();
+  const { data: views } = useSWR(SWR_KEY_PROJECT_VIEW(params.projectid), () => {
     return projectService.getProjectView(params.projectid);
   });
 
@@ -33,7 +34,7 @@ const ProjectView = () => {
     <>
       {views?.length ? (
         <>
-          {views?.map(item => {
+          {views?.map((item) => {
             const link = pathName + '/' + item.id;
 
             return (
@@ -127,7 +128,7 @@ const ProjectView = () => {
                     }
                   >
                     <div
-                      onClick={e => {
+                      onClick={(e) => {
                         e.stopPropagation();
                       }}
                       className="p-2 font-semibold text-sm rounded-full hover:bg-color-special-secondary"

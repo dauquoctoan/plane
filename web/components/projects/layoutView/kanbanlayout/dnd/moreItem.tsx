@@ -49,7 +49,7 @@ const MoreItem: FC<IProps> = ({ block }) => {
             ref={refPopup}
             className="px-3 py-1 absolute top-[100%] left-0 rounded bg-theme-primary shadow-theme-primary"
             style={{ zIndex: 400, ...style }}
-            onKeyDown={async e => {
+            onKeyDown={async (e) => {
               if (e.keyCode == 13) {
                 if (title) {
                   mutate<IIssue[]>(
@@ -70,7 +70,7 @@ const MoreItem: FC<IProps> = ({ block }) => {
                         handleClose();
 
                         return [
-                          ...(issue||[]),
+                          ...(issue || []),
                           {
                             ...issueResult,
                             state_id: block.id,
@@ -98,7 +98,7 @@ const MoreItem: FC<IProps> = ({ block }) => {
               autoFocus
               placeholder="Issue title"
               value={title}
-              onChange={e => {
+              onChange={(e) => {
                 setTitle(e.target.value);
               }}
             />

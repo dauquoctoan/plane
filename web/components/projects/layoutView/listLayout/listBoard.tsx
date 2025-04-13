@@ -50,7 +50,7 @@ const ListBoard: FC<IListBoard> = ({ states, issues }) => {
   const info = useSelector(selectInfo);
   const dispatch = useDispatch();
 
-  issues.forEach(e => {
+  issues.forEach((e) => {
     dataConvert[e.state.id].chilren.push(e);
   });
 
@@ -105,7 +105,7 @@ const ListBoard: FC<IListBoard> = ({ states, issues }) => {
                       <SelectState
                         projectId={params.projectid}
                         stateId={item.state.id}
-                        beforeUpdateValue={e =>
+                        beforeUpdateValue={(e) =>
                           issueService.updateIssue(item.id, {
                             state_id: e as string,
                           })
@@ -116,7 +116,7 @@ const ListBoard: FC<IListBoard> = ({ states, issues }) => {
                         projectId={item.project_id}
                         labels={item.labels?.map((e: any) => e.id) || []}
                         style={{ width: '' }}
-                        beforeUpdateValue={change => {
+                        beforeUpdateValue={(change) => {
                           return issueService.updateIssueLabel(
                             change as string[],
                             item.id || ''
@@ -128,7 +128,7 @@ const ListBoard: FC<IListBoard> = ({ states, issues }) => {
                         defaultDate={item.start_date}
                         name="Start Date"
                         style={{ width: 'fit-content' }}
-                        beforeUpdateValue={e => {
+                        beforeUpdateValue={(e) => {
                           return issueService.updateIssue(item.id, {
                             start_date: e ? moment(e).format() : (null as any),
                           });
@@ -139,7 +139,7 @@ const ListBoard: FC<IListBoard> = ({ states, issues }) => {
                         defaultDate={item.target_date}
                         name="Due Date"
                         style={{ width: 'fit-content' }}
-                        beforeUpdateValue={e => {
+                        beforeUpdateValue={(e) => {
                           return issueService.updateIssue(item.id, {
                             target_date: e ? moment(e).format() : (null as any),
                           });
@@ -178,7 +178,8 @@ const ListBoard: FC<IListBoard> = ({ states, issues }) => {
       })}
     </div>
   );
-};const MoreIssue = ({
+};
+const MoreIssue = ({
   stateId,
   name,
   identifier,
@@ -240,7 +241,7 @@ const ListBoard: FC<IListBoard> = ({ states, issues }) => {
             },
           };
 
-          return [...(issue||[]), itemConvert];
+          return [...(issue || []), itemConvert];
         } else {
           noti?.error('An error occurred, please try again later');
 

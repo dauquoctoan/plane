@@ -1,9 +1,7 @@
 import React, { Fragment, ReactElement } from 'react';
-import { Transition  } from '@headlessui/react';
+import { Transition } from '@headlessui/react';
 
-export const PopoverTransition = ({ children }: {
-    children: ReactElement
-}) => {
+export const PopoverTransition = ({ children }: { children: ReactElement }) => {
   return (
     <Transition
       as={Fragment}

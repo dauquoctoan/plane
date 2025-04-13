@@ -13,21 +13,24 @@ import React, { useState } from 'react';
 import useSWR, { mutate } from 'swr';
 
 const StateSetting = () => {
-  const params = useParams<IParams>();  const noti = useNoti();  const [isOpen, setIsOpen] = useState<boolean>(false);
+  const params = useParams<IParams>();
+  const noti = useNoti();
+  const [isOpen, setIsOpen] = useState<boolean>(false);
   const { data: states } = useSWR(SWR_KEY_STATES(params.projectid), () =>
     issueService.getState(params.projectid)
   );
 
   return (
     <div>
-      <div className='flex justify-end'>
+      <div className="flex justify-end">
         <Button
           typeBTN="primary"
           className="mb-2"
           onClick={() => {
             setIsOpen(true);
           }}
-        >{icons.plus}
+        >
+          {icons.plus}
         </Button>
       </div>
       <div className="flex flex-col gap-2">
@@ -47,11 +50,14 @@ const StateSetting = () => {
                     const result = await issueService.deleteState(e.id);
                     if (result) {
                       noti?.success('Delete state success');
-                      mutate<IState[]>(SWR_KEY_STATES(params.projectid), (data) => {
-                        return data?.filter((item: IState) => {
-                          return item.id != e.id;
-                        });
-                      });
+                      mutate<IState[]>(
+                        SWR_KEY_STATES(params.projectid),
+                        (data) => {
+                          return data?.filter((item: IState) => {
+                            return item.id != e.id;
+                          });
+                        }
+                      );
                     } else noti?.error('Delete state error');
                   }}
                 >

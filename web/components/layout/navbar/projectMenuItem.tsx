@@ -40,19 +40,19 @@ const ProjectMenuItem: React.FC<IProjectMenuitem> = ({
             <div className="ml-1 text-sm">{text}</div>
           </div>
           <div className="flex items-center gap-2">
-            {
-              project && <Popover content={<ProjectMenuPopover dataItem={project} />}>
-                <div
-                  className="flex items-center text-center box-border pb-2 cursor-pointer">
+            {project && (
+              <Popover content={<ProjectMenuPopover dataItem={project} />}>
+                <div className="flex items-center text-center box-border pb-2 cursor-pointer">
                   ...
                 </div>
               </Popover>
-            }
+            )}
             <BiChevronDown
               onClick={() => {
                 setIsExpan(!isExpan);
               }}
-              className={`text-xl cursor-pointer ${isExpan && 'rotate-180'
+              className={`text-xl cursor-pointer ${
+                isExpan && 'rotate-180'
               } transition-all`}
             />
           </div>

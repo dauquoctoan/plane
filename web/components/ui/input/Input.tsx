@@ -94,7 +94,7 @@ const Input: React.FC<Props> = ({
           {...(register && register(keyForm ?? '', validator))}
           placeholder={placeholder}
           id={id}
-          onChange={e => {
+          onChange={(e) => {
             register && register(keyForm || '').onChange(e);
             onChangeCB && onChangeCB(e);
           }}

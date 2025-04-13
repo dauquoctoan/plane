@@ -49,7 +49,7 @@ const CyclesTable = () => {
             { key: 'active', title: 'Active' },
           ]}
           active="all"
-          onChange={e => {
+          onChange={(e) => {
             setTab(e);
           }}
         />
@@ -78,7 +78,8 @@ const CyclesTable = () => {
       )}
     </div>
   );
-};const CycleItem = ({ data, tab }: { data: ICycle; tab: string }) => {
+};
+const CycleItem = ({ data, tab }: { data: ICycle; tab: string }) => {
   const params = useParams<IParams>();
   const dispatch = useDispatch();
   const info = useSelector(selectInfo);
@@ -113,7 +114,7 @@ const CyclesTable = () => {
             isChildren={false}
             defaultDate={data.start_date}
             formatDate="MM/DD/YYY"
-            beforeUpdateValue={(e:any) => {
+            beforeUpdateValue={(e: any) => {
               return projectService.upDateCycle(data.id, {
                 start_date: e || (null as any),
               });
@@ -125,7 +126,7 @@ const CyclesTable = () => {
             isChildren={false}
             formatDate="MM/DD/YYY"
             defaultDate={data.end_date}
-            beforeUpdateValue={(e:any) => {
+            beforeUpdateValue={(e: any) => {
               return projectService.upDateCycle(data.id, {
                 end_date: e || (null as any),
               });
@@ -145,13 +146,13 @@ const CyclesTable = () => {
           onClick={async () => {
             const result = await (data.is_favorite
               ? projectService.deleteCyclesFavorite({
-                user_id: info?.id || '',
-                cycle_id: data?.id || '',
-              })
+                  user_id: info?.id || '',
+                  cycle_id: data?.id || '',
+                })
               : projectService.createCyclesFavorite({
-                user_id: info?.id || '',
-                cycle_id: data?.id || '',
-              }));
+                  user_id: info?.id || '',
+                  cycle_id: data?.id || '',
+                }));
 
             if (result) {
               mutate<ICycle[]>(
@@ -231,7 +232,7 @@ const CyclesTable = () => {
         }
       >
         <div
-          onClick={e => {
+          onClick={(e) => {
             e.stopPropagation();
           }}
           className="p-2 font-semibold text-sm rounded-full hover:bg-color-special-secondary"

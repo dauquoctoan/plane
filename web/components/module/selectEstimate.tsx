@@ -25,12 +25,14 @@ const SelectEstimate: React.FC<IProps> = ({
   const { data: estimates } = useSWR(
     () => estimateId,
     () => issueService.findOneEstimate(estimateId)
-  );  const options:IOptionItem[] = estimates?.estimate_points.map((e)=>{
-    return{
-      title: e.value,
-      value: e.id,
-    };
-  }) || [];
+  );
+  const options: IOptionItem[] =
+    estimates?.estimate_points.map((e) => {
+      return {
+        title: e.value,
+        value: e.id,
+      };
+    }) || [];
 
   return (
     <Select

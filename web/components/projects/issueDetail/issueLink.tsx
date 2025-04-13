@@ -25,10 +25,12 @@ const IssueLink = ({ issueId }: { issueId: string }) => {
   const [openModal, setOpenModal] = useState<IState>({
     isOpen: false,
     isCreate: true,
-  });  const { data: issueLink } = useSWR(SWR_KEY_LS_ISSUE_LINK(issueId), () => {
+  });
+  const { data: issueLink } = useSWR(SWR_KEY_LS_ISSUE_LINK(issueId), () => {
     return issueService.findIssueLink(issueId);
   });
-  const noti = useNoti();  const [curentItem, setcurentItem] = useState<IIsueLink>();
+  const noti = useNoti();
+  const [curentItem, setcurentItem] = useState<IIsueLink>();
 
   return (
     <div className="w-full py-4">
@@ -42,7 +44,7 @@ const IssueLink = ({ issueId }: { issueId: string }) => {
         }
         isOpen={openModal.isOpen}
         handleClose={() => {
-          setOpenModal(e => ({ ...e, isOpen: false }));
+          setOpenModal((e) => ({ ...e, isOpen: false }));
         }}
       />
       <div className="flex justify-between w-full">
@@ -85,11 +87,14 @@ const IssueLink = ({ issueId }: { issueId: string }) => {
                       const res = await issueService.removeIssueLink(e.id);
                       if (res) {
                         noti?.success('Delete link success');
-                        mutate<IIsueLink[]>(SWR_KEY_LS_ISSUE_LINK(issueId), (prevData) => {
-                          return prevData?.filter((itemPrevData) => {
-                            return itemPrevData.id != e.id;
-                          });
-                        });
+                        mutate<IIsueLink[]>(
+                          SWR_KEY_LS_ISSUE_LINK(issueId),
+                          (prevData) => {
+                            return prevData?.filter((itemPrevData) => {
+                              return itemPrevData.id != e.id;
+                            });
+                          }
+                        );
                       } else noti?.success('Delete link error');
                     }}
                   >
@@ -109,7 +114,8 @@ const IssueLink = ({ issueId }: { issueId: string }) => {
       </div>
     </div>
   );
-};const AddLink = ({
+};
+const AddLink = ({
   issueId,
   setOpenModal,
   defaultValue,
@@ -128,11 +134,12 @@ const IssueLink = ({ issueId }: { issueId: string }) => {
       url: defaultValue?.url || '',
       title: defaultValue?.title || '',
     },
-  });  const noti = useNoti();
+  });
+  const noti = useNoti();
 
   return (
     <form
-      onSubmit={handleSubmit(async data => {
+      onSubmit={handleSubmit(async (data) => {
         if (!defaultValue) {
           const res = await issueService.createIssueLink({
             ...data,
@@ -144,7 +151,7 @@ const IssueLink = ({ issueId }: { issueId: string }) => {
           });
 
           if (res) {
-            setOpenModal(e => ({ ...e, isOpen: false }));
+            setOpenModal((e) => ({ ...e, isOpen: false }));
             noti?.success('Create issue link success');
           } else noti?.error('Create issue link error');
         } else {
@@ -162,7 +169,7 @@ const IssueLink = ({ issueId }: { issueId: string }) => {
                 } else return itemIsuelink;
               });
             });
-            setOpenModal(e => ({ ...e, isOpen: false }));
+            setOpenModal((e) => ({ ...e, isOpen: false }));
             noti?.success('Update issue link success');
           } else noti?.error('Update issue link error');
         }
@@ -199,7 +206,7 @@ const IssueLink = ({ issueId }: { issueId: string }) => {
           type="button"
           text="Cancel"
           onClick={() => {
-            setOpenModal(e => ({ ...e, isOpen: false }));
+            setOpenModal((e) => ({ ...e, isOpen: false }));
           }}
         />
         <Button

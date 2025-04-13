@@ -75,7 +75,8 @@ const Node = ({ editor, setOpenTab, tab, index }: INode) => {
       command: () => editor.chain().focus().toggleCode().run(),
       icon: PiCodeSimple,
     },
-  ];  const activeItem = node.filter(item => item.isActive()).pop() ?? {
+  ];
+  const activeItem = node.filter((item) => item.isActive()).pop() ?? {
     name: 'Multiple',
   };
 

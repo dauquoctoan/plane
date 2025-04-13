@@ -19,12 +19,14 @@ const TabsIssue = () => {
   const { data: issueViews } = useSWR(
     () => SWR_KEY_ISSUE_VIEWS,
     () => issueService.getIssueView<IData<IIssueViews[]>>()
-  );  const pathName = usePathname();
+  );
+  const pathName = usePathname();
   const lsLinks =
-    issueViews?.map(e => ({
+    issueViews?.map((e) => ({
       href: `/${info?.workspace?.slug}/workspace-views/${e.id}`,
       nickname: createNickNameLink(`workspace-views-${e.id}`),
-    })) || [];  const customeLink: LinkProps[] = [
+    })) || [];
+  const customeLink: LinkProps[] = [
     {
       href: `/${info?.workspace?.slug}/workspace-views/assigned`,
       nickname: createNickNameLink('workspace-views-assigned'),
@@ -38,7 +40,8 @@ const TabsIssue = () => {
       nickname: createNickNameLink('workspace-views-subscribed'),
     },
     ...lsLinks.reverse(),
-  ];  const lsTabs: ITabItem[] =
+  ];
+  const lsTabs: ITabItem[] =
     issueViews?.map((e: IIssueViews) => ({
       title: e.name || '',
       key: e.id || '',
@@ -51,7 +54,7 @@ const TabsIssue = () => {
         <Tab
           active={pathName.split('/').pop()}
           lsLabel={[...lsTabsIssues, ...(lsTabs || [])]}
-          onChange={e => {
+          onChange={(e) => {
             changeRoute(`/${info?.workspace?.slug}/workspace-views/${e}`);
             dispatch(issueViewSlice.actions.setIsListIssue(false));
           }}

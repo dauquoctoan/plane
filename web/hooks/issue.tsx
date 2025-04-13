@@ -1,4 +1,7 @@
-import { SWR_KEY_LABELS_BY_PROJECT, SWR_KEY_MEMBER_BY_WORKSPACE } from '@/apiKey';
+import {
+  SWR_KEY_LABELS_BY_PROJECT,
+  SWR_KEY_MEMBER_BY_WORKSPACE,
+} from '@/apiKey';
 import { IItemData } from '@/components/ui/collapse/collapse';
 import { optionLevel } from '@/constants/issue';
 import {
@@ -79,14 +82,12 @@ export const useDataFilter = (cb?: TCalBackChangeDate) => {
     data: states,
     isLoading,
     isValidating,
-  } = useSWR('DEFAULT_STATE', a => issueService.getDefaultState());
+  } = useSWR('DEFAULT_STATE', (a) => issueService.getDefaultState());
 
-  const { data: members } = useSWR(
-    SWR_KEY_MEMBER_BY_WORKSPACE,
-    () =>
-      projectService.getMemberByProject<IProjectMember[]>({
-        projectId: '',
-      })
+  const { data: members } = useSWR(SWR_KEY_MEMBER_BY_WORKSPACE, () =>
+    projectService.getMemberByProject<IProjectMember[]>({
+      projectId: '',
+    })
   );
 
   const data: IItemData[] = [

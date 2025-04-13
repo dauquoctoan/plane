@@ -71,17 +71,18 @@ const ItemTreeSlect = ({
         dataItem &&
         dataItem?.children &&
         dataItem?.children?.length > 0 && (
-        <div className="ml-3">
-          <Popover
-            selected={selected}
-            handleSelect={handleSelect}
-            data={dataItem.children}
-          />
-        </div>
-      )}
+          <div className="ml-3">
+            <Popover
+              selected={selected}
+              handleSelect={handleSelect}
+              data={dataItem.children}
+            />
+          </div>
+        )}
     </div>
   );
-};const Popover = forwardRef(function popOver(
+};
+const Popover = forwardRef(function popOver(
   props: IPopOver,
   ref: Ref<HTMLDivElement>
 ) {

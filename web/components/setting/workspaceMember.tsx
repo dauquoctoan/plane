@@ -21,11 +21,13 @@ const WorkspaceMember = () => {
   const { data: workspaceMember } = useSWR('workspace-member', () => {
     return workspaceService.getMemberFromWorkspace<IWorkspaceMember[]>();
   });
-  const info = useSelector(selectInfo);  const filters = searchMember
-    ? workspaceMember?.filter(e =>
-      createName(e.user.first_name, e.user.last_name).includes(searchMember)
-    )
-    : workspaceMember;  const removeMembers = async (id: string) => {
+  const info = useSelector(selectInfo);
+  const filters = searchMember
+    ? workspaceMember?.filter((e) =>
+        createName(e.user.first_name, e.user.last_name).includes(searchMember)
+      )
+    : workspaceMember;
+  const removeMembers = async (id: string) => {
     mutate<IWorkspaceMember[]>('workspace-member', async (data) => {
       const res = await workspaceService.removeMemberFromWorkspace(id);
       if (res) {
@@ -53,7 +55,7 @@ const WorkspaceMember = () => {
             <input
               className="outline-none border rounded pl-6"
               placeholder="Search members"
-              onChange={e => {
+              onChange={(e) => {
                 setSearchMember(e.target.value);
               }}
             />

@@ -13,13 +13,15 @@ import React from 'react';
 import useSWR from 'swr';
 
 const Member = () => {
-  const params = useParams<IParams>();  const { data: members } = useSWR(
+  const params = useParams<IParams>();
+  const { data: members } = useSWR(
     () => SWR_KEY_MEMBER_BY_PROJECT(params.projectid),
     () =>
       projectService.getMemberByProject<IProjectMember[]>({
         projectId: params.projectid || '',
       })
-  );  const { data: project } = useSWR(params.projectid, () => {
+  );
+  const { data: project } = useSWR(params.projectid, () => {
     return projectService.findOneProject(params.projectid);
   });
 

@@ -48,17 +48,19 @@ const AddProject: React.FC<IProps> = ({ setOpen, handleCreateProject }) => {
       network: 0,
       project_lead: null,
     } as any,
-  });  const networkOption: IOptionItem[] = [
+  });
+  const networkOption: IOptionItem[] = [
     { icon: <BiLockAlt />, title: 'Private', value: '0' },
     { icon: <GiEarthAmerica />, title: 'Public', value: '1' },
-  ];  const { data: members } = useSWR('workspace-member', () =>
+  ];
+  const { data: members } = useSWR('workspace-member', () =>
     workspaceService.getMemberFromWorkspace<IWorkspaceMember[]>()
   );
 
   return (
     <form
       id="create-project-form"
-      onSubmit={handleSubmit(async formData => {
+      onSubmit={handleSubmit(async (formData) => {
         formData.network = Number(formData.network);
         handleCreateProject({
           ...formData,
@@ -83,7 +85,7 @@ const AddProject: React.FC<IProps> = ({ setOpen, handleCreateProject }) => {
             pyContent={0}
             content={
               <EmojiIconPicker
-                onChange={e => {
+                onChange={(e) => {
                   setValue('emoji', e);
                 }}
               />
@@ -95,32 +97,46 @@ const AddProject: React.FC<IProps> = ({ setOpen, handleCreateProject }) => {
             </div>
           </Popover>
         </div>
-        <div onClick={()=>{checkIsMobile() && setState(true);}} className="absolute right-0 bottom-0 rounded border border-theme-border-primary bg-theme-secondary cursor-pointer select-none mb-2 mr-2">
-          {
-            checkIsMobile() ? <>
-              <Modal isOpen={state} handleClose={()=>{setState(false);}} content={<ChangeCover
-                onChange={e => {
-                  setValue('cover_image', e);
+        <div
+          onClick={() => {
+            checkIsMobile() && setState(true);
+          }}
+          className="absolute right-0 bottom-0 rounded border border-theme-border-primary bg-theme-secondary cursor-pointer select-none mb-2 mr-2"
+        >
+          {checkIsMobile() ? (
+            <>
+              <Modal
+                isOpen={state}
+                handleClose={() => {
+                  setState(false);
                 }}
-              />} />
-              <div className="px-2 py-1">Change Cover</div>
-            </> :
-              <Popover
-                placement="bottomLeft"
-                pxContent={0}
-                pyContent={0}
                 content={
                   <ChangeCover
-                    onChange={e => {
+                    onChange={(e) => {
                       setValue('cover_image', e);
-                      setState(false);
                     }}
                   />
                 }
-              >
-                <div className="px-2 py-1">Change Cover</div>
-              </Popover>
-          }
+              />
+              <div className="px-2 py-1">Change Cover</div>
+            </>
+          ) : (
+            <Popover
+              placement="bottomLeft"
+              pxContent={0}
+              pyContent={0}
+              content={
+                <ChangeCover
+                  onChange={(e) => {
+                    setValue('cover_image', e);
+                    setState(false);
+                  }}
+                />
+              }
+            >
+              <div className="px-2 py-1">Change Cover</div>
+            </Popover>
+          )}
         </div>
       </div>
 
@@ -133,7 +149,7 @@ const AddProject: React.FC<IProps> = ({ setOpen, handleCreateProject }) => {
           register={register}
           validator={{ required: true }}
           setValue={setValue}
-          onChangeCB={e => {
+          onChangeCB={(e) => {
             setValue(
               'identifier',
               replaceSpecialCharactersEndWhiteSpace(
@@ -189,11 +205,11 @@ const AddProject: React.FC<IProps> = ({ setOpen, handleCreateProject }) => {
           }}
           options={
             members
-              ? members.map(member => ({
-                icon: <Avatar size="sm">m</Avatar>,
-                title: member.user.first_name,
-                value: member.user.id,
-              }))
+              ? members.map((member) => ({
+                  icon: <Avatar size="sm">m</Avatar>,
+                  title: member.user.first_name,
+                  value: member.user.id,
+                }))
               : []
           }
         >

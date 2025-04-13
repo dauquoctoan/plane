@@ -39,12 +39,12 @@ export function formartDate(
 ): string | undefined {
   if (!value) return value;
   switch (type) {
-  case 'DD/MM/YYY':
-    return `${value.date}/${value.month + 1}/${value.year}`;
-  case 'MM/DD/YYY':
-    return `${value.month + 1}/${value.date}/${value.year}`;
-  case 'YYY/DD/MM':
-    return `${value.year}/${value.date}/${value.month + 1}`;
+    case 'DD/MM/YYY':
+      return `${value.date}/${value.month + 1}/${value.year}`;
+    case 'MM/DD/YYY':
+      return `${value.month + 1}/${value.date}/${value.year}`;
+    case 'YYY/DD/MM':
+      return `${value.year}/${value.date}/${value.month + 1}`;
   }
 }
 
@@ -79,9 +79,12 @@ const DatePicker: React.FC<ICurentField> = ({
   const [curentValue, setCurentValue] = useState<IItemDate | undefined>(
     ((value || defaultDate) && convertStringToDateObj(value || defaultDate)) ||
       undefined
-  );  const noti = useNoti();  const refBtn = useRef<HTMLDivElement>(null);
+  );
+  const noti = useNoti();
+  const refBtn = useRef<HTMLDivElement>(null);
   const refPopUp = useRef<HTMLDivElement>(null);
-  const refClear = useRef<HTMLDivElement>(null);  const { open, setOpen, style, handleClose } = usePopUp({
+  const refClear = useRef<HTMLDivElement>(null);
+  const { open, setOpen, style, handleClose } = usePopUp({
     refPopover: refBtn,
     refPopup: refPopUp,
     placement: placement,

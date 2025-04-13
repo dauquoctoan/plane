@@ -42,7 +42,7 @@ export const Counter = () => {
         <input
           aria-label="Set increment amount"
           value={incrementAmount}
-          onChange={e => setIncrementAmount(Number(e.target.value ?? 0))}
+          onChange={(e) => setIncrementAmount(Number(e.target.value ?? 0))}
         />
         <button
           onClick={() =>

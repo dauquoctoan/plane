@@ -120,7 +120,7 @@ const GoogleLoginButtonitem: FC<IGoogleLoginButton> = () => {
   }
 
   useEffect(() => {
-    if (value.every(e => e != '')) {
+    if (value.every((e) => e != '')) {
       handleCheckPin();
     }
   }, [value]);
@@ -129,11 +129,11 @@ const GoogleLoginButtonitem: FC<IGoogleLoginButton> = () => {
     if (navigator.clipboard) {
       navigator.clipboard
         .readText()
-        .then(text => {
+        .then((text) => {
           if (text.length == 4)
             setValuePin(text.split('') || Array(4).fill(''));
         })
-        .catch(err => {
+        .catch((err) => {
           console.error('Lỗi khi đọc văn bản từ clipboard:', err);
         });
     } else {
@@ -147,7 +147,7 @@ const GoogleLoginButtonitem: FC<IGoogleLoginButton> = () => {
 
   return (
     <form
-      onSubmit={handleSubmit(async data => {
+      onSubmit={handleSubmit(async (data) => {
         handleGenaratePin(data.email);
       })}
     >
@@ -233,7 +233,8 @@ const GoogleLoginButtonitem: FC<IGoogleLoginButton> = () => {
       </div>
     </form>
   );
-};const GoogleLoginButton = () => {
+};
+const GoogleLoginButton = () => {
   return (
     <Suspense>
       <GoogleLoginButtonitem />

@@ -43,7 +43,8 @@ const MoreTools: FC<IPropsMoreTools> = ({ data }) => {
       })}
     </div>
   );
-};const Item: FC<IItem> = ({ icon, text, cb, render }) => {
+};
+const Item: FC<IItem> = ({ icon, text, cb, render }) => {
   return (
     <div
       onClick={() => {

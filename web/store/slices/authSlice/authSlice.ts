@@ -21,13 +21,13 @@ export const authSlice = createSlice({
     setInfo: (state, action: PayloadAction<IInfo | null>) => {
       state.info = action.payload;
     },
-    clearInfo: state => {
+    clearInfo: (state) => {
       state.info = null;
     },
   },
-  extraReducers: builder => {
+  extraReducers: (builder) => {
     builder
-      .addCase(getUsertAsync.pending, state => {
+      .addCase(getUsertAsync.pending, (state) => {
         state.isLoading = true;
       })
       .addCase(getUsertAsync.fulfilled, (state, action) => {

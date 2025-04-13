@@ -11,5 +11,10 @@ export default function WorkspaceLayout({
 }: {
   children: React.ReactNode;
 }) {
-  return <AuthLayout><DrawissueDetail/>{children}</AuthLayout>;
+  return (
+    <AuthLayout>
+      <DrawissueDetail />
+      {children}
+    </AuthLayout>
+  );
 }

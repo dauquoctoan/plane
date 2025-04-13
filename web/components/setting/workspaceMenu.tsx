@@ -12,7 +12,8 @@ interface IMenuItem {
 }
 const Menu = () => {
   const pathName = usePathname();
-  const info = useSelector(selectInfo);  const menus: IMenuItem[] = [
+  const info = useSelector(selectInfo);
+  const menus: IMenuItem[] = [
     { href: 'settings', nickname: 'General' },
     { href: 'members', nickname: 'members' },
     { href: 'billing', nickname: 'billing' },
@@ -22,7 +23,7 @@ const Menu = () => {
   return (
     <div className="">
       <ContainerLink
-        links={menus.map(e => {
+        links={menus.map((e) => {
           return {
             href: `/${info?.workspace?.slug}/settings/${e.href}`,
             nickname: createNickNameLink(e.nickname + info?.workspace?.slug),

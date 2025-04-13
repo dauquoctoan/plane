@@ -14,7 +14,7 @@ export type IParams = {
   moduleid: string;
   projectviewid: string;
   pageid: string;
-  issueid:string;
+  issueid: string;
 };
 
 export interface IResult<T> {
@@ -105,7 +105,7 @@ export interface IProject extends IBaseData {
   default_assignee?: string;
   project_lead?: string;
   workspace_id?: string;
-  is_favorite?: boolean; 
+  is_favorite?: boolean;
   name?: string;
   description?: string;
   description_text?: string;

@@ -3,10 +3,7 @@ import { renderEmoji } from '@/helpers';
 import { IParams, IProject } from '@/types';
 import Image from 'next/image';
 import React, { FC } from 'react';
-import {
-  AiOutlineCalendar,
-  AiOutlineDelete,
-} from 'react-icons/ai';
+import { AiOutlineCalendar, AiOutlineDelete } from 'react-icons/ai';
 import moment from 'moment';
 import { BiSolidEditAlt } from 'react-icons/bi';
 import Popover from '../ui/popover';
@@ -85,17 +82,18 @@ const ProjectITem: React.FC<IPropsProjectItem> = ({ dataItem }) => {
             <span>{moment(dataItem.createdAt).format('ll')}</span>
           </div>
           <div className="flex items-center gap-2 select-none text-lg">
-            <BiSolidEditAlt onClick={
-              ()=>{
-                changeRoute(`/${info?.workspace?.slug}/projects/${dataItem.id}/settings`);
-              }
-            } className="hover:scale-110" />
+            <BiSolidEditAlt
+              onClick={() => {
+                changeRoute(
+                  `/${info?.workspace?.slug}/projects/${dataItem.id}/settings`
+                );
+              }}
+              className="hover:scale-110"
+            />
             <Popover
               contentClassName="border shadow-theme-primary"
               placement="bottomLeft"
-              content={
-                <ProjectMenuPopover dataItem={dataItem}/>
-              }
+              content={<ProjectMenuPopover dataItem={dataItem} />}
             >
               <div className="hover:scale-110 p-1 pb-0">...</div>
             </Popover>
@@ -113,7 +111,8 @@ interface IProjectMenuPopover {
 export const ProjectMenuPopover: FC<IProjectMenuPopover> = ({ dataItem }) => {
   const noti = useNoti();
   const info = useSelector(selectInfo);
-  const typeF = dataItem.is_favorite ? 'Remove' : 'Add';  const handleDeleteProject = async () => {
+  const typeF = dataItem.is_favorite ? 'Remove' : 'Add';
+  const handleDeleteProject = async () => {
     const res = await projectService.deleteProject(dataItem.id || '');
     if (res) {
       changeRoute(`/${info?.workspace?.slug}/projects`);
@@ -128,62 +127,64 @@ export const ProjectMenuPopover: FC<IProjectMenuPopover> = ({ dataItem }) => {
     }
   };
 
-  return <div>
-    <div className="flex hover:bg-theme-secondary items-center gap-2 cursor-pointer rounded p-1 select-none">
-      <AiOutlineDelete />
-      <Confirm
-        title="Delete the project"
-        desc="Are you sure to delete this project ?"
-        onConfirm={() => {
-          handleDeleteProject();
-        }}
-      >
-        <span className="text-sm font-medium">
-          Delete Project
-        </span>
-      </Confirm>
-    </div>
-    <div
-      onClick={async () => {
-        const result = await (dataItem.is_favorite ? projectService.removeProjectFavorite(dataItem.id || ''):projectService.addProjectFavorite(dataItem.id || ''));
-        if (result) {
-          mutate<IProject[]>(SWR_KEY_PROJECTS(info?.last_workspace_id),(projects)=>{
-            return projects?.map((e)=>{
-              if(e.id === dataItem.id) e.is_favorite = !e.is_favorite;
- 
-              return e;
-            });
-          });
-          noti?.success(typeF + ' favorite success');
-        } else {
-          noti?.error(typeF + ' favorite error');
-        }
-      }}
-      className="flex hover:bg-theme-secondary items-center gap-2 cursor-pointer rounded p-1 select-none">
-      <IoStarOutline />
-      <span className="text-sm font-medium">
-        {typeF} to favorites
-      </span>
-    </div>
-    <div
-      onClick={() => {
-        try {
-          navigator.clipboard.writeText(
-            `${process.env.NEXT_PUBLIC_HOST}/${info?.workspace?.slug}/projects/${dataItem.id}/settings`
-          );
-          noti?.success('Copy link success');
-        } catch (error) {
-          noti?.error('Copy link error');
-        }
+  return (
+    <div>
+      <div className="flex hover:bg-theme-secondary items-center gap-2 cursor-pointer rounded p-1 select-none">
+        <AiOutlineDelete />
+        <Confirm
+          title="Delete the project"
+          desc="Are you sure to delete this project ?"
+          onConfirm={() => {
+            handleDeleteProject();
+          }}
+        >
+          <span className="text-sm font-medium">Delete Project</span>
+        </Confirm>
+      </div>
+      <div
+        onClick={async () => {
+          const result = await (dataItem.is_favorite
+            ? projectService.removeProjectFavorite(dataItem.id || '')
+            : projectService.addProjectFavorite(dataItem.id || ''));
+          if (result) {
+            mutate<IProject[]>(
+              SWR_KEY_PROJECTS(info?.last_workspace_id),
+              (projects) => {
+                return projects?.map((e) => {
+                  if (e.id === dataItem.id) e.is_favorite = !e.is_favorite;
 
-      }}
-      className="flex hover:bg-theme-secondary items-center gap-2 cursor-pointer rounded p-1 select-none">
-      <CiLink />
-      <span className="text-sm font-medium">
-        Coppy project link
-      </span>
+                  return e;
+                });
+              }
+            );
+            noti?.success(typeF + ' favorite success');
+          } else {
+            noti?.error(typeF + ' favorite error');
+          }
+        }}
+        className="flex hover:bg-theme-secondary items-center gap-2 cursor-pointer rounded p-1 select-none"
+      >
+        <IoStarOutline />
+        <span className="text-sm font-medium">{typeF} to favorites</span>
+      </div>
+      <div
+        onClick={() => {
+          try {
+            navigator.clipboard.writeText(
+              `${process.env.NEXT_PUBLIC_HOST}/${info?.workspace?.slug}/projects/${dataItem.id}/settings`
+            );
+            noti?.success('Copy link success');
+          } catch (error) {
+            noti?.error('Copy link error');
+          }
+        }}
+        className="flex hover:bg-theme-secondary items-center gap-2 cursor-pointer rounded p-1 select-none"
+      >
+        <CiLink />
+        <span className="text-sm font-medium">Coppy project link</span>
+      </div>
     </div>
-  </div>;
+  );
 };
 
 export default ProjectITem;

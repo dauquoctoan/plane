@@ -1,9 +1,5 @@
 'use client';
-import {
-  drawerViewSlice,
-  useDispatch,
-  useSelector,
-} from '@/store';
+import { drawerViewSlice, useDispatch, useSelector } from '@/store';
 import { selectInfo } from '@/store/slices/authSlice/selectors';
 import { IIssue, IIsueReaction, ILabel, IParams, IUser } from '@/types';
 import { useParams, usePathname } from 'next/navigation';
@@ -45,47 +41,67 @@ export interface IIssueDetail {
 
 const IssueDetail: FC<IIssueDetail> = ({ issue }) => {
   const param = useParams<IParams>();
-  const { data: issueDetail } = useSWR(issue ? null :  param.issueid, () => {
+  const { data: issueDetail } = useSWR(issue ? null : param.issueid, () => {
     return issueService.findOneIssue(param?.issueid || '');
-  });  const dataItem = issue || issueDetail;  const { data: reactions } = useSWR(SWR_KEY_LS_ISSUE_REACTIONS(issue?.id || param.issueid), () => {
-    return issueService.findReaction<IIsueReaction[]>(issue?.id || param.issueid);
-  });  const info = useSelector(selectInfo);
+  });
+  const dataItem = issue || issueDetail;
+  const { data: reactions } = useSWR(
+    SWR_KEY_LS_ISSUE_REACTIONS(issue?.id || param.issueid),
+    () => {
+      return issueService.findReaction<IIsueReaction[]>(
+        issue?.id || param.issueid
+      );
+    }
+  );
+  const info = useSelector(selectInfo);
   const noti = useNoti();
   const dispatch = useDispatch();
   const [isSaving, setIsSaving] = useState(false);
-  const pathName = usePathname();  const handleUpdateIssue = lodash.debounce(
+  const pathName = usePathname();
+  const handleUpdateIssue = lodash.debounce(
     async (issueUpdate: Partial<IIssue>) => {
       await issueService.updateIssue(issue?.id, issueUpdate);
       setIsSaving(false);
     },
     2000
-  );  const handleCreateReaction = (reaction: Partial<IIsueReaction>) => {
-    mutate<IIsueReaction[]>(SWR_KEY_LS_ISSUE_REACTIONS(dataItem?.id), async (prevData) => {
-      const result = await issueService.createReaction<IIsueReaction>(reaction);
-      if (result && info) return [...(prevData || []), { ...result, user: info }];
-      else noti?.error('Reaction error');
+  );
+  const handleCreateReaction = (reaction: Partial<IIsueReaction>) => {
+    mutate<IIsueReaction[]>(
+      SWR_KEY_LS_ISSUE_REACTIONS(dataItem?.id),
+      async (prevData) => {
+        const result =
+          await issueService.createReaction<IIsueReaction>(reaction);
+        if (result && info)
+          return [...(prevData || []), { ...result, user: info }];
+        else noti?.error('Reaction error');
 
-      return prevData;
-    });
-  };  const handleRemoveReaction = async (id?: string) => {
+        return prevData;
+      }
+    );
+  };
+  const handleRemoveReaction = async (id?: string) => {
     if (id) {
       const result = await issueService.removeReaction(id);
       if (result) {
-        mutate<IIsueReaction[]>(SWR_KEY_LS_ISSUE_REACTIONS(dataItem?.id), (prevData) => {
-          return prevData?.filter((e) => {
-            return e.id != id;
-          });
-        });
+        mutate<IIsueReaction[]>(
+          SWR_KEY_LS_ISSUE_REACTIONS(dataItem?.id),
+          (prevData) => {
+            return prevData?.filter((e) => {
+              return e.id != id;
+            });
+          }
+        );
       }
     }
-  };  const convert = reactions?.reduce((value: { [e: string]: number }, item) => {
+  };
+  const convert = reactions?.reduce((value: { [e: string]: number }, item) => {
     value[item.reaction || ''] = (value[item.reaction || ''] || 0) + 1;
 
     return value;
   }, {});
 
   function handleReaction(e: string) {
-    const reaction = reactions?.find(reaction => {
+    const reaction = reactions?.find((reaction) => {
       return reaction.reaction == e && reaction.user.id == info?.id;
     });
     if (reaction) {
@@ -109,7 +125,7 @@ const IssueDetail: FC<IIssueDetail> = ({ issue }) => {
           border={false}
           stateId={dataItem?.state_id || ''}
           projectId={dataItem?.project_id || ''}
-          beforeUpdateValue={e =>
+          beforeUpdateValue={(e) =>
             issueService.updateIssue(dataItem?.id, {
               state_id: e as string,
             })
@@ -124,7 +140,7 @@ const IssueDetail: FC<IIssueDetail> = ({ issue }) => {
         <SelectMemberTable
           style={{ width: '100%' }}
           assigness={
-            dataItem?.assignees?.map(e => {
+            dataItem?.assignees?.map((e) => {
               const user = e as IUser;
 
               return user.id;
@@ -149,7 +165,7 @@ const IssueDetail: FC<IIssueDetail> = ({ issue }) => {
           defaultValue={dataItem?.priority}
           isIconCheck
           fontSize="text-[12px]"
-          beforeUpdateValue={change => {
+          beforeUpdateValue={(change) => {
             return issueService.updateIssue(dataItem?.id, {
               priority: change as string,
             });
@@ -168,7 +184,7 @@ const IssueDetail: FC<IIssueDetail> = ({ issue }) => {
           style={{ width: '100%' }}
           defaultDate={dataItem?.start_date}
           name="Start Date"
-          beforeUpdateValue={e => {
+          beforeUpdateValue={(e) => {
             return issueService.updateIssue(dataItem?.id, {
               start_date: e ? moment(e).format() : (null as any),
             });
@@ -186,7 +202,7 @@ const IssueDetail: FC<IIssueDetail> = ({ issue }) => {
           style={{ width: '100%' }}
           defaultDate={dataItem?.target_date}
           name="Due date"
-          beforeUpdateValue={e => {
+          beforeUpdateValue={(e) => {
             return issueService.updateIssue(dataItem?.id, {
               target_date: e ? moment(e).format() : (null as any),
             });
@@ -203,7 +219,7 @@ const IssueDetail: FC<IIssueDetail> = ({ issue }) => {
           style={{ width: '100%' }}
           projectId={dataItem?.project_id}
           labels={dataItem?.labels?.map((e: any) => e?.id) || []}
-          beforeUpdateValue={change => {
+          beforeUpdateValue={(change) => {
             return issueService.updateIssueLabel(
               change as string[],
               dataItem?.id || ''
@@ -218,15 +234,27 @@ const IssueDetail: FC<IIssueDetail> = ({ issue }) => {
     <div className="p-2 h-screen flex flex-col">
       <div className="w-full flex justify-between py-3">
         <div className="flex items-center gap-2">
-          <ContainerLink links={[{href: `/${info?.workspace?.slug}/projects/${param.projectid}/issues/${dataItem?.id}`, nickname:createNickNameLink(dataItem?.id || '')}]}/>
-          {
-            issue &&
-          <MdOutlineOpenInFull onClick={()=>{
-            changeRoute(`/${info?.workspace?.slug}/projects/${param.projectid}/issues/${dataItem?.id}`);
-            setTimeout(()=>{
-              dispatch(drawerViewSlice.actions.closeDrawer());
-            },100);
-          }} className="cursor-pointer" /> }
+          <ContainerLink
+            links={[
+              {
+                href: `/${info?.workspace?.slug}/projects/${param.projectid}/issues/${dataItem?.id}`,
+                nickname: createNickNameLink(dataItem?.id || ''),
+              },
+            ]}
+          />
+          {issue && (
+            <MdOutlineOpenInFull
+              onClick={() => {
+                changeRoute(
+                  `/${info?.workspace?.slug}/projects/${param.projectid}/issues/${dataItem?.id}`
+                );
+                setTimeout(() => {
+                  dispatch(drawerViewSlice.actions.closeDrawer());
+                }, 100);
+              }}
+              className="cursor-pointer"
+            />
+          )}
         </div>
         <div className="flex items-center gap-2">
           {isSaving && (
@@ -272,7 +300,7 @@ const IssueDetail: FC<IIssueDetail> = ({ issue }) => {
             {dataItem?.name && (
               <Input
                 placeholder="Title"
-                onChangeCB={e => {
+                onChangeCB={(e) => {
                   !isSaving && setIsSaving(true);
                   handleUpdateIssue({ name: e.target.value });
                 }}
@@ -281,20 +309,20 @@ const IssueDetail: FC<IIssueDetail> = ({ issue }) => {
                 validator={{ required: true }}
               />
             )}
-            {
-              dataItem?.description && <TipTapPopover
+            {dataItem?.description && (
+              <TipTapPopover
                 onChange={(e) => {
                   !isSaving && setIsSaving(true);
-                  handleUpdateIssue({ description: e as string});
+                  handleUpdateIssue({ description: e as string });
                 }}
                 defaultValue={dataItem?.description}
                 name="desc"
                 className="mb-4"
               />
-            }
+            )}
             <div className="flex gap-3">
               <ReactionEmoji
-                onChange={async e => {
+                onChange={async (e) => {
                   handleReaction(e);
                 }}
               />
@@ -322,22 +350,23 @@ const IssueDetail: FC<IIssueDetail> = ({ issue }) => {
           <div className="text-sm">Properties</div>
           <Line />
           <div className="w-full flex flex-col gap-2">
-            {dataItem && properties.map((item, index) => {
-              return (
-                <div key={index} className="flex justify-between">
-                  <div className="flex items-center gap-2 w-[200px]">
-                    {item.icons}
-                    <div className="text-sm">{item.name}</div>
+            {dataItem &&
+              properties.map((item, index) => {
+                return (
+                  <div key={index} className="flex justify-between">
+                    <div className="flex items-center gap-2 w-[200px]">
+                      {item.icons}
+                      <div className="text-sm">{item.name}</div>
+                    </div>
+                    <div className="text-sm flex items-center gap-2 flex-1 py-1 hover:bg-theme-secondary rounded cursor-pointer">
+                      {item.content}
+                    </div>
                   </div>
-                  <div className="text-sm flex items-center gap-2 flex-1 py-1 hover:bg-theme-secondary rounded cursor-pointer">
-                    {item.content}
-                  </div>
-                </div>
-              );
-            })}
+                );
+              })}
           </div>
         </div>
-        {dataItem?.id && <IssueLink issueId={dataItem?.id||''} />}
+        {dataItem?.id && <IssueLink issueId={dataItem?.id || ''} />}
       </div>
     </div>
   );

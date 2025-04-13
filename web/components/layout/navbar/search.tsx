@@ -21,31 +21,36 @@ const defaultIssue: IItem[] = [
     name: 'Create new issue',
     icons: icons.plus,
   },
-];const defaultProject: IItem[] = [
+];
+const defaultProject: IItem[] = [
   {
     type: 'project',
     name: 'Create new project',
     icons: icons.plus,
   },
-];const defaultCycle: IItem[] = [
+];
+const defaultCycle: IItem[] = [
   {
     type: 'cycle',
     name: 'Create new cycle',
     icons: icons.plus,
   },
-];const defaultModule: IItem[] = [
+];
+const defaultModule: IItem[] = [
   {
     type: 'module',
     name: 'Create new module',
     icons: icons.plus,
   },
-];const defaultWorkSpace: IItem[] = [
+];
+const defaultWorkSpace: IItem[] = [
   {
     type: 'workspace',
     name: 'Search settings...',
     icons: icons.setting,
   },
-];const defaultAccount: IItem[] = [
+];
+const defaultAccount: IItem[] = [
   {
     name: 'Create new workspace',
     icons: icons.plus,
@@ -54,14 +59,18 @@ const defaultIssue: IItem[] = [
     name: 'Change interface theme...',
     icons: icons.setting,
   },
-];const defaultHelp: IItem[] = [
+];
+const defaultHelp: IItem[] = [
   { name: 'Open Plane documentation', icons: <GoRocket /> },
   { name: 'Open keyboard shortcuts', icons: <MdOutlineTextSnippet /> },
-];const Search = () => {
+];
+const Search = () => {
   const [search, setSearch] = useState('');
-  const param = useParams<IParams>();  const { data } = useSWR(useDebounce(search, 1000) || null, () =>
+  const param = useParams<IParams>();
+  const { data } = useSWR(useDebounce(search, 1000) || null, () =>
     overviewService.search(search)
-  );  const defaultDataSearch: { [e: string]: IItem[] } = {
+  );
+  const defaultDataSearch: { [e: string]: IItem[] } = {
     Issue: [
       ...(data?.issues.map(
         (e): IItem => ({ name: e.name || '', type: 'issue' })
@@ -92,7 +101,7 @@ const defaultIssue: IItem[] = [
         <IoIosSearch className="absolute text-base left-2 top-1/2 -translate-y-1/2" />
         <input
           value={search}
-          onChange={e => {
+          onChange={(e) => {
             setSearch(e.target.value);
           }}
           className="placeholder:text-color-text-sidebar text-sm outline-none border-none w-full h-full pl-7 "
@@ -107,7 +116,7 @@ const defaultIssue: IItem[] = [
         </div>
       )}
       <div className="px-2 overflow-y-auto flex-1 overflow-x-hidden">
-        {Object.keys(defaultDataSearch).map(e => {
+        {Object.keys(defaultDataSearch).map((e) => {
           return defaultDataSearch[e].length ? (
             <div key={e} className="py-2">
               <div className="text-xs px-1">{e}</div>

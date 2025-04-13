@@ -19,7 +19,7 @@ const UserInfoPopup = () => {
       dispatch(layoutSlice.actions.setToggleCollap(true));
     }
   };
-  
+
   return (
     <div className="text-sm">
       <div className="px-2 py-2 font-bold">{info?.email || ''}</div>

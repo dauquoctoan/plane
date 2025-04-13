@@ -88,7 +88,9 @@ const Button: React.FC<IProps> = ({
       text: 'red',
       bgHover: 'red',
     },
-  };  const { bg, bgHover, border, text: textColor, opacity } = color[typeBTN];  const refBtn = React.useRef<HTMLDivElement>(null);
+  };
+  const { bg, bgHover, border, text: textColor, opacity } = color[typeBTN];
+  const refBtn = React.useRef<HTMLDivElement>(null);
 
   function handleAppenChild() {
     const newItem = document.createElement('div');

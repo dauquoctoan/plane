@@ -25,7 +25,8 @@ import Link from 'next/link';
 const ModulesTable = () => {
   const params = useParams<IParams>();
   const info = useSelector(selectInfo);
-  const dispatch = useDispatch();  const { data: modules, isLoading } = useSWR<IData<IModule[]>>(
+  const dispatch = useDispatch();
+  const { data: modules, isLoading } = useSWR<IData<IModule[]>>(
     SWR_KEY_MODULES_BY_PROJECT(params.projectid),
     () => {
       return projectService.findAllModulesByProject<IData<IModule[]>>(
@@ -60,7 +61,8 @@ const ModulesTable = () => {
       )}
     </div>
   );
-};const ModulesItem = ({ data }: { data: IModule }) => {
+};
+const ModulesItem = ({ data }: { data: IModule }) => {
   const params = useParams<IParams>();
   const info = useSelector(selectInfo);
   const dispatch = useDispatch();
@@ -153,7 +155,7 @@ const ModulesTable = () => {
           }
         >
           <div
-            onClick={e => {
+            onClick={(e) => {
               e.stopPropagation();
             }}
             className="p-2 font-semibold text-sm rounded-full hover:bg-color-special-secondary"

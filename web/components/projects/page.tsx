@@ -8,7 +8,8 @@ import React from 'react';
 import useSWR from 'swr';
 
 const Project = () => {
-  const info = useSelector(selectInfo);  const { data } = useSWR(SWR_KEY_PROJECTS(info?.last_workspace_id), () => {
+  const info = useSelector(selectInfo);
+  const { data } = useSWR(SWR_KEY_PROJECTS(info?.last_workspace_id), () => {
     return projectService.getProjects(info?.last_workspace_id || '');
   });
 

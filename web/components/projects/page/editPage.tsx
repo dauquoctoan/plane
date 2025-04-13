@@ -17,7 +17,8 @@ const EditPage: FC<IEditPage> = () => {
   const pathName = usePathname();
   const [isLoadingSave, setIsLoading] = useState(false);
   const refItmer = useRef<any>();
-  const link = pathName.replace('/edit', '');  const { data } = useSWR(SWR_KEY_PROJECT_PAGE(params.pageid), () => {
+  const link = pathName.replace('/edit', '');
+  const { data } = useSWR(SWR_KEY_PROJECT_PAGE(params.pageid), () => {
     return projectService.findOnePage(params.pageid);
   });
 

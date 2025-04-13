@@ -11,7 +11,7 @@ export function createMembeSelectOption(
 ): IOptionItem[] {
   if (users && users?.length > 0)
     return users
-      ?.map<IOptionItem>(item => {
+      ?.map<IOptionItem>((item) => {
         return {
           title:
             (item.user.first_name || '') + (item.user.last_name || '') || '',
@@ -43,7 +43,7 @@ export function createIssueLabelSelectOption(
   showMoreText: boolean = true
 ): IOptionItem[] {
   return labels
-    ? labels.map(e => ({
+    ? labels.map((e) => ({
         title: showMoreText ? e.name : '',
         value: e.id.toString(),
         icon: (

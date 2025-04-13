@@ -33,7 +33,7 @@ function getdataBinddingForm(dataSelected: IItemData[]): IQueryForm {
     if (item.value && item.children && item.children?.length > 0) {
       const key = item.value.split('::').pop();
       newData[key || ''] = item.children?.map(
-        e => e.value?.split('::').pop() || ''
+        (e) => e.value?.split('::').pop() || ''
       );
     }
 
@@ -79,7 +79,7 @@ function handleRemoveChildItem(lsItemSelected: IItemSelected, value: string) {
 
 function handleRemoveParentItem(lsItemSelected: IItemSelected, value: string) {
   const newData = { ...lsItemSelected };
-  Object.keys(lsItemSelected).forEach(e => {
+  Object.keys(lsItemSelected).forEach((e) => {
     if (newData[e].parentKey === value) {
       delete newData[e];
     }
@@ -123,7 +123,8 @@ const CreateViewIssue = ({
   const info = useSelector(selectInfo);
   const noti = useNoti();
   const [customeDate, setCustomeDate] = useState<IStateDate>({});
-  const [itemSelected, setItemSelected] = useState<IItemSelected>({});  const setDate: TCalBackChangeDate = (type, name, date) => {
+  const [itemSelected, setItemSelected] = useState<IItemSelected>({});
+  const setDate: TCalBackChangeDate = (type, name, date) => {
     setCustomeDate({
       ...customeDate,
       [name]: {
@@ -131,7 +132,10 @@ const CreateViewIssue = ({
         [type]: date,
       },
     });
-  };  const { data } = useDataFilter(setDate);  const dataSelected = filterSelected(data, itemSelected);  const {
+  };
+  const { data } = useDataFilter(setDate);
+  const dataSelected = filterSelected(data, itemSelected);
+  const {
     register,
     handleSubmit,
     formState: { errors },
@@ -150,7 +154,7 @@ const CreateViewIssue = ({
   return (
     <form
       className="w-full box-border md:min-w-[600px] md:max-w-[900px] md:h-fit overflow-y-auto no-scrool h-screen"
-      onSubmit={handleSubmit(async data => {
+      onSubmit={handleSubmit(async (data) => {
         if (loading) return;
 
         const query = handleCheckDataBeforeSubmit(customeDate, dataSelected);

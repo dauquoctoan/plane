@@ -20,7 +20,7 @@ const AddWorkspaceMembers = ({
         defaultCountMemners={1}
         textSubmit="add members"
         isSetup={false}
-        onSubmitted={result => {
+        onSubmitted={(result) => {
           if (result) {
             noti?.success('Add Member success');
             setIsOpen(false);

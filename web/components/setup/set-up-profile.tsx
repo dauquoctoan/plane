@@ -11,7 +11,8 @@ import { TIME_ZONE_CHOICE } from '@/constants/issue';
 import { IPropsComponent } from './type';
 
 const Profile: React.FC<IPropsComponent> = ({ nextStep }) => {
-  const info = useSelector(selectInfo);  const {
+  const info = useSelector(selectInfo);
+  const {
     register,
     handleSubmit,
     formState: { errors },
@@ -22,7 +23,7 @@ const Profile: React.FC<IPropsComponent> = ({ nextStep }) => {
   return (
     <form
       className="mt-3"
-      onSubmit={handleSubmit(async data => {
+      onSubmit={handleSubmit(async (data) => {
         if (info && info?.id) {
           const result = await authService.upDateUser({
             first_name: data['first-name'],

@@ -713,7 +713,7 @@ export const lsTabsIssues: ILink[] = [
 
 export function getDeFaultTabs(workspacSlug?: string): LinkProps[] {
   return workspacSlug
-    ? lsTabsIssues.map(e => ({
+    ? lsTabsIssues.map((e) => ({
         title: e.title,
         href: `/${workspacSlug}/workspace-views/${e.key}`,
       }))
@@ -751,11 +751,12 @@ export const TableConfigs: ITableConfigs[] = [
     dataIndex: 'id',
     fixed: 'left',
     render: (_, record: IIssue) => {
-      const id = record?.project?.identifier?.toUpperCase() +
-      '-' +
-      (record.sequence_id || '')
+      const id =
+        record?.project?.identifier?.toUpperCase() +
+        '-' +
+        (record.sequence_id || '');
       return (
-        <div title={id} className='nowrap w-full overflow-hidden text-ellipsis'>
+        <div title={id} className="nowrap w-full overflow-hidden text-ellipsis">
           {id}
         </div>
       );
@@ -775,7 +776,7 @@ export const TableConfigs: ITableConfigs[] = [
       <SelectState
         projectId={item.project_id}
         stateId={stateId?.toString()}
-        beforeUpdateValue={e =>
+        beforeUpdateValue={(e) =>
           issueService.updateIssue(item.id, {
             state_id: e as string,
           })
@@ -793,7 +794,7 @@ export const TableConfigs: ITableConfigs[] = [
           defaultValue={priority}
           isIconCheck
           fontSize="text-[12px]"
-          beforeUpdateValue={change => {
+          beforeUpdateValue={(change) => {
             return issueService.updateIssue(item.id, {
               priority: change as string,
             });
@@ -809,7 +810,7 @@ export const TableConfigs: ITableConfigs[] = [
     render: (assignees: IUser[], data: IIssue) => {
       return (
         <SelectMember
-          assigness={assignees?.map(e => e.id) as string[]}
+          assigness={assignees?.map((e) => e.id) as string[]}
           projectId={data.project_id}
           beforeUpdateValue={(change: any) => {
             return issueService.updateIssueAssign(data.id || '', change);
@@ -825,8 +826,8 @@ export const TableConfigs: ITableConfigs[] = [
       return (
         <SelectLabels
           projectId={data.project_id}
-          labels={labels?.map(e => e.id) || []}
-          beforeUpdateValue={change => {
+          labels={labels?.map((e) => e.id) || []}
+          beforeUpdateValue={(change) => {
             return issueService.updateIssueLabel(
               change as string[],
               data.id || ''
@@ -845,7 +846,7 @@ export const TableConfigs: ITableConfigs[] = [
         <DatePickerTable
           defaultDate={value}
           name="Start Date"
-          beforeUpdateValue={e => {
+          beforeUpdateValue={(e) => {
             return issueService.updateIssue(item.id, {
               start_date: e ? moment(e).format() : (null as any),
             });
@@ -863,7 +864,7 @@ export const TableConfigs: ITableConfigs[] = [
         <DatePickerTable
           defaultDate={value}
           name="Due Date"
-          beforeUpdateValue={e => {
+          beforeUpdateValue={(e) => {
             return issueService.updateIssue(item.id, {
               target_date: e ? moment(e).format() : (null as any),
             });
@@ -883,7 +884,7 @@ export const TableConfigs: ITableConfigs[] = [
           estimateId={item.project?.estimate_id || ''}
           beforeUpdateValue={(change) => {
             return issueService.updateIssue(item.id, {
-              estimate_point_id: change as string
+              estimate_point_id: change as string,
             });
           }}
         />

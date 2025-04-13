@@ -13,7 +13,8 @@ interface IMenuItem {
 const Menu = () => {
   const pathName = usePathname();
   const info = useSelector(selectInfo);
-  const params = useParams<IParams>();  const menus: IMenuItem[] = [
+  const params = useParams<IParams>();
+  const menus: IMenuItem[] = [
     { href: 'settings', nickname: 'General' },
     { href: 'members', nickname: 'Members' },
     { href: 'features', nickname: 'Features' },
@@ -27,7 +28,7 @@ const Menu = () => {
   return (
     <div className="w-full flex overflow-x-auto no-scrool overflow-y-hidden md:block md:w-auto">
       <ContainerLink
-        links={menus.map(e => {
+        links={menus.map((e) => {
           return {
             href: `/${info?.workspace?.slug}/projects/${params.projectid}/settings/${e.href}`,
             nickname: createNickNameLink(e.nickname + params.projectid),

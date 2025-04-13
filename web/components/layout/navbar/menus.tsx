@@ -47,7 +47,8 @@ const menus: IBaseMenu[] = [
     text: 'All Issues',
     path: '/workspace-views/all-issues',
   },
-];const links: ContainerLinkProps['links'] = [
+];
+const links: ContainerLinkProps['links'] = [
   {
     href: '',
     nickname: 'dashboard',
@@ -68,7 +69,8 @@ const menus: IBaseMenu[] = [
     href: '/workspace-views',
     nickname: 'workspace-views',
   },
-];const MenuItem: React.FC<IMenu> = ({ icon, text, index, path }) => {
+];
+const MenuItem: React.FC<IMenu> = ({ icon, text, index, path }) => {
   const pathName = usePathname();
   const dispatch = useDispatch();
 
@@ -89,7 +91,7 @@ const menus: IBaseMenu[] = [
 };
 
 function getPathName(menus: any[], key: string, path: string) {
-  return menus.map(e => ({ ...e, [key]: path + e[key] }));
+  return menus.map((e) => ({ ...e, [key]: path + e[key] }));
 }
 
 const Menus = () => {

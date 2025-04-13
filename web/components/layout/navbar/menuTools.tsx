@@ -42,7 +42,8 @@ const DrafIssue = () => {
       </div>
     </div>
   );
-};const MenuTools = () => {
+};
+const MenuTools = () => {
   const info = useSelector(selectInfo);
   const notification = useNoti();
   const isCollapse = useSelector(selectIsCollap);
@@ -50,7 +51,8 @@ const DrafIssue = () => {
   const dispatch = useDispatch();
   const [isOpenSearch, setOpenSearch] = useState(false);
   const showModalIssue = useSelector(selectOpenModalNewIssue);
-  const issue = useSelector(selectDefaultValueIssue);  const { data: projects } = useSWR(
+  const issue = useSelector(selectDefaultValueIssue);
+  const { data: projects } = useSWR(
     SWR_KEY_PROJECTS(info?.last_workspace_id),
     () => projectService.getProjects(info?.last_workspace_id || '')
   );
@@ -75,7 +77,7 @@ const DrafIssue = () => {
         <div className={`flex py-3 cursor-pointer flex-col gap-2 box-border`}>
           <Popover
             isHover
-            placement='bottomLeft'
+            placement="bottomLeft"
             content={
               <div
                 onClick={(e) => {
@@ -91,12 +93,15 @@ const DrafIssue = () => {
               </div>
             }
           >
-            <div onClick={(e) => {
-              handleCheckValidCreateIssue({
-                isDraft: false,
-                isShow: true,
-              });
-            }} className="flex items-center justify-center w-10 h-10 hover:bg-theme-secondary rounded">
+            <div
+              onClick={(e) => {
+                handleCheckValidCreateIssue({
+                  isDraft: false,
+                  isShow: true,
+                });
+              }}
+              className="flex items-center justify-center w-10 h-10 hover:bg-theme-secondary rounded"
+            >
               <HiOutlinePencilSquare />
             </div>
           </Popover>

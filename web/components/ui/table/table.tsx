@@ -52,7 +52,7 @@ const Table: React.FC<IProps> = ({
   const [configs, setConfigs] = useState(defConfgs);
 
   useEffect(() => {
-    setConfigs(defConfgs?.filter(e => !lsKeyDisable?.includes(e.title)));
+    setConfigs(defConfgs?.filter((e) => !lsKeyDisable?.includes(e.title)));
   }, [lsKeyDisable?.length]);
 
   useEffect(() => {
@@ -84,7 +84,8 @@ const Table: React.FC<IProps> = ({
           };
       },
       { right: 0, total: 0 }
-    );    let left = 0;
+    );
+    let left = 0;
     let right = redu.right;
     const space = width - redu.total;
 

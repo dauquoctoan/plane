@@ -11,9 +11,13 @@ import useSWR from 'swr';
 const PageDetail = () => {
   const params = useParams<IParams>();
   const pathName = usePathname();
-  const link = pathName + '/edit';  const { data, isLoading } = useSWR(SWR_KEY_PROJECT_PAGE(params.pageid), () => {
-    return projectService.findOnePage(params.pageid);
-  });
+  const link = pathName + '/edit';
+  const { data, isLoading } = useSWR(
+    SWR_KEY_PROJECT_PAGE(params.pageid),
+    () => {
+      return projectService.findOnePage(params.pageid);
+    }
+  );
 
   useEffect(() => {
     if (!isLoading && !data?.description_html) {

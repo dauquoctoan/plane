@@ -62,12 +62,13 @@ const Login = () => {
     : null;
   const workspaceLink = info?.workspace?.slug
     ? [
-      {
-        href: '/' + info?.workspace?.slug,
-        nickname: createNickNameLink(info?.workspace?.slug),
-      },
-    ]
-    : null;  const links = nextLink || workspaceLink || [];
+        {
+          href: '/' + info?.workspace?.slug,
+          nickname: createNickNameLink(info?.workspace?.slug),
+        },
+      ]
+    : null;
+  const links = nextLink || workspaceLink || [];
 
   return (
     <ContainerLink

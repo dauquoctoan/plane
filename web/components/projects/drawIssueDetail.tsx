@@ -4,7 +4,10 @@ import Drawer from '../ui/drawer';
 import IssueDetail from './issueDetail/issueDetail';
 import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
-import { selectItemIssueSelected, selectShowDrawer } from '@/store/slices/drawerSlice/selectors';
+import {
+  selectItemIssueSelected,
+  selectShowDrawer,
+} from '@/store/slices/drawerSlice/selectors';
 import { drawerViewSlice } from '@/store';
 
 const DrawIssueDetail = () => {
@@ -14,7 +17,7 @@ const DrawIssueDetail = () => {
 
   return (
     <Drawer
-      className='w-[80%] md:w-[700px]'
+      className="w-[80%] md:w-[700px]"
       isOpen={itemIssueSelected && showDrawer}
       handleClose={() => {
         dispatch(drawerViewSlice.actions.closeDrawer());

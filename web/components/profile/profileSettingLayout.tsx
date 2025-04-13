@@ -38,7 +38,8 @@ const ProfileSettingLayout = () => {
       href: '/profile/preferences/theme',
       nickname: 'preferencesSettingTheme',
     },
-  ];  const more = [
+  ];
+  const more = [
     {
       icons: <BiSolidPlusSquare />,
       text: 'Create workspace',
@@ -49,9 +50,11 @@ const ProfileSettingLayout = () => {
       text: 'Invitations',
       href: '/invitations',
     },
-  ];  const info = useSelector(selectInfo);
+  ];
+  const info = useSelector(selectInfo);
   const isCollap = useSelector(selectIsCollapProfile);
-  const dispatch = useDispatch();  const { data: workspaces } = useSWR('workspaces', () => {
+  const dispatch = useDispatch();
+  const { data: workspaces } = useSWR('workspaces', () => {
     return workspaceService.getWorkspaceByUser<IWorkspace[]>();
   });
 
@@ -65,7 +68,7 @@ const ProfileSettingLayout = () => {
     <div
       ref={ref}
       className={`md:w-auto fixed md:static z-50 top-0 left-0 ${isCollap ? 'w-auto ' : 'w-full'}  bg-color-modal-overlay  h-[100vh]`}
-      onClick={e => {
+      onClick={(e) => {
         if (ref.current === e.target && !isCollap)
           dispatch(layoutSlice.actions.setToggleCollapProfileSetting(true));
       }}

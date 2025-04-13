@@ -5,7 +5,7 @@ export const ListeningResize = (
   callBack: (e: number) => void
 ) => {
   const debouncedAPICall = debounce(callBack, 100);
-  const handleResize: ResizeObserverCallback = entries => {
+  const handleResize: ResizeObserverCallback = (entries) => {
     for (const entry of entries) {
       const newWidth = entry.contentRect.width;
       debouncedAPICall(newWidth);

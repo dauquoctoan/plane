@@ -17,14 +17,15 @@ function createLink(slug: string = '', id: string = '') {
 
 const ListTableIssue = () => {
   const info = useSelector(selectInfo);
-  const { data: issueViews } = useSWR(
-    SWR_KEY_ISSUE_VIEWS,
-    () => issueService.getIssueView<IData<IIssueViews[]>>()
-  );  const lsLinks =
-    issueViews?.map(e => ({
+  const { data: issueViews } = useSWR(SWR_KEY_ISSUE_VIEWS, () =>
+    issueService.getIssueView<IData<IIssueViews[]>>()
+  );
+  const lsLinks =
+    issueViews?.map((e) => ({
       href: `/${info?.workspace?.slug}/workspace-views/${e.id}`,
       nickname: createNickNameLink(`workspace-views-${e.id}`),
-    })) || [];  const customeLink: LinkProps[] = [
+    })) || [];
+  const customeLink: LinkProps[] = [
     {
       href: `/${info?.workspace?.slug}/workspace-views/assigned`,
       nickname: createNickNameLink('workspace-views-assigned'),
@@ -66,7 +67,8 @@ const ListTableIssue = () => {
         })}
     </div>
   );
-};const ItemTab = ({ name, href }: { name: string; href: string }) => {
+};
+const ItemTab = ({ name, href }: { name: string; href: string }) => {
   const dispatch = useDispatch();
 
   return (

@@ -35,11 +35,12 @@ const Dashboard = () => {
   const dayAndNight =
     moment().hours() <= 12 && moment().hours() >= 0
       ? {
-        text: 'Good morning',
-      }
+          text: 'Good morning',
+        }
       : {
-        text: 'Good afternoon',
-      };  const { data: overView, isLoading } = useSWR('overview', () =>
+          text: 'Good afternoon',
+        };
+  const { data: overView, isLoading } = useSWR('overview', () =>
     overviewService.getDashboardOverview()
   );
 
@@ -89,7 +90,8 @@ const Dashboard = () => {
       </div>
     </div>
   );
-};const IssueConsumer: FC<IIssueConsumer> = ({
+};
+const IssueConsumer: FC<IIssueConsumer> = ({
   type,
   title,
   isTab = false,
@@ -103,22 +105,26 @@ const Dashboard = () => {
     { value: END_DATE_QUERY + ':week', title: 'Due this week' },
     { value: END_DATE_QUERY + ':month', title: 'Due this month' },
     { value: END_DATE_QUERY + ':year', title: 'Due this year' },
-  ];  const tabs = [
+  ];
+  const tabs = [
     { value: TYPE_DATE_QUERY + ':gte', name: 'Upcoming' },
     { value: TYPE_DATE_QUERY + ':lte', name: 'Overdue' },
     { value: STATE_QUERY + ':completed', name: 'Maked completed' },
-  ];  const tabAllTime = [
+  ];
+  const tabAllTime = [
     { value: STATE_QUERY + ':backlog;unstarted;started', name: 'Pending' },
     { value: STATE_QUERY + ':completed', name: 'Maked completed' },
-  ];  const [query, setQuery] = useState({
+  ];
+  const [query, setQuery] = useState({
     date: selects[defaultDate].value,
     option: tabs[defaultTab].value,
-  });  const curentTab = query.date != selects[0].value ? tabs : tabAllTime;
+  });
+  const curentTab = query.date != selects[0].value ? tabs : tabAllTime;
 
   useEffect(() => {
     if (query.date == selects[0].value) {
       if (
-        !curentTab.find(e => {
+        !curentTab.find((e) => {
           e.value === query.option;
         })
       ) {
@@ -138,7 +144,7 @@ const Dashboard = () => {
         <Select
           options={selects as IOptionItem[]}
           isIconCheck
-          onChange={value => {
+          onChange={(value) => {
             setQuery({
               ...query,
               date: value as string,
@@ -152,7 +158,7 @@ const Dashboard = () => {
       {isTab && (
         <div className="p-3">
           <TabAnimation
-            onchange={value => {
+            onchange={(value) => {
               setQuery({
                 ...query,
                 option: value as string,

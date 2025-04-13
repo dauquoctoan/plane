@@ -55,9 +55,10 @@ const IssueDragItem: FC<IProps> = ({
               projectId={param.projectid}
               showMoreText={false}
               stateId={data.data?.state_id}
-              onChange={id => {
+              onChange={(id) => {
                 const newData = [...blocks];
-                const item = newData[indexs[0]].children?.splice(indexs[1], 1);                const index = newData.findIndex(e => {
+                const item = newData[indexs[0]].children?.splice(indexs[1], 1);
+                const index = newData.findIndex((e) => {
                   return e.id === id;
                 });
 
@@ -69,7 +70,7 @@ const IssueDragItem: FC<IProps> = ({
                 }
                 setBlocks(newData);
               }}
-              beforeUpdateValue={id => {
+              beforeUpdateValue={(id) => {
                 prevState.current = id as string;
 
                 return issueService.updateIssue(data.id as string, {
@@ -84,7 +85,7 @@ const IssueDragItem: FC<IProps> = ({
             labels={
               (data?.data?.labels?.map((e: any) => e.id) as string[]) || []
             }
-            beforeUpdateValue={change => {
+            beforeUpdateValue={(change) => {
               return issueService.updateIssueLabel(
                 change as string[],
                 data.id || ''

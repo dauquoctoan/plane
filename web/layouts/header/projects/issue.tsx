@@ -37,7 +37,7 @@ const IssueHeader = () => {
         handleClose={() => {
           setShowMenuMobile(false);
         }}
-        className='h-[49px]'
+        className="h-[49px]"
         isOpen={isShowMenuNobile}
         position="top"
         content={

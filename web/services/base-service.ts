@@ -62,7 +62,7 @@ export class BaseService {
       headers: this.getAccessToken() ? this.getHeaders() : {},
       ...config,
     })
-      .then(res => res.data)
+      .then((res) => res.data)
       .then(this.handleResult);
   }
 
@@ -74,7 +74,7 @@ export class BaseService {
       data: data,
       ...config,
     })
-      .then(res => res.data)
+      .then((res) => res.data)
       .then(this.handleResult);
   }
 
@@ -86,7 +86,7 @@ export class BaseService {
       data: data,
       ...config,
     })
-      .then(res => res.data)
+      .then((res) => res.data)
       .then(this.handleResult);
   }
 
@@ -98,7 +98,7 @@ export class BaseService {
       data: qs.stringify(data),
       ...config,
     })
-      .then(res => res.data)
+      .then((res) => res.data)
       .then(this.handleResult);
   }
 
@@ -109,7 +109,7 @@ export class BaseService {
       headers: this.getAccessToken() ? this.getHeaders() : {},
       ...config,
     })
-      .then(res => res.data)
+      .then((res) => res.data)
       .then(this.handleResult);
   }
 }

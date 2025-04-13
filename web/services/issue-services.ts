@@ -13,9 +13,10 @@ import { BaseService } from './base-service';
 import APP_CONFIG from '@/configs';
 import { IMoreForm } from '@/components/module/createIssue';
 
-
-export type TCreateEstimatePoint =  Partial<IEstimatePoint>[]
-export type TCreateEstimate =  Partial<Omit<IEstimate, 'estimate_points'> & { estimate_points: TCreateEstimatePoint }>
+export type TCreateEstimatePoint = Partial<IEstimatePoint>[];
+export type TCreateEstimate = Partial<
+  Omit<IEstimate, 'estimate_points'> & { estimate_points: TCreateEstimatePoint }
+>;
 
 const { API_BASE_URL } = APP_CONFIG;
 
@@ -86,7 +87,7 @@ class IssueService extends BaseService {
 
   async findOneIssue(issueId: string) {
     try {
-      return await this.get<IIssue>('issue?id='+issueId);
+      return await this.get<IIssue>('issue?id=' + issueId);
     } catch (error) {
       console.log(error);
     }
@@ -290,9 +291,15 @@ class IssueService extends BaseService {
 
   // estimate point
 
-  async updateEstimatePointById(estimatePointId: string, estimate: Partial<IEstimatePoint>) {
+  async updateEstimatePointById(
+    estimatePointId: string,
+    estimate: Partial<IEstimatePoint>
+  ) {
     try {
-      return await this.patch<IEstimatePoint>('estimate-point/' + estimatePointId, estimate);
+      return await this.patch<IEstimatePoint>(
+        'estimate-point/' + estimatePointId,
+        estimate
+      );
     } catch (error) {
       console.log(error);
     }

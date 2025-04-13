@@ -46,7 +46,7 @@ export type TKeyIcons =
   | 'image'
   | 'sync'
   | 'plusSquare'
-  | 'check'
+  | 'check';
 
 type MyObject = {
   [key in TKeyIcons]: React.ReactElement;

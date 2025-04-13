@@ -32,19 +32,24 @@ const AddUpdateCycle: FC<IProps> = ({
     defaultValues: {
       ...defaultValues,
     },
-  });  const noti = useNoti();
+  });
+  const noti = useNoti();
 
   return (
     <form
-      onSubmit={handleSubmit(async data => {
+      onSubmit={handleSubmit(async (data) => {
         const result = await (defaultValues?.id
           ? projectService.upDateCycle(defaultValues?.id, data)
-          : projectService.createCycle(id, data));        const isActive = result?.start_date && result?.end_date;
+          : projectService.createCycle(id, data));
+        const isActive = result?.start_date && result?.end_date;
 
         if (isActive) {
-          mutate<ICycle[]>(SWR_KEY_CYCLES_BY_PROJECT(id + 'active'), async (cycles) => {
-            return result ? [...(cycles || []), result] : cycles;
-          });
+          mutate<ICycle[]>(
+            SWR_KEY_CYCLES_BY_PROJECT(id + 'active'),
+            async (cycles) => {
+              return result ? [...(cycles || []), result] : cycles;
+            }
+          );
         }
 
         mutate(SWR_KEY_CYCLES_BY_PROJECT(id + 'all'), async (cycles: any) => {

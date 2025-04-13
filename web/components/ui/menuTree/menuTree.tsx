@@ -43,7 +43,7 @@ const MenuPopUp: React.FC<IPropsMenuItem> = ({
 }) => {
   return (
     <div
-      onClick={e => {
+      onClick={(e) => {
         e.stopPropagation();
       }}
       className={
@@ -58,7 +58,8 @@ const MenuPopUp: React.FC<IPropsMenuItem> = ({
       })}
     </div>
   );
-};const MenuTree: React.FC<IMenuTree> = ({ children, data, onClick }) => {
+};
+const MenuTree: React.FC<IMenuTree> = ({ children, data, onClick }) => {
   const [isOpen, setIsOpen] = useState(false);
   const refMenuItem = useRef<HTMLDivElement>(null);
 
@@ -81,7 +82,8 @@ const MenuPopUp: React.FC<IPropsMenuItem> = ({
     bottomRight: 'top-[100%] mt-1 right-[0] origin-top-right',
     topLeft: 'top-[100%] mt-1 right-[0] origin-top-right',
     topRight: 'top-[100%] mt-1 right-[0] origin-top-right',
-  };  const curentPlacement = placements[data.placement || 'left'];
+  };
+  const curentPlacement = placements[data.placement || 'left'];
 
   return (
     <div

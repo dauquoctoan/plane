@@ -31,12 +31,14 @@ const Drawer: React.FC<IProps> = ({
 }) => {
   const wrap = useRef<HTMLDivElement>(null);
   const overlay = useRef<HTMLDivElement>(null);
-  const mouse = useRef({ isKeyDown: false, isDrag: false });  const styles = {
+  const mouse = useRef({ isKeyDown: false, isDrag: false });
+  const styles = {
     top: 'top-0 w-[100vw] border-b',
     left: 'left-0 h-[100vh] border-r',
     right: 'right-0 h-[100vh] border-l',
     bottom: 'bottom-0 w-[100vw] border-t',
-  };  const boxShadowColor = {
+  };
+  const boxShadowColor = {
     top: 'rgba(0, 0, 0, 0.12) 0px 4px 8px 0px, rgba(16, 24, 40, 0.12) 0px 6px 12px 0px, rgba(16, 24, 40, 0.12) 0px 1px 16px 0px',
     left: 'rgba(0, 0, 0, 0.12) 0px 4px 8px 0px, rgba(16, 24, 40, 0.12) 0px 6px 12px 0px, rgba(16, 24, 40, 0.12) 0px 1px 16px 0px',
     right:
@@ -46,10 +48,12 @@ const Drawer: React.FC<IProps> = ({
   };
 
   useEffect(() => {
-    Array.from(document.getElementsByClassName('overflow-auto')).forEach(e => {
-      if (isOpen) e.setAttribute('style', 'overflow: hidden;');
-      else e.setAttribute('style', 'overflow: auto;');
-    });
+    Array.from(document.getElementsByClassName('overflow-auto')).forEach(
+      (e) => {
+        if (isOpen) e.setAttribute('style', 'overflow: hidden;');
+        else e.setAttribute('style', 'overflow: auto;');
+      }
+    );
   }, [isOpen]);
 
   const zIndex = {
@@ -62,17 +66,16 @@ const Drawer: React.FC<IProps> = ({
 
   function handleClosePopUp() {
     if (false) return;
-  
+
     if (wrap.current) {
-      if(position === 'bottom'|| position =='top'){
+      if (position === 'bottom' || position == 'top') {
         //@ts-ignore: Unreachable code error
         wrap.current.style.animationDuration = 0.1;
         //@ts-ignore: Unreachable code error
         wrap.current.style.height = 0;
         //@ts-ignore: Unreachable code error
         wrap.current.style.padding = 0;
-        
-      }else{
+      } else {
         //@ts-ignore: Unreachable code error
         wrap.current.style.width = 0;
       }

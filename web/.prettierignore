@@ -1,4 +1,17 @@
 node_modules
 build
+public/
 .next
 .vscode
+README.md
+.env.development
+.env.production
+.prettierrc
+Dockerfile
+next-env.d.ts
+package-lock.json
+package.json
+postcss.config.js
+tailwind.config.ts
+tsconfig.json
+docker-compose.yml

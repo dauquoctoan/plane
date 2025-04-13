@@ -79,7 +79,7 @@ const FilterQueryIssue: React.FC<IFilterQueryIssue> = ({
           <div className="relative">
             <input
               value={search}
-              onChange={e => {
+              onChange={(e) => {
                 setSearch(e.target.value);
               }}
               className="outline-none border rounded-full px-2 py-1 w-full select-none"

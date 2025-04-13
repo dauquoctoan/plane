@@ -38,7 +38,7 @@ const CreateLabel: React.FC<IPropsCreateLabel> = ({
       ref={refForm}
       id="create-label-form"
       name="create-label-form"
-      onSubmit={handleSubmit(async data => {
+      onSubmit={handleSubmit(async (data) => {
         mutate<ILabel[]>(
           SWR_KEY_LABELS_BY_PROJECT(projectId),
           async (state) => {

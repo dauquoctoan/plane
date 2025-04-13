@@ -52,7 +52,8 @@ const Confirm: React.FC<IProps> = ({
 }) => {
   const refPopover = useRef<HTMLDivElement>(null);
   const refPopup = useRef<HTMLDivElement>(null);
-  const refDisable = useRef<HTMLDivElement>(null);  const {
+  const refDisable = useRef<HTMLDivElement>(null);
+  const {
     style,
     open,
     handleWhenMouseDown,

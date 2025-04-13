@@ -18,7 +18,7 @@ const SWRProvider = ({ children }: ISWRProvide) => {
   return (
     <SWRConfig
       value={{
-        onError: error => {
+        onError: (error) => {
           if (error?.response?.status == 401) {
             dispatch(authSlice.actions.clearInfo());
             info && authService.logOut();

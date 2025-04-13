@@ -7,7 +7,8 @@ import projectService from '@/services/project-services';
 import useSWR from 'swr';
 
 const TableModuleDetail = () => {
-  const params = useParams<IParams>();  const { data: moduleUserProperties } = useSWR(
+  const params = useParams<IParams>();
+  const { data: moduleUserProperties } = useSWR(
     'module_user_properties',
     () => {
       return projectService.getModuleUserProperties(

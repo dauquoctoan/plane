@@ -38,24 +38,21 @@ const Info = () => {
 
         <Popover
           wrClassName="p-1 bg-theme-secondary flex-1 rounded"
-          placement='bottomLeft'
+          placement="bottomLeft"
           content={<WorkspacePopover />}
         >
-            <div className="flex h-fit gap-2">
-              <Avatar>{info?.workspace?.name || ''}</Avatar>
-              {!isCollapse && (
-                <div className="font-[500] flex items-center whitespace-nowrap overflow-hidden text-ellipsis w-[150px]">
-                  {info?.workspace?.name}
-                </div>
-              )}
-            </div>
+          <div className="flex h-fit gap-2">
+            <Avatar>{info?.workspace?.name || ''}</Avatar>
+            {!isCollapse && (
+              <div className="font-[500] flex items-center whitespace-nowrap overflow-hidden text-ellipsis w-[150px]">
+                {info?.workspace?.name}
+              </div>
+            )}
+          </div>
         </Popover>
 
         {!isCollapse ? (
-          <Popover
-            placement="bottomRight"
-            content={<UserInfoPopup />}
-          >
+          <Popover placement="bottomRight" content={<UserInfoPopup />}>
             <div className="ml-2">
               <Avatar>{info?.email || ''}</Avatar>
             </div>

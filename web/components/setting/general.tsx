@@ -43,7 +43,7 @@ const General = () => {
       <div className="w-full">
         <form
           className="w-full"
-          onSubmit={handleSubmit(async data => {
+          onSubmit={handleSubmit(async (data) => {
             console.log(data);
           })}
         >

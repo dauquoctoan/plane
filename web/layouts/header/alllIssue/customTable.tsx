@@ -21,8 +21,11 @@ const CustomTable = () => {
     'Updated On',
   ];
 
-  function setLocalStorage(properties:string[]){
-    localStorage.setItem('display-table', JSON.stringify({properties: properties}))
+  function setLocalStorage(properties: string[]) {
+    localStorage.setItem(
+      'display-table',
+      JSON.stringify({ properties: properties })
+    );
   }
 
   const removeIndex = (array: any[], item: any) => {
@@ -36,24 +39,24 @@ const CustomTable = () => {
     <div className="w-fit">
       <div className="text-sm pb-2 font-medium">Display Properties</div>
       <div className="w-[300px] flex flex-wrap gap-2">
-        {lsTableTitle.map(e => {
+        {lsTableTitle.map((e) => {
           return (
             <div
               onClick={() => {
                 if (lsDisable.includes(e)) {
-                  setLocalStorage(removeIndex(lsDisable, e))
+                  setLocalStorage(removeIndex(lsDisable, e));
                   dispatch(
                     issueViewSlice.actions.setDisableTable(
                       removeIndex(lsDisable, e)
                     )
                   );
                 } else {
-                  setLocalStorage([...lsDisable, e])
+                  setLocalStorage([...lsDisable, e]);
                   dispatch(
                     issueViewSlice.actions.setDisableTable([...lsDisable, e])
                   );
                 }
-              }}                                                                                                                                                            
+              }}
               className={`px-2 ${
                 lsDisable.includes(e)
                   ? 'bg-color-special-secondary text-theme-text-primary'

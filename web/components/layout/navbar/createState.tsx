@@ -36,12 +36,12 @@ const CreateState: React.FC<IPropsCreateState> = ({
   return (
     <form
       id="create-state-form"
-      onSubmit={handleSubmit(data => {
+      onSubmit={handleSubmit((data) => {
         mutate<IState[]>(
           SWR_KEY_STATES(projectId),
           async (state: any) => {
             const groupKey: string | undefined = Object.keys(LS_KEY_STATE).find(
-              key => data.group?.includes(LS_KEY_STATE[key])
+              (key) => data.group?.includes(LS_KEY_STATE[key])
             );
             if (groupKey) {
               const result = await issueService.createState<IState>({
@@ -82,7 +82,7 @@ const CreateState: React.FC<IPropsCreateState> = ({
         />
 
         <AutoComplete
-          data={Object.keys(LS_KEY_STATE).map(key => LS_KEY_STATE[key])}
+          data={Object.keys(LS_KEY_STATE).map((key) => LS_KEY_STATE[key])}
           keyForm="group"
           error={errors}
           register={register}

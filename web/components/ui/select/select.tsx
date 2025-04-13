@@ -55,7 +55,7 @@ export type Item = IOptionItem | string;
 export type ICurrentField = IProps & ICurrentFieldProps;
 
 function getCurrentItem(lsResult: Item[], value: string): Item | undefined {
-  return lsResult.find(item => {
+  return lsResult.find((item) => {
     if (typeof item == 'string') return item === value;
     else return item.value === value;
   });
@@ -100,9 +100,11 @@ const Select: React.FC<ICurrentField> = ({
   const refBtn = useRef<HTMLDivElement>(null);
   const refPopUp = useRef<HTMLDivElement>(null);
   const refClear = useRef<HTMLDivElement>(null);
-  const noti = useNoti();  const [moreValue, setMoreValue] = useState<string[]>(
+  const noti = useNoti();
+  const [moreValue, setMoreValue] = useState<string[]>(
     typeof defaultValue == 'object' ? defaultValue : []
-  );  const { open, setOpen, style, handleClose } = usePopUp({
+  );
+  const { open, setOpen, style, handleClose } = usePopUp({
     refPopover: refBtn,
     refPopup: refPopUp,
     refDisable: refClear,
@@ -118,7 +120,7 @@ const Select: React.FC<ICurrentField> = ({
             if (result) {
               noti?.success(msgUpdateValueSuccess || 'Update success');
 
-              return [result, ...(state||[])];
+              return [result, ...(state || [])];
             } else {
               noti?.error(msgUpdateValueFail || 'Update error!');
 
@@ -148,7 +150,7 @@ const Select: React.FC<ICurrentField> = ({
     if (isMutiple) {
       if (moreValue.includes(value)) {
         let isSetData;
-        const newData: string[] = moreValue.filter(e => {
+        const newData: string[] = moreValue.filter((e) => {
           return e !== value;
         });
 
@@ -159,7 +161,9 @@ const Select: React.FC<ICurrentField> = ({
         if (isSetData || !beforeUpdateValue) {
           setMoreValue(newData);
           handleOnChange(newData);
-          newData.length > 0 ? setCurrentValue(newData[0]) : setCurrentValue('');
+          newData.length > 0
+            ? setCurrentValue(newData[0])
+            : setCurrentValue('');
         }
       } else {
         let isSetData;
@@ -241,8 +245,10 @@ const Select: React.FC<ICurrentField> = ({
     }
   }, [value]);
 
-  const currentItemSelected = getCurrentItem(options || [], currentValue);  const isOpen = open && (lsResult.length > 0 || isSearch);  const itemSelected = () => {
-    return lsResult.filter(e => {
+  const currentItemSelected = getCurrentItem(options || [], currentValue);
+  const isOpen = open && (lsResult.length > 0 || isSearch);
+  const itemSelected = () => {
+    return lsResult.filter((e) => {
       if (typeof e === 'string') {
         return moreValue.includes(e);
       } else {
@@ -297,8 +303,8 @@ const Select: React.FC<ICurrentField> = ({
               />
             )) ||
             children || (
-            <div className="w-[70px] h-[24px] rounded bg-theme-primary cursor-default"></div>
-          )}
+              <div className="w-[70px] h-[24px] rounded bg-theme-primary cursor-default"></div>
+            )}
         </div>
       </Tooltip>
       {!disableMessage && error && (

@@ -10,12 +10,15 @@ import useSWR from 'swr';
 
 const Page = () => {
   const workspaceId = useSearchParams().get('workspaceId');
-  const token = useSearchParams().get('token');  const { data: info, isLoading: loadingInfo } = useSWR('me', () =>
+  const token = useSearchParams().get('token');
+  const { data: info, isLoading: loadingInfo } = useSWR('me', () =>
     authService.getUser()
-  );  const { data: workspace } = useSWR(
+  );
+  const { data: workspace } = useSWR(
     () => workspaceId,
-    id => workspaceService.findWorkspaceById<IData<IWorkspace>>(+id)
-  );  const router = useRouter();
+    (id) => workspaceService.findWorkspaceById<IData<IWorkspace>>(+id)
+  );
+  const router = useRouter();
 
   return (
     <div className="w-full h-screen pt-72">

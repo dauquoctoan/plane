@@ -17,10 +17,10 @@ export const drawerViewSlice = createSlice({
   name: 'drawer',
   initialState,
   reducers: {
-    openDrawer: state => {
+    openDrawer: (state) => {
       state.showDrawer = true;
     },
-    closeDrawer: state => {
+    closeDrawer: (state) => {
       state.showDrawer = false;
       state.issueSelected = undefined;
     },

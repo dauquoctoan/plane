@@ -15,7 +15,8 @@ import { mutate } from 'swr';
 const CreatePage = () => {
   const dispatch = useDispatch();
   const params = useParams<IParams>();
-  const noti = useNoti();  const {
+  const noti = useNoti();
+  const {
     register: registerParent,
     handleSubmit,
     formState: { errors },
@@ -30,7 +31,7 @@ const CreatePage = () => {
         mutate<IPage[]>(
           SWR_KEY_PROJECT_PAGE(params.projectid),
           async (issues) => {
-            if(data){
+            if (data) {
               const result = await projectService.createPage({
                 ...data,
                 project_id: params.projectid || '',
@@ -40,7 +41,7 @@ const CreatePage = () => {
                 noti?.success('Create page success');
                 dispatch(modalSlice.actions.togleNewPage());
 
-                return [...(issues||[]), result];
+                return [...(issues || []), result];
               } else noti?.error('Create page error!');
             }
 

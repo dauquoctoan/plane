@@ -67,7 +67,7 @@ const SelectPopup: React.FC<ISelectPopup> = ({
         <div className="py-2 px-2">
           <input
             placeholder="Type to search"
-            onChange={e => {
+            onChange={(e) => {
               handleSearch(e.target.value);
             }}
             className={

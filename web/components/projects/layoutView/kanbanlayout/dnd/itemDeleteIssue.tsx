@@ -31,7 +31,7 @@ const ItemDeleteIssue = React.forwardRef((props: IPorps, ref: any) => {
         className={`block relative blockTrack invisible overflow-hidden w-[250px] h-[35px]`}
         key={1}
         list={props.block[0].children}
-        setList={async data => {
+        setList={async (data) => {
           if (data[0].id) {
             const result = await issueService.deleteIssue(data[0].id || '');
             if (result) {

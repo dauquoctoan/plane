@@ -34,7 +34,7 @@ const ItemSelected = ({
     <div className="rounded-full px-1 flex items-center bg-theme-secondary gap-1 border">
       {(data?.render && data?.render()) || data.title}
       <div
-        ref={a => {
+        ref={(a) => {
           a?.setAttribute('clear', 'true');
         }}
       >
@@ -56,7 +56,7 @@ export interface IFN {
 export type IProps = ICurrentFieldProps & ITreeSelect;
 
 function getValues(itemSelected: IItemSelected) {
-  return Object.keys(itemSelected).map(e => {
+  return Object.keys(itemSelected).map((e) => {
     return itemSelected[e].value;
   });
 }

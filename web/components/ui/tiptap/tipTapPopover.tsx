@@ -56,9 +56,9 @@ export const FontSize = Extension.create({
         attributes: {
           fontSize: {
             default: this.options.defaultFontSize,
-            parseHTML: element =>
+            parseHTML: (element) =>
               element.style.fontSize || this.options.defaultFontSize,
-            renderHTML: attributes => {
+            renderHTML: (attributes) => {
               if (!attributes.fontSize) {
                 return {};
               }
@@ -196,7 +196,8 @@ export default function TipTapPopover(props: IProps) {
         </div>
       ),
     },
-  ];  const uploadFile = async (files: any) => {
+  ];
+  const uploadFile = async (files: any) => {
     const formData = new FormData();
     formData.append('image', files);
 
@@ -219,7 +220,7 @@ export default function TipTapPopover(props: IProps) {
     editorProps: {
       handlePaste: () => {
         if (loading) return;
-        void (async e => {
+        void (async (e) => {
           setLoading(true);
           const clipboardItems = await navigator.clipboard.read();
           setLoading(false);

@@ -15,7 +15,8 @@ const Avatar: React.FC<IProps> = ({
     md: 'w-[22px] h-[22px] text-[12px]',
     lg: 'w-[35px] h-[35px] text-sm',
     xl: 'w-[60px] h-[60px] text-sm',
-  };  const currentStyle = styleConfigs[size];
+  };
+  const currentStyle = styleConfigs[size];
 
   return (
     <div

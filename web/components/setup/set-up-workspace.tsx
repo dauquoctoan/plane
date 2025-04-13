@@ -19,7 +19,8 @@ import { useRouter } from 'next/navigation';
 const Workspace: React.FC<IPropsComponent> = ({ nextStep, prevStep }) => {
   const info = useSelector(selectInfo);
   const dispatch = useDispatch();
-  const router = useRouter();  const {
+  const router = useRouter();
+  const {
     register,
     handleSubmit,
     formState: { errors },
@@ -28,7 +29,7 @@ const Workspace: React.FC<IPropsComponent> = ({ nextStep, prevStep }) => {
 
   return (
     <form
-      onSubmit={handleSubmit(async formData => {
+      onSubmit={handleSubmit(async (formData) => {
         if (info?.id) {
           const result = await workspaceService.createWorkSpace<IWorkspace>({
             name: formData.name,
@@ -70,7 +71,7 @@ const Workspace: React.FC<IPropsComponent> = ({ nextStep, prevStep }) => {
         register={register}
         validator={{ required: true }}
         setValue={setValue}
-        onChangeCB={e => {
+        onChangeCB={(e) => {
           setValue(
             'url',
             APP_CONFIG.DOMAIN_URL +

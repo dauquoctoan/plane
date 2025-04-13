@@ -30,7 +30,8 @@ const Colorpicker: React.FC<IPropsColorPicker> = ({
   const [curentColor, setCurentColor] = useState<string>(
     defaultValue || lsColor[3]
   );
-  const [choseColor, setChoseColor] = useState('rgb(0 0 0)');  const [open, setOpen] = useState(false);
+  const [choseColor, setChoseColor] = useState('rgb(0 0 0)');
+  const [open, setOpen] = useState(false);
 
   useEffect(() => {
     if (open) setOpen(false);
@@ -106,7 +107,7 @@ const Colorpicker: React.FC<IPropsColorPicker> = ({
                 id="chose-color"
                 type="color"
                 style={{ visibility: 'hidden' }}
-                onChange={e => {
+                onChange={(e) => {
                   setChoseColor(e.target.value);
                 }}
               />

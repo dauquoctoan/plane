@@ -15,7 +15,8 @@ import useSWR from 'swr';
 
 const LabelSetting = () => {
   const params = useParams<IParams>();
-  const [isOpen, setIsOpen] = useState<boolean>(false);  const { data: labels } = useSWR(
+  const [isOpen, setIsOpen] = useState<boolean>(false);
+  const { data: labels } = useSWR(
     SWR_KEY_LABELS_BY_PROJECT(params.projectid),
     () => {
       return issueService.findLabelsByProject({ projectId: params.projectid });
@@ -24,14 +25,16 @@ const LabelSetting = () => {
 
   return (
     <div className="flex flex-col gap-2">
-      <div className='flex justify-end'>
+      <div className="flex justify-end">
         <Button
           typeBTN="primary"
           className="mb-2"
           onClick={() => {
             setIsOpen(true);
           }}
-        >{icons.plus}</Button>
+        >
+          {icons.plus}
+        </Button>
       </div>
 
       {labels?.map((e, i) => <LabelSettingItem key={i} data={e} />)}
@@ -51,7 +54,8 @@ const LabelSetting = () => {
       />
     </div>
   );
-};const LabelSettingItem = ({ data }: { data: ILabel }) => {
+};
+const LabelSettingItem = ({ data }: { data: ILabel }) => {
   const [isEddit, setIsEdit] = useState(false);
   const noti = useNoti();
 
@@ -63,11 +67,11 @@ const LabelSetting = () => {
           className="w-3 h-3 rounded-full text-sm"
         ></div>
         {!isEddit ? (
-          <div className='text-sm'>{data.name}</div>
+          <div className="text-sm">{data.name}</div>
         ) : (
           <Input
             autoFocus
-            className='text-sm'
+            className="text-sm"
             style={{ border: 'none' }}
             onKeyDown={async (e: any) => {
               if (e.keyCode == 13) {

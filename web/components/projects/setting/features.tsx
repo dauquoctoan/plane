@@ -40,23 +40,27 @@ const FeatureSetting = () => {
   ];
   const info = useSelector(selectInfo);
   const params = useParams<IParams>();
-  const noti = useNoti();  const { data } = useSWR(params.projectid, () => {
+  const noti = useNoti();
+  const { data } = useSWR(params.projectid, () => {
     return projectService.findOneProject(params.projectid);
-  });  const handleUpdateProject = async (value: any, key: string) => {
+  });
+  const handleUpdateProject = async (value: any, key: string) => {
     const result = await projectService.updateProject(params.projectid, {
       [key]: value,
     });
 
     if (result) {
       noti?.success('Update feature success');
-      mutate<IProject[]>(SWR_KEY_PROJECTS(info?.last_workspace_id), (project) => {
-        return [...(project||[]), { ...result, [key]: value }];
-      });
-      
-      mutate<IProject[]>(params.projectid, (project: any) => {
-        return { ...(project||[]), [key]: value };
-      });
+      mutate<IProject[]>(
+        SWR_KEY_PROJECTS(info?.last_workspace_id),
+        (project) => {
+          return [...(project || []), { ...result, [key]: value }];
+        }
+      );
 
+      mutate<IProject[]>(params.projectid, (project: any) => {
+        return { ...(project || []), [key]: value };
+      });
     } else noti?.error('update feature error');
   };
   const _data: any = data;

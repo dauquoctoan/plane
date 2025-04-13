@@ -44,7 +44,9 @@ export default function KanbanBoard({ data }: { data: IBoardIssues[] }) {
     title: '',
     type: 'delete',
     children: [],
-  };  const pathName = usePathname();  const [blocks, setBlocks] = useState<IBoardIssues[]>([itemDelete]);
+  };
+  const pathName = usePathname();
+  const [blocks, setBlocks] = useState<IBoardIssues[]>([itemDelete]);
   const refRemove = useRef<HTMLDivElement>(null);
   const [showTrash, setShowTrash] = useState(false);
   const noti = useNoti();
@@ -54,7 +56,7 @@ export default function KanbanBoard({ data }: { data: IBoardIssues[] }) {
   }, [data]);
 
   async function handleUpdateWhenChange(index: number, idState: string) {
-    const indexID = blocks.findIndex(e => e.id === idState);
+    const indexID = blocks.findIndex((e) => e.id === idState);
     setTimeout(async () => {
       if (indexID && indexID > -1) {
         const childrent = blocks[indexID].children;
@@ -135,20 +137,20 @@ function Container({
 
           return 1;
         }}
-        onEnd={evt => {
+        onEnd={(evt) => {
           block.id !== evt.to.id &&
             handleUpdateWhenChange &&
             handleUpdateWhenChange(evt.newIndex as any, evt.to.id);
           setShowTrash && setShowTrash(false);
         }}
         list={block.children}
-        onStart={evt => {
+        onStart={(evt) => {
           setShowTrash && setShowTrash(true);
 
           return 1;
         }}
-        setList={currentList => {
-          setBlocks(sourceList => {
+        setList={(currentList) => {
+          setBlocks((sourceList) => {
             const tempList = [...sourceList];
             tempList[blockIndex[0]].children = currentList;
 

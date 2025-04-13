@@ -25,7 +25,8 @@ const FilterTableIssue = ({
   query?: { [e: string]: string | string[] };
 }) => {
   const { data } = useDataFilter();
-  const lsMoreID = ['subscribers', 'assignees', 'createBys'];  const lsKey: string[] = Object.keys(query || {}).reduce(
+  const lsMoreID = ['subscribers', 'assignees', 'createBys'];
+  const lsKey: string[] = Object.keys(query || {}).reduce(
     (data: string[], key) => {
       if (query && typeof query[key] === 'string') {
         const id = query[key] as string;
@@ -39,7 +40,7 @@ const FilterTableIssue = ({
       if (query && typeof query[key] === 'object' && query[key].length > 0) {
         const lsID: string[] = query[key] as string[];
         if (lsMoreID.includes(key)) {
-          return [...data, ...lsID.map(e => key + '::' + e)];
+          return [...data, ...lsID.map((e) => key + '::' + e)];
         }
 
         return [...data, ...lsID];
@@ -48,7 +49,8 @@ const FilterTableIssue = ({
       return data;
     },
     []
-  );  const itemSelected = _filter(data, lsKey);
+  );
+  const itemSelected = _filter(data, lsKey);
 
   return <ItemSelected dataSelected={filterSelected(data, itemSelected)} />;
 };

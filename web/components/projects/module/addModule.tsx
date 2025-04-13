@@ -35,19 +35,19 @@ const AddModule: FC<IProps> = ({
 
   return (
     <form
-      onSubmit={handleSubmit(async data => {
+      onSubmit={handleSubmit(async (data) => {
         mutate<IModule[]>(
           SWR_KEY_MODULES_BY_PROJECT(id),
           async (modules) => {
             const result = await (defaultValue?.id
               ? projectService.updateModule(defaultValue.id, {
-                name: data.name,
-                description: data.description,
-              })
+                  name: data.name,
+                  description: data.description,
+                })
               : projectService.createModule(id, {
-                name: data.name,
-                description: data.description,
-              }));
+                  name: data.name,
+                  description: data.description,
+                }));
 
             if (result) {
               noti?.success(
@@ -57,15 +57,15 @@ const AddModule: FC<IProps> = ({
 
               return defaultValue?.id
                 ? modules?.map((itemModule: IModule) => {
-                  if (defaultValue.id == itemModule.id)
-                    return {
-                      ...defaultValue,
-                      name: data.name || '',
-                      description: data.description||'',
-                    };
-                  else return itemModule;
-                })
-                : [...(modules||[]), result];
+                    if (defaultValue.id == itemModule.id)
+                      return {
+                        ...defaultValue,
+                        name: data.name || '',
+                        description: data.description || '',
+                      };
+                    else return itemModule;
+                  })
+                : [...(modules || []), result];
             } else {
               noti?.error('An error occurred, please try again later');
 

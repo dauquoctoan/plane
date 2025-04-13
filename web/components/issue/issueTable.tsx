@@ -34,7 +34,8 @@ type TTotal = ITotal | null;
 const IssueTable: React.FC<IProps> = ({ data, configs }) => {
   const refTable = useRef<HTMLDivElement>(null);
   const [isScroll, setIsScroll] = useState(false);
-  const refTotal = useRef<TTotal>(null);  const shadow: { [key: string]: string } = {
+  const refTotal = useRef<TTotal>(null);
+  const shadow: { [key: string]: string } = {
     left: 'rgba(5, 5, 5, 0.11) 8px 0px 8px 1px',
     right: 'rgba(5, 5, 5, 0.11) -8px 0px 8px 1px',
   };
@@ -97,7 +98,7 @@ const IssueTable: React.FC<IProps> = ({ data, configs }) => {
         <>
           <div className="flex w-fit">{getHeader(configs, true)}</div>
           <div className="flex w-fit">
-            {data?.map(e => getHeader(configs, false, e))}
+            {data?.map((e) => getHeader(configs, false, e))}
           </div>
         </>
       ) : (
