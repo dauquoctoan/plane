@@ -15,7 +15,7 @@ const handleResultError = <T>(error: Omit<IResult<T>, 'code'>): void => {
   );
 };
 
-const handleResultSuccess = <T>(data): IResult<T> => {
+const handleResultSuccess = <T>(data: T): IResult<T> => {
   return {
     code: 1,
     statusCode: 200,

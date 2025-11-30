@@ -11,6 +11,7 @@ import { AppModule } from './app.module';
 import * as session from 'express-session';
 import { join } from 'path';
 import { NestExpressApplication } from '@nestjs/platform-express';
+import {writeFileSync} from 'fs'
 
 async function bootstrap() {
   const app = await NestFactory.create<NestExpressApplication>(AppModule, {
@@ -60,6 +61,8 @@ async function bootstrap() {
   const document = SwaggerModule.createDocument(app, config, options);
 
   SwaggerModule.setup('docs', app, document);
+  
+  writeFileSync('../api.json', JSON.stringify(document, null, 2));
 
   /* Listen on port */
   await app.listen(configService.get<string>('PORT') || 3000);

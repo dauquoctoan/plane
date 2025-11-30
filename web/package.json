@@ -8,7 +8,8 @@
     "start": "next start -p 3001",
     "lint": "next lint",
     "format": "prettier --write \"**/*.{js,jsx,ts,tsx,css,scss,md}\"",
-    "checker": "eslint . --ext .js,.jsx,.ts,.tsx"
+    "checker": "eslint . --ext .js,.jsx,.ts,.tsx",
+    "type":"npx swagger-typescript-api generate --path ../api.json --output ./types --name api.ts --axios --modular"
   },
   "dependencies": {
     "@emotion/react": "^11.11.1",
