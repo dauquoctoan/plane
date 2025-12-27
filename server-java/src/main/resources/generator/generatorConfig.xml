@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration
+        PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+        "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+
+<generatorConfiguration>
+    <context id="MysqlContext" targetRuntime="MyBatis3">
+        <property name="javaFileEncoding" value="UTF-8"/>
+<!--        <property name="useActualColumnNames" value="true"/>-->
+        <property name="useActualColumnNames" value="true"/>
+        <property name="autoDelimitKeywords" value="true"/>
+        <property name="delimitIdentifiers" value="true"/>
+        <jdbcConnection
+                driverClass="com.mysql.cj.jdbc.Driver"
+                connectionURL="jdbc:mysql://localhost:3306/planes?useSSL=false&amp;serverTimezone=UTC"
+                userId="root"
+                password="123456"/>
+
+        <!-- ENTITY -->
+        <javaModelGenerator
+                targetPackage="com.server.plane.entity"
+                targetProject="src/main/java">
+            <property name="enableSubPackages" value="true"/>
+            <property name="trimStrings" value="true"/>
+        </javaModelGenerator>
+
+        <!-- MAPPER XML -->
+        <sqlMapGenerator
+                targetPackage="mapper"
+                targetProject="src/main/resources"/>
+
+        <!-- MAPPER INTERFACE -->
+        <javaClientGenerator
+                type="XMLMAPPER"
+                targetPackage="com.server.plane.mapper"
+                targetProject="src/main/java"/>
+
+        <!-- ===== PLANE TABLES ===== -->
+        <table schema="planes" tableName="analytic_views" domainObjectName="AnalyticViews"/>
+        <table schema="planes" tableName="api_tokens" domainObjectName="ApiTokens"/>
+        <table schema="planes" tableName="comment_reaction" domainObjectName="CommentReaction"/>
+        <table schema="planes" tableName="cycle_favorites" domainObjectName="CycleFavorites"/>
+        <table schema="planes" tableName="cycle_issues" domainObjectName="CycleIssues"/>
+        <table schema="planes" tableName="cycles" domainObjectName="Cycles"/>
+        <table schema="planes" tableName="cycle_user_properties" domainObjectName="CycleUserProperties"/>
+        <table schema="planes" tableName="estimate_points" domainObjectName="EstimatePoints"/>
+        <table schema="planes" tableName="estimates" domainObjectName="Estimates"/>
+        <table schema="planes" tableName="exporter_histories" domainObjectName="ExporterHistories"/>
+        <table schema="planes" tableName="file_assets" domainObjectName="FileAssets"/>
+        <table schema="planes" tableName="flyway_schema_history" domainObjectName="FlywaySchemaHistory"/>
+        <table schema="planes" tableName="global_views" domainObjectName="GlobalViews"/>
+        <table schema="planes" tableName="importers" domainObjectName="Importers"/>
+        <table schema="planes" tableName="inbox_issues" domainObjectName="InboxIssues"/>
+        <table schema="planes" tableName="inboxes" domainObjectName="Inboxes"/>
+        <table schema="planes" tableName="issue" domainObjectName="Issue"/>
+        <table schema="planes" tableName="issue_activities" domainObjectName="IssueActivities"/>
+        <table schema="planes" tableName="issue_assignees" domainObjectName="IssueAssignees"/>
+        <table schema="planes" tableName="issue_attachments" domainObjectName="IssueAttachments"/>
+        <table schema="planes" tableName="issue_blockers" domainObjectName="IssueBlockers"/>
+        <table schema="planes" tableName="issue_comments" domainObjectName="IssueComments"/>
+        <table schema="planes" tableName="issue_label" domainObjectName="IssueLabel"/>
+        <table schema="planes" tableName="issue_links" domainObjectName="IssueLinks"/>
+        <table schema="planes" tableName="issue_properties" domainObjectName="IssueProperties"/>
+        <table schema="planes" tableName="issue_reactions" domainObjectName="IssueReactions"/>
+        <table schema="planes" tableName="issue_relations" domainObjectName="IssueRelations"/>
+        <table schema="planes" tableName="issue_sequences" domainObjectName="IssueSequences"/>
+        <table schema="planes" tableName="issue_subscribers" domainObjectName="IssueSubscribers"/>
+        <table schema="planes" tableName="issue_view_favorites" domainObjectName="IssueViewFavorites"/>
+        <table schema="planes" tableName="issue_views" domainObjectName="IssueViews"/>
+        <table schema="planes" tableName="issue_votes" domainObjectName="IssueVotes"/>
+        <table schema="planes" tableName="labels" domainObjectName="Labels"/>
+        <table schema="planes" tableName="module_favorites" domainObjectName="ModuleFavorites"/>
+        <table schema="planes" tableName="module_issues" domainObjectName="ModuleIssues"/>
+        <table schema="planes" tableName="module_links" domainObjectName="ModuleLinks"/>
+        <table schema="planes" tableName="module_members" domainObjectName="ModuleMembers"/>
+        <table schema="planes" tableName="modules" domainObjectName="Modules"/>
+        <table schema="planes" tableName="module_user_properties" domainObjectName="ModuleUserProperties"/>
+        <table schema="planes" tableName="notifications" domainObjectName="Notifications"/>
+        <table schema="planes" tableName="page_blocks" domainObjectName="PageBlocks"/>
+        <table schema="planes" tableName="page_favorites" domainObjectName="PageFavorites"/>
+        <table schema="planes" tableName="page_labels" domainObjectName="PageLabels"/>
+        <table schema="planes" tableName="pages" domainObjectName="Pages"/>
+        <table schema="planes" tableName="project_deploy_boards" domainObjectName="ProjectDeployBoards"/>
+        <table schema="planes" tableName="project_favorites" domainObjectName="ProjectFavorites"/>
+        <table schema="planes" tableName="project_identifiers" domainObjectName="ProjectIdentifiers"/>
+        <table schema="planes" tableName="project_member_invites" domainObjectName="ProjectMemberInvites"/>
+        <table schema="planes" tableName="project_members" domainObjectName="ProjectMembers"/>
+        <table schema="planes" tableName="project_public_members" domainObjectName="ProjectPublicMembers"/>
+        <table schema="planes" tableName="projects" domainObjectName="Projects"/>
+        <table schema="planes" tableName="project_views" domainObjectName="ProjectViews"/>
+        <table schema="planes" tableName="social_login_connections" domainObjectName="SocialLoginConnections"/>
+        <table schema="planes" tableName="states" domainObjectName="States"/>
+        <table schema="planes" tableName="team_members" domainObjectName="TeamMembers"/>
+        <table schema="planes" tableName="teams" domainObjectName="Teams"/>
+        <table schema="planes" tableName="users" domainObjectName="Users"/>
+        <table schema="planes" tableName="workspace_member_invites" domainObjectName="WorkspaceMemberInvites"/>
+        <table schema="planes" tableName="workspace_members" domainObjectName="WorkspaceMembers"/>
+        <table schema="planes" tableName="workspaces" domainObjectName="Workspaces"/>
+        <table schema="planes" tableName="workspace_themes" domainObjectName="WorkspaceThemes"/>
+
+    </context>
+</generatorConfiguration>

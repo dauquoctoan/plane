@@ -1,0 +1,7 @@
+{
+  "list": true,
+  "kanban": true,
+  "calendar": true,
+  "gantt": true,
+  "spreadsheet": true
+}
